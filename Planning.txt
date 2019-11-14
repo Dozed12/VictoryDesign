@@ -8,18 +8,18 @@ Inter-war warfare with mechs steampunk/dieselpunk
 
     Personal Mech are suits that are light armor and light gunned to help infantry in breakthrough and defense
 
-1ST ITERATION
+ITERATION
 Pick designs for armed forces
-New design necessities show up with time
 Player must keep in mind design charcteristics
 
-2ND ITERATION
+ITERATION
+New design necessities show up with time
 Player must keep in mind design resources cost and engineering capacity
 
-3RD ITERATION
+ITERATION
 Engineering divided in categories
 Resources divided in categories(coal vs diesel for fuel; steel; rare metals)
 
-4TH ITERATION
+ITERATION
 Add Rock/Paper/Scissors mechanics between designs
 Add Intelligence of enemy designs

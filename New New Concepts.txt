@@ -25,7 +25,7 @@ Graphics:
     Map style: https://etc.usf.edu/maps/pages/4700/4728/4728.gif
 
 Time passing:
-    Time passes in weeks, 52 weeks per year
+    Time passes in months, 12 per year
 
 Land Military Solutions:
     - Necessities:
