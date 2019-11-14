@@ -10,6 +10,7 @@ public class Naming
 
     public static WeightedRandomBag<string> BaseNameRules = new WeightedRandomBag<string>();
     public static WeightedRandomBag<string> ConnectorNameRules = new WeightedRandomBag<string>();
+    public static WeightedRandomBag<string> SpecificNameRules = new WeightedRandomBag<string>();
 
     //Setup Naming Regex rules
     public static void SetupNaming()
@@ -24,12 +25,26 @@ public class Naming
         ConnectorNameRules.AddEntry("-", 100);
         ConnectorNameRules.AddEntry(" ", 100);
         ConnectorNameRules.AddEntry("", 100);
+
+        SpecificNameRules.AddEntry("[A-Z]", 100);
+        SpecificNameRules.AddEntry("^([0-9]|[1-9][0-9]|[1-9][0-9][0-9])$", 100);
     }
 
-    //Generate Industry Name(generic for testing)
-    public static string GenIndustry()
+    public static string GenBaseName()
     {
         Fare.Xeger xeger = new Fare.Xeger(BaseNameRules.GetRandom(), new System.Random());
+        return xeger.Generate();
+    }
+
+    public static string GenConnector()
+    {
+        Fare.Xeger xeger = new Fare.Xeger(ConnectorNameRules.GetRandom(), new System.Random());
+        return xeger.Generate();
+    }
+
+    public static string GenSpecific()
+    {
+        Fare.Xeger xeger = new Fare.Xeger(SpecificNameRules.GetRandom(), new System.Random());
         return xeger.Generate();
     }
 
