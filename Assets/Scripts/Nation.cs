@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class Nation
 {
-    
+    //Date and Turn
+    public static int turn;
+    public static DateTime date;
 
+    //Designs in use
+    public static 
 }

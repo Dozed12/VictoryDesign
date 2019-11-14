@@ -1,0 +1,101 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//Generic Design
+public abstract class Design
+{
+    //How long does the design last before new design(months)
+    public int redesignPeriod;
+
+    //Variation of redesign period +-
+    public static float redesignVariation;
+
+    //Name of design
+    public string name;
+
+    //Date of design development
+    public DateTime date;
+
+    //Importance of design
+    public int importance;
+
+    //Generate Design Generic
+    virtual public void Generate()
+    {
+        //Design Date
+        date = Nation.date;
+
+        //TODO Design Name
+        name = "TEST";
+    }
+}
+
+//Characteristic of a design
+public class Characteristic
+{
+    //Name of characteristic
+    public string name;
+
+    //Importance of characteristic for design
+    public int importance;
+
+    //Value of characteristic -10 to 10
+    public int trueValue;
+
+    //Predicted value of characteristic -2 to 2
+    public int predictedValue;
+
+    //Constructor
+    public Characteristic(string name, int importance)
+    {
+        this.name = name;
+        this.importance = importance;
+    }
+
+    //Generate values
+    public void Generate()
+    {
+        trueValue = UnityEngine.Random.Range(-10, 10 + 1);
+        predictedValue = UnityEngine.Random.Range(-2, 2 + 1);
+    }
+}
+
+//Specific Designs
+
+public class Rifle : Design
+{
+    //Characteristics TODO set names and importance
+    public Characteristic accuracy = new Characteristic("Accuracy", 1);
+    public Characteristic power;
+    public Characteristic portability;
+
+    override public void Generate()
+    {
+        //Call Generic
+        base.Generate();
+
+        //Generate characteristics values
+        accuracy.Generate();
+        power.Generate();
+        portability.Generate();
+
+        //TODO Set importance
+        importance = 1;
+    }
+}
+
+public class SmallArm : Design
+{
+    public Characteristic accuracy;
+    public Characteristic power;
+    public Characteristic portability;
+}
+
+public class Uniform : Design
+{
+    public Characteristic weatherResistance;
+    public Characteristic camouflage;
+    public Characteristic comfort;
+}
