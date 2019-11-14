@@ -3,6 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Design Institute
+public class DesignInstitute
+{
+    //Name
+    public string name;
+
+    //Designs
+    public List<Design> designs;
+
+    //TODO Naming convention
+
+    //Generate Design
+    public Design GenerateDesign(Type type)
+    {
+        //Identify Type
+        if (type == typeof(Rifle))
+        {
+            return new Rifle().Generate();
+        }
+        else if (type == typeof(SmallArm))
+        {
+            return new SmallArm().Generate();
+        }
+        //Not a type of design
+        else
+        {
+            return null;
+        }
+    }
+}
+
 //Generic Design
 public abstract class Design
 {
@@ -22,13 +53,15 @@ public abstract class Design
     public int importance;
 
     //Generate Design Generic
-    virtual public void Generate()
+    virtual public Design Generate()
     {
         //Design Date
         date = Nation.date;
 
         //TODO Design Name
         name = "TEST";
+
+        return this;
     }
 }
 
@@ -71,7 +104,7 @@ public class Rifle : Design
     public Characteristic power;
     public Characteristic portability;
 
-    override public void Generate()
+    override public Design Generate()
     {
         //Call Generic
         base.Generate();
@@ -83,6 +116,8 @@ public class Rifle : Design
 
         //TODO Set importance
         importance = 1;
+
+        return this;
     }
 }
 
