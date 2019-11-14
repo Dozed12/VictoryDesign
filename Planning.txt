@@ -1,0 +1,25 @@
+Inter-war warfare with mechs steampunk/dieselpunk
+
+    Infantry Tanks are very slow very armor and heavy gunned to help support infantry in breakthrough and defense
+    Cruiser Tanks are very fast very light armor and light gunned to replace cavalry in flanking and overunning
+
+    Infantry Mech(>2 legs) are slow, light armor and light gunned to help support infantry attack in harsh terrain where tanks cant help(forest, hills, mountain, etc)
+    Scout Mech(2 legs) are fast, no armor and light gunned to scout in any terrain
+
+    Personal Mech are suits that are light armor and light gunned to help infantry in breakthrough and defense
+
+1ST ITERATION
+Pick designs for armed forces
+New design necessities show up with time
+Player must keep in mind design charcteristics
+
+2ND ITERATION
+Player must keep in mind design resources cost and engineering capacity
+
+3RD ITERATION
+Engineering divided in categories
+Resources divided in categories(coal vs diesel for fuel; steel; rare metals)
+
+4TH ITERATION
+Add Rock/Paper/Scissors mechanics between designs
+Add Intelligence of enemy designs

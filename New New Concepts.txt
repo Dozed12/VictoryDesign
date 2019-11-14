@@ -1,0 +1,354 @@
+Sources:
+    http://www.tanks-encyclopedia.com/ww2/nazi_germany/ww2_german_panzers.php
+    https://forum.paradoxplaza.com/forum/index.php?threads/ww2-rare-metals-in-truck-and-tank-engines.1205284/
+    https://forum.paradoxplaza.com/forum/index.php?threads/ww2-uses-of-tungsten-wolfram.1205286
+    https://www.reddit.com/r/AskHistorians/comments/23l0bu/how_did_german_military_doctrine_differ_from/
+
+Timeline:
+    - First Great War lost
+    - Revolution happens
+    - Many territory lost to new states that form
+    - [START] Peace time recovering
+    - Player development of military industry, some potential small conflicts to recover territory
+    - Second Great War begins
+    - [GAME OVER] Defeat or Victory
+
+Technological Context:
+    - Engines arent powerful enough to have good armor medium tanks so instead there is big distinction of heavy slow armored tanks(infantry tanks) 
+    and faster light armor tanks to replace cavalry(cruiser tank) [Interwar British Tank Development]
+
+World / Map:
+    Super Power near map border(that will be invading us in Second Great War)
+    Small nations that declared independence from the player during the Revolution
+
+Graphics:
+    Map style: https://etc.usf.edu/maps/pages/4700/4728/4728.gif
+
+Time passing:
+    Time passes in weeks, 52 weeks per year
+
+Land Military Solutions:
+    - Necessities:
+        Types:
+            Rifle: (Infantry rifle)
+                Bolt-action Rifle:
+                    - Accuracy
+                    - Portability
+                Semi-Automatic Rifle:
+                    - Accuracy
+                    - Ammo Capacity
+                    - Portability
+            Small Arm: (Infantry small arm)
+                Revolver:
+                    - Accuracy
+                    - Portability
+                Semi-Automatic Pistol:
+                    - Accuracy
+                    - Ammo Capacity
+                    - Portability
+            Uniform: (Generic uniform)
+                Uniform:
+                    - Weather Resistance
+                    - Camouflage
+                    - Comfort
+            Helmet: (Generic helmet)
+                Helmet:
+                    - Protection
+                    - Comfort
+            Machine Gun: (Machine guns very important in defense)
+                Carriage Machine Gun:
+                    - Rate of Fire
+                    - Power
+                    - Carriage
+                Infantry Machine Gun:
+                    - Rate of Fire
+                    - Power
+                    - Portability
+            Infantry Guns: (light artillery pieces carried by infantry for direct fire, very important in offense)
+                Mortar:
+                    - Accuracy
+                    - Power
+                    - Portability
+                Infantry Gun:
+                    - Accuracy
+                    - Power
+                    - Carriage
+            Assault Weapon: (light automatic firearms used by infantry for Infiltration tactics)
+                Machine Pistol:
+                    - Rate of Fire
+                    - Power
+                    - Portability
+                Sub Machine Gun:
+                    - Rate of Fire
+                    - Power
+                    - Portability
+            Transportation: (supply and infantry transporation)
+                Horse
+                [V]Transport Truck:
+                    - Protection
+                    - Carrying Capacity
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                [V]Half-track:
+                    - Protection
+                    - Carrying Capacity
+                    - Engine and Suspension
+                    - Fuel Efficiency
+            Towing: (towing vehicles for heavy equipment)
+                Horse
+                [V]Towing Truck:
+                    - Protection
+                    - Torque
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                [V]Towing Tractor:
+                    - Protection
+                    - Torque
+                    - Engine and Suspension
+                    - Fuel Efficiency   
+            Frontline Infantry Support: (slow heavy armored vehicles used to breakthrough defenses; also used to defend against enemy attempted breakthroughs)
+                [V]Armored Personnel Carrier:
+                    - Armor
+                    - Machine Gun
+                    - Accomodation
+                    - Profile
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                    - Radio
+                [V]Tankette:
+                    - Armor
+                    - Light Howitzer
+                    - Accomodation
+                    - Profile
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                    - Radio
+                [V]Infantry Tank:
+                    - Armor
+                    - Howitzer
+                    - Accomodation
+                    - Profile
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                    - Radio
+                    - Three Man Turret
+            Breakthrough Exploitation: (fast light armored vehicles used to exploit breakthroughs in defenses; also used to defend against enemy attempted breakthrough exploitations)
+                [V]Personnel Carrier:
+                    - Armor
+                    - Machine Gun
+                    - Accomodation
+                    - Profile
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                    - Radio
+                [V]Cruiser Tank:
+                    - Armor
+                    - Light Howitzer
+                    - Accomodation
+                    - Profile
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                    - Radio
+                    - Three Man Turret
+            Artillery:
+                Artillery:
+                    - Range
+                    - Power
+                    - Carriage
+            Siege Artillery:
+                Siege Artillery:
+                    - Range
+                    - Power
+                    - Carriage
+            Anti Armor Guns: (anti armor guns to deal with armored vehicles)
+                Anti-Armor Rifle:
+                    - Power
+                    - Portability
+                Anti-Armor Cannon:
+                    - Power
+                    - Range
+                    - Carriage
+                Heavy Anti-Armor Cannon:
+                    - Power
+                    - Range
+                    - Carriage
+            Recon:
+                [V]Motorcycle Recon:
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                    - Radio
+                [V]Armored Car:
+                    - Protection
+                    - Machine Gun
+                    - Engine and Suspension
+                    - Fuel Efficiency
+                    - Radio
+            Sapping:
+                Satchel Charge:
+                    - Explosive Charge
+                    - Portability
+            Mine:
+                Field Mine:
+                    - Explosive Charge
+                    - Portability
+            Infantry Grenade:
+                Hand Grenade:
+                    - Explosive Charge
+                    - Portability
+                Rifle Grenade:
+                    - Range
+                    - Explosive Charge
+                    - Portability
+            Anti-Armor Grenade:
+                Anti-Armor Grenade:
+                    - Power
+                    - Portability
+            Incendiary:
+                Incendiary Grenade:
+                    - Flame Intensity
+                    - Portability
+                Flamethrower:
+                    - Flame Intensity
+                    - Range
+                    - Portability
+            Bridging:
+                Bridging Equipment:
+                    - Bridging Applications
+                    - Portability
+                [V]Bridging Tractor:
+                    - Protection
+                    - Bridging Range
+                    - Engine and Suspension
+                    - Fuel Efficiency
+            Mountain Support:
+                Pack Mortar:
+                    - Accuracy
+                    - Power
+                    - Portability
+                Pack Artillery:
+                    - Range
+                    - Power
+                    - Carriage
+            Communications:
+                Military Telephone:
+                    - Wiring
+                    - Portability
+                Military Radio:
+                    - Range
+                    - Portability
+        Each necessity is required from the start however not all options inside a necessity can be produced from the start
+        For example Infantry Tanks will take a few years to appear
+    - Characteristics:
+        Generic:
+            - Engineering Cost              (build time)
+            - Resource Cost
+            - Build Quality                 (reliability)
+        Certain characteristics are on/off instead of measured in quality (ie. Radio in Cruiser Tank)
+        Each characteristic evolves different in time of getting outdated, some examples:
+            - Cruiser Tank - Profile or Accomodation or Fuel Efficiency don't change with technology, always relative to the same
+            (a Cruiser Tank designed in 1900 with Low Profile has the same Profile quality as a Cruiser Tank designed in 1910 with Low Profile)
+            - Cruiser Tank - Light Cannon changes in steps of 1 year
+            - Cruiser Tank - Engine and Suspension changes in steps of 2 years
+        Each characteristic has a different color importance signaling to the player and a small description why it's important
+        When a new design is made it's based on current tech
+        The player can spend Development Time points to guarantee improvements in certain characteristics(up to 2 points per field)
+        More points spend increases the time it will take for Design Institutes to develop designs
+        The player can counterbalance using points to improve and to degrade
+        When the design is developed back to the player it has reported which fields are expected to be good or bad(player picked are guaranteed) in same points system as Development Time points
+        In reality the design has hidden -10 to +10 values for each characteristic
+        1 Development Time point corresponds to +5 or -5 and 2 correspond to +10 or -10
+        As the design is used the player gets more specifc details about true values of each characteristic
+        1 Development Time point to improve in a characteristic guarantees +0 to +5 bonus
+        2 Development Time points to improve in a characteristic guarantees +5 to +10 bonus
+        1 Development Time point to degrade in a characteristic guarantees -5 to 0 bonus
+        2 Development Time points to degrade in a characteristic guarantees -10 to -5 bonus
+        Base Development Time is (Outdate Time)/6 and each Development Time point is (Outdate Time)/8
+        Different Institutes can have different characteristics which relate to the models they output:
+            - Reliability(if their positives and negatives are reliable to trust, besides the player choice)
+            - Quality(chance of producing negatives)
+            - Efficiency(cost of their designs)
+        The player can pick more than one design provided by the Design Institutes
+        (For example if undecided between 2 solutions the player can start Home Testing and decide as more information becomes available)
+        Designs may also have some Temporary Characteristics which are temporary:
+            - New Tooling (Design requires new tools - Extra cost to Engineering Capacity for x time)
+            - New Fuel (Design requires a new type of fuel - Extra cost to Engineering Capacity for x time) (Only in Vehicles)
+        The player can only ask for a new design type from Institutes every (Outdate Time)/4 so the player isn't able to spam new design requests until finding one
+        that is "perfect" (this galvanizes the focus on the player making decisions no matter the choices)
+    - Usage:
+        - Each design Service is set by the player:
+            - Main Service:
+                Design serves as main design for a Military Solution
+                More than one design can be put in Main Service
+                The player can choose the amount of Industrial capacity set for each model and so control the proportion of each model
+            - Combat Testing:
+                Small amount of models produced from this design and tested in the frontline
+            - Home Testing
+                Very Small amount of models produced from this design and tested at home
+        - Main Service production has no impact on Engineering capacity cost since it's proportional
+        - However Combat Testing and Home Testing are exclusive and so have a small cost to Enginnering Capacity
+        This helps prevent the player from simply testing all design possibilities from Design Institutes
+    - Capacity:
+        - Production can be limited by Resources, Fuel and Engineering Capacity
+        - Each factor is represented in 10 steps from -5 to 5
+        - Negative factors mean less units will be produced while higher factors mean more units are being produced
+        - Different solutions have different weight(ie. Recon has a lower overall cost than Rifle as there will be many more rifles than Recon Equipment)
+        - Engineering Capacity is divided in:
+            - Weaponery Engineering Capacity
+            - Automobile Engineering Capacity
+            - Tank Engineering Capacity
+            - Mech Engineering Capacity
+    - Production
+        - Designs in Main Service are produced progressively from 0% to (Proportion% + (Proportion% * 10%))% coverage. This should be kept in mind when player switches design.
+        - When a design is removed from Main Service it will be placed in Backup and continue to be used until it's replaced by new designs completely
+        This helps prevent the player from asking for a new Design every time it becomes available and continuously spamming new designs for production
+        It is important to let designs grow in production and stay firm to a choice before moving to next one
+        (In terms of calculation it should happen that a design in 110% coverage can be perfectly replaced by a new design without shortages)
+
+Doctrine:
+    The size of the army is defined by the number of Rifles, Uniforms and Helmets, everything else is defined as a Doctrine as a % of this number
+    The doctrine is defined by the government and may change with time(with long warning during peace and short during war)
+
+Technology Investment:
+    When a new design is made it's based on current tech
+    Tech is automatically kept up to date however the player can choose a few tech groups to invest and to push this tech base ahead
+    The player gets x slots of investment and they take time to grow
+    The player can put extra slots no same investment for bigger boost
+    These investments decay at a certain rate when no longer being actively invested in
+
+Intelligence:
+    It is important for the player to keep track of the quality of enemy designs to prepare and shape his own
+    Information from enemy designs can be obtained from combat against them in direct conflict or proxy wars
+    However knowing enemy designs during a direct conflict may be too late to respond
+    So the player can have spies keep a watch on enemy research and development
+    The player can thus place spies to obtain information about each Military Solution of the enemy
+    The player has x spies and can place 1, 2 or 3 spies in each Solution
+    The more spies the more likely it is to obtain some kind of information
+    Intel comes bit by bit of each characteristic
+    Enemy designs may also be captured by player troops which will provide full intel after a few weeks once it's analyzed
+    Different design types have different chance to be captured(ie. Rifles will be captured often while tanks may not)
+
+Naming Convention:
+    Each design has:
+        - Base name:
+            - Single uppercase letter (ie. T)
+            - Multiple uppercase letters (ie. VK)
+            - Single uppercase letter + multiple lowercase letters (Sda)
+            - Single uppercase letter + multiple lowercase letters + dot (Sd.)
+        - Connector:
+            - Nothing ()
+            - Dash (-)
+            - Space ( )
+        - Specific:
+            - Number:
+                - Random
+                - Year(if year already used, use another specific after it(not year again))
+            - Letter
+    B + C + S + C + S
+    The Specific may be surrounded by parenthesis
+    The functioning of a Design Naming is defined uppon its generation for consistency
+    The player can ask for a new convention from a Design Institute
+    The letters and combinations of letters may be hardcoded to have more realistic results
+    Design Institute consistency in naming type:
+        - Base Name - Consistent in same Design Type
+        - Connector - Consistent in all designs
+        - Specific - Consistent in all designs(should be increasing with new designs from same DesignType or with new variants of same Design)

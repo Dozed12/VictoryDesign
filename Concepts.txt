@@ -1,0 +1,385 @@
+Autarky
+
+Source:
+    [POST-REVOLUTION SOVIET STATISTICS]https://www.marxists.org/history/ussr/government/1928/sufds/index.htm
+    [2ND INDUSTRIAL REV]https://en.wikipedia.org/wiki/Second_Industrial_Revolution#Industry_and_technology
+    [COPPER]https://copperalliance.org.uk/about-copper/copper-history/copper-through-the-ages/
+    [ALUMINUM] https://en.wikipedia.org/wiki/History_of_aluminium#Early_industrial_production
+    [PLATINUM] https://www.bullionvault.com/gold-news/infographics/platinum-industrial-use
+    [SULPHUR ]https://en.wikipedia.org/wiki/Sulfur#Fertilizer
+    [POTASH ]https://en-econ.tau.ac.il/sites/economy_en.tau.ac.il/files/media_server/Economics/PDF/Mini%20courses/castronovo.pdf
+    [PEAT] https://en.wikipedia.org/wiki/Peat#Russia
+    [ZINC] https://en.wikipedia.org/wiki/Zinc#Applications
+    [LEAD] https://en.wikipedia.org/wiki/Lead#Elemental_form
+    [ETHANOL] https://en.wikipedia.org/wiki/Ethanol#Fuel
+    [GRAIN CLIMATES] https://www.nationalgeographic.org/encyclopedia/grain/
+    [NATURAL GAS] http://naturalgas.org/overview/history/
+    [USA PRODUCTION STATISTICS] https://www2.census.gov/prod2/statcomp/documents/HistoricalStatisticsoftheUnitedStates1789-1945.pdf
+    [METAL ELECTRICAL CONDUCTIVITY] https://www.thebalance.com/electrical-conductivity-in-metals-2340117
+    [WORLD PRODUCTION of mineral raw materials] Check WMD2018.pdf
+
+Goal:
+    - Manage Nation Industry and Military Develpment up to a Great War
+
+Timeline:
+    - First Great War lost
+    - Revolution happens
+    - [START] Peace time recovering
+    - Player development of industry, some potential small conflicts
+    - Second Great War begins
+    - [GAME OVER] Defeat or Victory
+
+World / Map:
+    Super Power near map border(that will be invading us in Second Great War)
+    Small nations that declared independence from the player during the Revolution
+
+Other nations aren't actual markets, just simulated based on their population for import and export reasons
+
+Graphics:
+    Map style: https://etc.usf.edu/maps/pages/4700/4728/4728.gif
+
+Geography:
+    Biome:
+
+Military Designs:
+    - Player receives requests to approve and start producing new military designs by type
+    ie. Central Government asks to develop a new Light Tank
+    Player then must contact a Design Institute and develop a tank with characteristics that fit its desire
+    The Production Cost, Resources Used are all important to take into consideration for the player
+    Additionaly the Central Government may make aditional requests like demanding the Light Tank has a +1 Speed
+
+Gameplay:
+    - Start as a large fresh from revolution large nation with Full State Nationalized Economic Planning
+    - Deal with budget, careful investments and profit from exporting
+    - Invest in industries and infrastructure
+    - Other proxy wars that dont matter to the player may occur, but still have to deal with increasing demands
+    - Incite and profit from foreign wars
+    - Deal with events that may influence production and necessity
+    - Educate people to work in industry (Prepare education in region ahead of time)
+    - Different scenarios have different starting resources that lead to different progress
+    - Invest in resource deposits searching and extraction
+    - Focusing on single industries for export may be a problem if price crashes (even more than normal price flunctuation)
+    - Identify limited resource outputs and find alternatives in certain industries
+    - Industries located where input is gathered have a bonus to production, but connecting industries and resources with infrastructure also gives good bonuses
+    - Player may perform industry shifts (like Soviet Union did in WW2) from one region to another, provided that there is good infrastructure to transport it
+    - Planing where to place industry is important in case of war
+    - Player can not choose to not meet national needs, they are always first met before exporting(based around how import tariffs are very high and importing will always be more expensive)
+    - Player must deal with government military expansion demands and be prepared for war
+
+Resource Gathering:
+    - Extracted:
+        - Mining and Extraction resources in a region have a value of extraction and a non-exploited value
+        - Extraction indicates the current extraction
+        - Non-exploited indicates the possible extracted value in that region with investment in extraction
+        - Regions can also be surveyed for deposits with a likeliness of being found
+        - Regions have an hidden maximum extraction value for each resource
+        - The likeliness to find the deposit depends on the difference between the current extraction and the hidden maximum extraction.
+        (This simulates smaller deposits that can be harder to find)
+        - The amount of resources found is randomized after checking the deposit was found
+        (Math: Region has 324 tons of coal being [extracted + non-exploited] and 4363 tons of coal as hidden maximum extraction.
+        4363 - 324 = 4039       4039 / 4363 = 0.9257 ~ 93%
+        Region has 93% chance to find coal deposit
+        Survey is made and we get value 23 between 0 and 100
+        23 < 93 so survey is successfull
+        Calculate how many tons the deposit found has between 0 and 4039)
+        - Resources never run dry
+        - If [extracted + non-exploited] is 0 and hidden maximum extraction > 0 then the survey chance is 100% so it's better to have regions
+        with resources always have the resource identified from the start
+        - The starting extraction and non-exploited value of a region is generated from percentages of the hidden maximum extraction
+        - Unique names for each resource extraction is a nice touch
+    - Farming:
+        - Each region has a biome generated on World Generation and a farming suitability % which reduces efficiency
+        https://valentinitnelav.github.io/plotbiomes/man/figures/README-example-1.png
+        https://i.redd.it/l1eye5puu3v11.jpg
+        https://data.giss.nasa.gov/impacts/agmipcf/rain.jpg
+        - Each farming resource has an ideal Biome
+        - Farming Ideal:
+            Flax:
+                https://etc.usf.edu/maps/pages/4700/4731/4731.gif
+                - Temperature:                  10c
+                - Temperature Variation:        5c
+                - Precipitation:                1000mm
+                - Precipitation Variation:      500mm
+            Grain:
+                https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/WheatYield.png/1200px-WheatYield.png
+                - Temperature:                  10c
+                - Temperature Variation:        5c
+                - Precipitation:                1000mm
+                - Precipitation Variation:      500mm
+            Fruit:
+                https://www.mapsofworld.com/world-top-ten/maps/countries-with-most-fruits-production.jpg
+                - Temperature:                  15c
+                - Temperature Variation:        5c
+                - Precipitation:                1000mm
+                - Precipitation Variation:      500mm
+            Meat:
+                https://landportal.org/sites/landportal.org/files/production_FAO-ILRI_v5_0.jpg
+                - Temperature:                  10c
+                - Temperature Variation:        5c
+                - Precipitation:                1000mm
+                - Precipitation Variation:      500mm
+            Wool:
+                https://etc.usf.edu/maps/pages/4700/4728/4728.gif
+                - Temperature:                  10c
+                - Temperature Variation:        5c
+                - Precipitation:                1000mm
+                - Precipitation Variation:      500mm
+            Peat:
+                http://www.grida.no/resources/12546
+                - Temperature:                  5c
+                - Temperature Variation:        5c
+                - Precipitation:                1500mm
+                - Precipitation Variation:      500mm    
+            Sugar:
+                https://i.pinimg.com/originals/65/8a/81/658a812280288200938a88dcea546f4f.jpg   
+                - Temperature:                  15c
+                - Temperature Variation:        5c
+                - Precipitation:                1000mm
+                - Precipitation Variation:      500mm
+            Oilseeds:
+                https://www.bunge.com/sites/default/files/styles/full_width_image/public/content_images/oilseed_footprint_d71-3.jpg?itok=_H4zvUqk
+                - Temperature:                  15c
+                - Temperature Variation:        5c
+                - Precipitation:                1000mm
+                - Precipitation Variation:      500mm
+        - Farming efficiency is calculated by looking at region mean temperature and precipitation and difference to the ideal of the farming product taking into consideration the variation up to 25%
+        ie. Producing Oilseeds in region with 20c and 500mm
+        |20c-15c| = 5c
+        5c/5c = 1
+        1*25% = 25%
+        |1000mm-500mm| = 500mm
+        500mm/500mm = 1
+        1*25% = 25%
+        25% + 25% = 50%
+        100% - 50% = 50% farming efficiency
+        - Farming efficiency can be improved by investing in ways to improve proximity to ideal mean temperature and precipitation
+        So the player can choose in a region to invest to reduce mean temperature to farming by 1c
+        Each 1c or 100mm change costs more money exponentially(and a lot to begin with)
+        Changing farming crop in region removes these investments(some money made from scraping)
+        
+Budget:
+    Initially subsidized but expected to be self sufficient and even return profit(positive trade from exports vs imports)
+    Return money to central government, more money returned more they can invest in better military, education, services, research, etc
+    Lack of money returned may mean that the military is poorly prepared and we lose the Second Great War
+    (The military requirements being met matters very little if the quality of the products is bad and the military is poorly trained)
+    (Returning money may lead to military demand to increase)
+
+Natural Resources:
+    - Meat 
+    - Hide (produced in same amount as Meat)
+    - Flax
+    - Wool (produces a small amount of Meat in region)
+    - Grain
+    - Fruit
+    - Sugar
+    - Wood
+    - Rubber, can be produced from oil
+    - Fish
+    - Cotton
+    - Gold
+    - Precious Metals
+    - Oil
+    - Natural Gas
+    - Bauxite
+    - Iron
+    - Platinum (catalyst[enhancer] for certain industries: fertilizer, oil refining)
+    - Copper
+    - Silver
+    - Zinc
+    - Lead, can be used to produce ammunition
+    - Tin
+    - Alloying Metal (manganese, chromium, molybdenum, tungsten, vanadium and nickel) (Tanks need this + steel to make strong steel alloy, basic steel applications like canning can use basic steel)
+    - Sulphur to produce fertilizer
+    - Coal, can be produced from wood by charcoal method(high cost)
+    - Peat
+    - Bauxite
+    - Oilseeds (Oilseeds are produced in small scale, until finding Biofuel, after that they can be mass produced)
+
+Industrial Resources:
+    - Lumber
+    - Textiles, can be produced from Cotton
+    can be produced from Wool
+    can be produced from Flax
+    - Leather
+    - Fuel, can be produced from sugar or grain[high cost] (ethanol),
+    can be produced from coal (Bergius process),
+    can be produced from oil, 
+    can be produced from oilseeds (biodiesel)
+    can be produced from natural gas (Compressed natural gas (CNG))
+    - Steel
+    - Construction Material
+    - Aluminum
+    - Electricity
+    - Construction Material
+    - Machinery
+    - Electric Gear
+    - Paper
+    - Potash
+    - Fertilizer
+    - Beverages
+    - Civilian Ships
+    - Military Ships
+    - Weaponery
+    - Propellant
+    - Ammunition
+    - Automobiles
+    - Tanks
+    - Aircraft
+
+Industries:
+    (x values indicates the method ranking, higher values means more resources are needed for same amount)
+    (alternatives market with [R] need to be researched)
+    - Electricity:
+        Coal Power Plant(coal)                                                  x1 
+        Peat Power Plant(peat)                                                  x3
+        Oil Power Plant(oil)                                                    x1
+        Gas Power Plant(natural gas)                                            x2
+        Fuel Power Plant(fuel)                                                  x4
+        Hydroelectric Power Plant(no input, requires high capacity river)
+    - Lumber:
+        Lumber Mill(wood)
+    - Textiles:
+        Cotton Mill(cotton)                                                     x1
+        Wool Mill(wool)                                                         x5
+        Linen Mill(flax)                                                        x3
+    - Leather:
+        Leather Mill(leather)
+    - Fuel:
+        [R]Ethanol Plant(sugar or fruit or grain)                               x4, x5, x6
+        [R]Biofuel Plant(oilseeds)                                              x4
+        Fuel Refinery(oil)(Platinum enhanceable)                                x1
+        Coal Liquefaction Plant(coal)                                           x3
+        [R]Natural Gas Compression Plant(natural gas)                           x2
+    - Rubber:
+        [R]Synthethic Rubber Plant(oil, [R]fuel)                                x1, x4
+    - Steel:
+        Steel Mill(steel)
+        [R]Steel Galvanization Mill(steel, zinc)
+        (output steel increased by input steel galvanization)
+    - Aluminum:
+        Aluminum Mill(bauxite)
+    - Construction Material:
+        Construction Material Factory(no input)
+    - Machinery:
+        Machinery Factory(steel or iron)                                        x1, x2
+    - Electric Gear:
+        Electric Gear Factory(iron or steel, silver or copper or gold or aluminum or zinc or iron or platinum)    x2 or x1 AND (x1, x2, x3, x4, x6, x8, x10)
+    - Paper:
+        Paper Mill(wood)
+    - Coal:
+        Charcoal Plant(wood)
+    - Potash:
+        Potash Plant(wood)
+    - Fertilizer(Platinum enhanceable):
+        Fertilizer Plant(sulphur or potash)                                     x1, x3
+    - Civilian Ships:
+        Civilian Shipyard(lumber, iron or steel or [R]aluminum, electric gear, machinery)      x2, x1, x1
+    - Military Ships:
+        Military Shipyard(lumber, iron or steel or [R]aluminum, electric gear, machinery, alloying metals)     x3, x1, x1
+    - Weaponery:
+        Weaponery Factory(lumber, steel)
+    - Propellant(Platinum enhanceable):
+        Gunpowder Plant(coal, sulphur or [R]potash)                             x3, x6
+        [R]Nitrocellulose Plant(cotton, sulphur or [R]potash)                   x1, x3
+    - Ammunition:
+        Ammunition Factory(copper or lead or iron, propellant)                  x1, x1, x1
+    - Automobiles:
+        Automobile Factory(lumber or steel or aluminum, electric gear, machinery, rubber) x5, x2, x1
+    - Tanks:
+        Tank Factory(steel, alloying metals, electric gear, machinery, rubber)
+    - Aircraft:
+        Aircraft Factory(aluminum or lumber, electric gear, machinery, rubber)  x1, x3
+
+Necessity Groups:
+    (Necessities have:
+        Year Start: When the necessity first appears
+        Necessity %: How many people have this necessity
+        Necessity Increase: How much the necessity increases per year from starting year
+    ie. Automobiles start at 1910 with necessity 40% and Necessity Increase 5%
+    it's gonna take until 1918 for necessity to be at 40%)
+    (These necessities are force imported if not met)
+    - Basic Consumption(scales with population):
+        Meat            x1
+        OR Grain        x4
+        OR Fruit        x2
+        OR Fish         x1
+    - Civilian Shipping(fishing boats(scales with fishing), normal boats):
+        Civilian Ships
+    - Household Heating(scales with population):
+        Lumber          x5
+        OR Fuel         x1
+        OR Coal         x2
+        OR Peat         x3
+    - Civilian Automobiles(cars, scales with population):
+        Automobiles
+    - Tractor Maintenance(scales with current tractor number):
+        Automobiles
+    - Truck Maintenance(scales with current truck number):
+        Automobiles
+    - Non Military Vehicle Fuel(scales with cars, tractors, trucks, fishing ships and ships):
+        Fuel
+    - Furnishing(scales with population):
+        Lumber
+    - Durable Furnishing(scales with population):
+        Any Metal(player can pick %)
+    - Civilian Clothing(scales with population):
+        Textiles        x1
+        OR Leather      x1
+    - Military Maintenance(scales on current military, depends if peace or war):
+        (Meat           x1
+        OR Grain        x4
+        OR Fruit        x2
+        OR Fish)        x1
+        AND (Textiles   x1
+        OR Leather)     x1
+        AND Weaponery
+        AND Tanks
+        AND Automobiles
+        AND Ammunition
+        AND Aircraft
+        AND Military Ships
+        AND Fuel
+    - Electricity(scales with population, mining resource gathering and industry):
+        Electricity
+    - Construction(scales with population):
+        Construction Material
+    - Industrial Maintenance(scales with mining and industry):
+        Machinery
+        AND Electric Gear
+
+Expansion Groups:
+    (These expansions aren't imported if not met)
+    - Fishing Ships:
+        Player can create necessity for expanding fishing ship numbers and increase fishing
+    - Tractor:
+        Player can create necessity for expanding tractor cover and increase farming efficiency
+        Player can pick which farming sector to target
+        Coverage and number of tractors required is based on base output
+    - Truck:
+        Player can create necessity for expanding truck coverage and increase farming, mining and industrial efficiency
+        Player can pick farming, mining or industrial sector to target
+        Coverage and number of trucks required is based on base output
+    - Military:
+        Government will issue orders for expanding military
+        Responding to this demand is important to keep nation strong for wars
+        Request can be:
+            Clothing (Textiles or Leather)
+            Weaponery
+            Tanks
+            Automobiles
+            Ammunition
+            Aircraft
+            Military Ships
+
+Resource Management:
+    - Tractors(Automobiles)
+    - Fertilizer:
+        Can pick % usage for each farming industry and to export
+    - Platinum:
+        Can pick % usage for each platinum enhanceable industry and to export    
+    - Zinc:
+        Can pick % usage for steel galvanizing and to export
+    
+Industrial Research:
+    (Research is based on spending money to improve efficiency or finding alternatives(ie. searching alternative to Fuel may originate in finding Ethanol processes))
+    (Resources like tanks or radios are invented independently from player at a date with a random deviation)

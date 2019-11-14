@@ -1,0 +1,1 @@
+Resource Icon must be 2 pixels clear of border

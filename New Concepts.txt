@@ -1,0 +1,487 @@
+Source:
+    [POST-REVOLUTION SOVIET STATISTICS]https://www.marxists.org/history/ussr/government/1928/sufds/index.htm
+    [2ND INDUSTRIAL REV]https://en.wikipedia.org/wiki/Second_Industrial_Revolution#Industry_and_technology
+    [COPPER]https://copperalliance.org.uk/about-copper/copper-history/copper-through-the-ages/
+    [ALUMINUM] https://en.wikipedia.org/wiki/History_of_aluminium#Early_industrial_production
+    [PLATINUM] https://www.bullionvault.com/gold-news/infographics/platinum-industrial-use
+    [SULPHUR ]https://en.wikipedia.org/wiki/Sulfur#Fertilizer
+    [POTASH ]https://en-econ.tau.ac.il/sites/economy_en.tau.ac.il/files/media_server/Economics/PDF/Mini%20courses/castronovo.pdf
+    [PEAT] https://en.wikipedia.org/wiki/Peat#Russia
+    [ZINC] https://en.wikipedia.org/wiki/Zinc#Applications
+    [LEAD] https://en.wikipedia.org/wiki/Lead#Elemental_form
+    [ETHANOL] https://en.wikipedia.org/wiki/Ethanol#Fuel
+    [GRAIN CLIMATES] https://www.nationalgeographic.org/encyclopedia/grain/
+    [NATURAL GAS] http://naturalgas.org/overview/history/
+    [USA PRODUCTION STATISTICS] https://www2.census.gov/prod2/statcomp/documents/HistoricalStatisticsoftheUnitedStates1789-1945.pdf
+    [METAL ELECTRICAL CONDUCTIVITY] https://www.thebalance.com/electrical-conductivity-in-metals-2340117
+    [WORLD PRODUCTION of mineral raw materials] Check WMD2018.pdf
+
+Goal:
+    - Manage Nation Industry and Military Develpment post Great War up to a Second Great War
+
+Timeline:
+    - First Great War lost
+    - Revolution happens
+    - Many territory lost to new states that form
+    - [START] Peace time recovering
+    - Player development of industry, some potential small conflicts to recover territory
+    - Second Great War begins
+    - [GAME OVER] Defeat or Victory
+
+World / Map:
+    Super Power near map border(that will be invading us in Second Great War)
+    Small nations that declared independence from the player during the Revolution
+
+Other nations aren't actual markets, just simulated based on their population for import and export reasons
+
+Graphics:
+    Map style: https://etc.usf.edu/maps/pages/4700/4728/4728.gif
+
+Geography:
+    Biome:
+
+Gameplay:
+    - Play as the Minister of Heavy Industry and Armament
+    - Start as a large fresh from revolution nation with Full State Nationalized Economic Planning
+    - Deal with budget, careful investments and profit from exporting
+    - Invest in industries and infrastructure
+    - Other proxy wars that dont matter to the player may occur, but still have to deal with increasing demands
+    - Incite and profit from foreign wars
+    - Deal with events that may influence production and necessity
+    - Educate people to work in industry (Prepare education in region ahead of time)
+    - Different scenarios have different starting resources that lead to different progress
+    - Invest in resource deposits searching and extraction
+    - Focusing on single industries for export may be a problem if price crashes (even more than normal price flunctuation)
+    - Identify limited resource outputs and find alternatives in certain industries
+    - Industries located where input is gathered have a bonus to production, but connecting industries and resources with infrastructure also gives good bonuses
+    - Player may perform industry shifts (like Soviet Union did in WW2) from one region to another, provided that there is good infrastructure to transport it
+    - Planing where to place industry is important in case of war
+    - Player can not choose to not meet national needs, they are always first met before exporting(based around how import tariffs are very high and importing will always be more expensive)
+    - Player must deal with government military expansion demands and be prepared for war
+
+Natural Resources:
+    - Grain
+    - Sugar (Sugar is produced in small scale not represented, until researching Ethanol, after that it can be mass produced in a region)
+    - Oilseeds (Oilseeds are produced in small scale not represented, until researching Biodiesel, after that they can be mass produced in a region)
+    - Peat
+    - Wood
+    - Rubber
+    - Fish
+    - Gold
+    - Oil
+    - Natural Gas
+    - Iron
+    - Platinum (catalyst[enhancer] for certain industries: fertilizer, oil refining)
+    - Copper
+    - Silver
+    - Zinc
+    - Nickel
+    - Lead
+    - Tin
+    - Alloying Metal (manganese, chromium, molybdenum, tungsten, vanadium)
+    - Sulphur
+    - Coal
+    - Aluminum
+
+Industrial Resources:
+    - Steel
+    - Construction Material
+    - Electricity
+    - Machinery
+    - Electric Gear
+    - Charcoal
+    - Potash
+    - Fertilizer
+    - Ships
+    - Weaponery
+    - Ammunition
+    - Automobiles
+    - Tanks
+    - Aircraft
+    - Gasoline
+    - Diesel
+    - Biodiesel
+    - Ethanol
+    - Charcoal
+    - Wood Gas
+    - Kerosene
+    - Heavy Fuel Oil(can only be used on ships)
+
+Oil Refinery Breakdown(Platinum enhanceable):
+    https://energyeducation.ca/wiki/images/thumb/7/7e/Oilbarrel.png/780px-Oilbarrel.png
+    0.45% Gasoline
+    0.35% Diesel
+    0.10% Kerosene
+    0.10% Heavy Fuel Oil
+    (Using Platinum to enhance the Refining increases each output by 5%)
+
+Building and Expanding Industries:
+    All factories and industries are built with a certain amount of Production Capacity in mind
+    Production Capacity indicates the production capacity and also the cost to building it
+    When the player builds a new industrial building he should have in mind the Production Capacity required
+    Already built industrial buildings can be expanded with same cost as increasing Production Capacity but a penalty to Expansion equal to 10% of current Production Capacity cost
+
+Industries:
+    (x values indicates the method ranking, higher values means more resources are needed for same amount)
+    (alternatives market with [R] need to be researched)
+    - Electricity:
+        Coal Power Plant(coal or charcoal)                                      x2, x3
+        Oil Power Plant(Oil)                                                    x1
+        [R]Peat Power Plant(peat)                                               x3
+        [R]Gas Power Plant(natural gas)                                         x2
+        [R]Biodiesel Power Plant(Biodiesel)                                     x3
+        [R]Ethanol Power Plant(Ethanol)                                         x3
+        Hydroelectric Power Plant(no input, requires high capacity river)
+    - Ethanol:
+        [R]Ethanol Plant(grain, sugar)                                          x3, x1
+    - Biodiesel:
+        [R]Biodiesel Plant(grain, oilseeds)                                     x3, x1
+    - Sugar:
+        [R]Cellulosic Sugar Plant(wood)
+    - Wood Gas:
+        [R]Wood Gas Plant(wood)                                                 
+    - Gasoline:
+        [R]Direct Coal Liquefaction Plant(coal)
+    - Diesel:
+        [R]Indirect Coal Liquefaction Plant(coal)
+    - Rubber:
+        [R]Synthetic Rubber Plant(oil, [R]ethanol, [R]coal)                     x1, x6, x3
+    - Steel:
+        Steel Mill(steel)
+        [R]Steel Galvanization Mill(steel, zinc)
+        [R]Stainless Steel Mill(steel, nickel)
+        (output steel increased by input steel galvanization or stainless)
+    - Aluminum:
+        [R]Clay Aluminum Plant
+        (very high electricity cost and low production output)
+    - Construction Material:
+        Construction Material Factory(steel or iron)                            x1, x2      
+        (small amount needed, most of it comes from phantom input like cement and such)               
+    - Machinery:
+        Machinery Factory(steel or iron)                                        x1, x2
+    - Electric Gear:
+        Electric Gear Factory(iron or steel, silver or copper or gold or aluminum or zinc or nickel or iron or steel or platinum or tin or lead)    (x2 or x1) AND (x1, x2, x3, x4, x6, x7, x8, x8, x9, x10, x11)          
+    - Coal:
+        Charcoal Plant(wood)
+    - Potash:
+        Potash Plant(wood)
+    - Fertilizer(Platinum enhanceable):
+        Fertilizer Plant(sulphur or potash)                                     x1, x3
+    - Ships:
+        Military Shipyard(wood, iron or steel or [R]aluminum, electric gear, machinery, alloying metals)     x2, x1, x1
+    - Ammunition(Platinum enhanceable):
+        Ammunition Factory(copper or lead or iron or steel, sulphur or [R]potash)        (x1, x1, x1, x1) AND (x1, x2)
+
+Military Industries:
+    - Types:
+        - [W]Weaponery Factory
+        - [A]Automobile Factory
+        - [T]Tank Factory
+        - [F]Aircraft Factory
+        - [S]Military Shipyard
+    - Each Military Industrial facility is assigned a specific design to produce, therefore their resource necessities vary depending on the design
+    
+Industrial Maintenance:
+    - Their maintenance from Electricity, Electric Gear and Machinery depends on the factory Production Capacity and on technology they are built with
+    - Maintenance Costs:
+        Industries:
+            - Coal Power Plant          100%(no electricity cost)
+            (...)
+        Military Industries:
+            - Weaponery Factory         100%
+            - Automobile Factory        125%
+            - Tank Factory              150%
+            - Aircraft Factory          150%
+            - Military Shipyard         150%
+    - Player has a few research projects that he can use to improve the efficiency of these factories maintenance
+
+Civilian Necessities:
+    (Civilian Necessities have:
+        Year Start: When the necessity first appears
+        Starting Necessity: How many people have this necessity at the start
+        Ending Necessity: How many people have this necessity at the end
+        Resources: Resources used for necessity)
+    - Food:
+        Year Start: 0
+        Starting Necessity: 100%
+        Ending Necessity: 100%
+        Resources: 
+            x1 Grain
+    - Electricity:
+        Year Start: 0
+        Starting Necessity: 30%
+        Ending Necessity: 70%
+        Resources: 
+            x1 Electricity
+    - Heating and Cooking:
+        Year Start: 0
+        Starting Necessity: 80%
+        Ending Necessity: 100%
+        Resources:
+            x3 Wood
+            x1 Coal
+            x2 Charcoal
+            x2 Peat
+            x1 Diesel
+            x1 Kerosene
+            x1 Gasoline
+            x1 Ethanol
+            x2 Biodiesel
+            x1 Natural Gas
+            x2 Wood Gas
+    - Construction:
+        Year Start: 0
+        Starting Necessity: 30%
+        Ending Necessity: 70%
+        Resources:
+            x3 Wood
+            x1 Construction Material
+    - Machine Applications:
+        Year Start: 0
+        Starting Necessity: 20%
+        Ending Necessity: 50%
+        Resources:
+            x1 Electric Gear
+            AND x1 Machinery
+            AND x1 Rubber
+    - Base Materials:
+        Year Start: 0
+        Starting Necessity: 20%
+        Ending Necessity: 50%
+        Resources:
+            x3 Wood
+            x1 Steel
+            x2 Iron
+            x1 Aluminum
+    - Civilian Fuel:
+        Year Start: 0
+        Starting Necessity: 10%
+        Ending Necessity: 30%
+        Resources:
+            (Same as Fuel Efficiency)
+            x1 Diesel
+            x1 Kerosene
+            x2 Biodiesel
+            x2 Gasoline
+            x3 Ethanol
+            x3 Natural Gas
+            x4 Wood Gas
+            x3 Coal
+            x4 Charcoal
+            x4 Peat
+
+Military Necessities:
+    (Military Necessities have:
+        Peace Time Consumption:
+        Resources: Resources used for necessity)
+    - Rations:
+        Peace Time Consumption: 100%
+        Resources:
+            Grain
+            AND (
+                x1 Tin
+                x1 Lead
+                x1 Copper
+                x1 Steel
+                x2 Iron
+                x1 Aluminum
+            )
+
+War-time Necessities:
+    As tension increases with the enemy nation(before war) the laws change to move more towards Military Industry
+    The reduction to necessities is applied as a percentage to the percentage of necessities, not difference
+    ie: A has 50% necessities, a law that reduces necessities by 50% will make A have 50% * 50% = 25% necessities
+    The change to necessities varies between some laws:
+        Full Civilian Economy           100%
+        Basic Mobilization              90%
+        Full Mobilization               80%
+        War Economy                     70%
+        Total Economic Mobilization     60%
+    This only applies with the large conflict of the Second Great War, not the small conflicts or proxy wars
+
+Industrial Conversion:
+    Civilian factories are out of player control but they exist on the map an are visible
+    During war time the player can ask to convert some of these factories to other military factories
+    Civilian Industries:
+        Automobile:
+            Convert to Automobile Factory with 50% cost
+            Convert to Tank Factory with 70% cost
+        Shipyard:
+            Convert to Shipyard with 50% cost
+        Aircraft
+            Convert to Aircraft Factory with 50% cost
+        General:
+            Convert to everything else with 50% cost
+            Convert to Automobile, Tank or Aircraft Factory with 85% cost
+
+Resource Gathering:
+    - Extracted:
+        - Mining and Extraction resources in a region have a value of extraction and a non-exploited value
+        - Extraction indicates the current extraction
+        - Non-exploited indicates the possible extracted value in that region with investment in extraction
+        - Regions can also be surveyed for deposits with a likeliness of being found
+        - Regions have an hidden maximum extraction value for each resource
+        - The likeliness to find the deposit depends on the difference between the current extraction and the hidden maximum extraction.
+        (This simulates smaller deposits that can be harder to find)
+        - The amount of resources found is randomized after checking the deposit was found
+        (Math: Region has 324 tons of coal being [extracted + non-exploited] and 4363 tons of coal as hidden maximum extraction.
+        4363 - 324 = 4039       4039 / 4363 = 0.9257 ~ 93%
+        Region has 93% chance to find coal deposit
+        Survey is made and we get value 23 between 0 and 100
+        23 < 93 so survey is successfull
+        Calculate how many tons the deposit found has between 0 and 4039)
+        - Resources never run dry
+        - If [extracted + non-exploited] is 0 and hidden maximum extraction > 0 then the survey chance is 100% so it's better to have regions
+        with resources always have the resource identified from the start
+        - The starting extraction and non-exploited value of a region is generated from percentages of the hidden maximum extraction
+        - Unique names for each resource extraction is a nice touch
+        - Each resource location has different grading for quality of the ore or extraction which gives a bonus to output:
+            High Grade      +20%
+            Medium Grade    +10%
+            Low Grade       +0%
+        - This grading is associated with the noise map that is used to place these resources(higher noise values = higher grade)  
+
+    - Farming:
+        - Each region has a biome generated on World Generation
+        - Each farming resource has a Biome where it can be produced
+        - The player can switch production for another crop that is suitable (with a penalty for x time)
+        - Each region also has a farming efficiency value that indicates the global suitability of the region for farming (generate using noise)
+        - The global suitability of a region for farming can be improved by investing in Farming Infrastructure
+        - Farming efficiency can be improved by Infrastructure, Truck coverage and Tractor average (and indirectly by Farming Infrastructure by increasing suitability)
+
+Military Designs:
+    - Player receives requests to approve and start producing new military designs by type
+    ie. Central Government asks to develop a new Light Tank
+    Player then must contact a Design Institute and develop a tank with characteristics that fit its desire
+    The Production Cost, Resources Used and Characteristics are all important to take into consideration for the player
+    Additionaly the Central Government may make aditional requests like demanding the Light Tank has a +1 Speed
+
+Military Solutions:
+    - There are many types of design types and models
+    - Military is centered about filling the need for different kind of necessities
+    - The solutions are picked by the government and may change from time to time with some preemptive warning to the player
+    - Necessities:
+        Rifle:
+            Bolt-action Rifle
+            Semi-Automatic Rifle
+            Battle Rifle
+        Uniform:
+            Irregular Uniform
+            Regular Uniform
+        Infantry Gun:
+            Light Infantry Gun
+            Heavy Infantry Gun
+        Machine Gun:
+            Machine Gun Carriage
+            Infantry Machine Gun
+        Infantry Mortar:
+            Light Mortar
+            Heavy Mortar
+        Assault Weapon:
+            Machine Pistol
+            Sub Machine Gun
+        Transportation:
+            Horse
+            Truck
+            Half-track
+        Breakthrough Creation:
+            Light Tank
+            Medium Tank
+            Heavy Tank
+            Super Heavy Tank
+        Breakthrough Exploitation:
+            Cavalry
+            Light Tank
+            Medium Tank
+        Infantry Support Vehicle:
+            Tankette
+            Carriage
+            Infantry Tank
+        Artillery:
+            Field Artillery
+            Heavy Artillery
+        Assault Gun:
+            Artillery Truck
+            Assault Gun
+        Infantry Anti-Tank:
+            Anti-Tank Rifle
+            Rocket Launcher
+        Anti-Tank Guns:
+            Anti-Tank Gun
+            Heavy Anti-Tank Gun
+            Tank Destroyer
+        Anti-Air:
+            Anti-Air Machine Gun
+            Anti-Air Cannon
+            Anti-Air Tank
+        Recon:
+            Cavalry
+            Motorcycle Recon
+            Armored Car
+        Officer Transport:
+            Cavalry
+            Car
+        Bridging:
+            Bridging Engineers
+            Bridging Vehicle
+        Engineers:
+            Engineers
+            Vehicle Engineers
+    - Rifle necessity comes from the total army size the governemnt wants
+    - Everything else is expressed as a percentage of the Rifles that exist
+    - ^ This forms whats called as the Doctrine and can be changed by the government from time to time
+    ie. increase number of tanks per rifleman
+    truthfully the ratio of many things starts very low and progressively gets demanded to be higher until a certain value, then it can flunctuate between certain values as the government changes Doctrine
+    - Inside Necessities more than one can be picked at a time by the government and it works in a progressive way
+    - The government will progressively demand that the ratio inside each necessity moves down more and more(since it's better equipment technology)
+    ie. At the start the government may accept that 100% of the rifles are Bolt-action but as time passes it will start to demand moving into Semi-Automatic, maybe 5% in 2 years
+    - The government will randomly pick from time to time which necessity to expand on
+    - The player can delay the change of Doctrine by 1 year if it's not ready yet or accept it already. Can only delay once.
+    - Discrepancy between the government Doctrine and the real existing values leads to worse military performance and may cause to lose the war.
+    - Government changes of doctrine are warned in advance(with estimates of cost of resources) so the player can prepare in advance for increasing demand of resources and industrial buildings
+    - Doctrine discrepancy only occurs from lack of equipment, excess is stored
+
+Designs & Characteristics:
+    - Vehicle engines can pick compatible fuels
+    - Compatible fuels work in groups
+    - Picking extra compatibility inside of a group adds a small penalty to Engineering Cost
+    - Picking extra compatibility outside of a group adds a big penalty to Engineering Cost
+    - Fuel groups:
+        - Gasoline
+        - Coal Groups:
+            - [R]Coal
+            - [R]Charcoal
+            - [R]Peat
+        - Gas Groups:
+            - [R]Wood Gas
+            - [R]Natural Gas
+        - Diesel Groups:
+            - Diesel
+            - [R]Kerosene
+            - [R]Biodiesel
+        - [R]Ethanol
+    - Fuel Efficiency:
+        https://en.wikipedia.org/wiki/Fuel_efficiency#Energy_content_of_fuel
+        x1 Heavy Fuel Oil(only for ships)
+        x1 Diesel
+        x1 Kerosene
+        x2 Biodiesel
+        x2 Gasoline
+        x3 Ethanol
+        x3 Natural Gas
+        x4 Wood Gas
+        x3 Coal
+        x4 Charcoal
+        x4 Peat
+    - Fuel-Engine Engineering Cost:
+        x1 Heavy Fuel Oil(only for ships)
+        x1 Diesel
+        x1 Kerosene
+        x2 Biodiesel
+        x2 Gasoline
+        x3 Ethanol
+        x3 Natural Gas
+        x4 Wood Gas
+        x3 Coal
+        x4 Charcoal
+        x4 Peat
