@@ -10,5 +10,6 @@ public static class Nation
     public static DateTime date;
 
     //Designs in use
-    public static 
+    public static Rifle rifle;
+    public static SmallArm smallArm;
 }

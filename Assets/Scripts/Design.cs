@@ -37,11 +37,17 @@ public class DesignInstitute
 //Generic Design
 public abstract class Design
 {
-    //How long does the design last before new design(months)
+    //Design Institute that developed this
+    public DesignInstitute developer;
+
+    //How long does the design last before new design is needed(months)
     public int redesignPeriod;
 
+    //Base Value of Redesign Period(variates with type)
+    public static int BASE_REDESIGN_PERIOD;
+
     //Variation of redesign period +-
-    public static float redesignVariation;
+    public static float REDESIGN_PERIOD_VARIATION;
 
     //Name of design
     public string name;
@@ -60,6 +66,10 @@ public abstract class Design
 
         //TODO Design Name
         name = "TEST";
+
+        //Redesign Period
+        redesignPeriod = BASE_REDESIGN_PERIOD + UnityEngine.Random.Range(-BASE_REDESIGN_PERIOD * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2),
+                                                                        BASE_REDESIGN_PERIOD * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2));
 
         return this;
     }
@@ -106,6 +116,9 @@ public class Rifle : Design
 
     override public Design Generate()
     {
+        //Base redesign period
+        BASE_REDESIGN_PERIOD = 24;
+
         //Call Generic
         base.Generate();
 
