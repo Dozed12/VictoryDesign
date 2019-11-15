@@ -44,7 +44,7 @@ public abstract class Design
     public int redesignPeriod;
 
     //Base Value of Redesign Period(variates with type)
-    public static int BASE_REDESIGN_PERIOD;
+    public int redesignPeriodBase;
 
     //Variation of redesign period +-
     public static float REDESIGN_PERIOD_VARIATION;
@@ -68,8 +68,8 @@ public abstract class Design
         name = "TEST";
 
         //Redesign Period
-        redesignPeriod = BASE_REDESIGN_PERIOD + UnityEngine.Random.Range(-BASE_REDESIGN_PERIOD * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2),
-                                                                        BASE_REDESIGN_PERIOD * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2));
+        redesignPeriod = redesignPeriodBase + UnityEngine.Random.Range(-redesignPeriodBase * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2),
+                                                                        redesignPeriodBase * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2));
 
         return this;
     }
@@ -117,7 +117,7 @@ public class Rifle : Design
     override public Design Generate()
     {
         //Base redesign period
-        BASE_REDESIGN_PERIOD = 24;
+        redesignPeriodBase = 24;
 
         //Call Generic
         base.Generate();
