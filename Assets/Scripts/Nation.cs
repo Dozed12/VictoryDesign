@@ -12,4 +12,7 @@ public static class Nation
     //Designs in use
     public static Rifle rifle;
     public static SmallArm smallArm;
+    public static Uniform uniform;
+    public static Helmet helmet;
+    public static MachineGun machineGun;
 }
