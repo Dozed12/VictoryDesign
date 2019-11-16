@@ -9,6 +9,9 @@ public static class Nation
     public static int turn;
     public static DateTime date;
 
+    //Design Institutes
+    public static List<DesignInstitute> institutes;
+
     //Designs in use
     public static Rifle rifle;
     public static SmallArm smallArm;
