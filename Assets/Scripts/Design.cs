@@ -11,16 +11,6 @@ public enum Importance
     HIGH
 }
 
-public enum Field
-{
-    INFANTRY_WARFARE,
-    ARTILLERY,
-    BREAKTHROUGH,
-    EXPLOITATION,
-    ANTI_ARMOR,
-    MORALE
-}
-
 //Design Institute
 public class DesignInstitute
 {

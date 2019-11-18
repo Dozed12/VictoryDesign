@@ -272,7 +272,11 @@ War Performance:
         - Production:
             Compares the global Complexity, Resources and Reliability
         - Necessity:
-            Compares each specific Design characteristic
+            Compares each specific Design
+            Takes into consideration each characteristic has an importance value which works as a multiplier:
+                Low: 1/2
+                Medium: 1
+                High: 2
 
 Technology Investment:
     When a new design is made it's based on current tech
