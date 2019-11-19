@@ -278,6 +278,7 @@ War Performance:
                 Medium: 1
                 High: 2
             The difference in Characteristics is powered to ^1.5
+    Player has access to list of best and worst design characteristic differences
 
 Technology Investment:
     When a new design is made it's based on current tech
