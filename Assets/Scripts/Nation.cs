@@ -12,10 +12,17 @@ public static class Nation
     //Design Institutes
     public static List<DesignInstitute> institutes;
 
-    //Designs in use
-    public static Rifle rifle;
-    public static SmallArm smallArm;
-    public static Uniform uniform;
-    public static Helmet helmet;
-    public static MachineGun machineGun;
+    //Our Designs in use
+    public static Rifle ourRifle;
+    public static SmallArm ourSmallArm;
+    public static Uniform ourUniform;
+    public static Helmet ourHelmet;
+    public static MachineGun ourMachineGun;
+
+    //Their Designs in use
+    public static Rifle theirRifle;
+    public static SmallArm theirSmallArm;
+    public static Uniform theirUniform;
+    public static Helmet theirHelmet;
+    public static MachineGun theirMachineGun;
 }
