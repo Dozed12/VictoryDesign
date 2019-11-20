@@ -20,31 +20,54 @@ public class DesignInstitute
     //Designs
     public List<Design> designs;
 
-    //TODO Naming conventions
+    //Naming conventions
+    public string baseName;
+    public string connector;
+    public string specific;
+
+    public DesignInstitute()
+    {
+        //Set random Naming Conventions
+        baseName = Naming.BaseNameRules.GetRandom();
+        connector = Naming.ConnectorNameRules.GetRandom();
+        specific = Naming.SpecificNameRules.GetRandom();
+    }
 
     //Generate Design
     public Design GenerateDesign(Type type)
     {
+        //Generate Name
+        System.Random random = new System.Random();
+        Fare.Xeger xeger = new Fare.Xeger(baseName, random);
+        string name = xeger.Generate();
+        //Case where connector is empty (Xeger doesnt like this)
+        if(connector != ""){
+            xeger = new Fare.Xeger(connector, random);
+            name += xeger.Generate();
+        }
+        xeger = new Fare.Xeger(specific, random);
+        name += xeger.Generate();
+
         //Identify Type
         if (type == typeof(Rifle))
         {
-            return new Rifle().Generate();
+            return new Rifle().Generate(name);
         }
         else if (type == typeof(SmallArm))
         {
-            return new SmallArm().Generate();
+            return new SmallArm().Generate(name);
         }
         else if (type == typeof(Uniform))
         {
-            return new Uniform().Generate();
+            return new Uniform().Generate(name);
         }
         else if (type == typeof(Helmet))
         {
-            return new Helmet().Generate();
+            return new Helmet().Generate(name);
         }
         else if (type == typeof(MachineGun))
         {
-            return new MachineGun().Generate();
+            return new MachineGun().Generate(name);
         }
         //Not a type of design
         else
@@ -79,13 +102,13 @@ public abstract class Design
     public Importance importance;
 
     //Generate Design Generic
-    virtual public Design Generate()
+    virtual public Design Generate(string name)
     {
         //Design Date
         date = Nation.date;
 
-        //TODO Design Name
-        name = "TEST";
+        //Design Name
+        this.name = name;
 
         //Redesign Period
         redesignPeriod = redesignPeriodBase + UnityEngine.Random.Range(-redesignPeriodBase * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2),
@@ -134,13 +157,13 @@ public class Rifle : Design
     public Characteristic power = new Characteristic("Power", Importance.MEDIUM);
     public Characteristic portability = new Characteristic("Portability", Importance.LOW);
 
-    override public Design Generate()
+    override public Design Generate(string name)
     {
         //Base redesign period
         redesignPeriodBase = 24;
 
         //Call Generic
-        base.Generate();
+        base.Generate(name);
 
         //Generate characteristics values
         accuracy.Generate();
@@ -161,13 +184,13 @@ public class SmallArm : Design
     public Characteristic power = new Characteristic("Power", Importance.MEDIUM);
     public Characteristic portability = new Characteristic("Portability", Importance.LOW);
 
-    override public Design Generate()
+    override public Design Generate(string name)
     {
         //Base redesign period
         redesignPeriodBase = 24;
 
         //Call Generic
-        base.Generate();
+        base.Generate(name);
 
         //Generate characteristics values
         accuracy.Generate();
@@ -185,16 +208,16 @@ public class Uniform : Design
 {
     //Characteristics
     public Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM);
-    public Characteristic camouflage  = new Characteristic("Camouflage", Importance.MEDIUM);
-    public Characteristic comfort  = new Characteristic("Comfort", Importance.LOW);
+    public Characteristic camouflage = new Characteristic("Camouflage", Importance.MEDIUM);
+    public Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
 
-    override public Design Generate()
+    override public Design Generate(string name)
     {
         //Base redesign period
         redesignPeriodBase = 36;
 
         //Call Generic
-        base.Generate();
+        base.Generate(name);
 
         //Generate characteristics values
         weatherResistance.Generate();
@@ -212,15 +235,15 @@ public class Helmet : Design
 {
     //Characteristics
     public Characteristic protection = new Characteristic("Protection", Importance.HIGH);
-    public Characteristic comfort  = new Characteristic("Comfort", Importance.LOW);
+    public Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
 
-    override public Design Generate()
+    override public Design Generate(string name)
     {
         //Base redesign period
         redesignPeriodBase = 36;
 
         //Call Generic
-        base.Generate();
+        base.Generate(name);
 
         //Generate characteristics values
         protection.Generate();
@@ -237,16 +260,16 @@ public class MachineGun : Design
 {
     //Characteristics
     public Characteristic rof = new Characteristic("Rate of Fire", Importance.HIGH);
-    public Characteristic power  = new Characteristic("Power", Importance.MEDIUM);
-    public Characteristic portability  = new Characteristic("Portability", Importance.LOW);
+    public Characteristic power = new Characteristic("Power", Importance.MEDIUM);
+    public Characteristic portability = new Characteristic("Portability", Importance.LOW);
 
-    override public Design Generate()
+    override public Design Generate(string name)
     {
         //Base redesign period
         redesignPeriodBase = 36;
 
         //Call Generic
-        base.Generate();
+        base.Generate(name);
 
         //Generate characteristics values
         rof.Generate();

@@ -28,6 +28,9 @@ public class Game : MonoBehaviour
         Nation.date = new DateTime(1890, 1, 1);
         Nation.turn = 1;
 
+        DesignInstitute institute = new DesignInstitute();
+        Rifle rifle = (Rifle)institute.GenerateDesign(typeof(Rifle));
+        Debug.Log(rifle.name);
     }
 
     // Select Design to show
