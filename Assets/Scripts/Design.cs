@@ -134,6 +134,7 @@ public abstract class Design
 }
 
 //Characteristic of a design
+[Serializable]
 public class Characteristic
 {
     //Name of characteristic
