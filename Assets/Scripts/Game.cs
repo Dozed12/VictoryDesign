@@ -30,4 +30,16 @@ public class Game : MonoBehaviour
 
     }
 
+    // Select Design to show
+    // Info is of format: "who.type"
+    public void SelectDesign(string info)
+    {
+        // Separate string
+        string[] parts = info.Split('.');
+        string who = parts[0];
+        string what = parts[1];
+
+        Debug.Log("Design Selected: " + who + " " + what);
+    }
+
 }
