@@ -33,20 +33,35 @@ public class DesignInstitute
         specific = Naming.SpecificNameRules.GetRandom();
     }
 
+    //Generate Name
+    private string GenerateName()
+    {
+        //Random provider
+        System.Random random = new System.Random();
+
+        //Base Name
+        Fare.Xeger xeger = new Fare.Xeger(baseName, random);
+        string name = xeger.Generate();
+
+        //Connector (if connector is empty just ignore it, Xeger doesn't like empty string rule)
+        if (connector != "")
+        {
+            xeger = new Fare.Xeger(connector, random);
+            name += xeger.Generate();
+        }
+
+        //Specific
+        xeger = new Fare.Xeger(specific, random);
+        name += xeger.Generate();
+
+        return name;
+    }
+
     //Generate Design
     public Design GenerateDesign(Type type)
     {
         //Generate Name
-        System.Random random = new System.Random();
-        Fare.Xeger xeger = new Fare.Xeger(baseName, random);
-        string name = xeger.Generate();
-        //Case where connector is empty (Xeger doesnt like this)
-        if(connector != ""){
-            xeger = new Fare.Xeger(connector, random);
-            name += xeger.Generate();
-        }
-        xeger = new Fare.Xeger(specific, random);
-        name += xeger.Generate();
+        string name = GenerateName();
 
         //Identify Type
         if (type == typeof(Rifle))
