@@ -20,28 +20,48 @@ public class DesignInstitute
     //Designs
     public List<Design> designs;
 
+    //Design types this can generate
+    public Type[] types;
+
     //Naming conventions
     public string baseName;
     public string connector;
     public string specific;
 
-    public DesignInstitute()
+    //Base Design Names
+    public Dictionary<Type, string> baseNames;
+
+    public DesignInstitute(Type[] types)
     {
         //Set random Naming Conventions
         baseName = Naming.BaseNameRules.GetRandom();
         connector = Naming.ConnectorNameRules.GetRandom();
         specific = Naming.SpecificNameRules.GetRandom();
+
+        //Set base names
+        baseNames = new Dictionary<Type, string>();
+        System.Random random = new System.Random();
+        for (int i = 0; i < types.Length; i++)
+        {
+            Fare.Xeger xeger = new Fare.Xeger(baseName, random);
+            baseNames.Add(types[i], xeger.Generate());
+        }
+
+        //Set types
+        this.types = types;
     }
 
     //Generate Name
-    private string GenerateName()
+    private string GenerateName(Type type)
     {
         //Random provider
         System.Random random = new System.Random();
 
-        //Base Name
-        Fare.Xeger xeger = new Fare.Xeger(baseName, random);
-        string name = xeger.Generate();
+        //Get Base Name
+        string name = baseNames[type];
+
+        //Setup Xeger
+        Fare.Xeger xeger;
 
         //Connector (if connector is empty just ignore it, Xeger doesn't like empty string rule)
         if (connector != "")
@@ -57,11 +77,16 @@ public class DesignInstitute
         return name;
     }
 
+    public bool CanDesign(Type type)
+    {
+        return Array.Exists(types, element => element == type);
+    }
+
     //Generate Design
     public Design GenerateDesign(Type type)
     {
         //Generate Name
-        string name = GenerateName();
+        string name = GenerateName(type);
 
         //Identify Type
         if (type == typeof(Rifle))

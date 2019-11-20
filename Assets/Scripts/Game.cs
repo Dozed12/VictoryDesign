@@ -19,7 +19,15 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Test Generate new Helmet on same Design Institute
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (Nation.institutes[0].CanDesign(typeof(Helmet)))
+            {
+                Helmet helmet = (Helmet)Nation.institutes[0].GenerateDesign(typeof(Helmet));
+                Utils.Dump(helmet);
+            }
+        }
     }
 
     public void SetupNewGame()
@@ -28,10 +36,12 @@ public class Game : MonoBehaviour
         Nation.date = new DateTime(1890, 1, 1);
         Nation.turn = 1;
 
-        //Basic DesignInstitute test Generate
-        DesignInstitute institute = new DesignInstitute();
-        Rifle rifle = (Rifle)institute.GenerateDesign(typeof(Rifle));
-        Utils.Dump(rifle);
+        //Clear Institutes
+        Nation.institutes = new List<DesignInstitute>();
+
+        //Create new institute and add to Nation Institutes
+        DesignInstitute institute = new DesignInstitute(new Type[] { typeof(Helmet), typeof(Uniform) });
+        Nation.institutes.Add(institute);
     }
 
     // Select Design to show
