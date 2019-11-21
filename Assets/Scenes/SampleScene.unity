@@ -9684,7 +9684,7 @@ GameObject:
   - component: {fileID: 1937452439}
   - component: {fileID: 1937452438}
   m_Layer: 0
-  m_Name: Game
+  m_Name: GameHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9699,7 +9699,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937452437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc90db133a6c4c343a0dbcbf62008bc0, type: 3}
+  m_Script: {fileID: 11500000, guid: e4268d88033fed14496bab4008853a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1937452439

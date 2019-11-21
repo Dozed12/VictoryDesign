@@ -3,57 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public static class Game
 {
+    //Date and Turn
+    public static int turn;
+    public static DateTime date;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Setup Naming system
-        Naming.SetupNaming();
+    //Design Institutes
+    public static List<DesignInstitute> ourInstitutes;
+    public static List<DesignInstitute> theirInstitutes;
 
-        //Setup a New Game
-        SetupNewGame();
-    }
+    //Our Designs in use
+    public static Rifle ourRifle;
+    public static SmallArm ourSmallArm;
+    public static Uniform ourUniform;
+    public static Helmet ourHelmet;
+    public static MachineGun ourMachineGun;
 
-    // Update is called once per frame
-    void Update()
-    {
-        //Test Generate new Helmet on same Design Institute
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (Nation.institutes[0].CanDesign(typeof(Helmet)))
-            {
-                Helmet helmet = (Helmet)Nation.institutes[0].GenerateDesign(typeof(Helmet));
-                Utils.Dump(helmet);
-            }
-        }
-    }
-
-    public void SetupNewGame()
-    {
-        //Set start date and turn
-        Nation.date = new DateTime(1890, 1, 1);
-        Nation.turn = 1;
-
-        //Clear Institutes
-        Nation.institutes = new List<DesignInstitute>();
-
-        //Create new institute and add to Nation Institutes
-        DesignInstitute institute = new DesignInstitute(new Type[] { typeof(Helmet), typeof(Uniform) });
-        Nation.institutes.Add(institute);
-    }
-
-    // Select Design to show
-    // Info is of format: "who.type"
-    public void SelectDesign(string info)
-    {
-        // Separate string
-        string[] parts = info.Split('.');
-        string who = parts[0];
-        string what = parts[1];
-
-        Debug.Log("Design Selected: " + who + " " + what);
-    }
-
+    //Their Designs in use
+    public static Rifle theirRifle;
+    public static SmallArm theirSmallArm;
+    public static Uniform theirUniform;
+    public static Helmet theirHelmet;
+    public static MachineGun theirMachineGun;
 }

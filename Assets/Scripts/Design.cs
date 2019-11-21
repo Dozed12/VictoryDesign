@@ -146,7 +146,7 @@ public abstract class Design
     virtual public Design Generate(string name)
     {
         //Design Date
-        date = Nation.date;
+        date = Game.date;
 
         //Design Name
         this.name = name;
