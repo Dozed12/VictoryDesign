@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,11 +23,8 @@ public class GameHolder : MonoBehaviour
         //Test Generate new Helmet on same Design Institute
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (Game.ourInstitutes[0].CanDesign(typeof(Helmet)))
-            {
-                Helmet helmet = (Helmet)Game.ourInstitutes[0].GenerateDesign(typeof(Helmet));
-                Utils.Dump(helmet);
-            }
+            List<Helmet> helmets = Game.RequestDesignUs(typeof(Helmet)).Cast<Helmet>().ToList();
+            Utils.Dump(helmets[0]);
         }
     }
 
@@ -38,10 +36,19 @@ public class GameHolder : MonoBehaviour
 
         //Clear Institutes
         Game.ourInstitutes = new List<DesignInstitute>();
+        Game.theirInstitutes = new List<DesignInstitute>();
 
-        //Create new institute and add to Game Institutes
-        DesignInstitute institute = new DesignInstitute(new Type[] { typeof(Helmet), typeof(Uniform) });
-        Game.ourInstitutes.Add(institute);
+        //Create Our Base Institutes
+        Game.ourInstitutes.Add(new DesignInstitute(new Type[] { typeof(Helmet), typeof(Uniform) }));
+        Game.ourInstitutes.Add(new DesignInstitute(new Type[] { typeof(Rifle) }));
+        Game.ourInstitutes.Add(new DesignInstitute(new Type[] { typeof(SmallArm) }));
+        Game.ourInstitutes.Add(new DesignInstitute(new Type[] { typeof(MachineGun) }));
+
+        //Create Their Base Institutes
+        Game.theirInstitutes.Add(new DesignInstitute(new Type[] { typeof(Helmet), typeof(Uniform) }));
+        Game.theirInstitutes.Add(new DesignInstitute(new Type[] { typeof(Rifle) }));
+        Game.theirInstitutes.Add(new DesignInstitute(new Type[] { typeof(SmallArm) }));
+        Game.theirInstitutes.Add(new DesignInstitute(new Type[] { typeof(MachineGun) }));
     }
 
     // Select Design to show
