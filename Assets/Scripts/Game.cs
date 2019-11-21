@@ -28,7 +28,7 @@ public static class Game
     public static MachineGun theirMachineGun;
 
     //Request Designs for Us
-    public static List<Design> RequestDesignUs(Type type)
+    public static Design[] RequestDesignUs(Type type)
     {
         List<Design> designs = new List<Design>();
 
@@ -43,11 +43,11 @@ public static class Game
             }
         }
 
-        return designs;
+        return designs.ToArray();
     }
 
     //Request Designs for Them
-    public static List<Design> RequestDesignThem(Type type)
+    public static Design[] RequestDesignThem(Type type)
     {
         List<Design> designs = new List<Design>();
 
@@ -62,7 +62,7 @@ public static class Game
             }
         }
 
-        return designs;
+        return designs.ToArray();
     }
 
     //Add Institutes for Type(s) for Us

@@ -23,8 +23,8 @@ public class GameHolder : MonoBehaviour
         //Test Generate new Helmets on same Design Institute
         if (Input.GetKeyDown(KeyCode.R))
         {
-            List<Helmet> helmets = Game.RequestDesignUs(typeof(Helmet)).Cast<Helmet>().ToList();
-            Utils.DumpArray(helmets.ToArray());
+            Helmet[] helmets = Game.RequestDesignUs(typeof(Helmet)).Cast<Helmet>().ToArray();
+            Utils.DumpArray(helmets);
         }
     }
 
