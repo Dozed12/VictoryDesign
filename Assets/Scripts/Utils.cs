@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class Utils
 {
+    public static System.Random random = new System.Random();
+
     //Json dump to console
     public static void Dump(object obj)
     {

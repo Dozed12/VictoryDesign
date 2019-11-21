@@ -55,9 +55,6 @@ public class DesignInstitute
     //Generate Name
     private string GenerateName(Type type)
     {
-        //Random provider
-        System.Random random = new System.Random();
-
         //Get Base Name
         string name = baseNames[type];
 
@@ -67,12 +64,12 @@ public class DesignInstitute
         //Connector (if connector is empty just ignore it, Xeger doesn't like empty string rule)
         if (connector != "")
         {
-            xeger = new Fare.Xeger(connector, random);
+            xeger = new Fare.Xeger(connector, Utils.random);
             name += xeger.Generate();
         }
 
         //Specific
-        xeger = new Fare.Xeger(specific, random);
+        xeger = new Fare.Xeger(specific, Utils.random);
         name += xeger.Generate();
 
         return name;
