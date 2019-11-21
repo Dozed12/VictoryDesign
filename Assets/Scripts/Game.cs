@@ -65,4 +65,22 @@ public static class Game
         return designs;
     }
 
+    //Add Institutes for Type(s) for Us
+    public static void AddInstitutesUs(Type[] types, int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            ourInstitutes.Add(new DesignInstitute(types));
+        }
+    }
+
+    //Add Institutes for Type(s) for Them
+    public static void AddInstitutesThem(Type[] types, int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            theirInstitutes.Add(new DesignInstitute(types));
+        }
+    }
+
 }

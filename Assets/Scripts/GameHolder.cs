@@ -39,16 +39,16 @@ public class GameHolder : MonoBehaviour
         Game.theirInstitutes = new List<DesignInstitute>();
 
         //Create Our Base Institutes
-        Game.ourInstitutes.Add(new DesignInstitute(new Type[] { typeof(Helmet), typeof(Uniform) }));
-        Game.ourInstitutes.Add(new DesignInstitute(new Type[] { typeof(Rifle) }));
-        Game.ourInstitutes.Add(new DesignInstitute(new Type[] { typeof(SmallArm) }));
-        Game.ourInstitutes.Add(new DesignInstitute(new Type[] { typeof(MachineGun) }));
+        Game.AddInstitutesUs(new Type[] { typeof(Helmet), typeof(Uniform) }, 3);
+        Game.AddInstitutesUs(new Type[] { typeof(Rifle) }, 3);
+        Game.AddInstitutesUs(new Type[] { typeof(SmallArm) }, 3);
+        Game.AddInstitutesUs(new Type[] { typeof(MachineGun) }, 3);
 
         //Create Their Base Institutes
-        Game.theirInstitutes.Add(new DesignInstitute(new Type[] { typeof(Helmet), typeof(Uniform) }));
-        Game.theirInstitutes.Add(new DesignInstitute(new Type[] { typeof(Rifle) }));
-        Game.theirInstitutes.Add(new DesignInstitute(new Type[] { typeof(SmallArm) }));
-        Game.theirInstitutes.Add(new DesignInstitute(new Type[] { typeof(MachineGun) }));
+        Game.AddInstitutesThem(new Type[] { typeof(Helmet), typeof(Uniform) }, 3);
+        Game.AddInstitutesThem(new Type[] { typeof(Rifle) }, 3);
+        Game.AddInstitutesThem(new Type[] { typeof(SmallArm) }, 3);
+        Game.AddInstitutesThem(new Type[] { typeof(MachineGun) }, 3);
     }
 
     // Select Design to show
