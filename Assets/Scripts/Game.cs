@@ -9,78 +9,9 @@ public static class Game
     public static int turn;
     public static DateTime date;
 
-    //Design Institutes
-    public static List<DesignInstitute> ourInstitutes;
-    public static List<DesignInstitute> theirInstitutes;
+    //Our Nation
+    public static Nation us;
 
-    //Our Designs in use
-    public static Rifle ourRifle;
-    public static SmallArm ourSmallArm;
-    public static Uniform ourUniform;
-    public static Helmet ourHelmet;
-    public static MachineGun ourMachineGun;
-
-    //Their Designs in use
-    public static Rifle theirRifle;
-    public static SmallArm theirSmallArm;
-    public static Uniform theirUniform;
-    public static Helmet theirHelmet;
-    public static MachineGun theirMachineGun;
-
-    //Request Designs for Us
-    public static Design[] RequestDesignUs(Type type)
-    {
-        List<Design> designs = new List<Design>();
-
-        //Cycle Institutes
-        for (int i = 0; i < ourInstitutes.Count; i++)
-        {
-            //Check if Institute can Design
-            if (ourInstitutes[i].CanDesign(type))
-            {
-                //Design
-                designs.Add(ourInstitutes[i].GenerateDesign(type));
-            }
-        }
-
-        return designs.ToArray();
-    }
-
-    //Request Designs for Them
-    public static Design[] RequestDesignThem(Type type)
-    {
-        List<Design> designs = new List<Design>();
-
-        //Cycle Institutes
-        for (int i = 0; i < theirInstitutes.Count; i++)
-        {
-            //Check if Institute can Design
-            if (theirInstitutes[i].CanDesign(type))
-            {
-                //Design
-                designs.Add(theirInstitutes[i].GenerateDesign(type));
-            }
-        }
-
-        return designs.ToArray();
-    }
-
-    //Add Institutes for Type(s) for Us
-    public static void AddInstitutesUs(Type[] types, int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            ourInstitutes.Add(new DesignInstitute(types));
-        }
-    }
-
-    //Add Institutes for Type(s) for Them
-    public static void AddInstitutesThem(Type[] types, int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            theirInstitutes.Add(new DesignInstitute(types));
-        }
-    }
-
+    //Enemy Nation
+    public static Nation them;
 }

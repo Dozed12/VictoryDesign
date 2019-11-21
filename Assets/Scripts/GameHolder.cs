@@ -23,7 +23,7 @@ public class GameHolder : MonoBehaviour
         //Test Generate new Helmets on same Design Institute
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Helmet[] helmets = Game.RequestDesignUs(typeof(Helmet)).Cast<Helmet>().ToArray();
+            Helmet[] helmets = Game.us.RequestDesign(typeof(Helmet)).Cast<Helmet>().ToArray();
             Utils.DumpArray(helmets);
         }
     }
@@ -34,21 +34,21 @@ public class GameHolder : MonoBehaviour
         Game.date = new DateTime(1890, 1, 1);
         Game.turn = 1;
 
-        //Clear Institutes
-        Game.ourInstitutes = new List<DesignInstitute>();
-        Game.theirInstitutes = new List<DesignInstitute>();
+        //Setup nations
+        Game.us = new Nation();
+        Game.them = new Nation();
 
         //Create Our Base Institutes
-        Game.AddInstitutesUs(new Type[] { typeof(Helmet), typeof(Uniform) }, 3);
-        Game.AddInstitutesUs(new Type[] { typeof(Rifle) }, 3);
-        Game.AddInstitutesUs(new Type[] { typeof(SmallArm) }, 3);
-        Game.AddInstitutesUs(new Type[] { typeof(MachineGun) }, 3);
+        Game.us.AddInstitutes(new Type[] { typeof(Helmet), typeof(Uniform) }, 3);
+        Game.us.AddInstitutes(new Type[] { typeof(Rifle) }, 3);
+        Game.us.AddInstitutes(new Type[] { typeof(SmallArm) }, 3);
+        Game.us.AddInstitutes(new Type[] { typeof(MachineGun) }, 3);
 
         //Create Their Base Institutes
-        Game.AddInstitutesThem(new Type[] { typeof(Helmet), typeof(Uniform) }, 3);
-        Game.AddInstitutesThem(new Type[] { typeof(Rifle) }, 3);
-        Game.AddInstitutesThem(new Type[] { typeof(SmallArm) }, 3);
-        Game.AddInstitutesThem(new Type[] { typeof(MachineGun) }, 3);
+        Game.them.AddInstitutes(new Type[] { typeof(Helmet), typeof(Uniform) }, 3);
+        Game.them.AddInstitutes(new Type[] { typeof(Rifle) }, 3);
+        Game.them.AddInstitutes(new Type[] { typeof(SmallArm) }, 3);
+        Game.them.AddInstitutes(new Type[] { typeof(MachineGun) }, 3);
     }
 
     // Select Design to show
