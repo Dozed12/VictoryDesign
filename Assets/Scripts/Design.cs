@@ -77,6 +77,7 @@ public class DesignInstitute
         return name;
     }
 
+    //Check if this Insitute can design specified type
     public bool CanDesign(Type type)
     {
         return Array.Exists(types, element => element == type);
@@ -184,8 +185,47 @@ public class Characteristic
     //Generate values
     public void Generate()
     {
-        trueValue = UnityEngine.Random.Range(-10, 10 + 1);
+        /* Predicted values and True value bounds
+        -2      -10     -5
+        -1      -10     0
+        0       -5      5
+        1       0       10
+        2       5       10
+        */
+        
+        //Predicted value from -2 to 2
         predictedValue = UnityEngine.Random.Range(-2, 2 + 1);
+
+        //Calculate bounds from predicted
+        int trueLeftBound = 0;
+        int trueRightBound = 0;
+
+        switch (predictedValue)
+        {
+            case -2:
+                trueLeftBound = -10;
+                trueRightBound = -5;
+                break;
+            case -1:
+                trueLeftBound = -10;
+                trueRightBound = 0;
+                break;
+            case 0:
+                trueLeftBound = -5;
+                trueRightBound = 5;
+                break;
+            case 1:
+                trueLeftBound = 0;
+                trueRightBound = 10;
+                break;
+            case 2:
+                trueLeftBound = 5;
+                trueRightBound = 10;
+                break;
+        }
+
+        //Randomize true value from bounds
+        trueValue = UnityEngine.Random.Range(trueLeftBound, trueRightBound + 1);
     }
 }
 
