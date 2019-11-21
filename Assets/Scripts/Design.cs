@@ -12,6 +12,7 @@ public enum Importance
 }
 
 //Design Institute
+[Serializable]
 public class DesignInstitute
 {
     //Name
@@ -119,6 +120,7 @@ public class DesignInstitute
 }
 
 //Generic Design
+[Serializable]
 public abstract class Design
 {
     //Design Institute that developed this
@@ -231,6 +233,7 @@ public class Characteristic
 
 //Specific Designs
 
+[Serializable]
 public class Rifle : Design
 {
     //Characteristics
@@ -258,6 +261,7 @@ public class Rifle : Design
     }
 }
 
+[Serializable]
 public class SmallArm : Design
 {
     //Characteristics
@@ -285,6 +289,7 @@ public class SmallArm : Design
     }
 }
 
+[Serializable]
 public class Uniform : Design
 {
     //Characteristics
@@ -312,6 +317,7 @@ public class Uniform : Design
     }
 }
 
+[Serializable]
 public class Helmet : Design
 {
     //Characteristics
@@ -337,6 +343,7 @@ public class Helmet : Design
     }
 }
 
+[Serializable]
 public class MachineGun : Design
 {
     //Characteristics

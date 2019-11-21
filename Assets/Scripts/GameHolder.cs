@@ -20,11 +20,11 @@ public class GameHolder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Test Generate new Helmet on same Design Institute
+        //Test Generate new Helmets on same Design Institute
         if (Input.GetKeyDown(KeyCode.R))
         {
             List<Helmet> helmets = Game.RequestDesignUs(typeof(Helmet)).Cast<Helmet>().ToList();
-            Utils.Dump(helmets[0]);
+            Utils.DumpArray(helmets.ToArray());
         }
     }
 
