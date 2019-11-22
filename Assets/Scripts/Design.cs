@@ -178,6 +178,9 @@ public class Characteristic
     public int leftBound;
     public int rightBound;
 
+    //Full Knowledge
+    public bool fullKnowledge = false;
+
     //Constructor
     public Characteristic(string name, Importance importance)
     {
@@ -195,7 +198,7 @@ public class Characteristic
         1       0       10
         2       5       10
         */
-        
+
         //Predicted value from -2 to 2
         predictedValue = UnityEngine.Random.Range(-2, 2 + 1);
 
@@ -229,6 +232,44 @@ public class Characteristic
 
         //Randomize true value from bounds
         trueValue = UnityEngine.Random.Range(leftBound, rightBound + 1);
+    }
+
+    //Progress Known Bounds
+    public void ProgressBounds(int amount)
+    {
+        //If amount is enough for full knowledge just finish it
+        if (rightBound - leftBound <= amount)
+        {
+            leftBound = trueValue;
+            rightBound = trueValue;
+            fullKnowledge = true;
+            return;
+        }
+
+        //Randomly split Knowledge for each bound
+        for (int i = 0; i < amount; i++)
+        {
+            //Left Bound already done, progress right
+            if (leftBound == trueValue && rightBound > amount)
+            {
+                rightBound--;
+            }
+            //Right Bound already done, progress left
+            else if (rightBound == trueValue && leftBound < amount)
+            {
+                leftBound++;
+            }
+            //None done, randomly improve one
+            else
+            {
+                int choice = UnityEngine.Random.Range(0, 2);
+
+                if (choice == 0)
+                    rightBound--;
+                else
+                    leftBound++;
+            }
+        }
     }
 }
 

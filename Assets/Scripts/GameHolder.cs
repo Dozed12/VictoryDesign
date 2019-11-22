@@ -21,10 +21,17 @@ public class GameHolder : MonoBehaviour
     void Update()
     {
         //Test Generate new Helmets Design
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             Helmet[] helmets = Game.us.RequestDesign(typeof(Helmet)).Cast<Helmet>().ToArray();
             Utils.DumpArray(helmets);
+        }
+
+        //Test Design Characteristic Progress
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Game.us.helmet.protection.ProgressBounds(2);
+            Utils.Dump(Game.us.helmet.protection);
         }
     }
 
