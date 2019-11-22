@@ -168,11 +168,15 @@ public class Characteristic
     //Importance of characteristic for design
     public Importance importance;
 
+    //Predicted value of characteristic -2 to 2
+    public int predictedValue;
+
     //Value of characteristic -10 to 10
     public int trueValue;
 
-    //Predicted value of characteristic -2 to 2
-    public int predictedValue;
+    //Current known bounds of true value
+    public int leftBound;
+    public int rightBound;
 
     //Constructor
     public Characteristic(string name, Importance importance)
@@ -196,35 +200,35 @@ public class Characteristic
         predictedValue = UnityEngine.Random.Range(-2, 2 + 1);
 
         //Calculate bounds from predicted
-        int trueLeftBound = 0;
-        int trueRightBound = 0;
+        leftBound = 0;
+        rightBound = 0;
 
         switch (predictedValue)
         {
             case -2:
-                trueLeftBound = -10;
-                trueRightBound = -5;
+                leftBound = -10;
+                rightBound = -5;
                 break;
             case -1:
-                trueLeftBound = -10;
-                trueRightBound = 0;
+                leftBound = -10;
+                rightBound = 0;
                 break;
             case 0:
-                trueLeftBound = -5;
-                trueRightBound = 5;
+                leftBound = -5;
+                rightBound = 5;
                 break;
             case 1:
-                trueLeftBound = 0;
-                trueRightBound = 10;
+                leftBound = 0;
+                rightBound = 10;
                 break;
             case 2:
-                trueLeftBound = 5;
-                trueRightBound = 10;
+                leftBound = 5;
+                rightBound = 10;
                 break;
         }
 
         //Randomize true value from bounds
-        trueValue = UnityEngine.Random.Range(trueLeftBound, trueRightBound + 1);
+        trueValue = UnityEngine.Random.Range(leftBound, rightBound + 1);
     }
 }
 
