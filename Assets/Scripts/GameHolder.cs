@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameHolder : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class GameHolder : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             Game.us.helmet.FindCharacteristic("Protection").ProgressBounds(2);
-            Utils.Dump( Game.us.helmet.FindCharacteristic("Protection"));
+            Utils.Dump(Game.us.helmet.FindCharacteristic("Protection"));
         }
     }
 
@@ -120,8 +121,49 @@ public class GameHolder : MonoBehaviour
                 break;
         }
 
-        //Print Selected Design
+        //Dump Selected Design
         Utils.Dump(selectedDesign);
+
+        //Display Design
+        DisplayDesign(selectedDesign);
+    }
+
+    //Display Design
+    public void DisplayDesign(Design design)
+    {
+        //Find Design Panel
+        GameObject designPanel = GameObject.Find("DesignPanel");
+
+        //All childs of Panel
+        Transform[] transforms = designPanel.GetComponentsInChildren<Transform>();
+        GameObject[] children = new GameObject[transforms.Length];
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            children[i] = transforms[i].gameObject;
+        }
+
+        //Update Info
+        for (int i = 0; i < children.Length; i++)
+        {
+            //Design Name Title
+            if (children[i].name == "DesignName")
+            {
+                children[i].GetComponent<Text>().text = design.name;
+            }
+            //Design Type
+            else if (children[i].name == "TypeName")
+            {
+                //Get type from class type   
+                string type = design.GetType().ToString();
+
+                //Add space before Capital Letters
+                type = string.Concat(type.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
+                //Apply
+                children[i].GetComponent<Text>().text = type;
+            }
+        }
+
     }
 
 }
