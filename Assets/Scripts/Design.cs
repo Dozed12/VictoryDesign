@@ -120,6 +120,9 @@ public class DesignInstitute
 [Serializable]
 public abstract class Design
 {
+    //Characteristics
+    public List<Characteristic> characteristics;
+
     //Design Institute that developed this
     public DesignInstitute developer;
 
@@ -144,6 +147,9 @@ public abstract class Design
     //Generate Design Generic
     virtual public Design Generate(string name)
     {
+        //Clear Characteristics
+        characteristics = new List<Characteristic>();
+
         //Design Date
         date = Game.date;
 
@@ -155,6 +161,17 @@ public abstract class Design
                                                                         redesignPeriodBase * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2));
 
         return this;
+    }
+
+    //Find Desired Characteristic
+    public Characteristic FindCharacteristic(string name)
+    {
+        for (int i = 0; i < characteristics.Count; i++)
+        {
+            if(characteristics[i].name == name)
+                return characteristics[i];
+        }
+        return new Characteristic("FIND_FAIL", Importance.HIGH);
     }
 }
 
@@ -278,11 +295,6 @@ public class Characteristic
 [Serializable]
 public class Rifle : Design
 {
-    //Characteristics
-    public Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH);
-    public Characteristic power = new Characteristic("Power", Importance.MEDIUM);
-    public Characteristic portability = new Characteristic("Portability", Importance.LOW);
-
     override public Design Generate(string name)
     {
         //Base redesign period
@@ -292,9 +304,17 @@ public class Rifle : Design
         base.Generate(name);
 
         //Generate characteristics values
+        Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH);
         accuracy.Generate();
+        characteristics.Add(accuracy);
+
+        Characteristic power = new Characteristic("Power", Importance.MEDIUM);
         power.Generate();
+        characteristics.Add(power);
+
+        Characteristic portability = new Characteristic("Portability", Importance.LOW);
         portability.Generate();
+        characteristics.Add(portability);
 
         //Design importance
         importance = Importance.HIGH;
@@ -306,11 +326,6 @@ public class Rifle : Design
 [Serializable]
 public class SmallArm : Design
 {
-    //Characteristics
-    public Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH);
-    public Characteristic power = new Characteristic("Power", Importance.MEDIUM);
-    public Characteristic portability = new Characteristic("Portability", Importance.LOW);
-
     override public Design Generate(string name)
     {
         //Base redesign period
@@ -320,9 +335,17 @@ public class SmallArm : Design
         base.Generate(name);
 
         //Generate characteristics values
+        Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH);
         accuracy.Generate();
+        characteristics.Add(accuracy);
+
+        Characteristic power = new Characteristic("Power", Importance.MEDIUM);
         power.Generate();
+        characteristics.Add(power);
+
+        Characteristic portability = new Characteristic("Portability", Importance.LOW);
         portability.Generate();
+        characteristics.Add(portability);
 
         //Design importance
         importance = Importance.MEDIUM;
@@ -334,11 +357,6 @@ public class SmallArm : Design
 [Serializable]
 public class Uniform : Design
 {
-    //Characteristics
-    public Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM);
-    public Characteristic camouflage = new Characteristic("Camouflage", Importance.MEDIUM);
-    public Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
-
     override public Design Generate(string name)
     {
         //Base redesign period
@@ -348,9 +366,17 @@ public class Uniform : Design
         base.Generate(name);
 
         //Generate characteristics values
+        Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM);
         weatherResistance.Generate();
+        characteristics.Add(weatherResistance);
+
+        Characteristic camouflage = new Characteristic("Camouflage", Importance.MEDIUM);
         camouflage.Generate();
+        characteristics.Add(camouflage);
+
+        Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
         comfort.Generate();
+        characteristics.Add(comfort);
 
         //Design importance
         importance = Importance.LOW;
@@ -362,10 +388,6 @@ public class Uniform : Design
 [Serializable]
 public class Helmet : Design
 {
-    //Characteristics
-    public Characteristic protection = new Characteristic("Protection", Importance.HIGH);
-    public Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
-
     override public Design Generate(string name)
     {
         //Base redesign period
@@ -375,8 +397,13 @@ public class Helmet : Design
         base.Generate(name);
 
         //Generate characteristics values
+        Characteristic protection = new Characteristic("Protection", Importance.HIGH);
         protection.Generate();
+        characteristics.Add(protection);
+
+        Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
         comfort.Generate();
+        characteristics.Add(comfort);
 
         //Design importance
         importance = Importance.LOW;
@@ -388,11 +415,6 @@ public class Helmet : Design
 [Serializable]
 public class MachineGun : Design
 {
-    //Characteristics
-    public Characteristic rof = new Characteristic("Rate of Fire", Importance.HIGH);
-    public Characteristic power = new Characteristic("Power", Importance.MEDIUM);
-    public Characteristic portability = new Characteristic("Portability", Importance.LOW);
-
     override public Design Generate(string name)
     {
         //Base redesign period
@@ -402,12 +424,20 @@ public class MachineGun : Design
         base.Generate(name);
 
         //Generate characteristics values
+        Characteristic rof = new Characteristic("Rate of Fire", Importance.MEDIUM);
         rof.Generate();
+        characteristics.Add(rof);
+
+        Characteristic power = new Characteristic("Power", Importance.MEDIUM);
         power.Generate();
+        characteristics.Add(power);
+
+        Characteristic portability = new Characteristic("Portability", Importance.LOW);
         portability.Generate();
+        characteristics.Add(portability);
 
         //Design importance
-        importance = Importance.LOW;
+        importance = Importance.HIGH;
 
         return this;
     }

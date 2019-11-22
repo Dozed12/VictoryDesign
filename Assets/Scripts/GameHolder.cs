@@ -30,8 +30,8 @@ public class GameHolder : MonoBehaviour
         //Test Design Characteristic Progress
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Game.us.helmet.protection.ProgressBounds(2);
-            Utils.Dump(Game.us.helmet.protection);
+            Game.us.helmet.FindCharacteristic("Protection").ProgressBounds(2);
+            Utils.Dump( Game.us.helmet.FindCharacteristic("Protection"));
         }
     }
 
