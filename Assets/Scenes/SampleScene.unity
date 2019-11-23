@@ -3680,7 +3680,7 @@ GameObject:
   - component: {fileID: 635508305}
   - component: {fileID: 635508306}
   m_Layer: 5
-  m_Name: Type
+  m_Name: DesignTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8922,7 +8922,7 @@ GameObject:
   - component: {fileID: 1835528384}
   - component: {fileID: 1835528386}
   m_Layer: 5
-  m_Name: Name
+  m_Name: TypeName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9016,7 +9016,7 @@ GameObject:
   - component: {fileID: 1836419887}
   - component: {fileID: 1836419889}
   m_Layer: 5
-  m_Name: TitleName
+  m_Name: DesignName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10102,7 +10102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2031093386}
   m_Layer: 5
-  m_Name: Spacer (1)
+  m_Name: Spacer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

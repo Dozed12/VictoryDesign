@@ -162,8 +162,13 @@ public class GameHolder : MonoBehaviour
                 //Apply
                 children[i].GetComponent<Text>().text = type;
             }
+            //TODO Update Rest            
         }
 
+        //TODO Instantiate Characteristics
+
+        //Force update on DesignTitle to fix size
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)GameObject.Find("DesignTitle").transform);
     }
 
 }
