@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class GameHolder : MonoBehaviour
 {
+    //UI Elements and Resources
+    public Sprite HIGH_IMPORTANCE_SPRITE;
+    public Sprite MEDIUM_IMPORTANCE_SPRITE;
+    public Sprite LOW_IMPORTANCE_SPRITE;
 
     // Start is called before the first frame update
     void Start()
@@ -177,8 +181,30 @@ public class GameHolder : MonoBehaviour
             {
                 children[i].GetComponent<Text>().text = "Date: " + design.date.ToString("MMMM yyyy");
             }
-            //TODO Update Rest            
+            //Age Months
+            else if (children[i].name == "Months")
+            {
+                children[i].GetComponent<Text>().text = "Months Age: " + design.age;
+            }    
+            //Design Importance
+            else if (children[i].name == "Importance")
+            {
+                switch (design.importance)
+                {
+                    case Importance.HIGH:
+                        children[i].GetComponent<Image>().sprite = HIGH_IMPORTANCE_SPRITE;
+                        break;
+                    case Importance.MEDIUM:
+                        children[i].GetComponent<Image>().sprite = MEDIUM_IMPORTANCE_SPRITE;
+                        break;
+                    case Importance.LOW:
+                        children[i].GetComponent<Image>().sprite = LOW_IMPORTANCE_SPRITE;
+                        break;
+                }
+            }  
         }
+
+        //Delete current Characteristics
 
         //TODO Instantiate Characteristics
 

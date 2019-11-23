@@ -141,6 +141,9 @@ public abstract class Design
     //Date of design development
     public DateTime date;
 
+    //Age in months
+    public int age;
+
     //Importance of design
     public Importance importance;
 
@@ -152,6 +155,7 @@ public abstract class Design
 
         //Design Date
         date = Game.date;
+        age = 0;
 
         //Design Name
         this.name = name;
