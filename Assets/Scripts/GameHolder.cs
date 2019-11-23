@@ -149,6 +149,10 @@ public class GameHolder : MonoBehaviour
         //Update Info
         for (int i = 0; i < children.Length; i++)
         {
+            //Check if null (May happen when deleting characteristics)
+            if(children[i] == null)
+                continue;
+
             //Design Name in Title
             if (children[i].name == "DesignName")
             {
@@ -201,10 +205,16 @@ public class GameHolder : MonoBehaviour
                         children[i].GetComponent<Image>().sprite = LOW_IMPORTANCE_SPRITE;
                         break;
                 }
-            }  
+            } 
+            //Delete current Characteristics
+            else if (children[i].name == "Characteristics")
+            {
+                foreach (Transform child in children[i].transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
         }
-
-        //Delete current Characteristics
 
         //TODO Instantiate Characteristics
 
