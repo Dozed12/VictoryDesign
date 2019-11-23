@@ -145,7 +145,7 @@ public class GameHolder : MonoBehaviour
         //Update Info
         for (int i = 0; i < children.Length; i++)
         {
-            //Design Name Title
+            //Design Name in Title
             if (children[i].name == "DesignName")
             {
                 children[i].GetComponent<Text>().text = design.name;
@@ -161,6 +161,21 @@ public class GameHolder : MonoBehaviour
 
                 //Apply
                 children[i].GetComponent<Text>().text = type;
+            }
+            //Design Name in Info
+            else if (children[i].name == "Name")
+            {
+                children[i].GetComponent<Text>().text = "Name: " + design.name;
+            }
+            //Developer
+            else if (children[i].name == "Developer")
+            {
+                children[i].GetComponent<Text>().text = "Developer: " + design.developer.name;
+            }
+            //Date
+            else if (children[i].name == "Date")
+            {
+                children[i].GetComponent<Text>().text = "Date: " + design.date.ToString("MMMM yyyy");
             }
             //TODO Update Rest            
         }
