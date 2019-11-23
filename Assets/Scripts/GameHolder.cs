@@ -12,6 +12,13 @@ public class GameHolder : MonoBehaviour
     public Sprite MEDIUM_IMPORTANCE_SPRITE;
     public Sprite LOW_IMPORTANCE_SPRITE;
 
+    public GameObject CHARACTERISTIC;
+
+    public Sprite ACCURACY_ICON;
+    public Sprite POWER_ICON;
+    public Sprite PORTABILITY_ICON;
+    public Sprite ROF_ICON;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -146,6 +153,9 @@ public class GameHolder : MonoBehaviour
             children[i] = transforms[i].gameObject;
         }
 
+        //Characteristics Holder
+        GameObject characteristics = new GameObject();
+
         //Update Info
         for (int i = 0; i < children.Length; i++)
         {
@@ -209,14 +219,41 @@ public class GameHolder : MonoBehaviour
             //Delete current Characteristics
             else if (children[i].name == "Characteristics")
             {
+                //Destroy children
                 foreach (Transform child in children[i].transform)
                 {
                     Destroy(child.gameObject);
                 }
+
+                //Save Characteristics Holder(used to add Characteristic prefabs)
+                characteristics = children[i];
             }
         }
 
-        //TODO Instantiate Characteristics
+        //Instantiate Characteristics
+        for (int i = 0; i < design.characteristics.Count; i++)
+        {
+            //Instantiate
+            GameObject newCharacteristic = Instantiate(CHARACTERISTIC);
+
+            //Edit values
+            foreach (Transform child in newCharacteristic.transform)
+            {
+                //Set Icon (Icon is set using the Characteristic name and associating it with variable name in this class that stores Sprites)
+                //UpperCase(characteristic.name) + "_ICON"
+                if(child.name == "Icon")
+                {
+                    string name = design.characteristics[i].name;
+                    name = name.ToUpper();
+                    name += "_ICON";
+                    child.gameObject.GetComponent<Image>().sprite = (Sprite)typeof(GameHolder).GetField(name).GetValue(this);
+                }
+                //TODO Rest of values
+            }
+
+            //Add to characteristics holder
+            newCharacteristic.transform.SetParent(characteristics.transform);
+        }
 
         //Force update on DesignTitle to fix size
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)GameObject.Find("DesignTitle").transform);
