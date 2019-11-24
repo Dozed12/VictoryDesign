@@ -17,7 +17,11 @@ public class GameHolder : MonoBehaviour
     public Sprite ACCURACY_ICON;
     public Sprite POWER_ICON;
     public Sprite PORTABILITY_ICON;
-    public Sprite ROF_ICON;
+    public Sprite RATE_OF_FIRE_ICON;
+    public Sprite COMFORT_ICON;
+    public Sprite CAMOUFLAGE_ICON;
+    public Sprite WEATHER_RESISTANCE_ICON;
+    public Sprite ARMOR_ICON;
 
     // Start is called before the first frame update
     void Start()
@@ -246,6 +250,7 @@ public class GameHolder : MonoBehaviour
                     string name = design.characteristics[i].name;
                     name = name.ToUpper();
                     name += "_ICON";
+                    name = name.Replace(" ", "_");
                     child.gameObject.GetComponent<Image>().sprite = (Sprite)typeof(GameHolder).GetField(name).GetValue(this);
                 }
                 //Name

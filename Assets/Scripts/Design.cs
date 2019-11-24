@@ -404,9 +404,9 @@ public class Helmet : Design
         base.Generate(developer, name);
 
         //Generate characteristics values
-        Characteristic protection = new Characteristic("Protection", Importance.HIGH);
-        protection.Generate();
-        characteristics.Add(protection);
+        Characteristic armor = new Characteristic("Armor", Importance.HIGH);
+        armor.Generate();
+        characteristics.Add(armor);
 
         Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
         comfort.Generate();
