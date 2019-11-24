@@ -248,7 +248,48 @@ public class GameHolder : MonoBehaviour
                     name += "_ICON";
                     child.gameObject.GetComponent<Image>().sprite = (Sprite)typeof(GameHolder).GetField(name).GetValue(this);
                 }
-                //TODO Rest of values
+                //Name
+                else if(child.name == "Name")
+                {
+                    child.gameObject.GetComponent<Text>().text = design.characteristics[i].name;
+                }
+                //Estimate Value
+                else if(child.name == "Estimate")
+                {
+                    string value = design.characteristics[i].predictedValue.ToString();
+                    if(design.characteristics[i].predictedValue > 0)
+                        value = "+" + value;
+                    child.gameObject.GetComponent<Text>().text = value;
+                }
+                //True Value
+                else if(child.name == "True")
+                {
+                    string left = design.characteristics[i].leftBound.ToString();
+                    if(design.characteristics[i].leftBound > 0)
+                        left = "+" + left;
+
+                    string right = design.characteristics[i].rightBound.ToString();
+                    if(design.characteristics[i].rightBound > 0)
+                        right = "+" + right;
+
+                    child.gameObject.GetComponent<Text>().text = left + " to " + right;
+                }
+                //Design Importance
+                else if (child.name == "Importance")
+                {
+                    switch (design.characteristics[i].importance)
+                    {
+                        case Importance.HIGH:
+                            child.gameObject.GetComponent<Image>().sprite = HIGH_IMPORTANCE_SPRITE;
+                            break;
+                        case Importance.MEDIUM:
+                            child.gameObject.GetComponent<Image>().sprite = MEDIUM_IMPORTANCE_SPRITE;
+                            break;
+                        case Importance.LOW:
+                            child.gameObject.GetComponent<Image>().sprite = LOW_IMPORTANCE_SPRITE;
+                            break;
+                    }
+                } 
             }
 
             //Add to characteristics holder
