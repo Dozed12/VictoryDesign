@@ -9715,7 +9715,7 @@ MonoBehaviour:
   ACCURACY_ICON: {fileID: 21300000, guid: 376a9e08c77685a429f3173abb9b3c52, type: 3}
   POWER_ICON: {fileID: 21300000, guid: 93af9e6712a9581498e41e90f44484a7, type: 3}
   PORTABILITY_ICON: {fileID: 21300000, guid: 8c1c26e3c836b6b4a85b66f731da10fd, type: 3}
-  ROF_ICON: {fileID: 21300000, guid: 21a1aee3196c01f4eaa192f6debfee30, type: 3}
+  RATE_OF_FIRE_ICON: {fileID: 21300000, guid: 21a1aee3196c01f4eaa192f6debfee30, type: 3}
   COMFORT_ICON: {fileID: 21300000, guid: 6a2e88627d1f15841a84ce062da26046, type: 3}
   CAMOUFLAGE_ICON: {fileID: 21300000, guid: d817cc57110bc794bab518b7d1af8fce, type: 3}
   WEATHER_RESISTANCE_ICON: {fileID: 21300000, guid: f21a7f1ae62060745bc3860be8c8c283,
