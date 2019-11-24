@@ -202,7 +202,7 @@ public class GameHolder : MonoBehaviour
             //Age Months
             else if (children[i].name == "Months")
             {
-                children[i].GetComponent<Text>().text = "Months Age: " + design.age;
+                children[i].GetComponent<Text>().text = "Months Age: " + design.age + " (" + design.redesignPeriod + ")";
             }    
             //Design Importance
             else if (children[i].name == "Importance")
