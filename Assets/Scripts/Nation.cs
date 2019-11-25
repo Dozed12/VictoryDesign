@@ -32,7 +32,7 @@ public class Nation
             if (institutes[i].CanDesign(type))
             {
                 //Design
-                designs.Add(institutes[i].GenerateDesign(type));
+                designs.Add(institutes[i].GenerateDesign(type, this));
             }
         }
 
@@ -44,7 +44,7 @@ public class Nation
     {
         for (int i = 0; i < number; i++)
         {
-            institutes.Add(new DesignInstitute(types));
+            institutes.Add(new DesignInstitute(types, this));
         }
     }
 }

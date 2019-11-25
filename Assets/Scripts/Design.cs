@@ -15,6 +15,9 @@ public enum Importance
 [Serializable]
 public class DesignInstitute
 {
+    //Owner
+    public Nation side;
+
     //Name
     public string name = "NONE";
 
@@ -32,8 +35,11 @@ public class DesignInstitute
     //Base Design Names
     public Dictionary<Type, string> baseNames;
 
-    public DesignInstitute(Type[] types)
+    public DesignInstitute(Type[] types, Nation nation)
     {
+        //Set Nation
+        this.side = nation;
+
         //Set random Naming Conventions
         baseName = Naming.BaseNameRules.GetRandom();
         connector = Naming.ConnectorNameRules.GetRandom();
@@ -82,7 +88,7 @@ public class DesignInstitute
     }
 
     //Generate Design
-    public Design GenerateDesign(Type type)
+    public Design GenerateDesign(Type type, Nation onwer)
     {
         //Generate Name
         string name = GenerateName(type);
@@ -90,23 +96,23 @@ public class DesignInstitute
         //Identify Type
         if (type == typeof(Rifle))
         {
-            return new Rifle().Generate(this, name);
+            return new Rifle().Generate(this, name, onwer);
         }
         else if (type == typeof(SmallArm))
         {
-            return new SmallArm().Generate(this, name);
+            return new SmallArm().Generate(this, name, onwer);
         }
         else if (type == typeof(Uniform))
         {
-            return new Uniform().Generate(this, name);
+            return new Uniform().Generate(this, name, onwer);
         }
         else if (type == typeof(Helmet))
         {
-            return new Helmet().Generate(this, name);
+            return new Helmet().Generate(this, name, onwer);
         }
         else if (type == typeof(MachineGun))
         {
-            return new MachineGun().Generate(this, name);
+            return new MachineGun().Generate(this, name, onwer);
         }
         //Not a type of design
         else
@@ -120,6 +126,9 @@ public class DesignInstitute
 [Serializable]
 public abstract class Design
 {
+    //Owner
+    public Nation onwer;
+
     //Characteristics
     public List<Characteristic> characteristics;
 
@@ -148,8 +157,11 @@ public abstract class Design
     public Importance importance;
 
     //Generate Design Generic
-    virtual public Design Generate(DesignInstitute developer, string name)
+    virtual public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
+        //Set Nation
+        this.onwer = nation;
+
         //Clear Characteristics
         characteristics = new List<Characteristic>();
 
@@ -302,13 +314,13 @@ public class Characteristic
 [Serializable]
 public class Rifle : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
+        //Call Generic
+        base.Generate(developer, name, nation);
+
         //Base redesign period
         redesignPeriodBase = 24;
-
-        //Call Generic
-        base.Generate(developer, name);
 
         //Generate characteristics values
         Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH);
@@ -333,13 +345,13 @@ public class Rifle : Design
 [Serializable]
 public class SmallArm : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
+        //Call Generic
+        base.Generate(developer, name, nation);
+
         //Base redesign period
         redesignPeriodBase = 24;
-
-        //Call Generic
-        base.Generate(developer, name);
 
         //Generate characteristics values
         Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH);
@@ -364,13 +376,13 @@ public class SmallArm : Design
 [Serializable]
 public class Uniform : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
+        //Call Generic
+        base.Generate(developer, name, nation);
+
         //Base redesign period
         redesignPeriodBase = 36;
-
-        //Call Generic
-        base.Generate(developer, name);
 
         //Generate characteristics values
         Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM);
@@ -395,13 +407,13 @@ public class Uniform : Design
 [Serializable]
 public class Helmet : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
+        //Call Generic
+        base.Generate(developer, name, nation);
+
         //Base redesign period
         redesignPeriodBase = 36;
-
-        //Call Generic
-        base.Generate(developer, name);
 
         //Generate characteristics values
         Characteristic armor = new Characteristic("Armor", Importance.HIGH);
@@ -422,13 +434,13 @@ public class Helmet : Design
 [Serializable]
 public class MachineGun : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
+        //Call Generic
+        base.Generate(developer, name, nation);
+
         //Base redesign period
         redesignPeriodBase = 36;
-
-        //Call Generic
-        base.Generate(developer, name);
 
         //Generate characteristics values
         Characteristic rof = new Characteristic("Rate of Fire", Importance.MEDIUM);
