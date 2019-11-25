@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Nation
 {
+    //Is Player
+    public bool isPlayer;
+
     //Designs in use
     public Rifle rifle;
     public SmallArm smallArm;

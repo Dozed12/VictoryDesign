@@ -13,6 +13,7 @@ public class GameHolder : MonoBehaviour
     public Sprite LOW_IMPORTANCE_SPRITE;
 
     public GameObject CHARACTERISTIC;
+    public GameObject CHARACTERISTIC_ENEMY;
 
     public Sprite ACCURACY_ICON;
     public Sprite POWER_ICON;
@@ -59,7 +60,9 @@ public class GameHolder : MonoBehaviour
 
         //Setup nations
         Game.us = new Nation();
+        Game.us.isPlayer = true;
         Game.them = new Nation();
+        Game.them.isPlayer = false;
 
         //Create Our Base Institutes
         Game.us.AddInstitutes(new Type[] { typeof(Helmet), typeof(Uniform) }, 3);
@@ -164,7 +167,7 @@ public class GameHolder : MonoBehaviour
         for (int i = 0; i < children.Length; i++)
         {
             //Check if null (May happen when deleting characteristics)
-            if(children[i] == null)
+            if (children[i] == null)
                 continue;
 
             //Design Name in Title
@@ -203,7 +206,7 @@ public class GameHolder : MonoBehaviour
             else if (children[i].name == "Months")
             {
                 children[i].GetComponent<Text>().text = "Months Age: " + design.age + " (" + design.redesignPeriod + ")";
-            }    
+            }
             //Design Importance
             else if (children[i].name == "Importance")
             {
@@ -219,7 +222,7 @@ public class GameHolder : MonoBehaviour
                         children[i].GetComponent<Image>().sprite = LOW_IMPORTANCE_SPRITE;
                         break;
                 }
-            } 
+            }
             //Delete current Characteristics
             else if (children[i].name == "Characteristics")
             {
@@ -237,15 +240,24 @@ public class GameHolder : MonoBehaviour
         //Instantiate Characteristics
         for (int i = 0; i < design.characteristics.Count; i++)
         {
-            //Instantiate
-            GameObject newCharacteristic = Instantiate(CHARACTERISTIC);
+            //Instantiate normal Characteristic Prefab if player design
+            GameObject newCharacteristic = new GameObject();
+            if (design.owner.isPlayer)
+            {
+                newCharacteristic = Instantiate(CHARACTERISTIC);
+            }
+            //Instantiate enemy Characteristic Prefab if not player design
+            else
+            {
+                newCharacteristic = Instantiate(CHARACTERISTIC_ENEMY);
+            }
 
             //Edit values
             foreach (Transform child in newCharacteristic.transform)
             {
                 //Set Icon (Icon is set using the Characteristic name and associating it with variable name in this class that stores Sprites)
                 //UpperCase(characteristic.name) + "_ICON"
-                if(child.name == "Icon")
+                if (child.name == "Icon")
                 {
                     string name = design.characteristics[i].name;
                     name = name.ToUpper();
@@ -254,27 +266,27 @@ public class GameHolder : MonoBehaviour
                     child.gameObject.GetComponent<Image>().sprite = (Sprite)typeof(GameHolder).GetField(name).GetValue(this);
                 }
                 //Name
-                else if(child.name == "Name")
+                else if (child.name == "Name")
                 {
                     child.gameObject.GetComponent<Text>().text = design.characteristics[i].name;
                 }
                 //Estimate Value
-                else if(child.name == "Estimate")
+                else if (child.name == "Estimate")
                 {
                     string value = design.characteristics[i].predictedValue.ToString();
-                    if(design.characteristics[i].predictedValue > 0)
+                    if (design.characteristics[i].predictedValue > 0)
                         value = "+" + value;
                     child.gameObject.GetComponent<Text>().text = value;
                 }
                 //True Value
-                else if(child.name == "True")
+                else if (child.name == "True")
                 {
                     string left = design.characteristics[i].leftBound.ToString();
-                    if(design.characteristics[i].leftBound > 0)
+                    if (design.characteristics[i].leftBound > 0)
                         left = "+" + left;
 
                     string right = design.characteristics[i].rightBound.ToString();
-                    if(design.characteristics[i].rightBound > 0)
+                    if (design.characteristics[i].rightBound > 0)
                         right = "+" + right;
 
                     child.gameObject.GetComponent<Text>().text = left + " to " + right;
@@ -294,7 +306,7 @@ public class GameHolder : MonoBehaviour
                             child.gameObject.GetComponent<Image>().sprite = LOW_IMPORTANCE_SPRITE;
                             break;
                     }
-                } 
+                }
             }
 
             //Add to characteristics holder

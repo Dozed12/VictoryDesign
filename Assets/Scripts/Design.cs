@@ -88,7 +88,7 @@ public class DesignInstitute
     }
 
     //Generate Design
-    public Design GenerateDesign(Type type, Nation onwer)
+    public Design GenerateDesign(Type type, Nation owner)
     {
         //Generate Name
         string name = GenerateName(type);
@@ -96,23 +96,23 @@ public class DesignInstitute
         //Identify Type
         if (type == typeof(Rifle))
         {
-            return new Rifle().Generate(this, name, onwer);
+            return new Rifle().Generate(this, name, owner);
         }
         else if (type == typeof(SmallArm))
         {
-            return new SmallArm().Generate(this, name, onwer);
+            return new SmallArm().Generate(this, name, owner);
         }
         else if (type == typeof(Uniform))
         {
-            return new Uniform().Generate(this, name, onwer);
+            return new Uniform().Generate(this, name, owner);
         }
         else if (type == typeof(Helmet))
         {
-            return new Helmet().Generate(this, name, onwer);
+            return new Helmet().Generate(this, name, owner);
         }
         else if (type == typeof(MachineGun))
         {
-            return new MachineGun().Generate(this, name, onwer);
+            return new MachineGun().Generate(this, name, owner);
         }
         //Not a type of design
         else
@@ -127,7 +127,7 @@ public class DesignInstitute
 public abstract class Design
 {
     //Owner
-    public Nation onwer;
+    public Nation owner;
 
     //Characteristics
     public List<Characteristic> characteristics;
@@ -160,7 +160,7 @@ public abstract class Design
     virtual public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
         //Set Nation
-        this.onwer = nation;
+        this.owner = nation;
 
         //Clear Characteristics
         characteristics = new List<Characteristic>();
