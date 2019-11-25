@@ -4378,7 +4378,7 @@ GameObject:
   - component: {fileID: 537119631}
   - component: {fileID: 537119630}
   m_Layer: 5
-  m_Name: CharacteristicBrief
+  m_Name: CharacteristicBriefOur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16492,7 +16492,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: -10 to -8
+  m_Text: +1
 --- !u!222 &2005034513
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16844,7 +16844,7 @@ GameObject:
   - component: {fileID: 2038602263}
   - component: {fileID: 2038602262}
   m_Layer: 5
-  m_Name: CharacteristicBrief
+  m_Name: CharacteristicBriefTheir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
