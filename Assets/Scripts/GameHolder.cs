@@ -47,11 +47,12 @@ public class GameHolder : MonoBehaviour
         //Test Design Characteristic Progress
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Game.us.helmet.FindCharacteristic("Protection").ProgressBounds(2);
-            Utils.Dump(Game.us.helmet.FindCharacteristic("Protection"));
+            Game.us.helmet.FindCharacteristic("Armor").ProgressBounds(2);
+            Utils.Dump(Game.us.helmet.FindCharacteristic("Armor"));
         }
     }
 
+    //Setup new Game
     public void SetupNewGame()
     {
         //Set start date and turn
@@ -285,6 +286,11 @@ public class GameHolder : MonoBehaviour
                     if (design.characteristics[i].emptyKnowledge)
                     {
                         child.gameObject.GetComponent<Text>().text = "? ? ?";
+                    }
+                    //Full Knowledge case
+                    else if(design.characteristics[i].fullKnowledge)
+                    {
+                        child.gameObject.GetComponent<Text>().text = design.characteristics[i].trueValue.ToString();
                     }
                     //Base case
                     else

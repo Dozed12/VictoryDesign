@@ -192,6 +192,12 @@ public abstract class Design
         }
         return new Characteristic("FIND_FAIL", Importance.HIGH, new Rifle());
     }
+
+    //Progress Characteristic
+    public void ProgressCharacteristic(string name, int amount)
+    {
+        FindCharacteristic(name).ProgressBounds(amount);
+    }
 }
 
 //Characteristic of a design
@@ -295,14 +301,19 @@ public class Characteristic
             leftBound = trueValue;
             rightBound = trueValue;
             fullKnowledge = true;
-            return;
         }
 
         //Randomly split Knowledge for each bound
         for (int i = 0; i < amount; i++)
         {
+            //Both done, finish
+            if (rightBound == trueValue && leftBound == trueValue)
+            {
+                fullKnowledge = true;
+                return;
+            }
             //Left Bound already done, progress right
-            if (leftBound == trueValue && rightBound > amount)
+            else if (leftBound == trueValue && rightBound > amount)
             {
                 rightBound--;
             }
