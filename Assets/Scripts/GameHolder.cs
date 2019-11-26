@@ -281,15 +281,24 @@ public class GameHolder : MonoBehaviour
                 //True Value
                 else if (child.name == "True")
                 {
-                    string left = design.characteristics[i].leftBound.ToString();
-                    if (design.characteristics[i].leftBound > 0)
-                        left = "+" + left;
+                    //Empty knowledge case
+                    if (design.characteristics[i].emptyKnowledge)
+                    {
+                        child.gameObject.GetComponent<Text>().text = "? ? ?";
+                    }
+                    //Base case
+                    else
+                    {
+                        string left = design.characteristics[i].leftBound.ToString();
+                        if (design.characteristics[i].leftBound > 0)
+                            left = "+" + left;
 
-                    string right = design.characteristics[i].rightBound.ToString();
-                    if (design.characteristics[i].rightBound > 0)
-                        right = "+" + right;
+                        string right = design.characteristics[i].rightBound.ToString();
+                        if (design.characteristics[i].rightBound > 0)
+                            right = "+" + right;
 
-                    child.gameObject.GetComponent<Text>().text = left + " to " + right;
+                        child.gameObject.GetComponent<Text>().text = left + " to " + right;
+                    }
                 }
                 //Design Importance
                 else if (child.name == "Importance")

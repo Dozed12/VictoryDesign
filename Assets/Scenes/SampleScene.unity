@@ -14539,9 +14539,9 @@ RectTransform:
   m_Father: {fileID: 635508304}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 152.94, y: -20.085}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 152.94, y: 0}
   m_SizeDelta: {x: 0, y: 40.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1835528384
@@ -14633,9 +14633,9 @@ RectTransform:
   m_Father: {fileID: 635508304}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48.5, y: -20.085}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 48.5, y: 0}
   m_SizeDelta: {x: 0, y: 40.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1836419887
@@ -15554,6 +15554,8 @@ MonoBehaviour:
   LOW_IMPORTANCE_SPRITE: {fileID: 21300000, guid: b0dcc3b61620fa649b1a49f52e874fe2,
     type: 3}
   CHARACTERISTIC: {fileID: 5638157275998450212, guid: 8a22b566caa0cc9478773242b682d444,
+    type: 3}
+  CHARACTERISTIC_ENEMY: {fileID: 8279883957484891384, guid: 9974af6ee834f894cad41f6728d9682b,
     type: 3}
   ACCURACY_ICON: {fileID: 21300000, guid: 376a9e08c77685a429f3173abb9b3c52, type: 3}
   POWER_ICON: {fileID: 21300000, guid: 93af9e6712a9581498e41e90f44484a7, type: 3}

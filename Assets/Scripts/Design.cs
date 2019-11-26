@@ -187,10 +187,10 @@ public abstract class Design
     {
         for (int i = 0; i < characteristics.Count; i++)
         {
-            if(characteristics[i].name == name)
+            if (characteristics[i].name == name)
                 return characteristics[i];
         }
-        return new Characteristic("FIND_FAIL", Importance.HIGH);
+        return new Characteristic("FIND_FAIL", Importance.HIGH, new Rifle());
     }
 }
 
@@ -210,18 +210,23 @@ public class Characteristic
     //Value of characteristic -10 to 10
     public int trueValue;
 
+    //Corresponding Design
+    public Design design;
+
     //Current known bounds of true value
     public int leftBound;
     public int rightBound;
 
-    //Full Knowledge
+    //Knowledge Flags
+    public bool emptyKnowledge = false;
     public bool fullKnowledge = false;
 
     //Constructor
-    public Characteristic(string name, Importance importance)
+    public Characteristic(string name, Importance importance, Design design)
     {
         this.name = name;
         this.importance = importance;
+        this.design = design;
     }
 
     //Generate values
@@ -242,28 +247,39 @@ public class Characteristic
         leftBound = 0;
         rightBound = 0;
 
-        switch (predictedValue)
+        //If player set base bounds
+        if (this.design.owner.isPlayer)
         {
-            case -2:
-                leftBound = -10;
-                rightBound = -5;
-                break;
-            case -1:
-                leftBound = -10;
-                rightBound = 0;
-                break;
-            case 0:
-                leftBound = -5;
-                rightBound = 5;
-                break;
-            case 1:
-                leftBound = 0;
-                rightBound = 10;
-                break;
-            case 2:
-                leftBound = 5;
-                rightBound = 10;
-                break;
+            switch (predictedValue)
+            {
+                case -2:
+                    leftBound = -10;
+                    rightBound = -5;
+                    break;
+                case -1:
+                    leftBound = -10;
+                    rightBound = 0;
+                    break;
+                case 0:
+                    leftBound = -5;
+                    rightBound = 5;
+                    break;
+                case 1:
+                    leftBound = 0;
+                    rightBound = 10;
+                    break;
+                case 2:
+                    leftBound = 5;
+                    rightBound = 10;
+                    break;
+            }
+        }
+        //If not player set base bounds as full and empty knowledge
+        else
+        {
+            leftBound = -10;
+            rightBound = 10;
+            emptyKnowledge = true;
         }
 
         //Randomize true value from bounds
@@ -306,6 +322,9 @@ public class Characteristic
                     leftBound++;
             }
         }
+
+        //At least some progress was made so no longer empty knowledge
+        emptyKnowledge = false;
     }
 }
 
@@ -323,15 +342,15 @@ public class Rifle : Design
         redesignPeriodBase = 24;
 
         //Generate characteristics values
-        Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH);
+        Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH, this);
         accuracy.Generate();
         characteristics.Add(accuracy);
 
-        Characteristic power = new Characteristic("Power", Importance.MEDIUM);
+        Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
         power.Generate();
         characteristics.Add(power);
 
-        Characteristic portability = new Characteristic("Portability", Importance.LOW);
+        Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
         portability.Generate();
         characteristics.Add(portability);
 
@@ -354,15 +373,15 @@ public class SmallArm : Design
         redesignPeriodBase = 24;
 
         //Generate characteristics values
-        Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH);
+        Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH, this);
         accuracy.Generate();
         characteristics.Add(accuracy);
 
-        Characteristic power = new Characteristic("Power", Importance.MEDIUM);
+        Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
         power.Generate();
         characteristics.Add(power);
 
-        Characteristic portability = new Characteristic("Portability", Importance.LOW);
+        Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
         portability.Generate();
         characteristics.Add(portability);
 
@@ -385,15 +404,15 @@ public class Uniform : Design
         redesignPeriodBase = 36;
 
         //Generate characteristics values
-        Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM);
+        Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM, this);
         weatherResistance.Generate();
         characteristics.Add(weatherResistance);
 
-        Characteristic camouflage = new Characteristic("Camouflage", Importance.MEDIUM);
+        Characteristic camouflage = new Characteristic("Camouflage", Importance.MEDIUM, this);
         camouflage.Generate();
         characteristics.Add(camouflage);
 
-        Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
+        Characteristic comfort = new Characteristic("Comfort", Importance.LOW, this);
         comfort.Generate();
         characteristics.Add(comfort);
 
@@ -416,11 +435,11 @@ public class Helmet : Design
         redesignPeriodBase = 36;
 
         //Generate characteristics values
-        Characteristic armor = new Characteristic("Armor", Importance.HIGH);
+        Characteristic armor = new Characteristic("Armor", Importance.HIGH, this);
         armor.Generate();
         characteristics.Add(armor);
 
-        Characteristic comfort = new Characteristic("Comfort", Importance.LOW);
+        Characteristic comfort = new Characteristic("Comfort", Importance.LOW, this);
         comfort.Generate();
         characteristics.Add(comfort);
 
@@ -443,15 +462,15 @@ public class MachineGun : Design
         redesignPeriodBase = 36;
 
         //Generate characteristics values
-        Characteristic rof = new Characteristic("Rate of Fire", Importance.MEDIUM);
+        Characteristic rof = new Characteristic("Rate of Fire", Importance.MEDIUM, this);
         rof.Generate();
         characteristics.Add(rof);
 
-        Characteristic power = new Characteristic("Power", Importance.MEDIUM);
+        Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
         power.Generate();
         characteristics.Add(power);
 
-        Characteristic portability = new Characteristic("Portability", Importance.LOW);
+        Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
         portability.Generate();
         characteristics.Add(portability);
 
