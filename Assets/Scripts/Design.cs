@@ -198,6 +198,50 @@ public abstract class Design
     {
         FindCharacteristic(name).ProgressBounds(amount);
     }
+
+    //Possible Progress in Characteristics
+    public int PossibleProgress()
+    {
+        int possible = 0;
+
+        for (int i = 0; i < characteristics.Count; i++)
+        {
+            possible += characteristics[i].rightBound - characteristics[i].leftBound;
+        }
+
+        return possible;
+    }
+
+    //Progress Random Characteristics
+    public void ProgressRandom(int amount)
+    {
+        //While we have amount to improve or PossibleProgress to make pick random characteristic and improve it
+        while (amount > 0 && PossibleProgress() > 0)
+        {
+            //Find Progressable Characteristics
+            List<int> progressable = new List<int>();
+            for (int i = 0; i < characteristics.Count; i++)
+            {
+                if (!characteristics[i].fullKnowledge)
+                {
+                    progressable.Add(i);
+                }
+            }
+
+            //If no more progressable just exit (this shouldn't ever happen because of while condition)
+            if (progressable.Count == 0)
+                return;
+
+            //Pick random
+            int random = UnityEngine.Random.Range(0, progressable.Count);
+
+            //Improve picked by one
+            characteristics[progressable[random]].ProgressBounds(1);
+
+            //Reduce amount
+            amount --;
+        }
+    }
 }
 
 //Characteristic of a design
@@ -295,14 +339,6 @@ public class Characteristic
     //Progress Known Bounds
     public void ProgressBounds(int amount)
     {
-        //If amount is enough for full knowledge just finish it
-        if (rightBound - leftBound <= amount)
-        {
-            leftBound = trueValue;
-            rightBound = trueValue;
-            fullKnowledge = true;
-        }
-
         //Randomly split Knowledge for each bound
         for (int i = 0; i < amount; i++)
         {
@@ -310,15 +346,15 @@ public class Characteristic
             if (rightBound == trueValue && leftBound == trueValue)
             {
                 fullKnowledge = true;
-                return;
+                break;
             }
             //Left Bound already done, progress right
-            else if (leftBound == trueValue && rightBound > amount)
+            else if (leftBound == trueValue && rightBound > trueValue)
             {
                 rightBound--;
             }
             //Right Bound already done, progress left
-            else if (rightBound == trueValue && leftBound < amount)
+            else if (rightBound == trueValue && leftBound < trueValue)
             {
                 leftBound++;
             }

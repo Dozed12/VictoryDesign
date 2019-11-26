@@ -50,6 +50,14 @@ public class GameHolder : MonoBehaviour
             Game.us.helmet.FindCharacteristic("Armor").ProgressBounds(2);
             Utils.Dump(Game.us.helmet.FindCharacteristic("Armor"));
         }
+
+        //Test Design Progress Random
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Utils.Dump(Game.us.helmet);
+            Game.us.helmet.ProgressRandom(4);
+            Utils.Dump(Game.us.helmet);
+        }
     }
 
     //Setup new Game
