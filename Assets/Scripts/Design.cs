@@ -482,9 +482,9 @@ public class Helmet : Design
         redesignPeriodBase = 36;
 
         //Generate characteristics values
-        Characteristic armor = new Characteristic("Armor", Importance.HIGH, this);
-        armor.Generate();
-        characteristics.Add(armor);
+        Characteristic protection = new Characteristic("Protection", Importance.HIGH, this);
+        protection.Generate();
+        characteristics.Add(protection);
 
         Characteristic comfort = new Characteristic("Comfort", Importance.LOW, this);
         comfort.Generate();

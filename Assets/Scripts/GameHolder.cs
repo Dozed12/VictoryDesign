@@ -23,6 +23,7 @@ public class GameHolder : MonoBehaviour
     public Sprite CAMOUFLAGE_ICON;
     public Sprite WEATHER_RESISTANCE_ICON;
     public Sprite ARMOR_ICON;
+    public Sprite PROTECTION_ICON;
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +48,8 @@ public class GameHolder : MonoBehaviour
         //Test Design Characteristic Progress
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Game.us.helmet.FindCharacteristic("Armor").ProgressBounds(2);
-            Utils.Dump(Game.us.helmet.FindCharacteristic("Armor"));
+            Game.us.helmet.FindCharacteristic("Protection").ProgressBounds(2);
+            Utils.Dump(Game.us.helmet.FindCharacteristic("Protection"));
         }
 
         //Test Design Progress Random
@@ -249,7 +250,7 @@ public class GameHolder : MonoBehaviour
         //Instantiate Characteristics
         for (int i = 0; i < design.characteristics.Count; i++)
         {
-            //Instantiate normal Characteristic Prefab if player design
+            //Instantiate player Characteristic Prefab if player design
             GameObject newCharacteristic = new GameObject();
             if (design.owner.isPlayer)
             {
@@ -261,7 +262,7 @@ public class GameHolder : MonoBehaviour
                 newCharacteristic = Instantiate(CHARACTERISTIC_ENEMY);
             }
 
-            //Edit values
+            //Edit Instance values
             foreach (Transform child in newCharacteristic.transform)
             {
                 //Set Icon (Icon is set using the Characteristic name and associating it with variable name in this class that stores Sprites)
