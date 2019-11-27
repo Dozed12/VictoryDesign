@@ -27,12 +27,12 @@ public class GameHolder : MonoBehaviour
     public Sprite ARMOR_ICON;
     public Sprite PROTECTION_ICON;
 
-    //Fixed UI Objects
-    public GameObject designSelectorPopup;
-
     //Monthly Report UI Objects
     public GameObject NEW_DESIGN_BUTTON;
     public GameObject DIVIDER;
+
+    //Fixed UI Objects
+    public GameObject designSelectorPopup;    
 
     // Start is called before the first frame update
     void Start()
@@ -287,7 +287,7 @@ public class GameHolder : MonoBehaviour
                         child.gameObject.GetComponent<Text>().text = "? ? ?";
                     }
                     //Full Knowledge case
-                    else if(design.characteristics[i].fullKnowledge)
+                    else if (design.characteristics[i].fullKnowledge)
                     {
                         child.gameObject.GetComponent<Text>().text = design.characteristics[i].trueValue.ToString();
                     }
@@ -340,8 +340,8 @@ public class GameHolder : MonoBehaviour
         //Check turn can be passed(no interactable New Design Button)
         foreach (Transform child in monthlyReport.transform)
         {
-            if(child.gameObject.GetComponent<Button>() != null)
-                if(child.gameObject.GetComponent<Button>().interactable == true)
+            if (child.gameObject.GetComponent<Button>() != null)
+                if (child.gameObject.GetComponent<Button>().interactable == true)
                     return;
         }
 
@@ -364,7 +364,7 @@ public class GameHolder : MonoBehaviour
         {
             item.Value.age++;
         }
-        
+
         //Clear monthly report holder
         foreach (Transform child in monthlyReport.transform)
         {
@@ -374,26 +374,38 @@ public class GameHolder : MonoBehaviour
         //New Player Designs Needed 
         foreach (KeyValuePair<string, Design> item in Game.us.designs)
         {
-            if(item.Value.age == item.Value.redesignPeriod)
+            if (item.Value.age == item.Value.redesignPeriod)
             {
                 //Instantiate Button
                 GameObject newDesignButton = Instantiate(NEW_DESIGN_BUTTON);
 
-                //TODO Button information and click
+                //Design Type
+                string type = item.Value.GetType().ToString();
+
+                //Add space before Capital Letters
+                type = string.Concat(type.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
+                //Description of button
+                newDesignButton.GetComponentInChildren<Text>().text = "New Design Decision for " + type;
+
+                //Button on click event to NewDesignPopup
+                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate { NewDesignPopup(); });
 
                 //Add to Monthly Report
                 newDesignButton.transform.SetParent(monthlyReport.transform);
 
-                //TODO Add Divider
+                //Add Divider
+                GameObject divider = Instantiate(DIVIDER);
+                divider.transform.SetParent(monthlyReport.transform);
             }
         }
 
         //TODO New Enemy Designs Needed 
         foreach (KeyValuePair<string, Design> item in Game.them.designs)
         {
-            if(item.Value.age == item.Value.redesignPeriod)
+            if (item.Value.age == item.Value.redesignPeriod)
             {
-                
+
             }
         }
 
@@ -402,6 +414,12 @@ public class GameHolder : MonoBehaviour
         //TODO Intel Events Us
 
         //TODO Intel Events Them
+    }
+
+    //New Design Popup
+    public void NewDesignPopup()
+    {
+        designSelectorPopup.SetActive(true);
     }
 
 }
