@@ -142,7 +142,7 @@ public abstract class Design
     public int redesignPeriodBase;
 
     //Variation of redesign period +-
-    public static float REDESIGN_PERIOD_VARIATION;
+    public static float REDESIGN_PERIOD_VARIATION = 0.2f;
 
     //Name of design
     public string name;
@@ -173,8 +173,8 @@ public abstract class Design
         this.name = name;
 
         //Redesign Period
-        redesignPeriod = redesignPeriodBase + UnityEngine.Random.Range(-redesignPeriodBase * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2),
-                                                                        redesignPeriodBase * Mathf.RoundToInt(REDESIGN_PERIOD_VARIATION / 2));
+        redesignPeriod = redesignPeriodBase + UnityEngine.Random.Range(Mathf.RoundToInt(-redesignPeriodBase * REDESIGN_PERIOD_VARIATION / 2),
+                                                                        Mathf.RoundToInt(redesignPeriodBase * REDESIGN_PERIOD_VARIATION / 2));
 
         //Add developer
         this.developer = developer;
@@ -382,11 +382,11 @@ public class Rifle : Design
 {
     override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
-        //Call Generic
-        base.Generate(developer, name, nation);
-
         //Base redesign period
         redesignPeriodBase = 24;
+
+        //Call Generic
+        base.Generate(developer, name, nation);
 
         //Generate characteristics values
         Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH, this);
@@ -413,11 +413,11 @@ public class SmallArm : Design
 {
     override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
-        //Call Generic
-        base.Generate(developer, name, nation);
-
         //Base redesign period
         redesignPeriodBase = 24;
+
+        //Call Generic
+        base.Generate(developer, name, nation);
 
         //Generate characteristics values
         Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH, this);
@@ -444,11 +444,11 @@ public class Uniform : Design
 {
     override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
-        //Call Generic
-        base.Generate(developer, name, nation);
-
         //Base redesign period
         redesignPeriodBase = 36;
+
+        //Call Generic
+        base.Generate(developer, name, nation);        
 
         //Generate characteristics values
         Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM, this);
@@ -475,11 +475,11 @@ public class Helmet : Design
 {
     override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
-        //Call Generic
-        base.Generate(developer, name, nation);
-
         //Base redesign period
         redesignPeriodBase = 36;
+
+        //Call Generic
+        base.Generate(developer, name, nation);        
 
         //Generate characteristics values
         Characteristic protection = new Characteristic("Protection", Importance.HIGH, this);
@@ -502,11 +502,11 @@ public class MachineGun : Design
 {
     override public Design Generate(DesignInstitute developer, string name, Nation nation)
     {
-        //Call Generic
-        base.Generate(developer, name, nation);
-
         //Base redesign period
         redesignPeriodBase = 36;
+
+        //Call Generic
+        base.Generate(developer, name, nation);
 
         //Generate characteristics values
         Characteristic rof = new Characteristic("Rate of Fire", Importance.MEDIUM, this);

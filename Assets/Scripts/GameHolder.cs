@@ -7,13 +7,15 @@ using UnityEngine.UI;
 
 public class GameHolder : MonoBehaviour
 {
-    //UI Elements and Resources
+    //Characteristic UI Elements and Resources
     public Sprite HIGH_IMPORTANCE_SPRITE;
     public Sprite MEDIUM_IMPORTANCE_SPRITE;
     public Sprite LOW_IMPORTANCE_SPRITE;
 
-    public GameObject CHARACTERISTIC;
+    public GameObject CHARACTERISTIC_PLAYER;
     public GameObject CHARACTERISTIC_ENEMY;
+    public GameObject CHARACTERISTIC_PLAYER_BRIEF;
+    public GameObject CHARACTERISTIC_ENEMY_BRIEF;
 
     public Sprite ACCURACY_ICON;
     public Sprite POWER_ICON;
@@ -24,6 +26,12 @@ public class GameHolder : MonoBehaviour
     public Sprite WEATHER_RESISTANCE_ICON;
     public Sprite ARMOR_ICON;
     public Sprite PROTECTION_ICON;
+
+    //Fixed UI Objects
+    public GameObject designSelectorPopup;
+
+    //Monthly Report UI Objects
+    public GameObject NEW_DESIGN_BUTTON;
 
     // Start is called before the first frame update
     void Start()
@@ -254,7 +262,7 @@ public class GameHolder : MonoBehaviour
             GameObject newCharacteristic = new GameObject();
             if (design.owner.isPlayer)
             {
-                newCharacteristic = Instantiate(CHARACTERISTIC);
+                newCharacteristic = Instantiate(CHARACTERISTIC_PLAYER);
             }
             //Instantiate enemy Characteristic Prefab if not player design
             else
@@ -339,6 +347,29 @@ public class GameHolder : MonoBehaviour
 
         //Force update on DesignTitle to fix size
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)GameObject.Find("DesignTitle").transform);
+    }
+
+    //Next Turn
+    public void NextTurn()
+    {
+        //Add turn
+        Game.turn++;
+
+        //Add month
+        Game.date.AddMonths(1);
+
+        //TODO War Processing
+
+        //TODO Update Designs Age
+        
+
+        //TODO New Designs Needed
+
+        //TODO Base Knowledge Increase
+
+        //TODO Intel Events Us
+
+        //TODO Intel Events Them
     }
 
 }
