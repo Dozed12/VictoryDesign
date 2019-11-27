@@ -32,6 +32,7 @@ public class GameHolder : MonoBehaviour
 
     //Monthly Report UI Objects
     public GameObject NEW_DESIGN_BUTTON;
+    public GameObject DIVIDER;
 
     // Start is called before the first frame update
     void Start()
@@ -333,6 +334,8 @@ public class GameHolder : MonoBehaviour
     //Next Turn
     public void NextTurn()
     {
+        //TODO Check turn can be passed(no required actions[new designs])
+
         //Add turn
         Game.turn++;
 
@@ -341,17 +344,52 @@ public class GameHolder : MonoBehaviour
 
         //TODO War Processing
 
-        //Update Designs Age
+        //Update Player Designs Age
         foreach (KeyValuePair<string, Design> item in Game.us.designs)
         {
             item.Value.age++;
         }
+
+        //Update Enemy Designs Age
         foreach (KeyValuePair<string, Design> item in Game.them.designs)
         {
             item.Value.age++;
         }
 
-        //TODO New Designs Needed
+        //Get monthly report holder
+        GameObject monthlyReport = GameObject.Find("MonthNewsPanel").GetComponentInChildren<VerticalLayoutGroup>().gameObject;
+        
+        //Clear monthly report holder
+        foreach (Transform child in monthlyReport.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        //New Player Designs Needed 
+        foreach (KeyValuePair<string, Design> item in Game.us.designs)
+        {
+            if(item.Value.age == item.Value.redesignPeriod)
+            {
+                //Instantiate Button
+                GameObject newDesignButton = Instantiate(NEW_DESIGN_BUTTON);
+
+                //TODO Button information and click
+
+                //Add to Monthly Report
+                newDesignButton.transform.SetParent(monthlyReport.transform);
+
+                //TODO Add Divider
+            }
+        }
+
+        //TODO New Enemy Designs Needed 
+        foreach (KeyValuePair<string, Design> item in Game.them.designs)
+        {
+            if(item.Value.age == item.Value.redesignPeriod)
+            {
+                
+            }
+        }
 
         //TODO Base Knowledge Increase
 
