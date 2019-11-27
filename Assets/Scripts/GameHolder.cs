@@ -129,6 +129,7 @@ public class GameHolder : MonoBehaviour
                 side = Game.them;
                 break;
             default:
+                Debug.Log("SelectDesign Identification failed");
                 side = new Nation();
                 break;
         }
@@ -137,6 +138,7 @@ public class GameHolder : MonoBehaviour
         Design selectedDesign = side.designs[what];
 
         //Dump Selected Design
+        Debug.Log("Selected Design");
         Utils.Dump(selectedDesign);
 
         //Display Design
