@@ -160,7 +160,7 @@ public class GameHolder : MonoBehaviour
         }
 
         //Characteristics Holder
-        GameObject characteristics = new GameObject();
+        GameObject characteristics = null;
 
         //Update Info
         for (int i = 0; i < children.Length; i++)
@@ -240,7 +240,7 @@ public class GameHolder : MonoBehaviour
         for (int i = 0; i < design.characteristics.Count; i++)
         {
             //Instantiate player Characteristic Prefab if player design
-            GameObject newCharacteristic = new GameObject();
+            GameObject newCharacteristic = null;
             if (design.owner.isPlayer)
             {
                 newCharacteristic = Instantiate(CHARACTERISTIC_PLAYER);
