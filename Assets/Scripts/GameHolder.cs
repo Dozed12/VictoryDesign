@@ -334,7 +334,16 @@ public class GameHolder : MonoBehaviour
     //Next Turn
     public void NextTurn()
     {
-        //TODO Check turn can be passed(no required actions[new designs])
+        //Get monthly report holder
+        GameObject monthlyReport = GameObject.Find("MonthNewsPanel").GetComponentInChildren<VerticalLayoutGroup>().gameObject;
+
+        //Check turn can be passed(no interactable New Design Button)
+        foreach (Transform child in monthlyReport.transform)
+        {
+            if(child.gameObject.GetComponent<Button>() != null)
+                if(child.gameObject.GetComponent<Button>().interactable == true)
+                    return;
+        }
 
         //Add turn
         Game.turn++;
@@ -355,9 +364,6 @@ public class GameHolder : MonoBehaviour
         {
             item.Value.age++;
         }
-
-        //Get monthly report holder
-        GameObject monthlyReport = GameObject.Find("MonthNewsPanel").GetComponentInChildren<VerticalLayoutGroup>().gameObject;
         
         //Clear monthly report holder
         foreach (Transform child in monthlyReport.transform)
