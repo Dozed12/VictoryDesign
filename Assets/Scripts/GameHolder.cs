@@ -341,8 +341,15 @@ public class GameHolder : MonoBehaviour
 
         //TODO War Processing
 
-        //TODO Update Designs Age
-                
+        //Update Designs Age
+        foreach (KeyValuePair<string, Design> item in Game.us.designs)
+        {
+            item.Value.age++;
+        }
+        foreach (KeyValuePair<string, Design> item in Game.them.designs)
+        {
+            item.Value.age++;
+        }
 
         //TODO New Designs Needed
 
