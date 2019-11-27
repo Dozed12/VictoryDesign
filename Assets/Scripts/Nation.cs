@@ -9,11 +9,7 @@ public class Nation
     public bool isPlayer;
 
     //Designs in use
-    public Rifle rifle;
-    public SmallArm smallArm;
-    public Uniform uniform;
-    public Helmet helmet;
-    public MachineGun machineGun;
+    public Dictionary<string, Design> designs;
 
     //Design Institutes
     public List<DesignInstitute> institutes;
@@ -21,6 +17,12 @@ public class Nation
     public Nation()
     {
         institutes = new List<DesignInstitute>();
+        designs = new Dictionary<string, Design>();
+        designs.Add("Rifle", new Rifle());
+        designs.Add("SmallArm", new SmallArm());
+        designs.Add("Uniform", new Uniform());
+        designs.Add("Helmet", new Helmet());
+        designs.Add("MachineGun", new MachineGun());
     }
 
     //Request Designs

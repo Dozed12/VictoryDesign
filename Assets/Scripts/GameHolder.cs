@@ -56,16 +56,16 @@ public class GameHolder : MonoBehaviour
         //Test Design Characteristic Progress
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Game.us.helmet.FindCharacteristic("Protection").ProgressBounds(2);
-            Utils.Dump(Game.us.helmet.FindCharacteristic("Protection"));
+            Game.us.designs["Helmet"].FindCharacteristic("Protection").ProgressBounds(2);
+            Utils.Dump(Game.us.designs["Helmet"].FindCharacteristic("Protection"));
         }
 
         //Test Design Progress Random
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Utils.Dump(Game.us.helmet);
-            Game.us.helmet.ProgressRandom(4);
-            Utils.Dump(Game.us.helmet);
+            Utils.Dump(Game.us.designs["Helmet"]);
+            Game.us.designs["Helmet"].ProgressRandom(4);
+            Utils.Dump(Game.us.designs["Helmet"]);
         }
     }
 
@@ -89,11 +89,11 @@ public class GameHolder : MonoBehaviour
         Game.us.AddInstitutes(new Type[] { typeof(MachineGun) }, 3);
 
         //Add our base designs
-        Game.us.rifle = (Rifle)Game.us.RequestDesign(typeof(Rifle))[0];
-        Game.us.smallArm = (SmallArm)Game.us.RequestDesign(typeof(SmallArm))[0];
-        Game.us.uniform = (Uniform)Game.us.RequestDesign(typeof(Uniform))[0];
-        Game.us.helmet = (Helmet)Game.us.RequestDesign(typeof(Helmet))[0];
-        Game.us.machineGun = (MachineGun)Game.us.RequestDesign(typeof(MachineGun))[0];
+        Game.us.designs["Rifle"] = (Rifle)Game.us.RequestDesign(typeof(Rifle))[0];
+        Game.us.designs["SmallArm"] = (SmallArm)Game.us.RequestDesign(typeof(SmallArm))[0];
+        Game.us.designs["Uniform"] = (Uniform)Game.us.RequestDesign(typeof(Uniform))[0];
+        Game.us.designs["Helmet"] = (Helmet)Game.us.RequestDesign(typeof(Helmet))[0];
+        Game.us.designs["MachineGun"] = (MachineGun)Game.us.RequestDesign(typeof(MachineGun))[0];
 
         //Create Their Base Institutes
         Game.them.AddInstitutes(new Type[] { typeof(Helmet), typeof(Uniform) }, 3);
@@ -102,11 +102,11 @@ public class GameHolder : MonoBehaviour
         Game.them.AddInstitutes(new Type[] { typeof(MachineGun) }, 3);
 
         //Add their base designs
-        Game.them.rifle = (Rifle)Game.them.RequestDesign(typeof(Rifle))[0];
-        Game.them.smallArm = (SmallArm)Game.them.RequestDesign(typeof(SmallArm))[0];
-        Game.them.uniform = (Uniform)Game.them.RequestDesign(typeof(Uniform))[0];
-        Game.them.helmet = (Helmet)Game.them.RequestDesign(typeof(Helmet))[0];
-        Game.them.machineGun = (MachineGun)Game.them.RequestDesign(typeof(MachineGun))[0];
+        Game.them.designs["Rifle"] = (Rifle)Game.them.RequestDesign(typeof(Rifle))[0];
+        Game.them.designs["SmallArm"] = (SmallArm)Game.them.RequestDesign(typeof(SmallArm))[0];
+        Game.them.designs["Uniform"] = (Uniform)Game.them.RequestDesign(typeof(Uniform))[0];
+        Game.them.designs["Helmet"] = (Helmet)Game.them.RequestDesign(typeof(Helmet))[0];
+        Game.them.designs["MachineGun"] = (MachineGun)Game.them.RequestDesign(typeof(MachineGun))[0];
     }
 
     // Select Design to show
@@ -138,19 +138,19 @@ public class GameHolder : MonoBehaviour
         switch (what)
         {
             case "rifle":
-                selectedDesign = side.rifle;
+                selectedDesign = side.designs["Rifle"];
                 break;
             case "smallArm":
-                selectedDesign = side.smallArm;
+                selectedDesign = side.designs["SmallArm"];
                 break;
             case "uniform":
-                selectedDesign = side.uniform;
+                selectedDesign = side.designs["Uniform"];
                 break;
             case "helmet":
-                selectedDesign = side.helmet;
+                selectedDesign = side.designs["Helmet"];
                 break;
             case "machineGun":
-                selectedDesign = side.machineGun;
+                selectedDesign = side.designs["MachineGun"];
                 break;
             default:
                 selectedDesign = new Helmet();
@@ -361,7 +361,7 @@ public class GameHolder : MonoBehaviour
         //TODO War Processing
 
         //TODO Update Designs Age
-        
+                
 
         //TODO New Designs Needed
 
