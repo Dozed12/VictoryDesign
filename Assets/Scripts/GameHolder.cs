@@ -110,7 +110,7 @@ public class GameHolder : MonoBehaviour
     }
 
     // Select Design to show
-    // Info is of format: "who.type"
+    // Info is of format: "who.Type"
     public void SelectDesign(string info)
     {
         // Separate string
@@ -134,28 +134,7 @@ public class GameHolder : MonoBehaviour
         }
 
         //Identify design
-        Design selectedDesign;
-        switch (what)
-        {
-            case "rifle":
-                selectedDesign = side.designs["Rifle"];
-                break;
-            case "smallArm":
-                selectedDesign = side.designs["SmallArm"];
-                break;
-            case "uniform":
-                selectedDesign = side.designs["Uniform"];
-                break;
-            case "helmet":
-                selectedDesign = side.designs["Helmet"];
-                break;
-            case "machineGun":
-                selectedDesign = side.designs["MachineGun"];
-                break;
-            default:
-                selectedDesign = new Helmet();
-                break;
-        }
+        Design selectedDesign = side.designs[what];
 
         //Dump Selected Design
         Utils.Dump(selectedDesign);
