@@ -32,7 +32,7 @@ public class GameHolder : MonoBehaviour
     public GameObject DIVIDER;
 
     //Fixed UI Objects
-    public GameObject designSelectorPopup;    
+    public GameObject designSelectorPopup;
 
     // Start is called before the first frame update
     void Start()
@@ -389,7 +389,7 @@ public class GameHolder : MonoBehaviour
                 newDesignButton.GetComponentInChildren<Text>().text = "New Design Decision for " + type;
 
                 //Button on click event to NewDesignPopup
-                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate { NewDesignPopup(); });
+                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate { NewDesignPopup(item.Value.GetType()); });
 
                 //Add to Monthly Report
                 newDesignButton.transform.SetParent(monthlyReport.transform);
@@ -417,9 +417,12 @@ public class GameHolder : MonoBehaviour
     }
 
     //New Design Popup
-    public void NewDesignPopup()
+    public void NewDesignPopup(Type type)
     {
+        //Activate Poppup
         designSelectorPopup.SetActive(true);
+
+        //TODO Setup UI
     }
 
 }
