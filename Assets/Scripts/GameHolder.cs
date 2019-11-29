@@ -534,9 +534,15 @@ public class GameHolder : MonoBehaviour
             }
             estimate.GetComponent<Text>().text = value.ToString();
 
+            //Set Choice Delegate
+            ChoiceSelectDelegate(proposal.GetComponent<Toggle>(), i);
+
+            //Add Toggle Group
+            proposal.GetComponent<Toggle>().group = selectDesign.GetComponent<ToggleGroup>();
+
             //If first one then select it by default
-            if(i == 0)
-                ChoiceSelect(0);
+            if (i == 0)
+                ChoiceSelect(proposal.GetComponent<Toggle>(), 0);
 
             //Add to list
             proposal.transform.SetParent(selectDesign.transform);
@@ -544,10 +550,20 @@ public class GameHolder : MonoBehaviour
 
     }
 
-    //Design Choice Selector
-    public void ChoiceSelect(int id)
+    //Choice Select Delegate (circumvents a problem with delegates reference on i variable)
+    public void ChoiceSelectDelegate(Toggle toggle, int i)
     {
+        toggle.onValueChanged.AddListener(delegate { ChoiceSelect(toggle, i); });
+    }
 
+    //Design Choice Selector
+    public void ChoiceSelect(Toggle toggle, int id)
+    {
+        //Check toggle is on (with Toggle Group this is called on previous and new Toggle)
+        if(toggle.isOn == false)
+            return;
+
+        Debug.Log("Selected " + id);
     }
 
 }
