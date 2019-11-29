@@ -27,4 +27,30 @@ public static class Utils
         wrapper.Items = array;
         Debug.Log(JsonUtility.ToJson(wrapper, true));
     }
+
+    //Get child by name
+    public static GameObject GetChild(GameObject holder, string childName)
+    {
+        foreach (Transform child in holder.transform)
+        {
+            if(child.name == childName)
+                return child.gameObject;
+        }
+        
+        return null;
+    }
+
+    //Get child recursively by name
+    public static GameObject GetChildRecursive(GameObject holder, string childName)
+    {
+        Transform[] children = holder.GetComponentsInChildren<Transform>();
+
+        foreach (Transform child in children)
+        {
+            if(child.name == childName)
+                return child.gameObject;
+        }
+        
+        return null;
+    }
 }

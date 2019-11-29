@@ -422,7 +422,74 @@ public class GameHolder : MonoBehaviour
         //Activate Poppup
         designSelectorPopup.SetActive(true);
 
-        //TODO Setup UI
+        //Get Layout manager
+        GameObject layout = Utils.GetChildRecursive(designSelectorPopup, "Layout");
+
+        //Get Enemy Intel Panel
+        GameObject enemyIntel = Utils.GetChild(layout, "EnemyInfo");
+
+        //Get Enemy Intel Content
+        GameObject enemyIntelContent = Utils.GetChildRecursive(enemyIntel, "Content");
+
+        //Enemy Design
+        Design enemyDesign = Game.them.designs[type.ToString()];
+
+        //Place Brief Characteristics of Enemy Intel
+        for (int i = 0; i < enemyDesign.characteristics.Count; i++)
+        {
+            //Instantiate
+            GameObject newCharacteristic = Instantiate(CHARACTERISTIC_ENEMY_BRIEF);
+
+            //Edit Instance values
+            foreach (Transform child in newCharacteristic.transform)
+            {
+                //Set Icon (Icon is set using the Characteristic name and associating it with variable name in this class that stores Sprites)
+                //UpperCase(characteristic.name) + "_ICON"
+                if (child.name == "Icon")
+                {
+                    string name = enemyDesign.characteristics[i].name;
+                    name = name.ToUpper();
+                    name += "_ICON";
+                    name = name.Replace(" ", "_");
+                    child.gameObject.GetComponent<Image>().sprite = (Sprite)typeof(GameHolder).GetField(name).GetValue(this);
+                }
+                //Name
+                else if (child.name == "Name")
+                {
+                    child.gameObject.GetComponent<Text>().text = enemyDesign.characteristics[i].name;
+                }
+                //Intel
+                else if (child.name == "Intel")
+                {
+                    //Empty knowledge case
+                    if (enemyDesign.characteristics[i].emptyKnowledge)
+                    {
+                        child.gameObject.GetComponent<Text>().text = "? ? ?";
+                    }
+                    //Full Knowledge case
+                    else if (enemyDesign.characteristics[i].fullKnowledge)
+                    {
+                        child.gameObject.GetComponent<Text>().text = enemyDesign.characteristics[i].trueValue.ToString();
+                    }
+                    //Base case
+                    else
+                    {
+                        string left = enemyDesign.characteristics[i].leftBound.ToString();
+                        if (enemyDesign.characteristics[i].leftBound > 0)
+                            left = "+" + left;
+
+                        string right = enemyDesign.characteristics[i].rightBound.ToString();
+                        if (enemyDesign.characteristics[i].rightBound > 0)
+                            right = "+" + right;
+
+                        child.gameObject.GetComponent<Text>().text = left + " to " + right;
+                    }
+                }
+            }
+
+            //Add to list
+            newCharacteristic.transform.SetParent(enemyIntelContent.transform);
+        }
     }
 
 }
