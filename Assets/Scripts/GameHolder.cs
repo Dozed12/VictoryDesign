@@ -112,6 +112,97 @@ public class GameHolder : MonoBehaviour
         Game.them.designs["MachineGun"] = (MachineGun)Game.them.RequestDesign(typeof(MachineGun))[0];
     }
 
+    //Next Turn
+    public void NextTurn()
+    {
+        //Get monthly report holder
+        GameObject monthlyReport = GameObject.Find("MonthNewsPanel").GetComponentInChildren<VerticalLayoutGroup>().gameObject;
+
+        //Check turn can be passed(no interactable New Design Button)
+        foreach (Transform child in monthlyReport.transform)
+        {
+            if (child.gameObject.GetComponent<Button>() != null)
+                if (child.gameObject.GetComponent<Button>().interactable == true)
+                    return;
+        }
+
+        //Add turn
+        Game.turn++;
+
+        //Add month
+        Game.date.AddMonths(1);
+
+        //TODO War Processing
+
+        //Update Player Designs Age
+        foreach (KeyValuePair<string, Design> item in Game.us.designs)
+        {
+            item.Value.age++;
+        }
+
+        //Update Enemy Designs Age
+        foreach (KeyValuePair<string, Design> item in Game.them.designs)
+        {
+            item.Value.age++;
+        }
+
+        //Clear monthly report holder
+        foreach (Transform child in monthlyReport.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        //Clear Proposals
+        Game.us.proposals = new Dictionary<string, Design[]>();
+
+        //New Player Designs Needed 
+        foreach (KeyValuePair<string, Design> item in Game.us.designs)
+        {
+            if (item.Value.age == item.Value.redesignPeriod)
+            {
+                //Instantiate Button
+                GameObject newDesignButton = Instantiate(NEW_DESIGN_BUTTON);
+
+                //Design Type
+                string type = item.Value.GetType().ToString();
+
+                //Add space before Capital Letters
+                type = string.Concat(type.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
+                //Description of button
+                newDesignButton.GetComponentInChildren<Text>().text = "New Design Decision for " + type;
+
+                //Generate Proposals
+                Game.us.proposals.Add(item.Value.GetType().ToString(), Game.us.RequestDesign(item.Value.GetType()));
+
+                //Button on click event to NewDesignPopup
+                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate { NewDesignPopup(item.Value.GetType()); });
+
+                //Add to Monthly Report
+                newDesignButton.transform.SetParent(monthlyReport.transform);
+
+                //Add Divider
+                GameObject divider = Instantiate(DIVIDER);
+                divider.transform.SetParent(monthlyReport.transform);
+            }
+        }
+
+        //TODO New Enemy Designs Needed 
+        foreach (KeyValuePair<string, Design> item in Game.them.designs)
+        {
+            if (item.Value.age == item.Value.redesignPeriod)
+            {
+
+            }
+        }
+
+        //TODO Base Knowledge Increase
+
+        //TODO Intel Events Us
+
+        //TODO Intel Events Them
+    }
+
     // Select Design to show
     // Info is of format: "who.Type"
     public void SelectDesign(string info)
@@ -331,97 +422,6 @@ public class GameHolder : MonoBehaviour
 
         //Force update on DesignTitle to fix size
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)GameObject.Find("DesignTitle").transform);
-    }
-
-    //Next Turn
-    public void NextTurn()
-    {
-        //Get monthly report holder
-        GameObject monthlyReport = GameObject.Find("MonthNewsPanel").GetComponentInChildren<VerticalLayoutGroup>().gameObject;
-
-        //Check turn can be passed(no interactable New Design Button)
-        foreach (Transform child in monthlyReport.transform)
-        {
-            if (child.gameObject.GetComponent<Button>() != null)
-                if (child.gameObject.GetComponent<Button>().interactable == true)
-                    return;
-        }
-
-        //Add turn
-        Game.turn++;
-
-        //Add month
-        Game.date.AddMonths(1);
-
-        //TODO War Processing
-
-        //Update Player Designs Age
-        foreach (KeyValuePair<string, Design> item in Game.us.designs)
-        {
-            item.Value.age++;
-        }
-
-        //Update Enemy Designs Age
-        foreach (KeyValuePair<string, Design> item in Game.them.designs)
-        {
-            item.Value.age++;
-        }
-
-        //Clear monthly report holder
-        foreach (Transform child in monthlyReport.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        //Clear Proposals
-        Game.us.proposals = new Dictionary<string, Design[]>();
-
-        //New Player Designs Needed 
-        foreach (KeyValuePair<string, Design> item in Game.us.designs)
-        {
-            if (item.Value.age == item.Value.redesignPeriod)
-            {
-                //Instantiate Button
-                GameObject newDesignButton = Instantiate(NEW_DESIGN_BUTTON);
-
-                //Design Type
-                string type = item.Value.GetType().ToString();
-
-                //Add space before Capital Letters
-                type = string.Concat(type.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
-
-                //Description of button
-                newDesignButton.GetComponentInChildren<Text>().text = "New Design Decision for " + type;
-
-                //Generate Proposals
-                Game.us.proposals.Add(item.Value.GetType().ToString(), Game.us.RequestDesign(item.Value.GetType()));
-
-                //Button on click event to NewDesignPopup
-                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate { NewDesignPopup(item.Value.GetType()); });
-
-                //Add to Monthly Report
-                newDesignButton.transform.SetParent(monthlyReport.transform);
-
-                //Add Divider
-                GameObject divider = Instantiate(DIVIDER);
-                divider.transform.SetParent(monthlyReport.transform);
-            }
-        }
-
-        //TODO New Enemy Designs Needed 
-        foreach (KeyValuePair<string, Design> item in Game.them.designs)
-        {
-            if (item.Value.age == item.Value.redesignPeriod)
-            {
-
-            }
-        }
-
-        //TODO Base Knowledge Increase
-
-        //TODO Intel Events Us
-
-        //TODO Intel Events Them
     }
 
     //New Design Popup
