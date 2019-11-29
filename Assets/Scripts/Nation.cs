@@ -11,6 +11,9 @@ public class Nation
     //Designs in use
     public Dictionary<string, Design> designs;
 
+    //Design Proposals
+    public Dictionary<string, Design[]> proposals;
+
     //Design Institutes
     public List<DesignInstitute> institutes;
 
@@ -23,6 +26,8 @@ public class Nation
         designs.Add("Uniform", new Uniform());
         designs.Add("Helmet", new Helmet());
         designs.Add("MachineGun", new MachineGun());
+
+        proposals = new Dictionary<string, Design[]>();
     }
 
     //Request Designs

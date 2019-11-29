@@ -371,6 +371,9 @@ public class GameHolder : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        //Clear Proposals
+        Game.us.proposals = new Dictionary<string, Design[]>();
+
         //New Player Designs Needed 
         foreach (KeyValuePair<string, Design> item in Game.us.designs)
         {
@@ -387,6 +390,9 @@ public class GameHolder : MonoBehaviour
 
                 //Description of button
                 newDesignButton.GetComponentInChildren<Text>().text = "New Design Decision for " + type;
+
+                //Generate Proposals
+                Game.us.proposals.Add(item.Value.GetType().ToString(), Game.us.RequestDesign(item.Value.GetType()));
 
                 //Button on click event to NewDesignPopup
                 newDesignButton.GetComponent<Button>().onClick.AddListener(delegate { NewDesignPopup(item.Value.GetType()); });
