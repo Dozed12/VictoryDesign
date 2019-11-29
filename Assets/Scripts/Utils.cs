@@ -53,4 +53,13 @@ public static class Utils
         
         return null;
     }
+
+    //Clear Children
+    public static void ClearChildren(GameObject holder)
+    {
+        foreach (Transform child in holder.transform)
+        {
+            UnityEngine.Object.Destroy(child.gameObject);
+        }
+    }
 }

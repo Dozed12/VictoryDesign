@@ -17,6 +17,8 @@ public class GameHolder : MonoBehaviour
     public GameObject CHARACTERISTIC_PLAYER_BRIEF;
     public GameObject CHARACTERISTIC_ENEMY_BRIEF;
 
+    public GameObject PROPOSAL;
+
     public Sprite ACCURACY_ICON;
     public Sprite POWER_ICON;
     public Sprite PORTABILITY_ICON;
@@ -437,6 +439,9 @@ public class GameHolder : MonoBehaviour
         //Get Enemy Intel Content
         GameObject enemyIntelContent = Utils.GetChildRecursive(enemyIntel, "Content");
 
+        //Clear content
+        Utils.ClearChildren(enemyIntelContent);
+
         //Enemy Design
         Design enemyDesign = Game.them.designs[type.ToString()];
 
@@ -496,6 +501,53 @@ public class GameHolder : MonoBehaviour
             //Add to list
             newCharacteristic.transform.SetParent(enemyIntelContent.transform);
         }
+
+        //Get Select Design Panel
+        GameObject selectDesign = Utils.GetChild(layout, "SelectDesign");
+
+        //Clear Content
+        Utils.ClearChildren(selectDesign);
+
+        //Get List of Proposals
+        Design[] proposals = Game.us.proposals[type.ToString()];
+
+        //Instantiate Proposals
+        for (int i = 0; i < proposals.Count(); i++)
+        {
+            //Instantiate
+            GameObject proposal = Instantiate(PROPOSAL);
+
+            //Set Designer
+            GameObject designer = Utils.GetChildRecursive(proposal, "Designer");
+            designer.GetComponent<Text>().text = proposals[i].developer.name;
+
+            //Set Name
+            GameObject name = Utils.GetChildRecursive(proposal, "Name");
+            name.GetComponent<Text>().text = proposals[i].name;
+
+            //Set Estimate
+            GameObject estimate = Utils.GetChildRecursive(proposal, "Estimate");
+            int value = 0;
+            for (int j = 0; j < proposals[i].characteristics.Count(); j++)
+            {
+                value += proposals[i].characteristics[j].predictedValue * (int)proposals[i].characteristics[j].importance;
+            }
+            estimate.GetComponent<Text>().text = value.ToString();
+
+            //If first one then select it by default
+            if(i == 0)
+                ChoiceSelect(0);
+
+            //Add to list
+            proposal.transform.SetParent(selectDesign.transform);
+        }
+
+    }
+
+    //Design Choice Selector
+    public void ChoiceSelect(int id)
+    {
+
     }
 
 }
