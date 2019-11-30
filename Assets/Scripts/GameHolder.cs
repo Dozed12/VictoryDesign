@@ -535,14 +535,14 @@ public class GameHolder : MonoBehaviour
             estimate.GetComponent<Text>().text = value.ToString();
 
             //Set Choice Delegate
-            ChoiceSelectDelegate(proposal.GetComponent<Toggle>(), i);
+            ChoiceSelectDelegate(proposal.GetComponent<Toggle>(), type, i);
 
             //Add Toggle Group
             proposal.GetComponent<Toggle>().group = selectDesign.GetComponent<ToggleGroup>();
 
             //If first one then select it by default
             if (i == 0)
-                ChoiceSelect(proposal.GetComponent<Toggle>(), 0);
+                ChoiceSelect(proposal.GetComponent<Toggle>(), type, 0);
 
             //Add to list
             proposal.transform.SetParent(selectDesign.transform);
@@ -551,19 +551,71 @@ public class GameHolder : MonoBehaviour
     }
 
     //Choice Select Delegate (circumvents a problem with delegates reference on i variable)
-    public void ChoiceSelectDelegate(Toggle toggle, int i)
+    public void ChoiceSelectDelegate(Toggle toggle, Type type, int i)
     {
-        toggle.onValueChanged.AddListener(delegate { ChoiceSelect(toggle, i); });
+        toggle.onValueChanged.AddListener(delegate { ChoiceSelect(toggle, type, i); });
     }
 
     //Design Choice Selector
-    public void ChoiceSelect(Toggle toggle, int id)
+    public void ChoiceSelect(Toggle toggle, Type type, int id)
     {
         //Check toggle is on (with Toggle Group this is called on previous and new Toggle)
-        if(toggle.isOn == false)
+        if (toggle.isOn == false)
             return;
 
         Debug.Log("Selected " + id);
-    }
 
+        //Get Design
+        Design design = Game.us.proposals[type.ToString()][id];
+
+        //Get Layout
+        GameObject layout = Utils.GetChildRecursive(designSelectorPopup, "Layout");
+
+        //Get SelectedInfo
+        GameObject selectedInfo = Utils.GetChild(layout, "SelectedInfo");
+
+        //Get Content
+        GameObject content = Utils.GetChildRecursive(selectedInfo, "Content");
+
+        //Clear Content
+        Utils.ClearChildren(content);
+
+        //Display Characteristics
+        for (int i = 0; i < design.characteristics.Count(); i++)
+        {
+            //Instantiate
+            GameObject newCharacteristic = Instantiate(CHARACTERISTIC_PLAYER_BRIEF);
+
+            //Edit Instance values
+            foreach (Transform child in newCharacteristic.transform)
+            {
+                //Set Icon (Icon is set using the Characteristic name and associating it with variable name in this class that stores Sprites)
+                //UpperCase(characteristic.name) + "_ICON"
+                if (child.name == "Icon")
+                {
+                    string name = design.characteristics[i].name;
+                    name = name.ToUpper();
+                    name += "_ICON";
+                    name = name.Replace(" ", "_");
+                    child.gameObject.GetComponent<Image>().sprite = (Sprite)typeof(GameHolder).GetField(name).GetValue(this);
+                }
+                //Name
+                else if (child.name == "Name")
+                {
+                    child.gameObject.GetComponent<Text>().text = design.characteristics[i].name;
+                }
+                //Intel
+                else if (child.name == "Estimate")
+                {
+                    string value = design.characteristics[i].predictedValue.ToString();
+                    if (design.characteristics[i].predictedValue > 0)
+                        value = "+" + value;
+                    child.gameObject.GetComponent<Text>().text = value;
+                }
+            }
+
+            //Add to list
+            newCharacteristic.transform.SetParent(content.transform);
+        }
+    }
 }
