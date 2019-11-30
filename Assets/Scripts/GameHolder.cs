@@ -36,6 +36,9 @@ public class GameHolder : MonoBehaviour
     //Fixed UI Objects
     public GameObject designSelectorPopup;
 
+    //Active Design Choice Type
+    public string designChoiceType;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -176,7 +179,8 @@ public class GameHolder : MonoBehaviour
                 Game.us.proposals.Add(item.Value.GetType().ToString(), Game.us.RequestDesign(item.Value.GetType()));
 
                 //Button on click event to NewDesignPopup
-                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate { NewDesignPopup(item.Value.GetType()); });
+                string temp = (string)item.Value.GetType().ToString().Clone();
+                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate{NewDesignPopup(temp);});
 
                 //Add to Monthly Report
                 newDesignButton.transform.SetParent(monthlyReport.transform);
@@ -425,8 +429,11 @@ public class GameHolder : MonoBehaviour
     }
 
     //New Design Popup
-    public void NewDesignPopup(Type type)
+    public void NewDesignPopup(string type)
     {
+        //Set Type
+        designChoiceType = type;
+
         //Activate Poppup
         designSelectorPopup.SetActive(true);
 
@@ -437,7 +444,7 @@ public class GameHolder : MonoBehaviour
         GameObject title = Utils.GetChild(panel, "DesignTitle");
 
         //Update Title
-        string designType = type.ToString();
+        string designType = designChoiceType;
         designType = string.Concat(designType.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
         Utils.GetChild(title, "TypeName").GetComponent<Text>().text = designType;
 
@@ -445,7 +452,7 @@ public class GameHolder : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)title.transform);
 
         //Update Importance
-        switch (Game.us.designs[type.ToString()].importance)
+        switch (Game.us.designs[designChoiceType].importance)
         {
             case Importance.HIGH:
                 Utils.GetChild(title, "Importance").GetComponent<Image>().sprite = HIGH_IMPORTANCE_SPRITE;
@@ -459,7 +466,8 @@ public class GameHolder : MonoBehaviour
         }
 
         //Update Save Button Action
-        Utils.GetChild(panel, "Confirm").GetComponent<Button>().onClick.AddListener(delegate { SaveNewDesign(type); });
+        Utils.GetChild(panel, "Confirm").GetComponent<Button>().onClick.RemoveAllListeners();
+        Utils.GetChild(panel, "Confirm").GetComponent<Button>().onClick.AddListener(SaveNewDesign);
 
         //Get Layout manager
         GameObject layout = Utils.GetChildRecursive(designSelectorPopup, "Layout");
@@ -474,7 +482,7 @@ public class GameHolder : MonoBehaviour
         Utils.ClearChildren(enemyIntelContent);
 
         //Enemy Design
-        Design enemyDesign = Game.them.designs[type.ToString()];
+        Design enemyDesign = Game.them.designs[designChoiceType];
 
         //Place Brief Characteristics of Enemy Intel
         for (int i = 0; i < enemyDesign.characteristics.Count; i++)
@@ -540,7 +548,7 @@ public class GameHolder : MonoBehaviour
         Utils.ClearChildren(selectDesign);
 
         //Get List of Proposals
-        Design[] proposals = Game.us.proposals[type.ToString()];
+        Design[] proposals = Game.us.proposals[designChoiceType];
 
         //Instantiate Proposals
         for (int i = 0; i < proposals.Count(); i++)
@@ -566,14 +574,14 @@ public class GameHolder : MonoBehaviour
             estimate.GetComponent<Text>().text = value.ToString();
 
             //Set Choice Delegate
-            ChoiceSelectDelegate(proposal.GetComponent<Toggle>(), type, i);
+            ChoiceSelectDelegate(proposal.GetComponent<Toggle>(), i);
 
             //Add Toggle Group
             proposal.GetComponent<Toggle>().group = selectDesign.GetComponent<ToggleGroup>();
 
             //If first one then select it by default
             if (i == 0)
-                ChoiceSelect(proposal.GetComponent<Toggle>(), type, 0);
+                ChoiceSelect(proposal.GetComponent<Toggle>(), 0);
 
             //Add to list
             proposal.transform.SetParent(selectDesign.transform);
@@ -582,7 +590,7 @@ public class GameHolder : MonoBehaviour
     }
 
     //Save Selected Choice
-    public void SaveNewDesign(Type type)
+    public void SaveNewDesign()
     {
         //Get content of design selector
         GameObject content = Utils.GetChildRecursive(designSelectorPopup, "SelectDesign");
@@ -599,10 +607,11 @@ public class GameHolder : MonoBehaviour
         }
 
         //Apply Selection to Game
-        Game.us.designs[type.ToString()] = Game.us.proposals[type.ToString()][selectedId];
+        Debug.Log(designChoiceType);
+        Game.us.designs[designChoiceType] = Game.us.proposals[designChoiceType][selectedId];
 
         //Design Type to Name
-        string designType = designType = type.ToString();
+        string designType = designType = designChoiceType;
         designType = string.Concat(designType.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
         //Disable button in Monthly Report for this proposal
@@ -627,20 +636,20 @@ public class GameHolder : MonoBehaviour
     }
 
     //Choice Select Delegate (circumvents a problem with delegates reference on i variable)
-    public void ChoiceSelectDelegate(Toggle toggle, Type type, int i)
+    private void ChoiceSelectDelegate(Toggle toggle, int i)
     {
-        toggle.onValueChanged.AddListener(delegate { ChoiceSelect(toggle, type, i); });
+        toggle.onValueChanged.AddListener(delegate { ChoiceSelect(toggle, i); });
     }
 
     //Design Choice Selector
-    public void ChoiceSelect(Toggle toggle, Type type, int id)
+    public void ChoiceSelect(Toggle toggle, int id)
     {
         //Check toggle is on (with Toggle Group this is called on previous and new Toggle)
-        if (toggle.isOn == false)
+        if (toggle.isOn == false || !designSelectorPopup.active || !Game.us.proposals.ContainsKey(designChoiceType))
             return;
 
         //Get Design
-        Design design = Game.us.proposals[type.ToString()][id];
+        Design design = Game.us.proposals[designChoiceType][id];
 
         //Get Layout
         GameObject layout = Utils.GetChildRecursive(designSelectorPopup, "Layout");
