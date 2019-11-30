@@ -430,6 +430,31 @@ public class GameHolder : MonoBehaviour
         //Activate Poppup
         designSelectorPopup.SetActive(true);
 
+        //Get Actual Panel
+        GameObject panel = Utils.GetChild(designSelectorPopup, "NewDesignPanel");
+
+        //Get Title
+        GameObject title = Utils.GetChild(panel, "DesignTitle");
+
+        //Update Title
+        string designType = type.ToString();
+        designType = string.Concat(designType.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+        Utils.GetChild(title, "TypeName").GetComponent<Text>().text = designType;
+
+        //Update Importance
+        switch (Game.us.designs[type.ToString()].importance)
+        {
+            case Importance.HIGH:
+                Utils.GetChild(title, "Importance").GetComponent<Image>().sprite = HIGH_IMPORTANCE_SPRITE;
+                break;
+            case Importance.MEDIUM:
+                Utils.GetChild(title, "Importance").GetComponent<Image>().sprite = MEDIUM_IMPORTANCE_SPRITE;
+                break;
+            case Importance.LOW:
+                Utils.GetChild(title, "Importance").GetComponent<Image>().sprite = LOW_IMPORTANCE_SPRITE;
+                break;
+        }
+
         //Get Layout manager
         GameObject layout = Utils.GetChildRecursive(designSelectorPopup, "Layout");
 
@@ -562,8 +587,6 @@ public class GameHolder : MonoBehaviour
         //Check toggle is on (with Toggle Group this is called on previous and new Toggle)
         if (toggle.isOn == false)
             return;
-
-        Debug.Log("Selected " + id);
 
         //Get Design
         Design design = Game.us.proposals[type.ToString()][id];
