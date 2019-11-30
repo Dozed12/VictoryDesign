@@ -441,6 +441,9 @@ public class GameHolder : MonoBehaviour
         designType = string.Concat(designType.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
         Utils.GetChild(title, "TypeName").GetComponent<Text>().text = designType;
 
+        //Force update on DesignTitle to fix size
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)title.transform);
+
         //Update Importance
         switch (Game.us.designs[type.ToString()].importance)
         {
@@ -454,6 +457,9 @@ public class GameHolder : MonoBehaviour
                 Utils.GetChild(title, "Importance").GetComponent<Image>().sprite = LOW_IMPORTANCE_SPRITE;
                 break;
         }
+
+        //Update Save Button Action
+        Utils.GetChild(panel, "Confirm").GetComponent<Button>().onClick.AddListener(delegate { SaveNewDesign(type); });
 
         //Get Layout manager
         GameObject layout = Utils.GetChildRecursive(designSelectorPopup, "Layout");
@@ -573,6 +579,51 @@ public class GameHolder : MonoBehaviour
             proposal.transform.SetParent(selectDesign.transform);
         }
 
+    }
+
+    //Save Selected Choice
+    public void SaveNewDesign(Type type)
+    {
+        //Get content of design selector
+        GameObject content = Utils.GetChildRecursive(designSelectorPopup, "SelectDesign");
+
+        //Find selected
+        Toggle[] toggles = content.GetComponentsInChildren<Toggle>();
+        int selectedId = -1;
+        for (int i = 0; i < toggles.Count(); i++)
+        {
+            if(toggles[i].isOn)
+            {
+                selectedId = i;
+            }
+        }
+
+        //Apply Selection to Game
+        Game.us.designs[type.ToString()] = Game.us.proposals[type.ToString()][selectedId];
+
+        //Design Type to Name
+        string designType = designType = type.ToString();
+        designType = string.Concat(designType.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
+        //Disable button in Monthly Report for this proposal
+        GameObject monthlyReport = GameObject.Find("MonthNewsPanel");
+        content = Utils.GetChildRecursive(monthlyReport, "Content");
+        foreach (Transform item in content.transform)
+        {
+            //If not a button, ignore
+            if(!item.GetComponent<Button>())
+                continue;
+
+            //If text has design type, disable
+            Text text = item.gameObject.GetComponentInChildren<Text>();
+            if(text.text.Contains(designType))
+            {
+                item.GetComponent<Button>().interactable = false;
+            }
+        }
+
+        //Exit popup
+        designSelectorPopup.SetActive(false);
     }
 
     //Choice Select Delegate (circumvents a problem with delegates reference on i variable)
