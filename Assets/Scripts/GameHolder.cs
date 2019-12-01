@@ -162,6 +162,7 @@ public class GameHolder : MonoBehaviour
         //New Player Designs Needed 
         foreach (KeyValuePair<string, Design> item in Game.us.designs)
         {
+            //Find expired
             if (item.Value.age == item.Value.redesignPeriod)
             {
                 //Instantiate Button
@@ -192,12 +193,16 @@ public class GameHolder : MonoBehaviour
             }
         }
 
-        //TODO New Enemy Designs Needed 
-        foreach (KeyValuePair<string, Design> item in Game.them.designs)
-        {
-            if (item.Value.age == item.Value.redesignPeriod)
+        //New Enemy Designs Needed (this kind of dictionary iterating allows for changes)
+        foreach(string key in Game.them.designs.Keys.ToList()) {
+            //Find expired
+            if (Game.them.designs[key].age == Game.them.designs[key].redesignPeriod)
             {
+                //Request proposals
+                Design[] proposals = Game.them.RequestDesign(Game.them.designs[key].GetType());
 
+                //Pick random proposal
+                Game.them.designs[key] = proposals[UnityEngine.Random.Range(0, proposals.Count())];
             }
         }
 
