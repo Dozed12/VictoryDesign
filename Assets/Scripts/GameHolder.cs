@@ -36,8 +36,9 @@ public class GameHolder : MonoBehaviour
     //Fixed UI Objects
     public GameObject designSelectorPopup;
 
-    //Active Design Choice Type
+    //UI State Variables
     public string designChoiceType;
+    public Design currentDisplayDesign;
 
     // Start is called before the first frame update
     void Start()
@@ -180,7 +181,7 @@ public class GameHolder : MonoBehaviour
 
                 //Button on click event to NewDesignPopup
                 string temp = (string)item.Value.GetType().ToString().Clone();
-                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate{NewDesignPopup(temp);});
+                newDesignButton.GetComponent<Button>().onClick.AddListener(delegate { NewDesignPopup(temp); });
 
                 //Add to Monthly Report
                 newDesignButton.transform.SetParent(monthlyReport.transform);
@@ -205,6 +206,9 @@ public class GameHolder : MonoBehaviour
         //TODO Intel Events Us
 
         //TODO Intel Events Them
+
+        //Re draw Selected Design(update things like Age)
+        DisplayDesign(currentDisplayDesign);
     }
 
     // Select Design to show
@@ -246,6 +250,9 @@ public class GameHolder : MonoBehaviour
     //Display Design
     public void DisplayDesign(Design design)
     {
+        //Save current displayed design
+        currentDisplayDesign = design;
+
         //Find Design Panel
         GameObject designPanel = GameObject.Find("DesignPanel");
 
@@ -600,14 +607,13 @@ public class GameHolder : MonoBehaviour
         int selectedId = -1;
         for (int i = 0; i < toggles.Count(); i++)
         {
-            if(toggles[i].isOn)
+            if (toggles[i].isOn)
             {
                 selectedId = i;
             }
         }
 
         //Apply Selection to Game
-        Debug.Log(designChoiceType);
         Game.us.designs[designChoiceType] = Game.us.proposals[designChoiceType][selectedId];
 
         //Design Type to Name
@@ -620,12 +626,12 @@ public class GameHolder : MonoBehaviour
         foreach (Transform item in content.transform)
         {
             //If not a button, ignore
-            if(!item.GetComponent<Button>())
+            if (!item.GetComponent<Button>())
                 continue;
 
             //If text has design type, disable
             Text text = item.gameObject.GetComponentInChildren<Text>();
-            if(text.text.Contains(designType))
+            if (text.text.Contains(designType))
             {
                 item.GetComponent<Button>().interactable = false;
             }
