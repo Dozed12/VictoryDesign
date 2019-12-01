@@ -611,7 +611,7 @@ public class GameHolder : MonoBehaviour
         Game.us.designs[designChoiceType] = Game.us.proposals[designChoiceType][selectedId];
 
         //Design Type to Name
-        string designType = designType = designChoiceType;
+        string designType = designChoiceType;
         designType = string.Concat(designType.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
         //Disable button in Monthly Report for this proposal
@@ -633,6 +633,9 @@ public class GameHolder : MonoBehaviour
 
         //Exit popup
         designSelectorPopup.SetActive(false);
+
+        //Display the new design on Overview
+        DisplayDesign(Game.us.designs[designChoiceType]);
     }
 
     //Choice Select Delegate (circumvents a problem with delegates reference on i variable)
