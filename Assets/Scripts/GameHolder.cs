@@ -314,7 +314,11 @@ public class GameHolder : MonoBehaviour
             //Age Months
             else if (children[i].name == "Months")
             {
-                children[i].GetComponent<Text>().text = "Months Age: " + design.age + " (" + design.redesignPeriod + ")";
+                //Only display redesign period if player design
+                if(design.owner.isPlayer)
+                    children[i].GetComponent<Text>().text = "Months Age: " + design.age + " (" + design.redesignPeriod + ")";
+                else
+                    children[i].GetComponent<Text>().text = "Months Age: " + design.age;
             }
             //Design Importance
             else if (children[i].name == "Importance")
