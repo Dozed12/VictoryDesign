@@ -15,6 +15,15 @@ public struct Point
 
 public static class DrawingUtils
 {
+    //Copy Texture
+    public static Texture2D TextureCopy(Texture2D original)
+    {
+        Texture2D copy = new Texture2D(original.width, original.height);
+        copy.SetPixels(original.GetPixels());
+        copy.Apply();
+        return copy;
+    }
+
     //Scan-line flood fill
     public static Texture2D FloodFillLine(Texture2D bmp, int x, int y, Color replacementColor)
     {
