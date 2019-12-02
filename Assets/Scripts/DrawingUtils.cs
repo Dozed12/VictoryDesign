@@ -15,115 +15,129 @@ public struct Point
 
 public static class DrawingUtils
 {
-
-    public static void FloodFill(Texture2D input, Texture2D output, Color sourceColor, Color targetColor, float tollerance, int x, int y)
+    //Scan-line flood fill
+    public static Texture2D FloodFillLine(Texture2D bmp, int x, int y, Color replacementColor)
     {
-        var q = new Queue<Point>(input.width * input.height);
-        q.Enqueue(new Point(x, y));
-        int iterations = 0;
+        Point pt = new Point(x, y);
 
-        var width = input.width;
-        var height = input.height;
-        while (q.Count > 0)
+        Color targetColor = bmp.GetPixel(pt.x, pt.y);
+        if (targetColor == replacementColor)
         {
-            var point = q.Dequeue();
-            var x1 = point.x;
-            var y1 = point.y;
-            if (q.Count > width * height)
-            {
-                throw new System.Exception("The algorithm is probably looping. Queue size: " + q.Count);
-            }
-
-            if (output.GetPixel(x1, y1) == targetColor)
-            {
-                continue;
-            }
-
-            output.SetPixel(x1, y1, targetColor);
-
-            var newPoint = new Point(x1 + 1, y1);
-            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
-                q.Enqueue(newPoint);
-
-            newPoint = new Point(x1 - 1, y1);
-            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
-                q.Enqueue(newPoint);
-
-            newPoint = new Point(x1, y1 + 1);
-            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
-                q.Enqueue(newPoint);
-
-            newPoint = new Point(x1, y1 - 1);
-            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
-                q.Enqueue(newPoint);
-
-            iterations++;
+            return bmp;
         }
+
+        Stack<Point> pixels = new Stack<Point>();
+
+        pixels.Push(pt);
+        while (pixels.Count != 0)
+        {
+            Point temp = pixels.Pop();
+            int y1 = temp.y;
+
+            while (y1 >= 0 && bmp.GetPixel(temp.x, y1) == targetColor)
+            {
+                y1--;
+            }
+            y1++;
+            bool spanLeft = false;
+            bool spanRight = false;
+
+            while (y1 < bmp.height && bmp.GetPixel(temp.x, y1) == targetColor)
+            {
+                bmp.SetPixel(temp.x, y1, replacementColor);
+
+                Color clm1 = bmp.GetPixel(temp.x - 1, y1);
+                Color clp1 = bmp.GetPixel(temp.x + 1, y1);
+
+                if (!spanLeft && temp.x > 0 && clm1 == targetColor)
+                {
+                    pixels.Push(new Point(temp.x - 1, y1));
+                    spanLeft = true;
+                }
+                else if (spanLeft && temp.x - 1 >= 0 && clm1 != targetColor)
+                {
+                    spanLeft = false;
+                }
+                if (!spanRight && temp.x < bmp.width - 1 && clp1 == targetColor)
+                {
+                    pixels.Push(new Point(temp.x + 1, y1));
+                    spanRight = true;
+                }
+                else if (spanRight && temp.x < bmp.width - 1 && clp1 != targetColor)
+                {
+                    spanRight = false;
+                }
+                y1++;
+            }
+
+        }
+
+        bmp.Apply();
+
+        return bmp;
+
     }
 
-    public static List<Point> FloodFillFetch(Texture2D input, Texture2D output, Color sourceColor, Color targetColor, float tollerance, int x, int y)
+    //Scan-line flood fill points
+    public static List<Point> FloodFillLinePoints(Texture2D bmp, int x, int y, Color replacementColor)
     {
         List<Point> points = new List<Point>();
 
-        var q = new Queue<Point>(input.width * input.height);
-        q.Enqueue(new Point(x, y));
-        int iterations = 0;
+        Point pt = new Point(x, y);
 
-        var width = input.width;
-        var height = input.height;
-        while (q.Count > 0)
+        Color targetColor = bmp.GetPixel(pt.x, pt.y);
+        if (targetColor == replacementColor)
         {
-            var point = q.Dequeue();
-            var x1 = point.x;
-            var y1 = point.y;
-            if (q.Count > width * height)
+            return points;
+        }
+
+        Stack<Point> pixels = new Stack<Point>();
+
+        pixels.Push(pt);
+        while (pixels.Count != 0)
+        {
+            Point temp = pixels.Pop();
+            int y1 = temp.y;
+
+            while (y1 >= 0 && bmp.GetPixel(temp.x, y1) == targetColor)
             {
-                throw new System.Exception("The algorithm is probably looping. Queue size: " + q.Count);
+                y1--;
+            }
+            y1++;
+            bool spanLeft = false;
+            bool spanRight = false;
+
+            while (y1 < bmp.height && bmp.GetPixel(temp.x, y1) == targetColor)
+            {
+                bmp.SetPixel(temp.x, y1, replacementColor);
+                points.Add(new Point(temp.x, y1));
+
+                Color clm1 = bmp.GetPixel(temp.x - 1, y1);
+                Color clp1 = bmp.GetPixel(temp.x + 1, y1);
+
+                if (!spanLeft && temp.x > 0 && clm1 == targetColor)
+                {
+                    pixels.Push(new Point(temp.x - 1, y1));
+                    spanLeft = true;
+                }
+                else if (spanLeft && temp.x - 1 >= 0 && clm1 != targetColor)
+                {
+                    spanLeft = false;
+                }
+                if (!spanRight && temp.x < bmp.width - 1 && clp1 == targetColor)
+                {
+                    pixels.Push(new Point(temp.x + 1, y1));
+                    spanRight = true;
+                }
+                else if (spanRight && temp.x < bmp.width - 1 && clp1 != targetColor)
+                {
+                    spanRight = false;
+                }
+                y1++;
             }
 
-            if (points.Contains(new Point(x1, y1)))
-            {
-                continue;
-            }
-
-            points.Add(new Point(x1, y1));
-
-            var newPoint = new Point(x1 + 1, y1);
-            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
-                q.Enqueue(newPoint);
-
-            newPoint = new Point(x1 - 1, y1);
-            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
-                q.Enqueue(newPoint);
-
-            newPoint = new Point(x1, y1 + 1);
-            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
-                q.Enqueue(newPoint);
-
-            newPoint = new Point(x1, y1 - 1);
-            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
-                q.Enqueue(newPoint);
-
-            iterations++;
         }
 
         return points;
-    }
-
-    static bool CheckValidity(Texture2D texture, int width, int height, Point p, Color sourceColor, float tollerance)
-    {
-        if (p.x < 0 || p.x >= width)
-        {
-            return false;
-        }
-        if (p.y < 0 || p.y >= height)
-        {
-            return false;
-        }
-
-        var color = texture.GetPixel(p.x, p.y);
-
-        var distance = Mathf.Abs(color.r - sourceColor.r) + Mathf.Abs(color.g - sourceColor.g) + Mathf.Abs(color.b - sourceColor.b);
-        return distance <= tollerance;
     }
 }

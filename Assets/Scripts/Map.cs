@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct Region
 {
@@ -15,13 +16,13 @@ public struct Region
     }
 }
 
-public class Map
+public static class Map
 {
     //Stage of expansion from 0 to 6 (0 pre war, 6 only capital left)
-    public int stage;
+    public static int stage;
 
     //Stage of expansion positions
-    public Dictionary<int, List<Region>> warStagePositions = new Dictionary<int, List<Region>>()
+    public static Dictionary<int, List<Region>> warStagePositions = new Dictionary<int, List<Region>>()
     {
         { 1, new List<Region>()
             {
@@ -38,12 +39,21 @@ public class Map
     };
 
     //Pre war expansion stage (before player war, 1 for each nation)
-    public int expansion;
+    public static int expansion;
 
     //Pre war expansion stage positions
-    public Dictionary<int, Region> prewarStagePositions = new Dictionary<int, Region>()
+    public static Dictionary<int, Region> prewarStagePositions = new Dictionary<int, Region>()
     {
         { 1, new Region(new Point(850, 92), false)}
     };
 
+    //Build map at current stage
+    public static Texture2D BuildMap(Texture2D map)
+    {
+        Debug.Log(DrawingUtils.FloodFillLinePoints(map, 700, 200, Color.green).Count);
+
+        Texture2D test = DrawingUtils.FloodFillLine(map, 700, 200, Color.green);
+
+        return test;
+    }
 }

@@ -40,6 +40,9 @@ public class GameHolder : MonoBehaviour
     public string designChoiceType;
     public Design currentDisplayDesign;
 
+    //Base Map
+    public Texture2D baseMap;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +51,10 @@ public class GameHolder : MonoBehaviour
 
         //Setup a New Game
         SetupNewGame();
+
+        //Test Map Builder
+        Texture2D final = Map.BuildMap(baseMap);
+        GameObject.Find("Test").GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0));
     }
 
     // Update is called once per frame
