@@ -6,7 +6,6 @@ public static class DrawingUtils
 
     public struct Point
     {
-
         public int x;
         public int y;
 
@@ -17,9 +16,8 @@ public static class DrawingUtils
         }
     }
 
-    public static void FloodFill(Texture2D input, Texture2D output, Color sourceColor, float tollerance, int x, int y)
+    public static void FloodFill(Texture2D input, Texture2D output, Color sourceColor, Color targetColor, float tollerance, int x, int y)
     {
-        var targetColor = Color.red;
         var q = new Queue<Point>(input.width * input.height);
         q.Enqueue(new Point(x, y));
         int iterations = 0;
@@ -61,6 +59,55 @@ public static class DrawingUtils
 
             iterations++;
         }
+    }
+
+    public static List<Point> FloodFillFetch(Texture2D input, Texture2D output, Color sourceColor, Color targetColor, float tollerance, int x, int y)
+    {
+        List<Point> points = new List<Point>();
+
+        var q = new Queue<Point>(input.width * input.height);
+        q.Enqueue(new Point(x, y));
+        int iterations = 0;
+
+        var width = input.width;
+        var height = input.height;
+        while (q.Count > 0)
+        {
+            var point = q.Dequeue();
+            var x1 = point.x;
+            var y1 = point.y;
+            if (q.Count > width * height)
+            {
+                throw new System.Exception("The algorithm is probably looping. Queue size: " + q.Count);
+            }
+
+            if (points.Contains(new Point(x1, y1)))
+            {
+                continue;
+            }
+
+            points.Add(new Point(x1,y1));
+
+            var newPoint = new Point(x1 + 1, y1);
+            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
+                q.Enqueue(newPoint);
+
+            newPoint = new Point(x1 - 1, y1);
+            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
+                q.Enqueue(newPoint);
+
+            newPoint = new Point(x1, y1 + 1);
+            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
+                q.Enqueue(newPoint);
+
+            newPoint = new Point(x1, y1 - 1);
+            if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
+                q.Enqueue(newPoint);
+
+            iterations++;
+        }
+
+        return points;
     }
 
     static bool CheckValidity(Texture2D texture, int width, int height, Point p, Color sourceColor, float tollerance)
