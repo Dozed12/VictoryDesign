@@ -1,20 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public struct Point
+{
+    public int x;
+    public int y;
+
+    public Point(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
+
 public static class DrawingUtils
 {
-
-    public struct Point
-    {
-        public int x;
-        public int y;
-
-        public Point(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-    }
 
     public static void FloodFill(Texture2D input, Texture2D output, Color sourceColor, Color targetColor, float tollerance, int x, int y)
     {
@@ -86,7 +86,7 @@ public static class DrawingUtils
                 continue;
             }
 
-            points.Add(new Point(x1,y1));
+            points.Add(new Point(x1, y1));
 
             var newPoint = new Point(x1 + 1, y1);
             if (CheckValidity(input, input.width, input.height, newPoint, sourceColor, tollerance))
