@@ -50,9 +50,9 @@ public static class Map
     //Build map at current stage
     public static Texture2D BuildMap(Texture2D map)
     {
-        Texture2D test = DrawingUtils.FloodFillLine(DrawingUtils.TextureCopy(map), 700, 200, Color.green);
+        Texture2D test = DrawingUtils.FloodFillLine(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, 700, 200), Color.green);
 
-        Debug.Log(DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), 700, 200, Color.green).Count);
+        Debug.Log(DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, 700, 200), Color.green).Count);
 
         return test;
     }

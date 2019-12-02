@@ -24,10 +24,20 @@ public static class DrawingUtils
         return copy;
     }
 
-    //Scan-line flood fill
-    public static Texture2D FloodFillLine(Texture2D bmp, int x, int y, Color replacementColor)
+    //Paint NET coordinates to Unity
+    public static Point PaintCoordinatesToUnity(Texture2D texture, int x, int y)
     {
-        Point pt = new Point(x, y);
+        return new Point(x, texture.height - y);
+    }
+    public static Point PaintCoordinatesToUnity(Texture2D texture, Point point)
+    {
+        return new Point(point.x, texture.height - point.y);
+    }
+
+    //Scan-line flood fill
+    public static Texture2D FloodFillLine(Texture2D bmp, Point point, Color replacementColor)
+    {
+        Point pt = point;
 
         Color targetColor = bmp.GetPixel(pt.x, pt.y);
         if (targetColor == replacementColor)
@@ -88,11 +98,11 @@ public static class DrawingUtils
     }
 
     //Scan-line flood fill points
-    public static List<Point> FloodFillLinePoints(Texture2D bmp, int x, int y, Color replacementColor)
+    public static List<Point> FloodFillLinePoints(Texture2D bmp, Point point, Color replacementColor)
     {
         List<Point> points = new List<Point>();
 
-        Point pt = new Point(x, y);
+        Point pt = point;
 
         Color targetColor = bmp.GetPixel(pt.x, pt.y);
         if (targetColor == replacementColor)
