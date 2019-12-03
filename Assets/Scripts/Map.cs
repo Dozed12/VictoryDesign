@@ -47,13 +47,30 @@ public static class Map
         { 1, new Region(new Point(850, 92), false)}
     };
 
-    //Build map at current stage
-    public static Texture2D BuildMap(Texture2D map)
+    //TODO Build map at current stage
+    public static Texture2D BuildMap(Texture2D map, Texture2D occupied)
     {
-        Texture2D test = DrawingUtils.FloodFillLine(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, 700, 200), Color.green);
+        //Get Points
+        List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, 700, 200));
 
-        Debug.Log(DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, 700, 200), Color.green).Count);
+        //Make copy of map
+        Texture2D final = DrawingUtils.TextureCopy(map);
 
-        return test;
+        //Draw diagonals
+        int spacing = 13;
+        int thickness = 3;
+        Color32 enemyColor = new Color32(122,122,122,255);
+        for (int i = 0; i < points.Count; i++)
+        {
+            if((points[i].x + points[i].y) % spacing < thickness)
+            {
+                final.SetPixel(points[i].x, points[i].y, enemyColor);
+            }
+        }
+
+        //Apply to texture
+        final.Apply();
+
+        return final;
     }
 }

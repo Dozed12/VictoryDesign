@@ -98,9 +98,11 @@ public static class DrawingUtils
     }
 
     //Scan-line flood fill points
-    public static List<Point> FloodFillLinePoints(Texture2D bmp, Point point, Color replacementColor)
+    public static List<Point> FloodFillLinePoints(Texture2D bmp, Point point)
     {
         List<Point> points = new List<Point>();
+
+        Color replacementColor = Color.black;
 
         Point pt = point;
 
