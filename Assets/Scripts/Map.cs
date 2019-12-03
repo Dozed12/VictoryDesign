@@ -47,7 +47,7 @@ public static class Map
         { 1, new Region(new Point(850, 92), false)}
     };
 
-    //TODO Build map at current stage
+    //TODO Build map at current stage (an optimized version could just increment the paint in case it's enemy expansion[since rest of map will stay the same])
     public static Texture2D BuildMap(Texture2D map, Texture2D occupied)
     {
         //Get Points
@@ -73,4 +73,8 @@ public static class Map
 
         return final;
     }
+
+    //TODO Progress Pre War Expansion (pre war stages are fixed order)
+
+    //TODO Progress War Expansion (check if stage still has possible region to occupy if so randomly add it, else move to next stage)
 }

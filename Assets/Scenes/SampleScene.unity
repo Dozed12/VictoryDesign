@@ -12800,6 +12800,7 @@ MonoBehaviour:
   designSelectorPopup: {fileID: 83294912}
   designChoiceType: 
   baseMap: {fileID: 2800000, guid: 084dc32ff5e6b004abc21d8bcc6874c3, type: 3}
+  occupiedMap: {fileID: 2800000, guid: 8672153ce6ddea94e8d0872f5d6b0d83, type: 3}
 --- !u!4 &1937452439
 Transform:
   m_ObjectHideFlags: 0
