@@ -53,7 +53,7 @@ public class GameHolder : MonoBehaviour
         SetupNewGame();
 
         //Test Map Builder
-        Map.stage = 1;
+        Map.warStage = 1;
         Map.ProgressWar(2);
         Texture2D final = Map.BuildMap(DrawingUtils.TextureCopy(baseMap));
         GameObject.Find("Test").GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0));

@@ -18,8 +18,17 @@ public class Region
 
 public static class Map
 {
+    //Pre war expansion stage (before player war, 1 for each nation)
+    public static int expansionStage;
+
+    //Pre war expansion stage positions
+    public static List<Region> prewarStagePositions = new List<Region>()
+    {
+        { new Region(new Point(850, 92), false)}
+    };
+
     //Stage of expansion from 0 to 6 (0 pre war, 6 only capital left)
-    public static int stage;
+    public static int warStage;
 
     //Stage of expansion positions
     public static List<List<Region>> warStagePositions = new List<List<Region>>()
@@ -38,15 +47,6 @@ public static class Map
         //TODO Rest of regions
     };
 
-    //Pre war expansion stage (before player war, 1 for each nation)
-    public static int expansion;
-
-    //Pre war expansion stage positions
-    public static List<Region> prewarStagePositions = new List<Region>()
-    {
-        { new Region(new Point(850, 92), false)}
-    };
-
     //TODO Build map at current stage (an optimized version could just increment the paint in case it's enemy expansion[since rest of map will stay the same])
     public static Texture2D BuildMap(Texture2D map)
     {
@@ -59,15 +59,14 @@ public static class Map
         Color32 enemyColor = new Color32(122, 122, 122, 255);
 
         //For each stage
-        for (int i = 0; i < stage; i++)
+        for (int i = 0; i < warStage; i++)
         {
             //Regions of this stage
-            List<Region> regionsOfStage = warStagePositions[stage - 1];
+            List<Region> regionsOfStage = warStagePositions[warStage - 1];
 
             //For each region of the stage
             for (int j = 0; j < regionsOfStage.Count; j++)
             {
-                Utils.Dump(regionsOfStage[j]);
                 //If stage is occupied
                 if (regionsOfStage[j].occupied)
                 {
@@ -98,7 +97,7 @@ public static class Map
     public static void ProgressWar(int num)
     {
         //Regions of this stage
-        List<Region> regionsOfStage = warStagePositions[stage - 1];
+        List<Region> regionsOfStage = warStagePositions[warStage - 1];
 
         //Get unoccupied regions
         List<Region> unoccupied = new List<Region>();
@@ -113,7 +112,7 @@ public static class Map
 
         //If unoccupied was only last one then progress stage
         if (unoccupied.Count == 1)
-            stage++;
+            warStage++;
 
         //If more progress repeat process
         if (num - 1 > 0)
