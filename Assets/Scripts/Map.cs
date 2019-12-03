@@ -48,7 +48,7 @@ public static class Map
     };
 
     //TODO Build map at current stage (an optimized version could just increment the paint in case it's enemy expansion[since rest of map will stay the same])
-    public static Texture2D BuildMap(Texture2D map, Texture2D occupied)
+    public static Texture2D BuildMap(Texture2D map)
     {
         //Get Points
         List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, 700, 200));

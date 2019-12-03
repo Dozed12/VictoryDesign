@@ -18,9 +18,8 @@ public static class DrawingUtils
     //Copy Texture
     public static Texture2D TextureCopy(Texture2D original)
     {
-        Texture2D copy = new Texture2D(original.width, original.height);
-        copy.SetPixels(original.GetPixels());
-        copy.Apply();
+        Texture2D copy = new Texture2D(original.width, original.height, original.format, false);
+        Graphics.CopyTexture(original, copy);
         return copy;
     }
 

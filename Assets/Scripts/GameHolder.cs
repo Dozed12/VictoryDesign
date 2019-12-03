@@ -42,7 +42,6 @@ public class GameHolder : MonoBehaviour
 
     //Maps
     public Texture2D baseMap;
-    public Texture2D occupiedMap;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +53,7 @@ public class GameHolder : MonoBehaviour
         SetupNewGame();
 
         //Test Map Builder
-        Texture2D final = Map.BuildMap(DrawingUtils.TextureCopy(baseMap), DrawingUtils.TextureCopy(occupiedMap));
+        Texture2D final = Map.BuildMap(DrawingUtils.TextureCopy(baseMap));
         GameObject.Find("Test").GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0));
     }
 
