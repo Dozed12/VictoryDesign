@@ -16,7 +16,7 @@ public static class Game
     public static Nation them;
 
     //Calculate Design Difference
-    public static void DesignDifference(Design a, Design b)
+    public static int DesignDifference(Design a, Design b)
     {
         int diff = 0;
 
@@ -28,10 +28,12 @@ public static class Game
 
         //Multiply by design importance
         diff *= (int)a.importance;
+
+        return diff;
     }
 
     //Calculate Nation Difference
-    public static void NationDifference()
+    public static int NationDifference()
     {
         
     }
