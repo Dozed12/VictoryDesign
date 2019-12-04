@@ -47,7 +47,7 @@ public static class Map
         //TODO Rest of regions
     };
 
-    //TODO Build map at current stage (an optimized version could just increment the paint in case it's enemy expansion[since rest of map will stay the same])
+    //Build map at current stage (an optimized version could just increment the paint in case it's enemy expansion[since rest of map will stay the same])
     public static Texture2D BuildMap(Texture2D map)
     {
         //Make copy of map
