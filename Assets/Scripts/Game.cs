@@ -35,6 +35,14 @@ public static class Game
     //Calculate Nation Difference
     public static int NationDifference()
     {
-        
+        int diff = 0;
+
+        //Calculate difference in each design
+        foreach (KeyValuePair<string, Design> item in us.designs)
+        {
+            diff += DesignDifference(us.designs[item.Key], them.designs[item.Key]);
+        }
+
+        return diff;
     }
 }
