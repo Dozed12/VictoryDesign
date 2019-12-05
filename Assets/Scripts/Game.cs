@@ -15,6 +15,18 @@ public static class Game
     //Enemy Nation
     public static Nation them;
 
+    //Calculate Characteristic Difference
+    public static int CharacteristicDifference(Design a, Design b, int characteristicIndex)
+    {
+        //Base difference
+        int diff = a.characteristics[characteristicIndex].trueValue - b.characteristics[characteristicIndex].trueValue;
+
+        //Multiply by design importance
+        diff *= (int)a.characteristics[characteristicIndex].importance;
+
+        return diff;
+    }
+
     //Calculate Design Difference
     public static int DesignDifference(Design a, Design b)
     {
@@ -23,7 +35,7 @@ public static class Game
         //Calculate characteristics difference
         for (int i = 0; i < a.characteristics.Count; i++)
         {
-            diff += (b.characteristics[i].trueValue - a.characteristics[i].trueValue) * (int)a.characteristics[i].importance;
+            diff += (a.characteristics[i].trueValue - b.characteristics[i].trueValue) * (int)a.characteristics[i].importance;
         }
 
         //Multiply by design importance
@@ -44,5 +56,71 @@ public static class Game
         }
 
         return diff;
+    }
+
+    [Serializable]
+    public class CharacteristicAnalysis
+    {
+        public string name;
+        public int ourValue;
+        public int theirValue;
+        public int diff;
+        public int importance;
+        public int diffImportance;
+    }
+
+    [Serializable]
+    public class DesignAnalysis
+    {
+        public string name;
+        public int diff;
+        public int importance;
+        public int diffImportance;
+        public List<CharacteristicAnalysis> characteristics;
+    }
+
+    //Deep Difference Analysis
+    public static List<DesignAnalysis> DeepDifferenceAnalysis()
+    {
+        //New Analysis
+        List<DesignAnalysis> analysis = new List<DesignAnalysis>();
+
+        //Each design
+        foreach (KeyValuePair<string, Design> item in us.designs)
+        {
+            //New Design Analysis
+            DesignAnalysis designAnalysis = new DesignAnalysis();
+            designAnalysis.characteristics = new List<CharacteristicAnalysis>();
+            designAnalysis.name = item.Key;
+
+            //Each Characteristic
+            for (int i = 0; i < item.Value.characteristics.Count; i++)
+            {
+                CharacteristicAnalysis characteristicAnalysis = new CharacteristicAnalysis();
+
+                //Characteristic Analysis
+                characteristicAnalysis.name = item.Value.characteristics[i].name;
+                characteristicAnalysis.ourValue = us.designs[item.Key].characteristics[i].trueValue;
+                characteristicAnalysis.theirValue = them.designs[item.Key].characteristics[i].trueValue;
+                characteristicAnalysis.diff = us.designs[item.Key].characteristics[i].trueValue - them.designs[item.Key].characteristics[i].trueValue;
+                characteristicAnalysis.importance = (int)us.designs[item.Key].characteristics[i].importance;
+                characteristicAnalysis.diffImportance = CharacteristicDifference(us.designs[item.Key], them.designs[item.Key], i);
+
+                //Add to Design Analysis base diff
+                designAnalysis.diff += characteristicAnalysis.diffImportance;
+
+                designAnalysis.characteristics.Add(characteristicAnalysis);
+            }
+
+            //Get importance
+            designAnalysis.importance = (int)us.designs[item.Key].importance;
+
+            //Calculate design diff importance
+            designAnalysis.diffImportance = designAnalysis.diff * (int)us.designs[item.Key].importance;
+
+            analysis.Add(designAnalysis);
+        }
+
+        return analysis;
     }
 }
