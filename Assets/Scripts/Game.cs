@@ -67,8 +67,10 @@ public static class Game
         public List<CharacteristicAnalysis> characteristics;
     }
 
-    //Deep Difference Analysis
-    public static DesignAnalysis[] DeepDifferenceAnalysis()
+    //Deep Difference Analysis 
+    // trueAnalysis -> True Value of Characteristics
+    // !trueAnalysis -> Average of Characteristic Bounds
+    public static DesignAnalysis[] DeepDifferenceAnalysis(bool trueAnalysis = true)
     {
         //New Analysis
         List<DesignAnalysis> analysis = new List<DesignAnalysis>();
@@ -88,11 +90,22 @@ public static class Game
 
                 //Characteristic Analysis
                 characteristicAnalysis.name = item.Value.characteristics[i].name;
-                characteristicAnalysis.ourValue = us.designs[item.Key].characteristics[i].trueValue;
-                characteristicAnalysis.theirValue = them.designs[item.Key].characteristics[i].trueValue;
-                characteristicAnalysis.diff = us.designs[item.Key].characteristics[i].trueValue - them.designs[item.Key].characteristics[i].trueValue;
+
+                //True value or average of bounds
+                if(trueAnalysis)
+                {
+                    characteristicAnalysis.ourValue = us.designs[item.Key].characteristics[i].trueValue;
+                    characteristicAnalysis.theirValue = them.designs[item.Key].characteristics[i].trueValue;
+                }
+                else
+                {
+                    characteristicAnalysis.ourValue = Utils.IntAverage(us.designs[item.Key].characteristics[i].leftBound, us.designs[item.Key].characteristics[i].rightBound);
+                    characteristicAnalysis.theirValue = Utils.IntAverage(them.designs[item.Key].characteristics[i].leftBound, them.designs[item.Key].characteristics[i].rightBound);
+                }
+                
+                characteristicAnalysis.diff = characteristicAnalysis.ourValue - characteristicAnalysis.theirValue;
                 characteristicAnalysis.importance = (int)us.designs[item.Key].characteristics[i].importance;
-                characteristicAnalysis.diffImportance = (us.designs[item.Key].characteristics[i].trueValue - them.designs[item.Key].characteristics[i].trueValue) * characteristicAnalysis.importance;
+                characteristicAnalysis.diffImportance = characteristicAnalysis.diff * characteristicAnalysis.importance;
 
                 //Add to Design Analysis base diff
                 designAnalysis.diff += characteristicAnalysis.diffImportance;

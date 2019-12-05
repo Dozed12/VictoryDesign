@@ -62,4 +62,10 @@ public static class Utils
             UnityEngine.Object.Destroy(child.gameObject);
         }
     }
+
+    //Calculate Average of 2 values
+    public static int IntAverage(int a, int b)
+    {
+        return Mathf.RoundToInt((a + b) / 2);
+    }
 }
