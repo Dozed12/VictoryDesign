@@ -80,7 +80,7 @@ public static class Game
     }
 
     //Deep Difference Analysis
-    public static List<DesignAnalysis> DeepDifferenceAnalysis()
+    public static DesignAnalysis[] DeepDifferenceAnalysis()
     {
         //New Analysis
         List<DesignAnalysis> analysis = new List<DesignAnalysis>();
@@ -121,6 +121,6 @@ public static class Game
             analysis.Add(designAnalysis);
         }
 
-        return analysis;
+        return analysis.ToArray();
     }
 }

@@ -62,7 +62,7 @@ public class GameHolder : MonoBehaviour
         Debug.Log("Nation Difference: " + Game.NationDifference());
 
         //Test Deep Difference Analysis
-        Utils.DumpArray(Game.DeepDifferenceAnalysis().ToArray());
+        Utils.DumpArray(Game.DeepDifferenceAnalysis());
     }
 
     // Update is called once per frame
