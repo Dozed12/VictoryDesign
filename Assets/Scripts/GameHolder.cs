@@ -214,7 +214,8 @@ public class GameHolder : MonoBehaviour
             if (Game.them.designs[key].age == Game.them.designs[key].redesignPeriod)
             {
                 //Request proposals
-                Design[] proposals = Game.them.RequestDesign(Game.them.designs[key].GetType());
+                //TODO Minimum value for the design will control difficulty
+                Design[] proposals = Game.them.RequestDesign(Game.them.designs[key].GetType(), -2);
 
                 //Pick random proposal
                 Game.them.designs[key] = proposals[UnityEngine.Random.Range(0, proposals.Count())];

@@ -31,7 +31,7 @@ public class Nation
     }
 
     //Request Designs
-    public Design[] RequestDesign(Type type)
+    public Design[] RequestDesign(Type type, int minimumValue = -2)
     {
         List<Design> designs = new List<Design>();
 
@@ -42,7 +42,7 @@ public class Nation
             if (institutes[i].CanDesign(type))
             {
                 //Design
-                designs.Add(institutes[i].GenerateDesign(type, this));
+                designs.Add(institutes[i].GenerateDesign(type, this, minimumValue));
             }
         }
 

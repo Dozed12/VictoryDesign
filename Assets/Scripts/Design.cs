@@ -88,7 +88,7 @@ public class DesignInstitute
     }
 
     //Generate Design
-    public Design GenerateDesign(Type type, Nation owner)
+    public Design GenerateDesign(Type type, Nation owner, int minimumValue = -2)
     {
         //Generate Name
         string name = GenerateName(type);
@@ -96,23 +96,23 @@ public class DesignInstitute
         //Identify Type
         if (type == typeof(Rifle))
         {
-            return new Rifle().Generate(this, name, owner);
+            return new Rifle().Generate(this, name, owner, minimumValue);
         }
         else if (type == typeof(SmallArm))
         {
-            return new SmallArm().Generate(this, name, owner);
+            return new SmallArm().Generate(this, name, owner, minimumValue);
         }
         else if (type == typeof(Uniform))
         {
-            return new Uniform().Generate(this, name, owner);
+            return new Uniform().Generate(this, name, owner, minimumValue);
         }
         else if (type == typeof(Helmet))
         {
-            return new Helmet().Generate(this, name, owner);
+            return new Helmet().Generate(this, name, owner, minimumValue);
         }
         else if (type == typeof(MachineGun))
         {
-            return new MachineGun().Generate(this, name, owner);
+            return new MachineGun().Generate(this, name, owner, minimumValue);
         }
         //Not a type of design
         else
@@ -157,7 +157,7 @@ public abstract class Design
     public Importance importance;
 
     //Generate Design Generic
-    virtual public Design Generate(DesignInstitute developer, string name, Nation nation)
+    virtual public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
     {
         //Set Nation
         this.owner = nation;
@@ -280,7 +280,7 @@ public class Characteristic
     }
 
     //Generate values
-    public void Generate()
+    public void Generate(int minimumValue = -2)
     {
         /* Predicted values and True value bounds
         -2      -10     -5
@@ -291,7 +291,7 @@ public class Characteristic
         */
 
         //Predicted value from -2 to 2
-        predictedValue = UnityEngine.Random.Range(-2, 2 + 1);
+        predictedValue = UnityEngine.Random.Range(minimumValue, 2 + 1);
 
         //Calculate bounds from predicted
         leftBound = 0;
@@ -380,7 +380,7 @@ public class Characteristic
 [Serializable]
 public class Rifle : Design
 {
-    override public Design Generate(DesignInstitute developer, string name, Nation nation)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
     {
         //Base redesign period
         redesignPeriodBase = 24;
@@ -390,15 +390,15 @@ public class Rifle : Design
 
         //Generate characteristics values
         Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH, this);
-        accuracy.Generate();
+        accuracy.Generate(minimumValue);
         characteristics.Add(accuracy);
 
         Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
-        power.Generate();
+        power.Generate(minimumValue);
         characteristics.Add(power);
 
         Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
-        portability.Generate();
+        portability.Generate(minimumValue);
         characteristics.Add(portability);
 
         //Design importance
@@ -411,7 +411,7 @@ public class Rifle : Design
 [Serializable]
 public class SmallArm : Design
 {
-    override public Design Generate(DesignInstitute developer, string name, Nation nation)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
     {
         //Base redesign period
         redesignPeriodBase = 24;
@@ -421,15 +421,15 @@ public class SmallArm : Design
 
         //Generate characteristics values
         Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH, this);
-        accuracy.Generate();
+        accuracy.Generate(minimumValue);
         characteristics.Add(accuracy);
 
         Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
-        power.Generate();
+        power.Generate(minimumValue);
         characteristics.Add(power);
 
         Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
-        portability.Generate();
+        portability.Generate(minimumValue);
         characteristics.Add(portability);
 
         //Design importance
@@ -442,7 +442,7 @@ public class SmallArm : Design
 [Serializable]
 public class Uniform : Design
 {
-    override public Design Generate(DesignInstitute developer, string name, Nation nation)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
     {
         //Base redesign period
         redesignPeriodBase = 36;
@@ -452,15 +452,15 @@ public class Uniform : Design
 
         //Generate characteristics values
         Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM, this);
-        weatherResistance.Generate();
+        weatherResistance.Generate(minimumValue);
         characteristics.Add(weatherResistance);
 
         Characteristic camouflage = new Characteristic("Camouflage", Importance.MEDIUM, this);
-        camouflage.Generate();
+        camouflage.Generate(minimumValue);
         characteristics.Add(camouflage);
 
         Characteristic comfort = new Characteristic("Comfort", Importance.LOW, this);
-        comfort.Generate();
+        comfort.Generate(minimumValue);
         characteristics.Add(comfort);
 
         //Design importance
@@ -473,7 +473,7 @@ public class Uniform : Design
 [Serializable]
 public class Helmet : Design
 {
-    override public Design Generate(DesignInstitute developer, string name, Nation nation)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
     {
         //Base redesign period
         redesignPeriodBase = 36;
@@ -483,11 +483,11 @@ public class Helmet : Design
 
         //Generate characteristics values
         Characteristic protection = new Characteristic("Protection", Importance.HIGH, this);
-        protection.Generate();
+        protection.Generate(minimumValue);
         characteristics.Add(protection);
 
         Characteristic comfort = new Characteristic("Comfort", Importance.LOW, this);
-        comfort.Generate();
+        comfort.Generate(minimumValue);
         characteristics.Add(comfort);
 
         //Design importance
@@ -500,7 +500,7 @@ public class Helmet : Design
 [Serializable]
 public class MachineGun : Design
 {
-    override public Design Generate(DesignInstitute developer, string name, Nation nation)
+    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
     {
         //Base redesign period
         redesignPeriodBase = 36;
@@ -510,15 +510,15 @@ public class MachineGun : Design
 
         //Generate characteristics values
         Characteristic rof = new Characteristic("Rate of Fire", Importance.MEDIUM, this);
-        rof.Generate();
+        rof.Generate(minimumValue);
         characteristics.Add(rof);
 
         Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
-        power.Generate();
+        power.Generate(minimumValue);
         characteristics.Add(power);
 
         Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
-        portability.Generate();
+        portability.Generate(minimumValue);
         characteristics.Add(portability);
 
         //Design importance
