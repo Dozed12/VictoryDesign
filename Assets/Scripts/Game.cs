@@ -16,14 +16,22 @@ public static class Game
     public static Nation them;
 
     //Calculate Design Difference
-    public static int DesignDifference(Design a, Design b)
+    public static int DesignDifference(Design a, Design b, bool trueDifference = true)
     {
         int diff = 0;
 
         //Calculate characteristics difference
         for (int i = 0; i < a.characteristics.Count; i++)
         {
-            diff += (a.characteristics[i].trueValue - b.characteristics[i].trueValue) * (int)a.characteristics[i].importance;
+            //True value or Average of bounds
+            if(trueDifference)
+                diff += (a.characteristics[i].trueValue - b.characteristics[i].trueValue) * (int)a.characteristics[i].importance;
+            else
+            {
+                int aAverage = Utils.IntAverage(a.characteristics[i].leftBound, a.characteristics[i].rightBound);
+                int bAverage = Utils.IntAverage(b.characteristics[i].leftBound, b.characteristics[i].rightBound);
+                diff += aAverage - bAverage;
+            }
         }
 
         //Multiply by design importance
@@ -33,14 +41,14 @@ public static class Game
     }
 
     //Calculate Nation Difference
-    public static int NationDifference()
+    public static int NationDifference(bool trueDifference = true)
     {
         int diff = 0;
 
         //Calculate difference in each design
         foreach (KeyValuePair<string, Design> item in us.designs)
         {
-            diff += DesignDifference(us.designs[item.Key], them.designs[item.Key]);
+            diff += DesignDifference(us.designs[item.Key], them.designs[item.Key], trueDifference);
         }
 
         return diff;
@@ -86,12 +94,13 @@ public static class Game
             //Each Characteristic
             for (int i = 0; i < item.Value.characteristics.Count; i++)
             {
+                //Characteristic Analysis
                 CharacteristicAnalysis characteristicAnalysis = new CharacteristicAnalysis();
 
-                //Characteristic Analysis
                 characteristicAnalysis.name = item.Value.characteristics[i].name;
+                characteristicAnalysis.importance = (int)us.designs[item.Key].characteristics[i].importance;
 
-                //True value or average of bounds
+                //True value or Average of bounds
                 if(trueAnalysis)
                 {
                     characteristicAnalysis.ourValue = us.designs[item.Key].characteristics[i].trueValue;
@@ -104,7 +113,6 @@ public static class Game
                 }
                 
                 characteristicAnalysis.diff = characteristicAnalysis.ourValue - characteristicAnalysis.theirValue;
-                characteristicAnalysis.importance = (int)us.designs[item.Key].characteristics[i].importance;
                 characteristicAnalysis.diffImportance = characteristicAnalysis.diff * characteristicAnalysis.importance;
 
                 //Add to Design Analysis base diff

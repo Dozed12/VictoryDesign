@@ -58,8 +58,11 @@ public class GameHolder : MonoBehaviour
         Texture2D final = Map.BuildMap(DrawingUtils.TextureCopy(baseMap));
         GameObject.Find("Test").GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0));
 
-        //Test Nation Difference
-        Debug.Log("Nation Difference: " + Game.NationDifference());
+        //Test True Nation Difference
+        Debug.Log("True Nation Difference: " + Game.NationDifference(true));
+
+        //Test Average Nation Difference
+        Debug.Log("Average Nation Difference: " + Game.NationDifference(false));
 
         //Test True Deep Difference Analysis
         Debug.Log("True Deep Analysis:");
