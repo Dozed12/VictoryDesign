@@ -15,18 +15,6 @@ public static class Game
     //Enemy Nation
     public static Nation them;
 
-    //Calculate Characteristic Difference
-    public static int CharacteristicDifference(Design a, Design b, int characteristicIndex)
-    {
-        //Base difference
-        int diff = a.characteristics[characteristicIndex].trueValue - b.characteristics[characteristicIndex].trueValue;
-
-        //Multiply by design importance
-        diff *= (int)a.characteristics[characteristicIndex].importance;
-
-        return diff;
-    }
-
     //Calculate Design Difference
     public static int DesignDifference(Design a, Design b)
     {
@@ -104,7 +92,7 @@ public static class Game
                 characteristicAnalysis.theirValue = them.designs[item.Key].characteristics[i].trueValue;
                 characteristicAnalysis.diff = us.designs[item.Key].characteristics[i].trueValue - them.designs[item.Key].characteristics[i].trueValue;
                 characteristicAnalysis.importance = (int)us.designs[item.Key].characteristics[i].importance;
-                characteristicAnalysis.diffImportance = CharacteristicDifference(us.designs[item.Key], them.designs[item.Key], i);
+                characteristicAnalysis.diffImportance = (us.designs[item.Key].characteristics[i].trueValue - them.designs[item.Key].characteristics[i].trueValue) * characteristicAnalysis.importance;
 
                 //Add to Design Analysis base diff
                 designAnalysis.diff += characteristicAnalysis.diffImportance;
