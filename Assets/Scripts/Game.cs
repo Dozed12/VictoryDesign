@@ -28,8 +28,8 @@ public static class Game
                 diff += (a.characteristics[i].trueValue - b.characteristics[i].trueValue) * (int)a.characteristics[i].importance;
             else
             {
-                int aAverage = Utils.IntAverage(a.characteristics[i].leftBound, a.characteristics[i].rightBound);
-                int bAverage = Utils.IntAverage(b.characteristics[i].leftBound, b.characteristics[i].rightBound);
+                int aAverage = Utils.IntRandomAverage(a.characteristics[i].leftBound, a.characteristics[i].rightBound);
+                int bAverage = Utils.IntRandomAverage(b.characteristics[i].leftBound, b.characteristics[i].rightBound);
                 diff += aAverage - bAverage;
             }
         }
@@ -108,8 +108,8 @@ public static class Game
                 }
                 else
                 {
-                    characteristicAnalysis.ourValue = Utils.IntAverage(us.designs[item.Key].characteristics[i].leftBound, us.designs[item.Key].characteristics[i].rightBound);
-                    characteristicAnalysis.theirValue = Utils.IntAverage(them.designs[item.Key].characteristics[i].leftBound, them.designs[item.Key].characteristics[i].rightBound);
+                    characteristicAnalysis.ourValue = Utils.IntRandomAverage(us.designs[item.Key].characteristics[i].leftBound, us.designs[item.Key].characteristics[i].rightBound);
+                    characteristicAnalysis.theirValue = Utils.IntRandomAverage(them.designs[item.Key].characteristics[i].leftBound, them.designs[item.Key].characteristics[i].rightBound);
                 }
                 
                 characteristicAnalysis.diff = characteristicAnalysis.ourValue - characteristicAnalysis.theirValue;

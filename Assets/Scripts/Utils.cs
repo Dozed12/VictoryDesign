@@ -33,10 +33,10 @@ public static class Utils
     {
         foreach (Transform child in holder.transform)
         {
-            if(child.name == childName)
+            if (child.name == childName)
                 return child.gameObject;
         }
-        
+
         return null;
     }
 
@@ -47,10 +47,10 @@ public static class Utils
 
         foreach (Transform child in children)
         {
-            if(child.name == childName)
+            if (child.name == childName)
                 return child.gameObject;
         }
-        
+
         return null;
     }
 
@@ -63,9 +63,18 @@ public static class Utils
         }
     }
 
-    //Calculate Average of 2 values
-    public static int IntAverage(int a, int b)
+    //Calculate Average of 2 values (Randomly floor or round)
+    public static int IntRandomAverage(int a, int b)
     {
-        return Mathf.RoundToInt((a + b) / 2);
+        int random = UnityEngine.Random.Range(0, 2);
+
+        if (random == 1)
+        {
+            return Mathf.CeilToInt((a + b) / 2);
+        }
+        else
+        {
+            return Mathf.FloorToInt((a + b) / 2);
+        }
     }
 }
