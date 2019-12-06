@@ -42,6 +42,7 @@ public class GameHolder : MonoBehaviour
 
     //Maps
     public Texture2D baseMap;
+    public GameObject mapHolder;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +57,7 @@ public class GameHolder : MonoBehaviour
         Map.warStage = 1;
         Map.ProgressWar(6);
         Texture2D final = Map.BuildMap(DrawingUtils.TextureCopy(baseMap));
-        GameObject.Find("Test").GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0));
+        mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0));
 
         //Test True Nation Difference
         Debug.Log("True Nation Difference: " + Game.NationDifference(true));
