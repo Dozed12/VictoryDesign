@@ -63,7 +63,7 @@ public static class Utils
         }
     }
 
-    //Calculate Average of 2 values (Randomly floor or round)
+    //Calculate Average of 2 values (Randomly floor or ceil)
     public static int IntRandomAverage(int a, int b)
     {
         int random = UnityEngine.Random.Range(0, 2);
