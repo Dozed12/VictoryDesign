@@ -57,7 +57,7 @@ public class GameHolder : MonoBehaviour
         Map.warStage = 1;
         Map.ProgressWar(6);
         Texture2D final = Map.BuildMap(DrawingUtils.TextureCopy(baseMap));
-        mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0));
+        mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
 
         //Test True Nation Difference
         Debug.Log("True Nation Difference: " + Game.NationDifference(true));
@@ -218,7 +218,8 @@ public class GameHolder : MonoBehaviour
         }
 
         //New Enemy Designs Needed (this kind of dictionary iterating allows for changes)
-        foreach(string key in Game.them.designs.Keys.ToList()) {
+        foreach (string key in Game.them.designs.Keys.ToList())
+        {
             //Find expired
             if (Game.them.designs[key].age == Game.them.designs[key].redesignPeriod)
             {
@@ -340,7 +341,7 @@ public class GameHolder : MonoBehaviour
             else if (children[i].name == "Months")
             {
                 //Only display redesign period if player design
-                if(design.owner.isPlayer)
+                if (design.owner.isPlayer)
                     children[i].GetComponent<Text>().text = "Months Age: " + design.age + " (" + design.redesignPeriod + ")";
                 else
                     children[i].GetComponent<Text>().text = "Months Age: " + design.age;
