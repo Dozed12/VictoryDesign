@@ -29,6 +29,10 @@ public class GameHolder : MonoBehaviour
     public Sprite ARMOR_ICON;
     public Sprite PROTECTION_ICON;
 
+    //Intel Focus
+    public Sprite VIEW;
+    public Sprite NO_VIEW;
+
     //Monthly Report UI Objects
     public GameObject NEW_DESIGN_BUTTON;
     public GameObject DIVIDER;
@@ -250,6 +254,36 @@ public class GameHolder : MonoBehaviour
 
         //Re draw Selected Design(update things like Age)
         DisplayDesign(currentDisplayDesign);
+    }
+
+    //Focus Intel Enemy Design
+    public void FocusEnemyDesign(string design)
+    {
+        //Already in list
+        if (Game.focuses.Contains(design))
+            return;
+
+        //Remove last if more or equal to 3
+        if (Game.focuses.Count >= 3)
+            Game.focuses.Dequeue();
+
+        //Add new
+        Game.focuses.Enqueue(design);
+
+        Utils.DumpArray(Game.focuses.ToArray());
+
+        //Update Icons
+        GameObject enemyDesignsPanel = GameObject.Find("EnemyDesignsPanel");
+        foreach (Transform child in enemyDesignsPanel.transform)
+        {
+            Debug.Log(child.name);
+            GameObject info = Utils.GetChildRecursive(child.gameObject, "Info");
+            info.GetComponent<Image>().sprite = null;
+            if (Game.focuses.Contains(child.name))
+                info.GetComponent<Image>().sprite = VIEW;
+            else
+                info.GetComponent<Image>().sprite = NO_VIEW;
+        }
     }
 
     // Select Design to show

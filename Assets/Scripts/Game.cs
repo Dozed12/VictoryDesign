@@ -15,6 +15,9 @@ public static class Game
     //Enemy Nation
     public static Nation them;
 
+    //Intel Focus
+    public static Queue<string> focuses = new Queue<string>();
+
     //Calculate Design Difference
     public static int DesignDifference(Design a, Design b, bool trueDifference = true)
     {
@@ -24,7 +27,7 @@ public static class Game
         for (int i = 0; i < a.characteristics.Count; i++)
         {
             //True value or Average of bounds
-            if(trueDifference)
+            if (trueDifference)
                 diff += (a.characteristics[i].trueValue - b.characteristics[i].trueValue) * (int)a.characteristics[i].importance;
             else
             {
@@ -101,7 +104,7 @@ public static class Game
                 characteristicAnalysis.importance = (int)us.designs[item.Key].characteristics[i].importance;
 
                 //True value or Average of bounds
-                if(trueAnalysis)
+                if (trueAnalysis)
                 {
                     characteristicAnalysis.ourValue = us.designs[item.Key].characteristics[i].trueValue;
                     characteristicAnalysis.theirValue = them.designs[item.Key].characteristics[i].trueValue;
@@ -111,7 +114,7 @@ public static class Game
                     characteristicAnalysis.ourValue = Utils.IntRandomAverage(us.designs[item.Key].characteristics[i].leftBound, us.designs[item.Key].characteristics[i].rightBound);
                     characteristicAnalysis.theirValue = Utils.IntRandomAverage(them.designs[item.Key].characteristics[i].leftBound, them.designs[item.Key].characteristics[i].rightBound);
                 }
-                
+
                 characteristicAnalysis.diff = characteristicAnalysis.ourValue - characteristicAnalysis.theirValue;
                 characteristicAnalysis.diffImportance = characteristicAnalysis.diff * characteristicAnalysis.importance;
 
