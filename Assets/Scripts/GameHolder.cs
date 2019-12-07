@@ -44,6 +44,9 @@ public class GameHolder : MonoBehaviour
     public Texture2D baseMap;
     public GameObject mapHolder;
 
+    //Date
+    public Text date;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -138,6 +141,10 @@ public class GameHolder : MonoBehaviour
         Game.them.designs["Uniform"] = (Uniform)Game.them.RequestDesign(typeof(Uniform))[0];
         Game.them.designs["Helmet"] = (Helmet)Game.them.RequestDesign(typeof(Helmet))[0];
         Game.them.designs["MachineGun"] = (MachineGun)Game.them.RequestDesign(typeof(MachineGun))[0];
+
+        //Default current display design to rifle
+        currentDisplayDesign = Game.them.designs["Rifle"];
+        DisplayDesign(currentDisplayDesign);
     }
 
     //Next Turn
@@ -158,7 +165,10 @@ public class GameHolder : MonoBehaviour
         Game.turn++;
 
         //Add month
-        Game.date.AddMonths(1);
+        Game.date = Game.date.AddMonths(1);
+
+        //Update Date
+        date.text = Game.date.ToString("MMMM yyyy");
 
         //TODO War Processing
 
