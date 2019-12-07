@@ -40,7 +40,7 @@ public class GameHolder : MonoBehaviour
     public string designChoiceType;
     public Design currentDisplayDesign;
 
-    //Maps
+    //Map
     public Texture2D baseMap;
     public GameObject mapHolder;
 
