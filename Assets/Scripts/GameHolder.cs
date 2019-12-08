@@ -143,9 +143,16 @@ public class GameHolder : MonoBehaviour
                 //Set text
                 tooltip.GetComponentInChildren<Text>().text = tooltips[possible.name];
 
-                //TODO Set tooltip position
+                //Set tooltip position
+                RectTransform possibleTransform = possible.GetComponent<RectTransform>();
+                tooltip.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(possibleTransform.position.x + possibleTransform.sizeDelta.x / 2, 
+                possibleTransform.position.y - possibleTransform.sizeDelta.y / 2,0), Quaternion.identity);
 
-                //Only one break;
+                //Fix size of tooltip
+                LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)tooltip.transform);
+
+                //Only one 
+                break;
             }
         }
     }
@@ -157,7 +164,7 @@ public class GameHolder : MonoBehaviour
         tooltips = new Dictionary<string, string>();
 
         //TODO Set tooltips
-        tooltips.Add("Importance", "Importance of design or characteristic, higher values have a bigger impact.");
+        tooltips.Add("Importance", "Importance of design or characteristic,\nhigher values have a bigger impact.");
     }
 
     //Setup new Game
