@@ -122,24 +122,21 @@ public class GameHolder : MonoBehaviour
     public void ProcessTooltip()
     {
         //Get pointer data
-        PointerEventData pointerData = new PointerEventData(EventSystem.current)
-        {
-            pointerId = -1,
-        };
-        pointerData.position = Input.mousePosition;
+        CustomStandaloneInputModule module = (CustomStandaloneInputModule)EventSystem.current.currentInputModule;
+        PointerEventData pointerData = module.GetPointerData();
 
-        //Perform Raycast
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerData, results);
+        //PointerData may return null during first frame
+        if(pointerData == null)
+            return;
 
         //At least one result
-        if(results.Count > 0)
+        if(pointerData.pointerCurrentRaycast.gameObject != null)
         {
             //Enable tooltip
             tooltip.SetActive(true);
 
             //Get top gameobject
-            GameObject top = results[0].gameObject;
+            GameObject top = pointerData.pointerCurrentRaycast.gameObject;
 
             //Check if gameobject has assigned tooltip
             if (tooltips.ContainsKey(top.name))
