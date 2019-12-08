@@ -129,18 +129,18 @@ public class GameHolder : MonoBehaviour
         if(pointerData == null)
             return;
 
-        //At least one result
+        //Check if there is a gameobject
         if(pointerData.pointerCurrentRaycast.gameObject != null)
         {
-            //Enable tooltip
-            tooltip.SetActive(true);
-
             //Get top gameobject
             GameObject top = pointerData.pointerCurrentRaycast.gameObject;
 
             //Check if gameobject has assigned tooltip
             if (tooltips.ContainsKey(top.name))
             {
+                //Enable tooltip
+                tooltip.SetActive(true);
+
                 //Set text
                 tooltip.GetComponentInChildren<Text>().text = tooltips[top.name];
 
