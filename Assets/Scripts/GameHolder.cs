@@ -132,28 +132,26 @@ public class GameHolder : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
 
-        for (int i = 0; i < results.Count; i++)
-        {          
-            //Get gameobject
-            GameObject possible = results[i].gameObject;
+        //At least one result
+        if(results.Count > 0)
+        {
+            //Get top gameobject
+            GameObject top = results[0].gameObject;
 
             //Check if gameobject has assigned tooltip
-            if (tooltips.ContainsKey(possible.name))
+            if (tooltips.ContainsKey(top.name))
             {
                 //Set text
-                tooltip.GetComponentInChildren<Text>().text = tooltips[possible.name];
+                tooltip.GetComponentInChildren<Text>().text = tooltips[top.name];
 
                 //Set tooltip position
-                RectTransform possibleTransform = possible.GetComponent<RectTransform>();
-                tooltip.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(possibleTransform.position.x + possibleTransform.sizeDelta.x / 2, 
-                possibleTransform.position.y - possibleTransform.sizeDelta.y / 2,0), Quaternion.identity);
+                RectTransform topTransform = top.GetComponent<RectTransform>();
+                tooltip.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(topTransform.position.x + topTransform.sizeDelta.x / 2, 
+                topTransform.position.y - topTransform.sizeDelta.y / 2,0), Quaternion.identity);
 
                 //Fix size of tooltip
                 LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)tooltip.transform);
-
-                //Only one 
-                break;
-            }
+            }                    
         }
     }
 
