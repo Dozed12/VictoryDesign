@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameHolder : MonoBehaviour
 {
@@ -51,11 +52,18 @@ public class GameHolder : MonoBehaviour
     //Date
     public Text date;
 
+    //Tooltip
+    public GameObject tooltip;
+    public Dictionary<string, string> tooltips;
+
     // Start is called before the first frame update
     void Start()
     {
         //Setup Naming system
         Naming.SetupNaming();
+
+        //Setup Tooltips
+        SetupTooltips();
 
         //Setup a New Game
         SetupNewGame();
@@ -105,6 +113,51 @@ public class GameHolder : MonoBehaviour
             Game.us.designs["Helmet"].ProgressRandom(4);
             Utils.Dump(Game.us.designs["Helmet"]);
         }
+
+        //Process Tooltip
+        ProcessTooltip();
+    }
+
+    //Process Tooltip
+    public void ProcessTooltip()
+    {
+        //Get pointer data
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            pointerId = -1,
+        };
+        pointerData.position = Input.mousePosition;
+
+        //Perform Raycast
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        for (int i = 0; i < results.Count; i++)
+        {          
+            //Get gameobject
+            GameObject possible = results[i].gameObject;
+
+            //Check if gameobject has assigned tooltip
+            if (tooltips.ContainsKey(possible.name))
+            {
+                //Set text
+                tooltip.GetComponentInChildren<Text>().text = tooltips[possible.name];
+
+                //TODO Set tooltip position
+
+                //Only one break;
+            }
+        }
+    }
+
+    //Setup Tooltips
+    public void SetupTooltips()
+    {
+        //Clear Dictionary
+        tooltips = new Dictionary<string, string>();
+
+        //TODO Set tooltips
+        tooltips.Add("Importance", "Importance of design or characteristic, higher values have a bigger impact.");
     }
 
     //Setup new Game
@@ -249,13 +302,13 @@ public class GameHolder : MonoBehaviour
         //Base Knowledge Us
         foreach (string key in Game.us.designs.Keys.ToList())
         {
-            Game.us.designs[key].ProgressRandom(UnityEngine.Random.Range(3, 6 - 1));
+            Game.us.designs[key].ProgressRandom(UnityEngine.Random.Range(3, 6 + 1));
         }
 
         //Base Knowledge Them
         foreach (string key in Game.them.designs.Keys.ToList())
         {
-            Game.them.designs[key].ProgressRandom(UnityEngine.Random.Range(1, 4 - 1));
+            Game.them.designs[key].ProgressRandom(UnityEngine.Random.Range(1, 4 + 1));
         }
 
         //TODO Intel Events Us
