@@ -246,13 +246,23 @@ public class GameHolder : MonoBehaviour
             }
         }
 
-        //TODO Base Knowledge Increase
+        //Base Knowledge Us
+        foreach (string key in Game.us.designs.Keys.ToList())
+        {
+            Game.us.designs[key].ProgressRandom(UnityEngine.Random.Range(3, 6 - 1));
+        }
+
+        //Base Knowledge Them
+        foreach (string key in Game.them.designs.Keys.ToList())
+        {
+            Game.them.designs[key].ProgressRandom(UnityEngine.Random.Range(1, 4 - 1));
+        }
 
         //TODO Intel Events Us
 
         //TODO Intel Events Them
 
-        //Re draw Selected Design(update things like Age)
+        //Re draw Selected Design(update things like Age and Intel)
         DisplayDesign(currentDisplayDesign);
     }
 
