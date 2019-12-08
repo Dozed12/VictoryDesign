@@ -135,6 +135,9 @@ public class GameHolder : MonoBehaviour
         //At least one result
         if(results.Count > 0)
         {
+            //Enable tooltip
+            tooltip.SetActive(true);
+
             //Get top gameobject
             GameObject top = results[0].gameObject;
 
@@ -151,7 +154,12 @@ public class GameHolder : MonoBehaviour
 
                 //Fix size of tooltip
                 LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)tooltip.transform);
-            }                    
+            }
+            else
+            {
+                //Non found, disable tooltip
+                tooltip.SetActive(false);
+            }                
         }
     }
 
