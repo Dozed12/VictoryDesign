@@ -147,7 +147,7 @@ public class GameHolder : MonoBehaviour
         Game.them.designs["MachineGun"] = (MachineGun)Game.them.RequestDesign(typeof(MachineGun))[0];
 
         //Default current display design to rifle
-        currentDisplayDesign = Game.them.designs["Rifle"];
+        currentDisplayDesign = Game.us.designs["Rifle"];
         DisplayDesign(currentDisplayDesign);
     }
 
