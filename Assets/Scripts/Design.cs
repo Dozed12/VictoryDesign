@@ -342,14 +342,8 @@ public class Characteristic
         //Randomly split Knowledge for each bound
         for (int i = 0; i < amount; i++)
         {
-            //Both done, finish
-            if (rightBound == trueValue && leftBound == trueValue)
-            {
-                fullKnowledge = true;
-                break;
-            }
             //Left Bound already done, progress right
-            else if (leftBound == trueValue && rightBound > trueValue)
+            if (leftBound == trueValue && rightBound > trueValue)
             {
                 rightBound--;
             }
@@ -368,6 +362,12 @@ public class Characteristic
                 else
                     leftBound++;
             }
+        }
+
+        //If both bounds done then signal full Knowledge
+        if (rightBound == trueValue && leftBound == trueValue)
+        {
+            fullKnowledge = true;
         }
 
         //At least some progress was made so no longer empty knowledge
