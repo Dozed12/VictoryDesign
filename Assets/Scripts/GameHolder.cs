@@ -167,7 +167,7 @@ public class GameHolder : MonoBehaviour
         tooltips = new Dictionary<string, string>();
 
         //TODO Set tooltips
-        tooltips.Add("Importance", "Importance of design or characteristic,\nhigher values have a bigger impact.");
+        tooltips.Add("Importance", "Importance of design or characteristic,\nthe higher the importance the bigger the impact.");
     }
 
     //Setup new Game
