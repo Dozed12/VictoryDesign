@@ -856,7 +856,7 @@ public class GameHolder : MonoBehaviour
                     child.gameObject.GetComponent<Text>().text = design.characteristics[i].name;
                 }
                 //Intel
-                else if (child.name == "Estimate")
+                else if (child.name == "Value")
                 {
                     string value = design.characteristics[i].predictedValue.ToString();
                     if (design.characteristics[i].predictedValue > 0)
