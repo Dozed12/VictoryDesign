@@ -245,8 +245,6 @@ public class GameHolder : MonoBehaviour
         //Update Date
         date.text = Game.date.ToString("MMMM yyyy");
 
-        //TODO War Processing
-
         //Update Player Designs Age
         foreach (KeyValuePair<string, Design> item in Game.us.designs)
         {
@@ -332,6 +330,27 @@ public class GameHolder : MonoBehaviour
         //TODO Intel Events Us
 
         //TODO Intel Events Them
+
+        //TODO Intel Selected Enemy Designs
+
+        //TODO War Processing
+
+        //Update War Situation Panel
+        GameObject.Find("DesignDifferenceValue").GetComponentInChildren<Text>().text = Game.NationDifference(false).ToString();
+        Game.DesignAnalysis[] analysis = Game.DeepDifferenceAnalysis(false);
+        int best = -10000;
+        int worst = 10000;
+        for (int i = 0; i < analysis.Count(); i++)
+        {
+            if(analysis[i].diffImportance > best)
+                best = i;
+            if(analysis[i].diffImportance < worst)
+                worst = i;
+        }
+        GameObject.Find("BestDesignDifferenceValue").GetComponentInChildren<Text>().text = Utils.SignColoring(analysis[best].diffImportance);
+        GameObject.Find("WorstDesignDifferenceValue").GetComponentInChildren<Text>().text = Utils.SignColoring(analysis[worst].diffImportance);
+
+        //TODO Update Map
 
         //Re draw Selected Design(update things like Age and Intel)
         DisplayDesign(currentDisplayDesign);
