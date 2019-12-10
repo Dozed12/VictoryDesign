@@ -467,7 +467,7 @@ public class GameHolder : MonoBehaviour
             {
                 //Only display redesign period if player design
                 if (design.owner.isPlayer)
-                    children[i].GetComponent<Text>().text = "Months Age: " + design.age + " <color=red>(" + design.redesignPeriod + ")</color>";
+                    children[i].GetComponent<Text>().text = "Months Age: " + design.age + " <color=maroon>(" + design.redesignPeriod + ")</color>";
                 else
                     children[i].GetComponent<Text>().text = "Months Age: " + design.age;
             }

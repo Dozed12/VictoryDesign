@@ -79,12 +79,12 @@ public static class Utils
         }
     }
 
-    //Sign Coloring (color green or red based on signal)
+    //Sign Coloring (color green or maroon based on signal)
     public static string SignColoring(int val)
     {
         if(val >= 0)
             return "<color=green>" + val + "</color>";
         else
-            return "<color=red>" + val + "</color>";
+            return "<color=maroon>" + val + "</color>";
     }
 }
