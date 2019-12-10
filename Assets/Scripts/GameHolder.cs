@@ -169,8 +169,12 @@ public class GameHolder : MonoBehaviour
         //TODO Set tooltips
         tooltips.Add("Importance", "Importance of design or characteristic,\nthe higher the importance the bigger the impact.");
         tooltips.Add("TrueIcon", "True value of a characteristic from -10 to 10. As the design is used more and more\n we will have better information about its characteristics performance");
+        tooltips.Add("Intel", "True value of a characteristic from -10 to 10. As the design is used more and more\n we will have better information about its characteristics performance");
+        tooltips.Add("Value", "True value of a characteristic from -10 to 10. As the design is used more and more\n we will have better information about its characteristics performance");
         tooltips.Add("EstimateIcon", "Estimate value of a characteristic from -2 to 2. \nCorresponds to the expected true value of the characteristic.\n -2 \t-> \t-10 to -5\n -1 \t-> \t-10 to 0\n 0 \t-> \t-5 to 5\n 1 \t-> \t0 to 10\n 2 \t-> \t5 to 10");
         tooltips.Add("Months", "Age of the design in months and the estimate age at which it will get replaced.");
+        tooltips.Add("TypeName", "Type of the design.");
+        tooltips.Add("IntelFocus", "Assign our Intel teams to focus studying this design. Max 3 designs per month.");
     }
 
     //Setup new Game
@@ -353,7 +357,7 @@ public class GameHolder : MonoBehaviour
         foreach (Transform child in enemyDesignsPanel.transform)
         {
             Debug.Log(child.name);
-            GameObject info = Utils.GetChildRecursive(child.gameObject, "Info");
+            GameObject info = Utils.GetChildRecursive(child.gameObject, "IntelFocus");
             info.GetComponent<Image>().sprite = null;
             if (Game.focuses.Contains(child.name))
                 info.GetComponent<Image>().sprite = VIEW;

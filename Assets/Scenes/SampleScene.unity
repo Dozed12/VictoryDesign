@@ -6056,7 +6056,7 @@ GameObject:
   - component: {fileID: 837545234}
   - component: {fileID: 837545233}
   m_Layer: 5
-  m_Name: Info
+  m_Name: IntelFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6955,7 +6955,7 @@ GameObject:
   - component: {fileID: 978801561}
   - component: {fileID: 978801560}
   m_Layer: 5
-  m_Name: Info
+  m_Name: IntelFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9653,7 +9653,7 @@ GameObject:
   - component: {fileID: 1451361152}
   - component: {fileID: 1451361151}
   m_Layer: 5
-  m_Name: Info
+  m_Name: IntelFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12195,7 +12195,7 @@ GameObject:
   - component: {fileID: 1679801907}
   - component: {fileID: 1679801906}
   m_Layer: 5
-  m_Name: Info
+  m_Name: IntelFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12467,7 +12467,7 @@ GameObject:
   - component: {fileID: 1684685969}
   - component: {fileID: 1684685968}
   m_Layer: 5
-  m_Name: Info
+  m_Name: IntelFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13276,7 +13276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 152.94, y: 0}
   m_SizeDelta: {x: 0, y: 40.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1835528384
@@ -13370,7 +13370,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 48.5, y: 0}
   m_SizeDelta: {x: 0, y: 40.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1836419887
@@ -15651,7 +15651,7 @@ PrefabInstance:
     - target: {fileID: 2199497459927231787, guid: 505962eb7da2f5a46a8fb6dca4416a0b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 49.5
       objectReference: {fileID: 0}
     - target: {fileID: 2199497459927231787, guid: 505962eb7da2f5a46a8fb6dca4416a0b,
         type: 3}
