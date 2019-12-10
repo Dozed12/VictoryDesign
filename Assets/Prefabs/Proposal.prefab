@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 1476912012435327708}
   - component: {fileID: 1476912012435327709}
   m_Layer: 5
-  m_Name: Estimate
+  m_Name: DesignEstimate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

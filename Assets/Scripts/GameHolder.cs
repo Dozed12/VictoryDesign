@@ -175,6 +175,7 @@ public class GameHolder : MonoBehaviour
         tooltips.Add("Months", "Age of the design in months and the estimate age at which it will get replaced.");
         tooltips.Add("TypeName", "Type of the design.");
         tooltips.Add("IntelFocus", "Assign our Intel teams to focus studying this design. Max 3 designs per month.");
+        tooltips.Add("DesignEstimate", "Estimate value of the design considering the Estimate of each Characteristic and its importance.");
     }
 
     //Setup new Game
@@ -731,7 +732,7 @@ public class GameHolder : MonoBehaviour
             name.GetComponent<Text>().text = proposals[i].name;
 
             //Set Estimate
-            GameObject estimate = Utils.GetChildRecursive(proposal, "Estimate");
+            GameObject estimate = Utils.GetChildRecursive(proposal, "DesignEstimate");
             int value = 0;
             for (int j = 0; j < proposals[i].characteristics.Count(); j++)
             {
@@ -856,7 +857,7 @@ public class GameHolder : MonoBehaviour
                     child.gameObject.GetComponent<Text>().text = design.characteristics[i].name;
                 }
                 //Value
-                else if (child.name == "Value")
+                else if (child.name == "EstimateValue")
                 {
                     string value = design.characteristics[i].predictedValue.ToString();
                     if (design.characteristics[i].predictedValue > 0)
