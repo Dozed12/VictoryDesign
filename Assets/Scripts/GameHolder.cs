@@ -467,7 +467,7 @@ public class GameHolder : MonoBehaviour
             {
                 //Only display redesign period if player design
                 if (design.owner.isPlayer)
-                    children[i].GetComponent<Text>().text = "Months Age: " + design.age + " (" + design.redesignPeriod + ")";
+                    children[i].GetComponent<Text>().text = "Months Age: " + design.age + " <color=red>(" + design.redesignPeriod + ")</color>";
                 else
                     children[i].GetComponent<Text>().text = "Months Age: " + design.age;
             }
@@ -553,18 +553,18 @@ public class GameHolder : MonoBehaviour
                     //Full Knowledge case
                     else if (design.characteristics[i].fullKnowledge)
                     {
-                        child.gameObject.GetComponent<Text>().text = design.characteristics[i].trueValue.ToString();
+                        child.gameObject.GetComponent<Text>().text = Utils.SignColoring(design.characteristics[i].trueValue);
                     }
                     //Base case
                     else
                     {
-                        string left = design.characteristics[i].leftBound.ToString();
+                        string left = Utils.SignColoring(design.characteristics[i].leftBound);
                         if (design.characteristics[i].leftBound > 0)
-                            left = "+" + left;
+                            left = "<color=green>+</color>" + left;
 
-                        string right = design.characteristics[i].rightBound.ToString();
+                        string right = Utils.SignColoring(design.characteristics[i].rightBound);
                         if (design.characteristics[i].rightBound > 0)
-                            right = "+" + right;
+                            right = "<color=green>+</color>" + right;
 
                         child.gameObject.GetComponent<Text>().text = left + " to " + right;
                     }
@@ -691,13 +691,13 @@ public class GameHolder : MonoBehaviour
                     //Base case
                     else
                     {
-                        string left = enemyDesign.characteristics[i].leftBound.ToString();
+                        string left = Utils.SignColoring(enemyDesign.characteristics[i].leftBound);
                         if (enemyDesign.characteristics[i].leftBound > 0)
-                            left = "+" + left;
+                            left = "<color=green>+</color>" + left;
 
-                        string right = enemyDesign.characteristics[i].rightBound.ToString();
+                        string right = Utils.SignColoring(enemyDesign.characteristics[i].rightBound);
                         if (enemyDesign.characteristics[i].rightBound > 0)
-                            right = "+" + right;
+                            right = "<color=green>+</color>" + right;
 
                         child.gameObject.GetComponent<Text>().text = left + " to " + right;
                     }
@@ -738,7 +738,12 @@ public class GameHolder : MonoBehaviour
             {
                 value += proposals[i].characteristics[j].predictedValue * (int)proposals[i].characteristics[j].importance;
             }
-            estimate.GetComponent<Text>().text = value.ToString();
+            string text = "";
+            if(value >= 0)
+                text = "<color=green>+</color>" + Utils.SignColoring(value);
+            else
+                text = Utils.SignColoring(value);
+            estimate.GetComponent<Text>().text = text;
 
             //Set Choice Delegate
             ChoiceSelectDelegate(proposal.GetComponent<Toggle>(), i);
@@ -859,9 +864,9 @@ public class GameHolder : MonoBehaviour
                 //Value
                 else if (child.name == "EstimateValue")
                 {
-                    string value = design.characteristics[i].predictedValue.ToString();
+                    string value = Utils.SignColoring(design.characteristics[i].predictedValue);
                     if (design.characteristics[i].predictedValue > 0)
-                        value = "+" + value;
+                        value = "<color=green>+</color>" + value;
                     child.gameObject.GetComponent<Text>().text = value;
                 }
             }

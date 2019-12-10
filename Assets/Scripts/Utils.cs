@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public static class Utils
@@ -76,5 +77,14 @@ public static class Utils
         {
             return Mathf.FloorToInt((a + b) / 2);
         }
+    }
+
+    //Sign Coloring (color green or red based on signal)
+    public static string SignColoring(int val)
+    {
+        if(val >= 0)
+            return "<color=green>" + val + "</color>";
+        else
+            return "<color=red>" + val + "</color>";
     }
 }
