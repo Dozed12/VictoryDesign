@@ -705,7 +705,7 @@ public class GameHolder : MonoBehaviour
                     //Full Knowledge case
                     else if (enemyDesign.characteristics[i].fullKnowledge)
                     {
-                        child.gameObject.GetComponent<Text>().text = enemyDesign.characteristics[i].trueValue.ToString();
+                        child.gameObject.GetComponent<Text>().text = Utils.SignColoring(enemyDesign.characteristics[i].trueValue);
                     }
                     //Base case
                     else
