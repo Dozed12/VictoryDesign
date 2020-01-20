@@ -1,0 +1,43 @@
+Timeline:
+    - First Great War lost
+    - Revolution happens
+    - [START] Peace time recovering
+    - Player development of military industry, some proxy wars
+    - Second Great War begins
+    - [GAME OVER] Defeat or Victory
+
+Technological Context:
+    - Engines arent powerful enough to have good armor medium tanks so instead there is big distinction of heavy slow armored tanks(infantry tanks) 
+    and faster light armor tanks to replace cavalry(cruiser tank) [Interwar British Tank Development]
+
+Doctrine measures the combat ability
+Doctrine comes from each design characteristics that influence it
+When a new design is picked it takes time for doctrine to receive effect from previous design to new (1/2 of redesign time)
+Redesigns are scheduled by the game, no player influence (fixed time with random deviation)
+
+Doctrine:
+    - (AI) Anti-Infantry Capability
+    - (AA) Anti-Armor Capability
+    - (B) Breakthrough
+    - (E) Exploitation
+    - (M) Morale
+
+Generic Characteristics:
+    - Engineering Cost
+    - Resource Cost
+    - Reliability
+    - Fuel Efficiency (for vehicles only)
+
+Designs:
+    Infantry Rifle:
+        - (AI) Accuracy
+        - (M) Portability
+    Motorcycle Recon(Vehicle):
+        - (B) Engine and Suspension
+        - 
+
+Design Traits:
+    Specifc traits for a design that cause permanent or temporary effects
+    Types:
+        - New Tooling Required (+ Enginnering Cost for x time)
+            
