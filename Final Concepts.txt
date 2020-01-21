@@ -15,9 +15,17 @@ Doctrine comes from each design characteristics that influence it
 When a new design is picked it takes time for doctrine to receive effect from previous design to new (1/2 of redesign time)
 Redesigns are scheduled by the game, no player influence (fixed time with random deviation)
 
+Industrial:
+    Engineering Capacity    -   Engineering Cost
+    Resource Capacity       -   Resource Cost
+    Replenishment Capacity  -   Reliability   
+
+Army Size:
+    Tacken from Industrial values
+
 Doctrine:
-    - (AI) Anti-Infantry Capability
-    - (AA) Anti-Armor Capability
+    - (AI) Anti-Infantry Ability
+    - (AA) Anti-Armor Ability
     - (B) Breakthrough
     - (E) Exploitation
     - (M) Morale
@@ -26,7 +34,7 @@ Generic Characteristics:
     - Engineering Cost
     - Resource Cost
     - Reliability
-    - Fuel Efficiency (for vehicles only)
+    - Fuel Efficiency (for vehicles only) (maybe add later)
 
 Designs:
     Infantry Rifle:
