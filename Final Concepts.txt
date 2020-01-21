@@ -48,4 +48,7 @@ Design Traits:
     Specifc traits for a design that cause permanent or temporary effects
     Types:
         - New Tooling Required (+ Enginnering Cost for x time)
-            
+
+Adding depth:
+    Option 1: Doctrines can be compared with the enemy and final result of all doctrines with army size comparison gives the final result
+    Option 2: Doctrines have an order, Breakthrough is useless if not have Exploitation     
