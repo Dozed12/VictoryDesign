@@ -55,3 +55,12 @@ Adding depth:
 
 Before propositions are shown the player can use X points to make some specific requests (Development Points)
 Have Y points to spend, can trade some negatives for positives but limited to X changes
+
+Steps of new Decision:
+    - DesignDecision.Text fades to correct Text
+    - Proposition appears from under
+    - Player makes choices and Issue proposition
+    - Proposition moves down
+    - Proposals appear from under
+    - Player picks Approves choice
+    - Proposals move down
