@@ -52,3 +52,6 @@ Design Traits:
 Adding depth:
     Option 1: Doctrines can be compared with the enemy and final result of all doctrines with army size comparison gives the final result
     Option 2: Doctrines have an order, Breakthrough is useless if not have Exploitation     
+
+Before propositions are shown the player can use X points to make some specific requests (Development Points)
+Have Y points to spend, can trade some negatives for positives but limited to X changes
