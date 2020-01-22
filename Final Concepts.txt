@@ -29,6 +29,7 @@ Doctrine:
     - (B) Breakthrough
     - (E) Exploitation
     - (M) Morale
+    - (CE) Combat Efficiency
 
 Generic Characteristics:
     - Engineering Cost
@@ -37,21 +38,31 @@ Generic Characteristics:
     - Fuel Efficiency (for vehicles only) (maybe add later)
 
 Designs:
-    Infantry Rifle:
+    Rifle:
         - (AI) Accuracy
         - (M) Portability
     Motorcycle Recon(Vehicle):
-        - (B) Engine and Suspension
-        - 
+        - (CE) Sights
+        - (M) Comfort
+    Radio:
+        - (CE) Range
 
 Design Traits:
     Specifc traits for a design that cause permanent or temporary effects
     Types:
         - New Tooling Required (+ Enginnering Cost for x time)
 
-Adding depth:
-    Option 1: Doctrines can be compared with the enemy and final result of all doctrines with army size comparison gives the final result (involves showing enemy too)
-    Option 2: Doctrines have an order, Breakthrough is useless if not have Exploitation     
+Final Calculation:
+    - Calculate how better or how worse than expected(100%) each doctrine part is and sum total
+    (could be 2 * diff or more so being very good or very bad at something has bigger impact)
+    - Calculate Average of Industrial which results in Army size
+    - Finally combine Doctrine calculation with Army size
+    - The enemy has an hidden value for these which starts much higher and progressively gets worse
+    (Since now Doctrine is middle 100% and around better or worse it should have colors appropriatly) (perhaps coloring on the indicators of 25%, 50%, 75%)
+    - EXTRA: Exploitation is only as good as Breakthrough
+
+Create Variant:
+    - If previous design was quite good player can choose to create variant instead, losing a bit of random Characteristic and Increasing Industrial costs
 
 Before propositions are shown the player can use X points to make some specific requests (Development Points)
 Have Y points to spend, can trade some negatives for positives but limited to X changes

@@ -205,7 +205,8 @@ public enum Impact
     ANTI_ARMOR,
     BREAKTHROUGH,
     EXPLOITATION,
-    MORALE
+    MORALE,
+    COMBAT_EFFICIENCY
 }
 
 //Characteristic of a design
