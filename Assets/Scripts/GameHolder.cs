@@ -78,7 +78,7 @@ public class GameHolder : MonoBehaviour
             Utils.Dump(designs["Rifle"]);
         }
 
-        //Test Map to Propositions
+        //Test Map to Proposition
         if (Input.GetKeyDown(KeyCode.R))
         {
             GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", true);

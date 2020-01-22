@@ -38,14 +38,86 @@ Generic Characteristics:
     - Fuel Efficiency (for vehicles only) (maybe add later)
 
 Designs:
-    Rifle:
-        - (AI) Accuracy
-        - (M) Portability
-    Motorcycle Recon(Vehicle):
-        - (CE) Sights
-        - (M) Comfort
-    Radio:
-        - (CE) Range
+    (Infantry)
+        Rifle:
+            - (AI) Accuracy
+            - (M) Portability
+        Submachine Gun:
+            - (AI) Accuracy
+            - (B) Rate of Fire
+            - (M) Portability
+        Machine Gun:
+            - (AI) Rate of Fire
+            - (M) Portability
+        Mortar:
+            - (B) Shell
+            - (M) Portability
+        Anti-tank Rifle:
+            - (AA) Penetration
+            - (M) Portability
+    (Carriage Support)
+        Anti-tank Cannon:
+            - (AA) Penetration
+            - (M) Portability
+        Field Artillery:
+            - (AI) Shell
+            - (B) Range
+            - (M) Portability
+    (Tanks)
+        Tankette:
+            - (AI) Machine Gun
+            - (E) Speed
+            - (E) Maneuverability
+            - (M) Accomodation
+        Cavalry Tank:
+            - (AI) Machine Gun
+            - (E) Speed
+            - (M) Accomodation
+        Cruiser Tank:
+            - (AA) Cannon
+            - (B) Armor
+            - (E) Speed
+            - (M) Accomodation
+        Infantry Tank:
+            - (AI) Howitzer
+            - (AA) Cannon
+            - (B) Armor
+            - (M) Accomodation
+    (Recon)
+        Motorcycle Recon:
+            - (CE) Sights
+            - (M) Accomodation
+        Armored Car:
+            - (CE) Sights
+            - (E) Speed
+            - (M) Accomodation
+    (Transport)
+        Truck:
+            - (CE) Capacity
+            - (M) Accomodation
+        Half-track:
+            - (CE) Capacity
+            - (E) All-Terrain
+            - (M) Accomodation
+        Utility Car:
+            - (CE) Officer Equipment
+            - (M) Accomodation
+        Prime Mover:
+            - (CE) Torque
+            - (M) Accomodation
+    (Efficiency)
+        Telephone:
+            - (CE) Wiring
+            - (M) Portability
+        Radio:
+            - (CE) Range
+            - (M) Portability
+        Engineer:
+            - (CE) Terrain Traversal
+            - (M) Portability
+        Bridging:
+            - (CE) River Traversal
+            - (M) Portability
 
 Design Traits:
     Specifc traits for a design that cause permanent or temporary effects
