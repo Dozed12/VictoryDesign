@@ -3,21 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Importance
-{
-    NONE,
-    LOW,
-    MEDIUM,
-    HIGH
-}
-
 //Design Institute
 [Serializable]
 public class DesignInstitute
 {
-    //Owner
-    public Nation side;
-
     //Name
     public string name = "NONE";
 
@@ -35,11 +24,8 @@ public class DesignInstitute
     //Base Design Names
     public Dictionary<Type, string> baseNames;
 
-    public DesignInstitute(Type[] types, Nation nation)
+    public DesignInstitute(Type[] types)
     {
-        //Set Nation
-        this.side = nation;
-
         //Set random Naming Conventions
         baseName = Naming.BaseNameRules.GetRandom();
         connector = Naming.ConnectorNameRules.GetRandom();
@@ -88,7 +74,7 @@ public class DesignInstitute
     }
 
     //Generate Design
-    public Design GenerateDesign(Type type, Nation owner, int minimumValue = -2)
+    public Design GenerateDesign(Type type)
     {
         //Generate Name
         string name = GenerateName(type);
@@ -96,23 +82,7 @@ public class DesignInstitute
         //Identify Type
         if (type == typeof(Rifle))
         {
-            return new Rifle().Generate(this, name, owner, minimumValue);
-        }
-        else if (type == typeof(SmallArm))
-        {
-            return new SmallArm().Generate(this, name, owner, minimumValue);
-        }
-        else if (type == typeof(Uniform))
-        {
-            return new Uniform().Generate(this, name, owner, minimumValue);
-        }
-        else if (type == typeof(Helmet))
-        {
-            return new Helmet().Generate(this, name, owner, minimumValue);
-        }
-        else if (type == typeof(MachineGun))
-        {
-            return new MachineGun().Generate(this, name, owner, minimumValue);
+            return new Rifle().Generate(this, name);
         }
         //Not a type of design
         else
@@ -126,9 +96,6 @@ public class DesignInstitute
 [Serializable]
 public abstract class Design
 {
-    //Owner
-    public Nation owner;
-
     //Characteristics
     public List<Characteristic> characteristics;
 
@@ -147,27 +114,11 @@ public abstract class Design
     //Name of design
     public string name;
 
-    //Date of design development
-    public DateTime date;
-
-    //Age in months
-    public int age;
-
-    //Importance of design
-    public Importance importance;
-
     //Generate Design Generic
-    virtual public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
+    virtual public Design Generate(DesignInstitute developer, string name, int minimumValue = -2)
     {
-        //Set Nation
-        this.owner = nation;
-
         //Clear Characteristics
         characteristics = new List<Characteristic>();
-
-        //Design Date
-        date = Game.date;
-        age = 0;
 
         //Design Name
         this.name = name;
@@ -190,7 +141,7 @@ public abstract class Design
             if (characteristics[i].name == name)
                 return characteristics[i];
         }
-        return new Characteristic("FIND_FAIL", Importance.HIGH, new Rifle());
+        return new Characteristic("FIND_FAIL", new Rifle());
     }
 
     //Progress Characteristic
@@ -239,7 +190,7 @@ public abstract class Design
             characteristics[progressable[random]].ProgressBounds(1);
 
             //Reduce amount
-            amount --;
+            amount--;
         }
     }
 }
@@ -251,8 +202,7 @@ public class Characteristic
     //Name of characteristic
     public string name;
 
-    //Importance of characteristic for design
-    public Importance importance;
+    //TODO Doctrine/Industry
 
     //Predicted value of characteristic -2 to 2
     public int predictedValue;
@@ -272,10 +222,9 @@ public class Characteristic
     public bool fullKnowledge = false;
 
     //Constructor
-    public Characteristic(string name, Importance importance, Design design)
+    public Characteristic(string name, Design design)
     {
         this.name = name;
-        this.importance = importance;
         this.design = design;
     }
 
@@ -297,39 +246,29 @@ public class Characteristic
         leftBound = 0;
         rightBound = 0;
 
-        //If player set base bounds
-        if (this.design.owner.isPlayer)
+        //Bounds
+        switch (predictedValue)
         {
-            switch (predictedValue)
-            {
-                case -2:
-                    leftBound = -10;
-                    rightBound = -5;
-                    break;
-                case -1:
-                    leftBound = -10;
-                    rightBound = 0;
-                    break;
-                case 0:
-                    leftBound = -5;
-                    rightBound = 5;
-                    break;
-                case 1:
-                    leftBound = 0;
-                    rightBound = 10;
-                    break;
-                case 2:
-                    leftBound = 5;
-                    rightBound = 10;
-                    break;
-            }
-        }
-        //If not player set base bounds as full and empty knowledge
-        else
-        {
-            leftBound = -10;
-            rightBound = 10;
-            emptyKnowledge = true;
+            case -2:
+                leftBound = -10;
+                rightBound = -5;
+                break;
+            case -1:
+                leftBound = -10;
+                rightBound = 0;
+                break;
+            case 0:
+                leftBound = -5;
+                rightBound = 5;
+                break;
+            case 1:
+                leftBound = 0;
+                rightBound = 10;
+                break;
+            case 2:
+                leftBound = 5;
+                rightBound = 10;
+                break;
         }
 
         //Randomize true value from bounds
@@ -380,149 +319,26 @@ public class Characteristic
 [Serializable]
 public class Rifle : Design
 {
-    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
+    override public Design Generate(DesignInstitute developer, string name, int minimumValue = -2)
     {
         //Base redesign period
         redesignPeriodBase = 24;
 
         //Call Generic
-        base.Generate(developer, name, nation);
+        base.Generate(developer, name);
 
         //Generate characteristics values
-        Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH, this);
+        Characteristic accuracy = new Characteristic("Accuracy", this);
         accuracy.Generate(minimumValue);
         characteristics.Add(accuracy);
 
-        Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
+        Characteristic power = new Characteristic("Power", this);
         power.Generate(minimumValue);
         characteristics.Add(power);
 
-        Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
+        Characteristic portability = new Characteristic("Portability", this);
         portability.Generate(minimumValue);
         characteristics.Add(portability);
-
-        //Design importance
-        importance = Importance.HIGH;
-
-        return this;
-    }
-}
-
-[Serializable]
-public class SmallArm : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
-    {
-        //Base redesign period
-        redesignPeriodBase = 24;
-
-        //Call Generic
-        base.Generate(developer, name, nation);
-
-        //Generate characteristics values
-        Characteristic accuracy = new Characteristic("Accuracy", Importance.HIGH, this);
-        accuracy.Generate(minimumValue);
-        characteristics.Add(accuracy);
-
-        Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
-        power.Generate(minimumValue);
-        characteristics.Add(power);
-
-        Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
-        portability.Generate(minimumValue);
-        characteristics.Add(portability);
-
-        //Design importance
-        importance = Importance.MEDIUM;
-
-        return this;
-    }
-}
-
-[Serializable]
-public class Uniform : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
-    {
-        //Base redesign period
-        redesignPeriodBase = 36;
-
-        //Call Generic
-        base.Generate(developer, name, nation);        
-
-        //Generate characteristics values
-        Characteristic weatherResistance = new Characteristic("Weather Resistance", Importance.MEDIUM, this);
-        weatherResistance.Generate(minimumValue);
-        characteristics.Add(weatherResistance);
-
-        Characteristic camouflage = new Characteristic("Camouflage", Importance.MEDIUM, this);
-        camouflage.Generate(minimumValue);
-        characteristics.Add(camouflage);
-
-        Characteristic comfort = new Characteristic("Comfort", Importance.LOW, this);
-        comfort.Generate(minimumValue);
-        characteristics.Add(comfort);
-
-        //Design importance
-        importance = Importance.LOW;
-
-        return this;
-    }
-}
-
-[Serializable]
-public class Helmet : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
-    {
-        //Base redesign period
-        redesignPeriodBase = 36;
-
-        //Call Generic
-        base.Generate(developer, name, nation);        
-
-        //Generate characteristics values
-        Characteristic protection = new Characteristic("Protection", Importance.HIGH, this);
-        protection.Generate(minimumValue);
-        characteristics.Add(protection);
-
-        Characteristic comfort = new Characteristic("Comfort", Importance.LOW, this);
-        comfort.Generate(minimumValue);
-        characteristics.Add(comfort);
-
-        //Design importance
-        importance = Importance.LOW;
-
-        return this;
-    }
-}
-
-[Serializable]
-public class MachineGun : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, Nation nation, int minimumValue = -2)
-    {
-        //Base redesign period
-        redesignPeriodBase = 36;
-
-        //Call Generic
-        base.Generate(developer, name, nation);
-
-        //Generate characteristics values
-        Characteristic rof = new Characteristic("Rate of Fire", Importance.MEDIUM, this);
-        rof.Generate(minimumValue);
-        characteristics.Add(rof);
-
-        Characteristic power = new Characteristic("Power", Importance.MEDIUM, this);
-        power.Generate(minimumValue);
-        characteristics.Add(power);
-
-        Characteristic portability = new Characteristic("Portability", Importance.LOW, this);
-        portability.Generate(minimumValue);
-        characteristics.Add(portability);
-
-        //Design importance
-        importance = Importance.HIGH;
 
         return this;
     }
