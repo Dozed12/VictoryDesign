@@ -115,7 +115,7 @@ public abstract class Design
     public string name;
 
     //Generate Design Generic
-    virtual public Design Generate(DesignInstitute developer, string name, int minimumValue = -2)
+    virtual public Design Generate(DesignInstitute developer, string name)
     {
         //Clear Characteristics
         characteristics = new List<Characteristic>();
@@ -141,7 +141,7 @@ public abstract class Design
             if (characteristics[i].name == name)
                 return characteristics[i];
         }
-        return new Characteristic("FIND_FAIL", new Rifle());
+        return new Characteristic("FIND_FAIL", Impact.ANTI_ARMOR, new Rifle());
     }
 
     //Progress Characteristic
@@ -195,6 +195,19 @@ public abstract class Design
     }
 }
 
+public enum Impact
+{
+    ENGINEERING,
+    RESOURCES,
+    REPLENISH,
+
+    ANTI_INFANTRY,
+    ANTI_ARMOR,
+    BREAKTHROUGH,
+    EXPLOITATION,
+    MORALE
+}
+
 //Characteristic of a design
 [Serializable]
 public class Characteristic
@@ -202,7 +215,8 @@ public class Characteristic
     //Name of characteristic
     public string name;
 
-    //TODO Doctrine/Industry
+    // Doctrine/Industry
+    public Impact impact;
 
     //Predicted value of characteristic -2 to 2
     public int predictedValue;
@@ -222,9 +236,10 @@ public class Characteristic
     public bool fullKnowledge = false;
 
     //Constructor
-    public Characteristic(string name, Design design)
+    public Characteristic(string name, Impact impact, Design design)
     {
         this.name = name;
+        this.impact = impact;
         this.design = design;
     }
 
@@ -319,7 +334,7 @@ public class Characteristic
 [Serializable]
 public class Rifle : Design
 {
-    override public Design Generate(DesignInstitute developer, string name, int minimumValue = -2)
+    override public Design Generate(DesignInstitute developer, string name)
     {
         //Base redesign period
         redesignPeriodBase = 24;
@@ -328,16 +343,12 @@ public class Rifle : Design
         base.Generate(developer, name);
 
         //Generate characteristics values
-        Characteristic accuracy = new Characteristic("Accuracy", this);
-        accuracy.Generate(minimumValue);
+        Characteristic accuracy = new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this);
+        accuracy.Generate();
         characteristics.Add(accuracy);
 
-        Characteristic power = new Characteristic("Power", this);
-        power.Generate(minimumValue);
-        characteristics.Add(power);
-
-        Characteristic portability = new Characteristic("Portability", this);
-        portability.Generate(minimumValue);
+        Characteristic portability = new Characteristic("Portability", Impact.MORALE, this);
+        portability.Generate();
         characteristics.Add(portability);
 
         return this;
