@@ -59,15 +59,15 @@ public class GameHolder : MonoBehaviour
         //Test Generate new Helmets Design
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Rifle[] helmets = RequestDesign(typeof(Rifle)).Cast<Rifle>().ToArray();
-            Utils.DumpArray(helmets);
+            Rifle[] rifles = RequestDesign(typeof(Rifle)).Cast<Rifle>().ToArray();
+            Utils.DumpArray(rifles);
         }
 
         //Test Design Characteristic Progress
         if (Input.GetKeyDown(KeyCode.W))
         {
-            designs["Rifle"].FindCharacteristic("Protection").ProgressBounds(2);
-            Utils.Dump(designs["Rifle"].FindCharacteristic("Protection"));
+            designs["Rifle"].FindCharacteristic("Accuracy").ProgressBounds(2);
+            Utils.Dump(designs["Rifle"].FindCharacteristic("Accuracy"));
         }
 
         //Test Design Progress Random
@@ -92,7 +92,7 @@ public class GameHolder : MonoBehaviour
         proposals = new Dictionary<string, Design[]>();
 
         //Set start date and turn
-        date = new DateTime(1890, 1, 1);
+        date = new DateTime(1920, 1, 1);
         turn = 1;
 
         //Create Institutes
@@ -103,7 +103,7 @@ public class GameHolder : MonoBehaviour
     }
 
     //Request Designs
-    public Design[] RequestDesign(Type type, int minimumValue = -2)
+    public Design[] RequestDesign(Type type)
     {
         List<Design> designs = new List<Design>();
 

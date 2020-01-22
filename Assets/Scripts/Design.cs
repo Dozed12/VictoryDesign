@@ -338,7 +338,7 @@ public class Rifle : Design
     override public Design Generate(DesignInstitute developer, string name)
     {
         //Base redesign period
-        redesignPeriodBase = 24;
+        redesignPeriodBase = 12;
 
         //Call Generic
         base.Generate(developer, name);
