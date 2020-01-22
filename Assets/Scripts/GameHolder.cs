@@ -78,8 +78,21 @@ public class GameHolder : MonoBehaviour
             Utils.Dump(designs["Rifle"]);
         }
 
+        //Test Map to Propositions
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", true);
+            Invoke("ShowProposition", 0.5f);
+        }
+
         //Process Tooltip
         TooltipManager.ProcessTooltip();
+    }
+
+    //Show Proposition
+    public void ShowProposition()
+    {
+        GameObject.Find("Proposition").GetComponent<Animator>().SetBool("open", true);
     }
 
     //Setup new Game
