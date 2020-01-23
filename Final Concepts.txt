@@ -135,8 +135,7 @@ Final Calculation:
     - Calculate Average of Industrial which results in Army size
     - Finally combine Doctrine calculation with Army size
     - The enemy has an hidden value for these which starts much higher and progressively gets worse
-    (Since now Doctrine is middle 100% and around better or worse it should have colors appropriatly) (perhaps coloring on the indicators of 25%, 50%, 75%)
-    - EXTRA: Exploitation is only as good as Breakthrough
+    - EXTRA: Exploitation is only as good as Breakthrough and vice versa (Value of both for calculation is Min(Breakthrough, Exploitation))
 
 Create Variant:
     - If previous design was quite good player can choose to create variant instead, losing a bit of random Characteristic and Increasing Industrial costs
