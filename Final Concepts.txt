@@ -145,5 +145,7 @@ Steps of new Decision:
     - Player makes choices and Issue proposition
     - Proposition moves down
     - Proposals appear from under
+    (During proposals the respective design previous Choice and the Combat Report appear by default)
+    (The player can hover over other designs to override this though)
     - Player picks Approves choice
     - Proposals move down
