@@ -98,11 +98,9 @@ public class GameHolder : MonoBehaviour
     //Setup new Game
     public void SetupNewGame()
     {
+        //Clear
         institutes = new List<DesignInstitute>();
         designs = new Dictionary<string, Design>();
-        designs.Add("Rifle", new Rifle());
-
-        proposals = new Dictionary<string, Design[]>();
 
         //Set start date and turn
         date = new DateTime(1920, 1, 1);
@@ -111,8 +109,8 @@ public class GameHolder : MonoBehaviour
         //Create Institutes
         AddInstitutes(new Type[] { typeof(Rifle) }, 3);
 
-        //Create Base Designs
-        designs["Rifle"] = (Rifle)RequestDesign(typeof(Rifle))[0];
+        //Create Base Designs (Full Random is a bad idea)
+        designs.Add("Rifle", (Rifle)RequestDesign(typeof(Rifle))[0]);
     }
 
     //Request Designs

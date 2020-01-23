@@ -79,8 +79,8 @@ Designs:
             - (E) Speed
             - (M) Accomodation
         Infantry Tank:
-            - (AI) Howitzer
-            - (AA) Cannon
+            - (AI) Machine Gun
+            - (B) Howitzer
             - (B) Armor
             - (M) Accomodation
     (Recon)
@@ -118,6 +118,11 @@ Designs:
         Bridging:
             - (CE) River Traversal
             - (M) Portability
+
+Possible Designs to add:
+    Cavalry Equipment
+    Quartermaster
+    Maintenance
 
 Design Traits:
     Specifc traits for a design that cause permanent or temporary effects
