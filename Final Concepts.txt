@@ -147,6 +147,8 @@ Final Calculation:
 Create Variant:
     - If previous design was quite good player can choose to create variant instead, losing a bit of random Characteristic and Increasing Industrial costs
 
+Player can create new Institute for Design Types that only have 2 (Cooldown of x time)
+
 Before propositions are shown the player can use X points to make some specific requests (Development Points)
 Have Y points to spend, can trade some negatives for positives but limited to X changes
 

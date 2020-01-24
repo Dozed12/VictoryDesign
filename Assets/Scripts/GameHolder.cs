@@ -47,6 +47,7 @@ public class GameHolder : MonoBehaviour
         SetupNewGame();
 
         Utils.DumpArray(ImpactOccurences());
+        Utils.DumpArray(CurrentCoverage());
 
         //Test Map Builder
         Map.warStage = 1;
@@ -145,6 +146,30 @@ public class GameHolder : MonoBehaviour
         {
             institutes.Add(new DesignInstitute(types));
         }
+    }
+
+    //Current Coverage
+    public float[] CurrentCoverage()
+    {
+        //Value of Characteristics
+        float[] values = new float[9];
+        foreach (var design in designs)
+        {
+            foreach (var characteristic in design.Value.characteristics)
+            {
+                values[(int)characteristic.impact] += characteristic.trueValue;
+            }
+        }
+
+        //Coverage
+        int[] totals = ImpactOccurences();
+
+        for (int i = 0; i < 9; i++)
+        {
+            values[i] /= totals[i] * 10;
+        }
+
+        return values;
     }
 
     //Count Each Impact Occurence
