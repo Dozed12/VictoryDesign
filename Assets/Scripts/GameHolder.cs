@@ -46,7 +46,9 @@ public class GameHolder : MonoBehaviour
         //Setup a New Game
         SetupNewGame();
 
+        Debug.Log("Occurence of each Impact");
         Utils.DumpArray(ImpactOccurences());
+        Debug.Log("Starting Coverage");
         Utils.DumpArray(CurrentCoverage());
 
         //Test Map Builder
@@ -113,11 +115,34 @@ public class GameHolder : MonoBehaviour
         AddInstitutes(new Type[] { typeof(Rifle) }, UnityEngine.Random.Range(2, 3 + 1));
         AddInstitutes(new Type[] { typeof(Submachine) }, UnityEngine.Random.Range(2, 3 + 1));
 
-        //Create Base Designs
-        designs.Add("Rifle", (Rifle)RequestDesign(typeof(Rifle))[0]);
-        designs.Add("Submachine Gun", (Submachine)RequestDesign(typeof(Submachine))[0]);
+        //Create Base Designs with Criteria
+        bool valid = true;
+        do
+        {
+            //Assume Valid
+            valid = true;
 
-        //Adjust Designs to Fit criteria
+            //Generate Some
+            designs["Rifle"] = (Rifle)RequestDesign(typeof(Rifle))[0];
+            designs["Submachine Gun"] = (Submachine)RequestDesign(typeof(Submachine))[0];
+
+            //Current Coverage
+            float[] coverage = CurrentCoverage();
+
+            //Total Coverage %
+            float total = 0;
+            for (int i = 0; i < coverage.Length; i++)
+            {
+                total += coverage[i];
+            }
+
+            //Limit Coverage to be [0.2, 0.4]
+            if(!(Mathf.Abs(total - 0.0f) > 0.2f && Mathf.Abs(total - 0.0f) < 0.4f))
+            {
+                valid = false;
+            }
+
+        } while (!valid);
     }
 
     //Request Designs
@@ -166,7 +191,10 @@ public class GameHolder : MonoBehaviour
 
         for (int i = 0; i < 9; i++)
         {
-            values[i] /= totals[i] * 10;
+            if (totals[i] != 0)
+                values[i] /= totals[i] * 10;
+            else
+                values[i] = 0;
         }
 
         return values;
