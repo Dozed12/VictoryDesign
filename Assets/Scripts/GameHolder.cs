@@ -109,8 +109,10 @@ public class GameHolder : MonoBehaviour
         //Create Institutes
         AddInstitutes(new Type[] { typeof(Rifle) }, 3);
 
-        //Create Base Designs (Full Random is a bad idea)
+        //Create Base Designs
         designs.Add("Rifle", (Rifle)RequestDesign(typeof(Rifle))[0]);
+
+        //Adjust Designs to Fit criteria
     }
 
     //Request Designs
