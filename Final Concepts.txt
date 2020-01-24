@@ -60,16 +60,10 @@ Designs:
             - (AA) Caliber
             - (AA) Muzzle Velocity
             - (M) Portability
-        Field Artillery:
+        Artillery:
             - (AI) Shell
             - (B) Range
             - (M) Portability
-    (Tank Destroyer)
-        Tank Destroyer:
-            - (AA) Caliber
-            - (AA) Muzzle Velocity
-            - (B) Armor
-            - (M) Accomodation
     (Tanks)
         Tankette:
             - (AI) Machine Gun
@@ -88,6 +82,12 @@ Designs:
         Infantry Tank:
             - (AI) Machine Gun
             - (B) Howitzer
+            - (B) Armor
+            - (M) Accomodation
+    (Tank Destroyer)
+        Tank Destroyer:
+            - (AA) Caliber
+            - (AA) Cannon
             - (B) Armor
             - (M) Accomodation
     (Recon)

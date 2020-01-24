@@ -142,4 +142,19 @@ public class GameHolder : MonoBehaviour
             institutes.Add(new DesignInstitute(types));
         }
     }
+
+    //Highlight Hovered
+    public void HoverDesign(string type)
+    {
+        //TODO Display Desired Info
+    }
+
+    //Stop highlight hovered
+    public void DeHoverDesign()
+    {
+        //TODO Clear Info
+
+        //TODO if in process of new design default back to highlight that design type (can call like HoverDesign(changing))
+    }
+
 }
