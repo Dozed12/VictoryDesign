@@ -143,6 +143,20 @@ public class GameHolder : MonoBehaviour
         }
     }
 
+    //Count Each Impact Occurence
+    public int[] ImpactOccurences()
+    {
+        int[] values = new int[9];
+        foreach (var design in designs)
+        {
+            foreach (var characteristic in design.Value.characteristics)
+            {
+                values[(int)characteristic.impact]++;
+            }
+        }
+        return values;
+    }
+
     //Highlight Hovered
     public void HoverDesign(string type)
     {
