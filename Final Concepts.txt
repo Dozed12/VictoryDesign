@@ -57,12 +57,19 @@ Designs:
             - (M) Portability
     (Carriage Support)
         Anti-tank Cannon:
-            - (AA) Penetration
+            - (AA) Caliber
+            - (AA) Muzzle Velocity
             - (M) Portability
         Field Artillery:
             - (AI) Shell
             - (B) Range
             - (M) Portability
+    (Tank Destroyer)
+        Tank Destroyer:
+            - (AA) Caliber
+            - (AA) Muzzle Velocity
+            - (B) Armor
+            - (M) Accomodation
     (Tanks)
         Tankette:
             - (AI) Machine Gun
