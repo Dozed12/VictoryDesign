@@ -46,6 +46,8 @@ public class GameHolder : MonoBehaviour
         //Setup a New Game
         SetupNewGame();
 
+        Utils.DumpArray(ImpactOccurences());
+
         //Test Map Builder
         Map.warStage = 1;
         Map.ProgressWar(6);
@@ -107,10 +109,12 @@ public class GameHolder : MonoBehaviour
         turn = 1;
 
         //Create Institutes
-        AddInstitutes(new Type[] { typeof(Rifle) }, 3);
+        AddInstitutes(new Type[] { typeof(Rifle) }, UnityEngine.Random.Range(2, 3 + 1));
+        AddInstitutes(new Type[] { typeof(Submachine) }, UnityEngine.Random.Range(2, 3 + 1));
 
         //Create Base Designs
         designs.Add("Rifle", (Rifle)RequestDesign(typeof(Rifle))[0]);
+        designs.Add("Submachine Gun", (Submachine)RequestDesign(typeof(Submachine))[0]);
 
         //Adjust Designs to Fit criteria
     }

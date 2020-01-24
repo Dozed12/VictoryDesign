@@ -84,6 +84,10 @@ public class DesignInstitute
         {
             return new Rifle().Generate(this, name);
         }
+        else if (type == typeof(Submachine))
+        {
+            return new Submachine().Generate(this, name);
+        }
         //Not a type of design
         else
         {
