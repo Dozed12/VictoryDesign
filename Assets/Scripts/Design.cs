@@ -120,6 +120,19 @@ public abstract class Design
         //Clear Characteristics
         characteristics = new List<Characteristic>();
 
+        //Industrial Characteristics
+        Characteristic engineering = new Characteristic("Engineering Cost", Impact.ENGINEERING, this);
+        engineering.Generate();
+        characteristics.Add(engineering);
+
+        Characteristic resource = new Characteristic("Resource Cost", Impact.RESOURCES, this);
+        resource.Generate();
+        characteristics.Add(resource);
+
+        Characteristic reliability = new Characteristic("Reliability", Impact.REPLENISH, this);
+        reliability.Generate();
+        characteristics.Add(reliability);
+
         //Design Name
         this.name = name;
 
@@ -347,6 +360,34 @@ public class Rifle : Design
         Characteristic accuracy = new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this);
         accuracy.Generate();
         characteristics.Add(accuracy);
+
+        Characteristic portability = new Characteristic("Portability", Impact.MORALE, this);
+        portability.Generate();
+        characteristics.Add(portability);
+
+        return this;
+    }
+}
+
+[Serializable]
+public class Submachine : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        Characteristic accuracy = new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this);
+        accuracy.Generate();
+        characteristics.Add(accuracy);
+
+        Characteristic rof = new Characteristic("Rate of Fire", Impact.BREAKTHROUGH, this);
+        rof.Generate();
+        characteristics.Add(rof);
 
         Characteristic portability = new Characteristic("Portability", Impact.MORALE, this);
         portability.Generate();
