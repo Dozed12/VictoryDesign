@@ -250,6 +250,8 @@ public class Characteristic
         this.name = name;
         this.impact = impact;
         this.design = design;
+
+        Generate();
     }
 
     //Generate values
@@ -352,13 +354,9 @@ public class Rifle : Design
         base.Generate(developer, name);
 
         //Generate characteristics values
-        Characteristic accuracy = new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this);
-        accuracy.Generate();
-        characteristics.Add(accuracy);
+        characteristics.Add(new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this));
 
-        Characteristic portability = new Characteristic("Portability", Impact.MORALE, this);
-        portability.Generate();
-        characteristics.Add(portability);
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
 
         return this;
     }
@@ -376,17 +374,233 @@ public class Submachine : Design
         base.Generate(developer, name);
 
         //Generate characteristics values
-        Characteristic accuracy = new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this);
-        accuracy.Generate();
-        characteristics.Add(accuracy);
+        characteristics.Add(new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this));
 
-        Characteristic rof = new Characteristic("Rate of Fire", Impact.BREAKTHROUGH, this);
-        rof.Generate();
-        characteristics.Add(rof);
+        characteristics.Add(new Characteristic("Rate of Fire", Impact.BREAKTHROUGH, this));
 
-        Characteristic portability = new Characteristic("Portability", Impact.MORALE, this);
-        portability.Generate();
-        characteristics.Add(portability);
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class MachineGun : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Rate of Fire", Impact.ANTI_INFANTRY, this));
+
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class Mortar : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Shell", Impact.BREAKTHROUGH, this));
+
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class ATRifle : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Penetration", Impact.ANTI_ARMOR, this));
+
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class ATCannon : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Caliber", Impact.ANTI_ARMOR, this));
+
+        characteristics.Add(new Characteristic("Muzzle Velocity", Impact.ANTI_ARMOR, this));
+
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class Artillery : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Shell", Impact.ANTI_INFANTRY, this));
+
+        characteristics.Add(new Characteristic("Range", Impact.BREAKTHROUGH, this));
+
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class Tankette : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this));
+
+        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this));
+
+        characteristics.Add(new Characteristic("Maneuverability", Impact.EXPLOITATION, this));
+
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class CavTank : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this));
+
+        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this));
+
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class Cruiser : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Cannon", Impact.ANTI_ARMOR, this));
+
+        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this));
+
+        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this));
+
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class InfTank : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this));
+
+        characteristics.Add(new Characteristic("Howitzer", Impact.BREAKTHROUGH, this));
+
+        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this));
+
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+
+        return this;
+    }
+}
+
+[Serializable]
+public class TankDestroyer : Design
+{
+    override public Design Generate(DesignInstitute developer, string name)
+    {
+        //Base redesign period
+        redesignPeriodBase = 12;
+
+        //Call Generic
+        base.Generate(developer, name);
+
+        //Generate characteristics values
+        characteristics.Add(new Characteristic("Caliber", Impact.ANTI_ARMOR, this));
+
+        characteristics.Add(new Characteristic("Muzzle Velocity", Impact.ANTI_ARMOR, this));
+
+        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this));
+
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
 
         return this;
     }
