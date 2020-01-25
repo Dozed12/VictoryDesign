@@ -79,20 +79,11 @@ public class DesignInstitute
         //Generate Name
         string name = GenerateName(type);
 
-        //Identify Type
-        if (type == typeof(Rifle))
-        {
-            return new Rifle().Generate(this, name);
-        }
-        else if (type == typeof(Submachine))
-        {
-            return new Submachine().Generate(this, name);
-        }
-        //Not a type of design
-        else
-        {
-            return null;
-        }
+        //Generate Design of desired type
+        Design design = (Design)Activator.CreateInstance(type);
+        design.Generate(this, name);
+
+        return design;
     }
 }
 

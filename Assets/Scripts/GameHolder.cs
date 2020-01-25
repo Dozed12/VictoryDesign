@@ -186,9 +186,8 @@ public class GameHolder : MonoBehaviour
             }
         }
 
-        //Coverage
+        //Coverage %
         int[] totals = ImpactOccurences();
-
         for (int i = 0; i < 9; i++)
         {
             if (totals[i] != 0)
