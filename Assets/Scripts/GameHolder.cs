@@ -113,21 +113,26 @@ public class GameHolder : MonoBehaviour
 
         //Get types of designs
         Type[] typesOfDesigns = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
-                    from assemblyType in domainAssembly.GetTypes()
-                    where typeof(Design).IsAssignableFrom(assemblyType)
-                    select assemblyType).ToArray();
+                                 from assemblyType in domainAssembly.GetTypes()
+                                 where typeof(Design).IsAssignableFrom(assemblyType)
+                                 select assemblyType).ToArray();
 
         //Exclude Design Type from types of designs
         typesOfDesigns = typesOfDesigns.Skip(1).ToArray();
 
-        //Create Institutes for each type
+        //Create Institutes for each type (2 or 3)
         for (int i = 0; i < typesOfDesigns.Length; i++)
         {
             AddInstitutes(new Type[] { typesOfDesigns[i] }, UnityEngine.Random.Range(2, 3 + 1));
         }
 
         //Create Base Designs with Criteria
+        //TODO Criteria compares all Impacts together, may make more sense to compare Industrial and Doctrine separately since they will have separate effect in Final Calculation
         bool valid = true;
+        float total = 0;
+        float range = 0;
+        float min = 0;
+        float max = 0;
         do
         {
             //Assume Valid
@@ -149,20 +154,42 @@ public class GameHolder : MonoBehaviour
             //Current Coverage
             float[] coverage = CurrentCoverage();
 
-            //Total Coverage %
-            float total = 0;
+            //Evaluate Total Coverage is not too far from 0
+            total = 0;
             for (int i = 0; i < coverage.Length; i++)
             {
                 total += coverage[i];
             }
-
-            //Limit Coverage to be [0.2, 0.4]
-            if(!(Mathf.Abs(total - 0.0f) > 0.2f && Mathf.Abs(total - 0.0f) < 0.4f))
+            if (Mathf.Abs(total - 0.0f) > 0.3f)
             {
                 valid = false;
             }
 
+            //Evaluate Range of Coverages
+            min = 2;
+            max = -2;
+            for (int i = 0; i < coverage.Length; i++)
+            {
+                if (min > coverage[i])
+                    min = coverage[i];
+                if (max < coverage[i])
+                    max = coverage[i];
+            }
+            if (Mathf.Abs(min - max) < 0.3f)
+                valid = false;
+
+            //Evaluate min is negative and max is positive
+            if (min > 0 || max < 0)
+                valid = false;
+
         } while (!valid);
+
+        //Result
+        Debug.Log("Result from Design Generation");
+        Debug.Log("Sum Coverage %: " + total);
+        Debug.Log("Min Coverage %: " + min);
+        Debug.Log("Max Coverage %: " + max);
+
     }
 
     //Request Designs
