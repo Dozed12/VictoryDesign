@@ -111,9 +111,20 @@ public class GameHolder : MonoBehaviour
         date = new DateTime(1920, 1, 1);
         turn = 1;
 
-        //Create Institutes
-        AddInstitutes(new Type[] { typeof(Rifle) }, UnityEngine.Random.Range(2, 3 + 1));
-        AddInstitutes(new Type[] { typeof(Submachine) }, UnityEngine.Random.Range(2, 3 + 1));
+        //Get types of designs
+        Type[] typesOfDesigns = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+                    from assemblyType in domainAssembly.GetTypes()
+                    where typeof(Design).IsAssignableFrom(assemblyType)
+                    select assemblyType).ToArray();
+
+        //Exclude Design Type from types of designs
+        typesOfDesigns = typesOfDesigns.Skip(1).ToArray();
+
+        //Create Institutes for each type
+        for (int i = 0; i < typesOfDesigns.Length; i++)
+        {
+            AddInstitutes(new Type[] { typesOfDesigns[i] }, UnityEngine.Random.Range(2, 3 + 1));
+        }
 
         //Create Base Designs with Criteria
         bool valid = true;
@@ -122,9 +133,18 @@ public class GameHolder : MonoBehaviour
             //Assume Valid
             valid = true;
 
-            //Generate Some
-            designs["Rifle"] = (Rifle)RequestDesign(typeof(Rifle))[0];
-            designs["Submachine Gun"] = (Submachine)RequestDesign(typeof(Submachine))[0];
+            //Generate Some Designs
+            for (int i = 0; i < typesOfDesigns.Length; i++)
+            {
+                //Get Name of Design
+                string name = typesOfDesigns[i].ToString();
+
+                //Add space before Capital letters
+                name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
+                //Request Design
+                designs[name] = RequestDesign(typesOfDesigns[i])[0];
+            }
 
             //Current Coverage
             float[] coverage = CurrentCoverage();

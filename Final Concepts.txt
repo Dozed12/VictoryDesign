@@ -87,7 +87,7 @@ Designs:
     (Tank Destroyer)
         Tank Destroyer:
             - (AA) Caliber
-            - (AA) Cannon
+            - (AA) Muzzle Velocity
             - (B) Armor
             - (M) Accomodation
     (Recon)
@@ -127,9 +127,12 @@ Designs:
             - (M) Portability
 
 Possible Designs to add:
+    Siege Artillery
     Cavalry Equipment
     Quartermaster
     Maintenance
+
+Player can early redesign design every x months (can store y redesigns)
 
 Design Traits:
     Specifc traits for a design that cause permanent or temporary effects
