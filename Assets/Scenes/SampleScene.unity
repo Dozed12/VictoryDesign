@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 4190704}
   - component: {fileID: 4190705}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: EngineeringSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,9 +202,9 @@ MonoBehaviour:
   m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -417,7 +417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 50017168}
   m_Layer: 5
-  m_Name: AASlider
+  m_Name: AA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -859,7 +859,7 @@ PrefabInstance:
     - target: {fileID: 1982233259381207418, guid: 6d3d75dce53dc104e8d7dc7664e70172,
         type: 3}
       propertyPath: m_Name
-      value: Anti-tank Rifle
+      value: Anti Tank Rifle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -3121,7 +3121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 278647113}
   m_Layer: 5
-  m_Name: EfficiencySlider
+  m_Name: Efficiency
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4809,7 +4809,7 @@ PrefabInstance:
     - target: {fileID: 1982233259381207418, guid: 6d3d75dce53dc104e8d7dc7664e70172,
         type: 3}
       propertyPath: m_Name
-      value: Anti-tank Cannon
+      value: Anti Tank Cannon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -5045,7 +5045,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6665,7 +6665,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6822,7 +6822,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7171,7 +7171,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8485,7 +8485,7 @@ GameObject:
   - component: {fileID: 840416722}
   - component: {fileID: 840416723}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: AISlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8553,12 +8553,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 665268342}
+  m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9066,7 +9066,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10180,7 +10180,7 @@ GameObject:
   - component: {fileID: 1093310017}
   - component: {fileID: 1093310018}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: ReplenishmentSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10248,12 +10248,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 1121374116}
+  m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10633,7 +10633,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10879,7 +10879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1129776372}
   m_Layer: 5
-  m_Name: EngineeringSlider
+  m_Name: Engineering
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11258,7 +11258,7 @@ GameObject:
   - component: {fileID: 1214508155}
   - component: {fileID: 1214508156}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: BreakthroughSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11326,12 +11326,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 401015101}
+  m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11875,7 +11875,7 @@ GameObject:
   - component: {fileID: 1311821689}
   - component: {fileID: 1311821690}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: EfficiencySlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11943,12 +11943,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 1434269438}
+  m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12591,7 +12591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1409199375}
   m_Layer: 5
-  m_Name: ReplenishmentSlider
+  m_Name: Replenishment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12800,7 +12800,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14041,7 +14041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1491716776}
   m_Layer: 5
-  m_Name: BreakthroughSlider
+  m_Name: Breakthrough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14453,7 +14453,7 @@ GameObject:
   - component: {fileID: 1559155839}
   - component: {fileID: 1559155840}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: ResourcesSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14521,12 +14521,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 924777734}
+  m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -14541,7 +14541,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564458415}
   m_Layer: 5
-  m_Name: ExploitaitionSlider
+  m_Name: Exploitaition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14582,7 +14582,7 @@ GameObject:
   - component: {fileID: 1573812595}
   - component: {fileID: 1573812596}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: MoraleSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14650,12 +14650,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 1738289833}
+  m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -14747,7 +14747,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1594320529}
   m_Layer: 5
-  m_Name: ResourcesSlider
+  m_Name: Resources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14861,7 +14861,7 @@ GameObject:
   - component: {fileID: 1607805961}
   - component: {fileID: 1607805962}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: AASlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14929,12 +14929,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 562960358}
+  m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -15533,7 +15533,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15740,7 +15740,7 @@ GameObject:
   - component: {fileID: 1766011832}
   - component: {fileID: 1766011833}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: ExploitaitionSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15808,12 +15808,12 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 596704886}
+  m_FillRect: {fileID: 1140089409}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: -100
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: -1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -17609,7 +17609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1986528114}
   m_Layer: 5
-  m_Name: AISlider
+  m_Name: AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18184,7 +18184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2036105556}
   m_Layer: 5
-  m_Name: MoralSlider
+  m_Name: Morale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
