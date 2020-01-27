@@ -265,10 +265,16 @@ public class GameHolder : MonoBehaviour
         //Get design
         Design design = designs[type];
 
+        //Highlight Selected
+        Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), type), "Selected").GetComponent<Image>().enabled = true;
+
         //Original Choice
         GameObject originalChoice = GameObject.Find("OriginalChoice");
 
-        //Date
+        //Title
+        Utils.GetChild(originalChoice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposition - " + type;
+
+        //TODO Date
         //Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = design.date
 
         //Name & Designer
@@ -276,16 +282,26 @@ public class GameHolder : MonoBehaviour
         Utils.GetChildRecursive(originalChoice, "Designation").GetComponent<Text>().text = "Designation: " + design.name;
 
         //Industrial Values
+        Utils.GetChildRecursive(originalChoice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[0].predictedValue);
+        Utils.GetChildRecursive(originalChoice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[1].predictedValue);
+        Utils.GetChildRecursive(originalChoice, "ReliabilityValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[2].predictedValue);
 
         //Doctrine Values
 
-        //TODO Rebuild Layout
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)originalChoice.transform);
+        //Rebuild Layout
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(originalChoice, "IndustrialData").transform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(originalChoice, "DoctrineData").transform);
     }
 
     //Stop highlight hovered
     public void DeHoverDesign()
     {
+        //Remove highlight all Designs
+        foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
+        {
+            Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
+        }
+
         //TODO Clear Info
 
         //TODO if in process of new design default back to highlight that design type (can call like HoverDesign(changing))

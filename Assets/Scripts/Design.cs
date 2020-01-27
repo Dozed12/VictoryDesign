@@ -338,6 +338,26 @@ public class Characteristic
         //At least some progress was made so no longer empty knowledge
         emptyKnowledge = false;
     }
+
+    //String representation of prediction
+    public static string PredictedToString(int prediction)
+    {
+        switch (prediction)
+        {
+            case -2:
+                return "VERY LOW";
+            case -1:
+                return "LOW";
+            case 0:
+                return "NORMAL";
+            case 1:
+                return "HIGH";
+            case 2:
+                return "VERY HIGH";
+            default:
+                return "ERROR";
+        }
+    }
 }
 
 //Specific Designs
