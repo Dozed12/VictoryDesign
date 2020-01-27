@@ -62,6 +62,7 @@ public static class Utils
         {
             UnityEngine.Object.Destroy(child.gameObject);
         }
+        holder.transform.DetachChildren();
     }
 
     //Calculate Average of 2 values (Randomly floor or ceil)

@@ -22,6 +22,9 @@ public class Game : MonoBehaviour
     //Characteristic Final
     public GameObject characteristic;
 
+    //Impact Sprites
+    public List<Sprite> impactSprites;
+
     //Date and Turn
     public int turn;
     public DateTime date;
@@ -284,12 +287,26 @@ public class Game : MonoBehaviour
         Utils.GetChildRecursive(originalChoice, "Designer").GetComponent<Text>().text = "Designer: " + design.developer.name;
         Utils.GetChildRecursive(originalChoice, "Designation").GetComponent<Text>().text = "Designation: " + design.name;
 
-        //Industrial Values
+        //Edit Industrial Values
         Utils.GetChildRecursive(originalChoice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[0].predictedValue);
         Utils.GetChildRecursive(originalChoice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[1].predictedValue);
         Utils.GetChildRecursive(originalChoice, "ReliabilityValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[2].predictedValue);
 
-        //Doctrine Values
+        //Clear Doctrine Values
+        Utils.ClearChildren(Utils.GetChildRecursive(originalChoice, "DoctrineData"));
+
+        //Add Doctrine Values
+        for (int i = 3; i < design.characteristics.Count; i++)
+        {
+            //Setup Characteristic
+            GameObject doctrineCharacteristic = Instantiate(characteristic);
+            Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(design.characteristics[i].impact);
+            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name;
+            Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[i].predictedValue);
+
+            //Add to holder
+            doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(originalChoice, "DoctrineData").transform);
+        }
 
         //Rebuild Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(originalChoice, "IndustrialData").transform);
@@ -308,6 +325,12 @@ public class Game : MonoBehaviour
         //TODO Clear Info
 
         //TODO if in process of new design default back to highlight that design type (can call like HoverDesign(changing))
+    }
+
+    //Sprite for Impact
+    public Sprite ImpactSprite(Impact impact)
+    {
+        return impactSprites[(int)impact];
     }
 
 }
