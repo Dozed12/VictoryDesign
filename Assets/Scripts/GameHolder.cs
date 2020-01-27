@@ -130,7 +130,6 @@ public class GameHolder : MonoBehaviour
         //TODO Criteria compares all Impacts together, may make more sense to compare Industrial and Doctrine separately since they will have separate effect in Final Calculation
         bool valid = true;
         float total = 0;
-        float range = 0;
         float min = 0;
         float max = 0;
         do
