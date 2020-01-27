@@ -262,7 +262,25 @@ public class GameHolder : MonoBehaviour
     //Highlight Hovered
     public void HoverDesign(string type)
     {
-        //TODO Display Desired Info
+        //Get design
+        Design design = designs[type];
+
+        //Original Choice
+        GameObject originalChoice = GameObject.Find("OriginalChoice");
+
+        //Date
+        //Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = design.date
+
+        //Name & Designer
+        Utils.GetChildRecursive(originalChoice, "Designer").GetComponent<Text>().text = "Designer: " + design.developer.name;
+        Utils.GetChildRecursive(originalChoice, "Designation").GetComponent<Text>().text = "Designation: " + design.name;
+
+        //Industrial Values
+
+        //Doctrine Values
+
+        //TODO Rebuild Layout
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)originalChoice.transform);
     }
 
     //Stop highlight hovered
