@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class GameHolder : MonoBehaviour
+public class Game : MonoBehaviour
 {
     //UI State Variables
     public string designChoiceType;
@@ -18,6 +18,9 @@ public class GameHolder : MonoBehaviour
 
     //Tooltip
     public GameObject tooltip;
+
+    //Characteristic Final
+    public GameObject characteristic;
 
     //Date and Turn
     public int turn;
