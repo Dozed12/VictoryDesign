@@ -195,6 +195,27 @@ public class Game : MonoBehaviour
         Debug.Log("Min Coverage %: " + min);
         Debug.Log("Max Coverage %: " + max);
 
+        //Update Sliders
+        UpdateSliders();
+    }
+
+    //Update Sliders
+    public void UpdateSliders()
+    {
+        float[] coverage = CurrentCoverage();
+
+        //Industry
+        GameObject.Find("EngineeringSlider").GetComponent<Slider>().value = coverage[0];
+        GameObject.Find("ResourcesSlider").GetComponent<Slider>().value = coverage[1];
+        GameObject.Find("ReplenishmentSlider").GetComponent<Slider>().value = coverage[2];
+
+        //Doctrine
+        GameObject.Find("AISlider").GetComponent<Slider>().value = coverage[3];
+        GameObject.Find("AASlider").GetComponent<Slider>().value = coverage[4];
+        GameObject.Find("BreakthroughSlider").GetComponent<Slider>().value = coverage[5];
+        GameObject.Find("ExploitaitionSlider").GetComponent<Slider>().value = coverage[6];
+        GameObject.Find("MoraleSlider").GetComponent<Slider>().value = coverage[7];
+        GameObject.Find("EfficiencySlider").GetComponent<Slider>().value = coverage[8];
     }
 
     //Request Designs
