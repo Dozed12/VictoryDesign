@@ -103,7 +103,7 @@ public class Game : MonoBehaviour
     //Show Proposition
     public void ShowProposition()
     {
-        GameObject.Find("Proposition").GetComponent<Animator>().SetBool("open", true);
+        GameObject.Find("Request").GetComponent<Animator>().SetBool("open", true);
     }
 
     //Setup new Game
