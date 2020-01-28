@@ -33,11 +33,9 @@ public class DesignInstitute
 
         //Set base names
         baseNames = new Dictionary<Type, string>();
-        System.Random random = new System.Random();
         for (int i = 0; i < types.Length; i++)
         {
-            Fare.Xeger xeger = new Fare.Xeger(baseName, random);
-            baseNames.Add(types[i], xeger.Generate());
+            baseNames.Add(types[i], Naming.GenBaseName());
         }
 
         //Set types
@@ -50,15 +48,11 @@ public class DesignInstitute
         //Get Base Name
         string name = baseNames[type];
 
+        //Add Connector
+        name += connector;
+
         //Setup Xeger
         Fare.Xeger xeger;
-
-        //Connector (if connector is empty just ignore it, Xeger doesn't like empty string rule)
-        if (connector != "")
-        {
-            xeger = new Fare.Xeger(connector, Utils.random);
-            name += xeger.Generate();
-        }
 
         //Specific
         xeger = new Fare.Xeger(specific, Utils.random);
