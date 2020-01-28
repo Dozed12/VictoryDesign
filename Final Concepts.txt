@@ -155,6 +155,14 @@ Player can create new Institute for Design Types that only have 2 (Cooldown of x
 Before propositions are shown the player can use X points to make some specific requests (Development Points)
 Have Y points to spend, can trade some negatives for positives but limited to X changes
 
+Bulletins:
+    Bulletins can be cards with titles that are dragged to cork screen to be read, releasing drops them out of screen
+    When no bulletins there is unique graphic for bulletin box
+
+Time:
+    Time passes in months that can be paused
+    Real time between each month is fixed and displayed in something like an hourglass next to clock
+
 Steps of new Decision:
     - DesignDecision.Text fades to correct Text
     - Proposition appears from under
