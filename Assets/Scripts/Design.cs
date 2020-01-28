@@ -35,7 +35,8 @@ public class DesignInstitute
         baseNames = new Dictionary<Type, string>();
         for (int i = 0; i < types.Length; i++)
         {
-            baseNames.Add(types[i], Naming.GenBaseName());
+            Fare.Xeger xeger = new Fare.Xeger(baseName, Naming.random);
+            baseNames.Add(types[i], xeger.Generate());
         }
 
         //Set types
