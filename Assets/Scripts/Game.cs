@@ -269,6 +269,10 @@ public class Game : MonoBehaviour
                 values[i] = 0;
         }
 
+        //Enginnering and Resources are reversed (higher is worse)
+        totals[0] = -totals[0];
+        totals[1] = -totals[1];
+
         return values;
     }
 
