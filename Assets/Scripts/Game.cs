@@ -299,6 +299,8 @@ public class Game : MonoBehaviour
         //Highlight Selected
         Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), type), "Selected").GetComponent<Image>().enabled = true;
 
+        #region Original Choice UI
+
         //Original Choice
         GameObject originalChoice = GameObject.Find("OriginalChoice");
 
@@ -336,6 +338,12 @@ public class Game : MonoBehaviour
         //Rebuild Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(originalChoice, "IndustrialData").transform);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(originalChoice, "DoctrineData").transform);
+
+        #endregion
+
+        #region Combat Report UI
+
+        #endregion
     }
 
     //Stop highlight hovered
