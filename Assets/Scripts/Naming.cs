@@ -18,20 +18,23 @@ public class Naming
     public static void SetupNaming()
     {
         //Base Name
-        BaseNameRules.AddEntry("[A-Z]", 100);
-        BaseNameRules.AddEntry("[A-Z][A-Z]", 30);
-        BaseNameRules.AddEntry("[A-Z][A-Z][A-Z]", 10);
-        BaseNameRules.AddEntry("[A-Z][a-z]", 10);
-        BaseNameRules.AddEntry("[A-Z][a-z][a-z]", 10);
+        BaseNameRules.AddEntry("[A-Z]", 10);
+        BaseNameRules.AddEntry("[A-Z][A-Z]", 3);
+        BaseNameRules.AddEntry("[A-Z][A-Z][A-Z]", 1);
+        BaseNameRules.AddEntry("[A-Z][a-z]", 1);
+        BaseNameRules.AddEntry("[A-Z][a-z][a-z]", 1);
 
         //Connectors
-        ConnectorNameRules.AddEntry("-", 200);
-        ConnectorNameRules.AddEntry(" ", 300);
-        ConnectorNameRules.AddEntry("", 100);
+        ConnectorNameRules.AddEntry("-", 1);
+        ConnectorNameRules.AddEntry(" ", 5);
+        ConnectorNameRules.AddEntry("", 1);
+        ConnectorNameRules.AddEntry(".", 1);
 
         //Specifics
-        SpecificNameRules.AddEntry("[A-Z]", 20);
-        SpecificNameRules.AddEntry("^([0-9]|[1-9][0-9]|[1-9][0-9][0-9])$", 100);
+        SpecificNameRules.AddEntry("[A-Z]", 1);
+        SpecificNameRules.AddEntry("[1-9]", 5);
+        SpecificNameRules.AddEntry("[1-9][0-9]", 3);
+        SpecificNameRules.AddEntry("[1-9][0-9][0-9]", 1);
 
         //Set Random Number Generator
         random = new System.Random();
