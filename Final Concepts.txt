@@ -163,6 +163,12 @@ Time:
     Time passes in months that can be paused
     Real time between each month is fixed and displayed in something like an hourglass next to clock
 
+Naming:
+    From studied ww2 naming it seems BaseName and Connector is static for Design Type no matter the Design Institute
+    These still change over time (ie. "Ta-" as a base and connector for tank design for 3 designs then changes to "KV-")
+    The "Specifc" should in turn be changed to either be an increasing Number or Letter (instead of fully randomized every time)
+    May also be worth to control BaseNames better, vehicles tend to have small ones like "T" or "KV" or "M" while smallarms tend to have longer like "SVT" or "Ppsh"
+
 Steps of new Decision:
     - DesignDecision.Text fades to correct Text
     - Proposition appears from under
