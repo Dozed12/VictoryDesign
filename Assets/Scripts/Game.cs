@@ -39,6 +39,15 @@ public class Game : MonoBehaviour
     //Design Institutes
     public List<DesignInstitute> institutes;
 
+    //State
+    public enum State
+    {
+        NORMAL,
+        REQUEST,
+        CHOICE
+    }
+    public static State state = State.NORMAL;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,12 +101,35 @@ public class Game : MonoBehaviour
         //Test Map to Proposition
         if (Input.GetKeyDown(KeyCode.R))
         {
-            GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", true);
+            state = State.PROPOSITION;
+            ToggleMap(true);
             Invoke("ShowProposition", 0.5f);
         }
 
         //Process Tooltip
         TooltipManager.ProcessTooltip();
+    }
+
+    //Map Peeker
+    public void PeekMap()
+    {
+        if(state == State.NORMAL)
+            return;
+
+        GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", false);
+    }
+    public void UnPeekMap()
+    {
+        if(state == State.NORMAL)
+            return;
+
+        GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", true);
+    }
+
+    //Toggle Map
+    public void ToggleMap(bool value)
+    {
+        GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", value);
     }
 
     //Show Proposition
