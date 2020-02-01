@@ -380,9 +380,47 @@ public class Game : MonoBehaviour
         //Combat Report
         GameObject combatReport = GameObject.Find("CurrentReport");
         
+        //Info
         Utils.GetChild(combatReport, "Info").GetComponent<Text>().text = design.name + " " + type + " - " + design.developer.name;
 
-        
+        //Edit Industrial Values
+        if(design.characteristics[0].leftBound != design.characteristics[0].rightBound)
+            Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].leftBound + " to " + design.characteristics[0].rightBound;
+        else
+            Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].leftBound.ToString();
+
+        if(design.characteristics[1].leftBound != design.characteristics[1].rightBound)
+            Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].leftBound + " to " + design.characteristics[1].rightBound;
+        else
+            Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].leftBound.ToString();
+
+        if(design.characteristics[2].leftBound != design.characteristics[2].rightBound)
+            Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].leftBound + " to " + design.characteristics[2].rightBound;
+        else
+            Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].leftBound.ToString();
+
+        //Clear Doctrine Values
+        Utils.ClearChildren(Utils.GetChildRecursive(combatReport, "DoctrineData"));
+
+        //Add Doctrine Values
+        for (int i = 3; i < design.characteristics.Count; i++)
+        {
+            //Setup Characteristic
+            GameObject doctrineCharacteristic = Instantiate(characteristic);
+            Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(design.characteristics[i].impact);
+            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name;
+            if(design.characteristics[i].leftBound != design.characteristics[i].rightBound)
+                Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].leftBound + " to " + design.characteristics[i].rightBound;
+            else
+                Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].leftBound.ToString();
+
+            //Add to holder
+            doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(combatReport, "DoctrineData").transform);
+        }
+
+        //Rebuild Layout
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(combatReport, "IndustrialData").transform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(combatReport, "DoctrineData").transform);
 
         #endregion
     }
