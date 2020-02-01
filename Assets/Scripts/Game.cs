@@ -101,9 +101,9 @@ public class Game : MonoBehaviour
         //Test Map to Proposition
         if (Input.GetKeyDown(KeyCode.R))
         {
-            state = State.PROPOSITION;
+            state = State.REQUEST;
             ToggleMap(true);
-            Invoke("ShowProposition", 0.5f);
+            Invoke("ShowRequest", 0.5f);
         }
 
         //Process Tooltip
@@ -132,8 +132,8 @@ public class Game : MonoBehaviour
         GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", value);
     }
 
-    //Show Proposition
-    public void ShowProposition()
+    //Show Request
+    public void ShowRequest()
     {
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", true);
     }
@@ -367,6 +367,8 @@ public class Game : MonoBehaviour
             doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(originalChoice, "DoctrineData").transform);
         }
 
+        //TODO Indicate Deprecated
+
         //Rebuild Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(originalChoice, "IndustrialData").transform);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(originalChoice, "DoctrineData").transform);
@@ -374,6 +376,13 @@ public class Game : MonoBehaviour
         #endregion
 
         #region Combat Report UI
+
+        //Combat Report
+        GameObject combatReport = GameObject.Find("CurrentReport");
+        
+        Utils.GetChild(combatReport, "Info").GetComponent<Text>().text = design.name + " " + type + " - " + design.developer.name;
+
+        
 
         #endregion
     }
