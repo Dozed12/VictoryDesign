@@ -118,7 +118,11 @@ public class Game : MonoBehaviour
         //Time
         if(playing)
         {
+            //Add Time
             monthClock += monthAdvance * Time.deltaTime;
+            GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - monthClock;
+
+            //If End of Month
             if(monthClock > 1)
             {
                 //Reset clock
