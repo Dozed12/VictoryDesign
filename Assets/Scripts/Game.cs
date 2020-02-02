@@ -25,10 +25,19 @@ public class Game : MonoBehaviour
     //Impact Sprites
     public List<Sprite> impactSprites;
 
+    //Pause Play Time Sprites
+    public Sprite pauseSprite;
+    public Sprite playSprite;
+
     //Date and Turn
     public int turn;
     public DateTime date;
     private Text dateText;
+
+    //Time control
+    public bool playing = false;
+    public float monthClock = 0;
+    private float monthAdvance = 0.2f;
 
     //Designs in use
     public Dictionary<string, Design> designs;
@@ -76,7 +85,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Test Generate new Helmets Design
+        //Test Generate new Design
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9]{999, 999, 999, 999, 999, 999, 999, 999, 999}).Cast<Rifle>().ToArray();
@@ -106,8 +115,41 @@ public class Game : MonoBehaviour
             Invoke("ShowRequest", 0.5f);
         }
 
+        //Time
+        if(playing)
+        {
+            monthClock += monthAdvance * Time.deltaTime;
+            if(monthClock > 1)
+            {
+                //Reset clock
+                monthClock = 0;
+
+                //Update Time
+                turn++;
+                date = date.AddMonths(1);
+                GameObject.Find("Time").GetComponentInChildren<Text>().text = date.ToString("MMMM yyyy");
+
+                //TODO Perform checks on redesigns
+            }
+        }          
+
         //Process Tooltip
         TooltipManager.ProcessTooltip();
+    }
+
+    //Time Button
+    public void ToggleTime()
+    {
+        if(playing)
+        {
+            Utils.GetChild(GameObject.Find("TimeControl"), "Icon").GetComponent<Image>().overrideSprite = playSprite;
+            playing = false;
+        }
+        else
+        {
+            Utils.GetChild(GameObject.Find("TimeControl"), "Icon").GetComponent<Image>().overrideSprite = pauseSprite;
+            playing = true;
+        }
     }
 
     //Map Peeker
@@ -148,7 +190,7 @@ public class Game : MonoBehaviour
         designs = new Dictionary<string, Design>();
 
         //Set start date and turn
-        date = new DateTime(1920, 1, 1);
+        date = new DateTime(1915, 1, 1);
         turn = 1;
 
         //Get types of designs

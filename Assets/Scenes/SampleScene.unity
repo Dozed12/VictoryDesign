@@ -4253,7 +4253,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: January 1920
+  m_Text: January 1915
 --- !u!222 &330401338
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5558,7 +5558,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 458113356}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1937452438}
+        m_MethodName: ToggleTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &471785251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6297,7 +6308,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c61f293267c6374d8400d77e3c18817, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf70df60fe90bd94587cb22cb5900693, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15180,7 +15191,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9e466dd0703d42a488379c7d7e7cf2ab, type: 3}
   - {fileID: 21300000, guid: 1bda649d1b0e4d0499bdaceabba55259, type: 3}
   - {fileID: 21300000, guid: ce13fc80f87d07342b970232beab8f97, type: 3}
+  pauseSprite: {fileID: 21300000, guid: 2c61f293267c6374d8400d77e3c18817, type: 3}
+  playSprite: {fileID: 21300000, guid: bf70df60fe90bd94587cb22cb5900693, type: 3}
   turn: 0
+  playing: 0
+  monthClock: 0
   institutes: []
 --- !u!4 &1937452439
 Transform:
