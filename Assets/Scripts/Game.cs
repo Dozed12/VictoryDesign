@@ -36,6 +36,7 @@ public class Game : MonoBehaviour
 
     //Time control
     public bool playing = false;
+    public bool blockTimeControl = false;
     public float monthClock = 0;
     private float monthAdvance = 0.3f;
 
@@ -77,11 +78,7 @@ public class Game : MonoBehaviour
         Utils.DumpArray(CurrentCoverage());
 
         //Update Display of Design Ages
-        foreach (KeyValuePair<string, Design> design in designs)
-        {
-            //Update Design Age Progress
-            Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Progress").GetComponent<Image>().fillAmount = ((float)design.Value.age / design.Value.redesignPeriod);
-        }
+        UpdateRedesignProgress();
 
         //Test Map Builder
         Map.warStage = 1;
@@ -119,7 +116,7 @@ public class Game : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             state = State.REQUEST;
-            ToggleMap(true);
+            CloseMap(true);
             Invoke("ShowRequest", 0.5f);
         }
 
@@ -131,6 +128,7 @@ public class Game : MonoBehaviour
             GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - monthClock;
 
             //If End of Month
+            List<Type> designsNeeded = new List<Type>();
             if(monthClock > 1)
             {
                 //Reset clock
@@ -150,12 +148,32 @@ public class Game : MonoBehaviour
                     //Check Age Limit
                     if(design.Value.age > design.Value.redesignPeriod)
                     {
-                        //TODO New Design Required
+                        //New Design Required
+                        designsNeeded.Add(design.Value.GetType());
                     }
 
-                    //Update Design Age Progress
-                    Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Progress").GetComponent<Image>().fillAmount = ((float)design.Value.age / design.Value.redesignPeriod);
+                    //Update Redesign Progress
+                    UpdateRedesignProgress();
                 }
+            }
+
+            //Initiate Redesign if needed
+            if(designsNeeded.Count > 0)
+            {
+                //Set state to REQUEST
+                state = State.REQUEST;
+
+                //Pause
+                ToggleTime();
+
+                //Block Playing
+                blockTimeControl = true;
+
+                //Close Map
+                CloseMap(true);
+
+                //Invoke Show Request for new Design
+                Invoke("ShowRequest", 0.5f);
             }
         }          
 
@@ -163,9 +181,21 @@ public class Game : MonoBehaviour
         TooltipManager.ProcessTooltip();
     }
 
+    //Update Redesign Progress
+    public void UpdateRedesignProgress()
+    {
+        foreach (KeyValuePair<string, Design> design in designs)
+        {
+            Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Progress").GetComponent<Image>().fillAmount = ((float)design.Value.age / design.Value.redesignPeriod);
+        }
+    }
+
     //Time Button
     public void ToggleTime()
     {
+        if(blockTimeControl)
+            return;
+
         if(playing)
         {
             Utils.GetChild(GameObject.Find("TimeControl"), "Icon").GetComponent<Image>().overrideSprite = playSprite;
@@ -197,7 +227,7 @@ public class Game : MonoBehaviour
     }
 
     //Toggle Map
-    public void ToggleMap(bool value)
+    public void CloseMap(bool value)
     {
         GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", value);
     }
@@ -205,6 +235,8 @@ public class Game : MonoBehaviour
     //Show Request
     public void ShowRequest()
     {
+        //TODO Set Request Data
+
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", true);
     }
 
