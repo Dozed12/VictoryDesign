@@ -37,7 +37,7 @@ public class Game : MonoBehaviour
     //Time control
     public bool playing = false;
     public float monthClock = 0;
-    private float monthAdvance = 0.2f;
+    private float monthAdvance = 0.3f;
 
     //Designs in use
     public Dictionary<string, Design> designs;
@@ -133,7 +133,21 @@ public class Game : MonoBehaviour
                 date = date.AddMonths(1);
                 GameObject.Find("Time").GetComponentInChildren<Text>().text = date.ToString("MMMM yyyy");
 
-                //TODO Perform checks on redesigns
+                //Perform checks on redesigns
+                foreach (KeyValuePair<string, Design> design in designs)
+                {
+                    //Age Design
+                    design.Value.age++;
+
+                    //Check Age Limit
+                    if(design.Value.age > design.Value.redesignPeriod)
+                    {
+                        //TODO New Design Required
+                    }
+
+                    //Update Design Age Progress
+                    Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Progress").GetComponent<Image>().fillAmount = ((float)design.Value.age / design.Value.redesignPeriod);
+                }
             }
         }          
 

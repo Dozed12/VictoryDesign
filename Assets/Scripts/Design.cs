@@ -92,6 +92,9 @@ public abstract class Design
     //Design Institute that developed this
     public DesignInstitute developer;
 
+    //Age of design
+    public int age = 0;
+
     //How long does the design last before new design is needed(months)
     public int redesignPeriod;
 
