@@ -102,7 +102,7 @@ public abstract class Design
     public int redesignPeriodBase;
 
     //Variation of redesign period +-
-    public static float REDESIGN_PERIOD_VARIATION = 0.2f;
+    public static float REDESIGN_PERIOD_VARIATION = 0.3f;
 
     //Name of design
     public string name;
