@@ -88,4 +88,23 @@ public static class Utils
         else
             return "<color=maroon>" + val + "</color>";
     }
+
+    //Random Generation with Average (Terrible implementation but works)
+    public static List<int> RandomAverage(int size, int avg, int a, int b)
+    {
+        while (true)
+        {
+            List<int> result = new List<int>();
+            int total = 0;
+            for (int i = 0; i < size; i++)
+            {
+                result.Add(UnityEngine.Random.Range(a, b + 1));
+                total += result[i];
+            }
+            total = Mathf.FloorToInt(total / size);
+
+            if(total == avg)
+                return result;
+        }
+    }
 }

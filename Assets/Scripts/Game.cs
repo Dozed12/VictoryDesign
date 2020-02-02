@@ -70,10 +70,18 @@ public class Game : MonoBehaviour
         //Setup a New Game
         SetupNewGame();
 
+        //Results
         Debug.Log("Occurence of each Impact");
         Utils.DumpArray(ImpactOccurences());
         Debug.Log("Starting Coverage");
         Utils.DumpArray(CurrentCoverage());
+
+        //Update Display of Design Ages
+        foreach (KeyValuePair<string, Design> design in designs)
+        {
+            //Update Design Age Progress
+            Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Progress").GetComponent<Image>().fillAmount = ((float)design.Value.age / design.Value.redesignPeriod);
+        }
 
         //Test Map Builder
         Map.warStage = 1;
@@ -282,6 +290,15 @@ public class Game : MonoBehaviour
                 valid = false;
 
         } while (!valid);
+
+        //Randomize Design Age
+        List<int> ages = Utils.RandomAverage(designs.Count, 4, 0, 8);
+        int n = 0;
+        foreach (KeyValuePair<string, Design> design in designs)
+        {
+            design.Value.age = ages[n];
+            n++;
+        }
 
         //Result
         Debug.Log("Result from Design Generation");
