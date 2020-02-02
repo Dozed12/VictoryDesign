@@ -69,14 +69,14 @@ public class DesignInstitute
     }
 
     //Generate Design
-    public Design GenerateDesign(Type type)
+    public Design GenerateDesign(Type type, int[] mask)
     {
         //Generate Name
         string name = GenerateName(type);
 
         //Generate Design of desired type
         Design design = (Design)Activator.CreateInstance(type);
-        design.Generate(this, name);
+        design.Generate(this, name, mask);
 
         return design;
     }
@@ -105,23 +105,15 @@ public abstract class Design
     public string name;
 
     //Generate Design Generic
-    virtual public Design Generate(DesignInstitute developer, string name)
+    virtual public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Clear Characteristics
         characteristics = new List<Characteristic>();
 
         //Industrial Characteristics
-        Characteristic engineering = new Characteristic("Engineering Cost", Impact.ENGINEERING, this);
-        engineering.Generate();
-        characteristics.Add(engineering);
-
-        Characteristic resource = new Characteristic("Resource Cost", Impact.RESOURCES, this);
-        resource.Generate();
-        characteristics.Add(resource);
-
-        Characteristic reliability = new Characteristic("Reliability", Impact.REPLENISH, this);
-        reliability.Generate();
-        characteristics.Add(reliability);
+        characteristics.Add(new Characteristic("Engineering Cost", Impact.ENGINEERING, this, mask[0]));
+        characteristics.Add(new Characteristic("Resource Cost", Impact.RESOURCES, this, mask[1]));
+        characteristics.Add(new Characteristic("Reliability", Impact.REPLENISH, this, mask[2]));
 
         //Design Name
         this.name = name;
@@ -144,7 +136,7 @@ public abstract class Design
             if (characteristics[i].name == name)
                 return characteristics[i];
         }
-        return new Characteristic("FIND_FAIL", Impact.ANTI_ARMOR, new Rifle());
+        return new Characteristic("FIND_FAIL", Impact.ANTI_ARMOR, new Rifle(), -999);
     }
 
     //Progress Characteristic
@@ -240,28 +232,31 @@ public class Characteristic
     public bool fullKnowledge = false;
 
     //Constructor
-    public Characteristic(string name, Impact impact, Design design)
+    public Characteristic(string name, Impact impact, Design design, int requested)
     {
         this.name = name;
         this.impact = impact;
         this.design = design;
 
-        Generate();
+        Generate(requested);
     }
 
     //Generate values
-    public void Generate(int minimumValue = -2)
+    public void Generate(int requested = 999)
     {
         /* Predicted values and True value bounds
-        -2      -10     -5
-        -1      -10     0
-        0       -5      5
-        1       0       10
-        2       5       10
+        -2  ->      -10     -5
+        -1  ->      -10     0
+        0   ->      -5      5
+        1   ->      0       10
+        2   ->      5       10
         */
 
-        //Predicted value from -2 to 2
-        predictedValue = UnityEngine.Random.Range(minimumValue, 2 + 1);
+        //Predicted value from -2 to 2 or requested
+        if (requested != 999)
+            predictedValue = requested;
+        else
+            predictedValue = UnityEngine.Random.Range(-2, 2 + 1);
 
         //Calculate bounds from predicted
         leftBound = 0;
@@ -360,18 +355,18 @@ public class Characteristic
 [Serializable]
 public class Rifle : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this));
+        characteristics.Add(new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -380,20 +375,20 @@ public class Rifle : Design
 [Serializable]
 public class SubmachineGun : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this));
+        characteristics.Add(new Characteristic("Accuracy", Impact.ANTI_INFANTRY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Rate of Fire", Impact.BREAKTHROUGH, this));
+        characteristics.Add(new Characteristic("Rate of Fire", Impact.BREAKTHROUGH, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[5]));
 
         return this;
     }
@@ -402,18 +397,18 @@ public class SubmachineGun : Design
 [Serializable]
 public class MachineGun : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Rate of Fire", Impact.ANTI_INFANTRY, this));
+        characteristics.Add(new Characteristic("Rate of Fire", Impact.ANTI_INFANTRY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -422,18 +417,18 @@ public class MachineGun : Design
 [Serializable]
 public class Mortar : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Shell", Impact.BREAKTHROUGH, this));
+        characteristics.Add(new Characteristic("Shell", Impact.BREAKTHROUGH, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -442,18 +437,18 @@ public class Mortar : Design
 [Serializable]
 public class AntiTankRifle : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Penetration", Impact.ANTI_ARMOR, this));
+        characteristics.Add(new Characteristic("Penetration", Impact.ANTI_ARMOR, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -462,20 +457,20 @@ public class AntiTankRifle : Design
 [Serializable]
 public class AntiTankCannon : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Caliber", Impact.ANTI_ARMOR, this));
+        characteristics.Add(new Characteristic("Caliber", Impact.ANTI_ARMOR, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Muzzle Velocity", Impact.ANTI_ARMOR, this));
+        characteristics.Add(new Characteristic("Muzzle Velocity", Impact.ANTI_ARMOR, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[5]));
 
         return this;
     }
@@ -484,20 +479,20 @@ public class AntiTankCannon : Design
 [Serializable]
 public class Artillery : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Shell", Impact.ANTI_INFANTRY, this));
+        characteristics.Add(new Characteristic("Shell", Impact.ANTI_INFANTRY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Range", Impact.BREAKTHROUGH, this));
+        characteristics.Add(new Characteristic("Range", Impact.BREAKTHROUGH, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[5]));
 
         return this;
     }
@@ -506,22 +501,22 @@ public class Artillery : Design
 [Serializable]
 public class Tankette : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this));
+        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this));
+        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Maneuverability", Impact.EXPLOITATION, this));
+        characteristics.Add(new Characteristic("Maneuverability", Impact.EXPLOITATION, this, mask[5]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[6]));
 
         return this;
     }
@@ -530,20 +525,20 @@ public class Tankette : Design
 [Serializable]
 public class CavalryTank : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this));
+        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this));
+        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[5]));
 
         return this;
     }
@@ -552,22 +547,22 @@ public class CavalryTank : Design
 [Serializable]
 public class CruiserTank : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Cannon", Impact.ANTI_ARMOR, this));
+        characteristics.Add(new Characteristic("Cannon", Impact.ANTI_ARMOR, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this));
+        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this));
+        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this, mask[5]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[6]));
 
         return this;
     }
@@ -576,22 +571,22 @@ public class CruiserTank : Design
 [Serializable]
 public class InfantryTank : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this));
+        characteristics.Add(new Characteristic("Machine Gun", Impact.ANTI_INFANTRY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Howitzer", Impact.BREAKTHROUGH, this));
+        characteristics.Add(new Characteristic("Howitzer", Impact.BREAKTHROUGH, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this));
+        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this, mask[5]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[6]));
 
         return this;
     }
@@ -600,22 +595,22 @@ public class InfantryTank : Design
 [Serializable]
 public class TankDestroyer : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Caliber", Impact.ANTI_ARMOR, this));
+        characteristics.Add(new Characteristic("Caliber", Impact.ANTI_ARMOR, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Muzzle Velocity", Impact.ANTI_ARMOR, this));
+        characteristics.Add(new Characteristic("Muzzle Velocity", Impact.ANTI_ARMOR, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this));
+        characteristics.Add(new Characteristic("Armor", Impact.BREAKTHROUGH, this, mask[5]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[6]));
 
         return this;
     }
@@ -624,18 +619,18 @@ public class TankDestroyer : Design
 [Serializable]
 public class MotorcycleRecon : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Sights", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Sights", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -644,20 +639,20 @@ public class MotorcycleRecon : Design
 [Serializable]
 public class ArmoredCar : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Sights", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Sights", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this));
+        characteristics.Add(new Characteristic("Speed", Impact.EXPLOITATION, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[5]));
 
         return this;
     }
@@ -666,18 +661,18 @@ public class ArmoredCar : Design
 [Serializable]
 public class Truck : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Capacity", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Capacity", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -686,20 +681,20 @@ public class Truck : Design
 [Serializable]
 public class Halftrack : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Capacity", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Capacity", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("All-terrain", Impact.EXPLOITATION, this));
+        characteristics.Add(new Characteristic("All-terrain", Impact.EXPLOITATION, this, mask[4]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[5]));
 
         return this;
     }
@@ -708,18 +703,18 @@ public class Halftrack : Design
 [Serializable]
 public class UtilityCar : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Officer Equipment", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Officer Equipment", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -728,18 +723,18 @@ public class UtilityCar : Design
 [Serializable]
 public class PrimeMover : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Torque", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Torque", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -748,18 +743,18 @@ public class PrimeMover : Design
 [Serializable]
 public class Telephone : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Wiring", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Wiring", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -768,18 +763,18 @@ public class Telephone : Design
 [Serializable]
 public class Radio : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Range", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Range", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -788,18 +783,18 @@ public class Radio : Design
 [Serializable]
 public class Engineer : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("Terrain Traversal", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("Terrain Traversal", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -808,18 +803,18 @@ public class Engineer : Design
 [Serializable]
 public class Bridging : Design
 {
-    override public Design Generate(DesignInstitute developer, string name)
+    override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
         //Base redesign period
         redesignPeriodBase = 12;
 
         //Call Generic
-        base.Generate(developer, name);
+        base.Generate(developer, name, mask);
 
         //Generate characteristics values
-        characteristics.Add(new Characteristic("River Traversal", Impact.COMBAT_EFFICIENCY, this));
+        characteristics.Add(new Characteristic("River Traversal", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this));
+        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }

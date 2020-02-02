@@ -79,7 +79,7 @@ public class Game : MonoBehaviour
         //Test Generate new Helmets Design
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Rifle[] rifles = RequestDesign(typeof(Rifle)).Cast<Rifle>().ToArray();
+            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9]{999, 999, 999, 999, 999, 999, 999, 999, 999}).Cast<Rifle>().ToArray();
             Utils.DumpArray(rifles);
         }
 
@@ -113,6 +113,7 @@ public class Game : MonoBehaviour
     //Map Peeker
     public void PeekMap()
     {
+        //Not Active in NORMAL state
         if(state == State.NORMAL)
             return;
 
@@ -120,6 +121,7 @@ public class Game : MonoBehaviour
     }
     public void UnPeekMap()
     {
+        //Not Active in NORMAL state
         if(state == State.NORMAL)
             return;
 
@@ -185,7 +187,7 @@ public class Game : MonoBehaviour
                 name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
                 //Request Design
-                designs[name] = RequestDesign(typesOfDesigns[i])[0];
+                designs[name] = RequestDesign(typesOfDesigns[i], new int[7]{999, 999, 999, 999, 999, 999, 999})[0];
             }
 
             //Current Coverage
@@ -251,7 +253,7 @@ public class Game : MonoBehaviour
     }
 
     //Request Designs
-    public Design[] RequestDesign(Type type)
+    public Design[] RequestDesign(Type type, int[] mask)
     {
         List<Design> designs = new List<Design>();
 
@@ -262,7 +264,7 @@ public class Game : MonoBehaviour
             if (institutes[i].CanDesign(type))
             {
                 //Design
-                designs.Add(institutes[i].GenerateDesign(type));
+                designs.Add(institutes[i].GenerateDesign(type, mask));
             }
         }
 
