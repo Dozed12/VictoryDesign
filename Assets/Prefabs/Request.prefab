@@ -1428,7 +1428,7 @@ GameObject:
   - component: {fileID: 1981293219977849422}
   - component: {fileID: 1981293219977849423}
   m_Layer: 5
-  m_Name: Value
+  m_Name: EngineeringValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1504,7 +1504,7 @@ GameObject:
   - component: {fileID: 1981293220029105291}
   - component: {fileID: 1981293220029105290}
   m_Layer: 5
-  m_Name: IndustrialCharacteristic (1)
+  m_Name: Resources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2049,7 +2049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 239.965, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 466.55, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981293220254171597
@@ -2177,7 +2177,7 @@ GameObject:
   - component: {fileID: 1981293220368966732}
   - component: {fileID: 1981293220368966735}
   m_Layer: 5
-  m_Name: IndustrialCharacteristic
+  m_Name: Engineering
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2424,7 +2424,7 @@ GameObject:
   - component: {fileID: 1981293220524370961}
   - component: {fileID: 1981293220524370974}
   m_Layer: 5
-  m_Name: Value
+  m_Name: ResourcesValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2690,7 +2690,7 @@ GameObject:
   - component: {fileID: 1981293220572126100}
   - component: {fileID: 1981293220572126103}
   m_Layer: 5
-  m_Name: IndustrialCharacteristic (2)
+  m_Name: Reliability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3770,7 +3770,7 @@ GameObject:
   - component: {fileID: 1981293221119764968}
   - component: {fileID: 1981293221119764969}
   m_Layer: 5
-  m_Name: Value
+  m_Name: ReliabilityValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

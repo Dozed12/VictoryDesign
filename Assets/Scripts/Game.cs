@@ -22,6 +22,9 @@ public class Game : MonoBehaviour
     //Characteristic Final
     public GameObject characteristic;
 
+    //Characteristic Request
+    public GameObject requestCharacteristic;
+
     //Impact Sprites
     public List<Sprite> impactSprites;
 
@@ -34,11 +37,15 @@ public class Game : MonoBehaviour
     public DateTime date;
     private Text dateText;
 
+    //Current Redesign
+    public Type redesignType;
+    public int[] requestMask;
+
     //Time control
     public bool playing = false;
     public bool blockTimeControl = false;
     public float monthClock = 0;
-    private float monthAdvance = 0.3f;
+    private float monthAdvance = 0.5f;
 
     //Designs in use
     public Dictionary<string, Design> designs;
@@ -163,6 +170,9 @@ public class Game : MonoBehaviour
                 //Set state to REQUEST
                 state = State.REQUEST;
 
+                //Set redesign type
+                redesignType = designsNeeded[0];
+
                 //Pause
                 ToggleTime();
 
@@ -235,8 +245,47 @@ public class Game : MonoBehaviour
     //Show Request
     public void ShowRequest()
     {
-        //TODO Set Request Data
+        //Reset Mask
+        requestMask = new int[7]{999, 999, 999, 999, 999, 999, 999};
 
+        //Request Object
+        GameObject request = GameObject.Find("Request");
+
+        //Request Info
+        string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+        Utils.GetChild(request, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Request - " + nameSpaced;
+        Utils.GetChild(request, "Date").GetComponent<Text>().text = date.ToString("MMMM yyyy");
+
+        //Request Industrial
+        Utils.GetChildRecursive(request, "EngineeringValue").GetComponent<Text>().text = "???";
+        Utils.GetChildRecursive(request, "ResourcesValue").GetComponent<Text>().text = "???";
+        Utils.GetChildRecursive(request, "ReliabilityValue").GetComponent<Text>().text = "???";
+
+        //Clear Doctrine Characteristics Holder
+        Utils.ClearChildren(Utils.GetChild(request, "DoctrineCharacteristicsHolder"));
+
+        //Setup Doctrine Characteristics
+        for (int i = 3; i < designs[nameSpaced].characteristics.Count; i++)
+        {
+            //Instantiate new
+            GameObject doctrineCharacteristic = Instantiate(requestCharacteristic);
+            Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(designs[nameSpaced].characteristics[i].impact);
+            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = designs[nameSpaced].characteristics[i].name;
+            Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = "???";
+
+            //TODO Callback increase decrease
+
+            //Add to Holder
+            doctrineCharacteristic.transform.SetParent(Utils.GetChild(request, "DoctrineCharacteristicsHolder").transform);
+        }
+
+        //TODO Callback issue request
+
+        //Fix Layout
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "IndustrialCharacteristicsHolder").transform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "DoctrineCharacteristicsHolder").transform);
+
+        //Fire Animation
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", true);
     }
 
