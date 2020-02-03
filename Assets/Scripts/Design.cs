@@ -139,7 +139,7 @@ public abstract class Design
             if (characteristics[i].name == name)
                 return characteristics[i];
         }
-        return new Characteristic("FIND_FAIL", Impact.ANTI_ARMOR, new Rifle(), -999);
+        return new Characteristic("FIND_FAIL", Impact.ANTI_ARMOR, new Rifle(), 0);
     }
 
     //Progress Characteristic
@@ -245,8 +245,13 @@ public class Characteristic
     }
 
     //Generate values
-    public void Generate(int requested = 999)
+    public void Generate(int requested = 0)
     {
+        /* 
+        Requested Values can be -2 to 2
+        However 0 has no effect as a request
+        */
+
         /* Predicted values and True value bounds
         -2  ->      -10     -5
         -1  ->      -10     0
@@ -256,7 +261,7 @@ public class Characteristic
         */
 
         //Predicted value from -2 to 2 or requested
-        if (requested != 999)
+        if (requested != 0)
             predictedValue = requested;
         else
             predictedValue = UnityEngine.Random.Range(-2, 2 + 1);

@@ -100,7 +100,7 @@ public class Game : MonoBehaviour
         //Test Generate new Design
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9]{999, 999, 999, 999, 999, 999, 999, 999, 999}).Cast<Rifle>().ToArray();
+            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9]{0, 0, 0, 0, 0, 0, 0, 0, 0}).Cast<Rifle>().ToArray();
             Utils.DumpArray(rifles);
         }
 
@@ -246,7 +246,7 @@ public class Game : MonoBehaviour
     public void ShowRequest()
     {
         //Reset Mask
-        requestMask = new int[7]{999, 999, 999, 999, 999, 999, 999};
+        requestMask = new int[7]{0, 0, 0, 0, 0, 0, 0};
 
         //Request Object
         GameObject request = GameObject.Find("Request");
@@ -261,6 +261,16 @@ public class Game : MonoBehaviour
         Utils.GetChildRecursive(request, "ResourcesValue").GetComponent<Text>().text = "???";
         Utils.GetChildRecursive(request, "ReliabilityValue").GetComponent<Text>().text = "???";
 
+        //Industrial Increase Decrease Callbacks
+        Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "Increase").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(0, Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "EngineeringValue").GetComponent<Text>(), 1);});
+        Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(0, Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "EngineeringValue").GetComponent<Text>(), -1);});
+
+        Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Increase").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(1, Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "ResourcesValue").GetComponent<Text>(), 1);});
+        Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(1, Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "ResourcesValue").GetComponent<Text>(), -1);});
+
+        Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Increase").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(2, Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "ReliabilityValue").GetComponent<Text>(), 1);});
+        Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(2, Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "ReliabilityValue").GetComponent<Text>(), -1);});
+
         //Clear Doctrine Characteristics Holder
         Utils.ClearChildren(Utils.GetChild(request, "DoctrineCharacteristicsHolder"));
 
@@ -273,13 +283,16 @@ public class Game : MonoBehaviour
             Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = designs[nameSpaced].characteristics[i].name;
             Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = "???";
 
-            //TODO Callback increase decrease
+            //Increase Decrease Callbacks
+            int id = i;
+            Utils.GetChild(doctrineCharacteristic, "Increase").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(id, Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>(), 1);});
+            Utils.GetChild(doctrineCharacteristic, "Decrease").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(id, Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>(), -1);});
 
             //Add to Holder
             doctrineCharacteristic.transform.SetParent(Utils.GetChild(request, "DoctrineCharacteristicsHolder").transform);
         }
 
-        //TODO Callback issue request
+        //TODO Issue Request Callback
 
         //Fix Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "IndustrialCharacteristicsHolder").transform);
@@ -287,6 +300,41 @@ public class Game : MonoBehaviour
 
         //Fire Animation
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", true);
+    }
+
+    //Request Change
+    public void RequestChange(int id, Text text, int value)
+    {
+        //Excess
+        if(requestMask[id] + value > 2)
+            return;
+        if(requestMask[id] + value < -2)
+            return;
+
+        //TODO Check Request Point Limit
+
+        //Add to mask
+        requestMask[id] += value;
+
+        //Update Text
+        switch (requestMask[id])
+        {
+            case -2:
+                text.text = "Very Low";
+                break;
+            case -1:
+                text.text = "Low";
+                break;
+            case 0:
+                text.text = "???";
+                break;
+            case 1:
+                text.text = "High";
+                break;
+            case 2:
+                text.text = "Very High";
+                break;
+        }
     }
 
     //Setup new Game
@@ -336,7 +384,7 @@ public class Game : MonoBehaviour
                 name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
                 //Request Design
-                designs[name] = RequestDesign(typesOfDesigns[i], new int[7]{999, 999, 999, 999, 999, 999, 999})[0];
+                designs[name] = RequestDesign(typesOfDesigns[i], new int[7]{0, 0, 0, 0, 0, 0, 0})[0];
             }
 
             //Current Coverage
