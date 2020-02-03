@@ -45,7 +45,7 @@ public class Game : MonoBehaviour
     public bool playing = false;
     public bool blockTimeControl = false;
     public float monthClock = 0;
-    private float monthAdvance = 0.5f;
+    private float monthAdvance = 1f;
 
     //Designs in use
     public Dictionary<string, Design> designs;
@@ -117,14 +117,6 @@ public class Game : MonoBehaviour
             Utils.Dump(designs["Rifle"]);
             designs["Rifle"].ProgressRandom(4);
             Utils.Dump(designs["Rifle"]);
-        }
-
-        //Test Map to Proposition
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            state = State.REQUEST;
-            CloseMap(true);
-            Invoke("ShowRequest", 0.5f);
         }
 
         //Time
@@ -297,6 +289,7 @@ public class Game : MonoBehaviour
         //Fix Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "IndustrialCharacteristicsHolder").transform);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "DoctrineCharacteristicsHolder").transform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "Data").transform);
 
         //Fire Animation
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", true);
