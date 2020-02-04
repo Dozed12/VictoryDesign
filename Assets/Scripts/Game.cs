@@ -40,9 +40,13 @@ public class Game : MonoBehaviour
     public DateTime date;
     private Text dateText;
 
+    //List of designs needed
+    List<Type> designsNeeded;
+
     //Current Redesign
     public Type redesignType;
     public int[] requestMask;
+    public Design[] choices;
 
     //Time control
     public bool playing = false;
@@ -130,7 +134,7 @@ public class Game : MonoBehaviour
             GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - monthClock;
 
             //If End of Month
-            List<Type> designsNeeded = new List<Type>();
+            designsNeeded = new List<Type>();
             if (monthClock > 1)
             {
                 //Reset clock
@@ -249,6 +253,8 @@ public class Game : MonoBehaviour
 
         //Request Object
         GameObject request = GameObject.Find("Request");
+
+        //Clear Issue/Signature
         Utils.GetChildRecursive(request, "Border").GetComponent<Image>().enabled = false;
         Utils.GetChildRecursive(request, "Text").GetComponent<Text>().enabled = false;
         Utils.GetChildRecursive(request, "Signature").GetComponent<Text>().enabled = false;
@@ -306,7 +312,7 @@ public class Game : MonoBehaviour
     //Issue Request
     public void IssueRequest()
     {
-        //Issue Display
+        //Issue Display (Signature and Stamp)
         GameObject request = GameObject.Find("Request");
         Utils.GetChildRecursive(request, "Border").GetComponent<Image>().enabled = true;
         Utils.GetChildRecursive(request, "Text").GetComponent<Text>().enabled = true;
@@ -319,7 +325,7 @@ public class Game : MonoBehaviour
         Utils.ClearChildren(GameObject.Find("Choices"));
 
         //Request Design Choices
-        Design[] choices = RequestDesign(redesignType, requestMask);
+        choices = RequestDesign(redesignType, requestMask);
 
         //Setup Design Choices Display
         for (int i = 0; i < choices.Length; i++)
@@ -358,7 +364,9 @@ public class Game : MonoBehaviour
                 doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(choice, "DoctrineData").transform);
             }
 
-            //TODO Callback Choice
+            //Callback Choice
+            int id = i;
+            Utils.GetChild(choice, "Approve").GetComponent<Button>().onClick.AddListener(delegate{ApplyChoice(id);});
 
             //Rebuild Layout
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(choice, "IndustrialData").transform);
@@ -370,6 +378,48 @@ public class Game : MonoBehaviour
 
         //Show Choices
         GameObject.Find("Choices").GetComponent<Animator>().SetBool("open", true);
+    }
+
+    //Apply Choice
+    public void ApplyChoice(int id)
+    {
+        //Set Choice
+        designs[string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ')] = choices[id];
+
+        //Update Redesign Progress
+        UpdateRedesignProgress();
+
+        //Hide Choices
+        GameObject.Find("Choices").GetComponent<Animator>().SetBool("open", false);
+
+        //Remove from list of redesigns
+        designsNeeded.RemoveAt(0);
+
+        //If no more to do exit
+        if(designsNeeded.Count == 0)
+        {
+            //Return to Normal State
+            state = State.NORMAL;
+
+            //Unblock Playing
+            blockTimeControl = false;
+
+            //Open Map
+            CloseMap(false);
+        }
+        //If there is do next
+        else
+        {
+            //Set redesign type
+            redesignType = designsNeeded[0];
+
+            //Update Design Choice Title
+            string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
+
+            //Invoke Show Request for new Design
+            Invoke("ShowRequest", 0.5f);
+        }
     }
 
     //Request Change
