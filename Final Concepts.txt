@@ -157,6 +157,8 @@ Have Y points to spend, can trade some negatives for positives but limited to X 
 
 Request Player Name in Main Menu to use in Signatures
 
+Show Player Which designs need to be redesigned this month
+
 Bulletins:
     Bulletins can be cards with titles that are dragged to cork screen to be read, releasing drops them out of screen
     When no bulletins there is unique graphic for bulletin box

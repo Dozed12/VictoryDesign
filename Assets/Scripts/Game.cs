@@ -139,6 +139,7 @@ public class Game : MonoBehaviour
             {
                 //Reset clock
                 monthClock = 0;
+                GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - monthClock;
 
                 //Update Time
                 turn++;
