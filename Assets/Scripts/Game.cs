@@ -249,6 +249,9 @@ public class Game : MonoBehaviour
 
         //Request Object
         GameObject request = GameObject.Find("Request");
+        Utils.GetChildRecursive(request, "Border").GetComponent<Image>().enabled = false;
+        Utils.GetChildRecursive(request, "Text").GetComponent<Text>().enabled = false;
+        Utils.GetChildRecursive(request, "Signature").GetComponent<Text>().enabled = false;
 
         //Request Info
         string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
@@ -291,9 +294,6 @@ public class Game : MonoBehaviour
             doctrineCharacteristic.transform.SetParent(Utils.GetChild(request, "DoctrineCharacteristicsHolder").transform);
         }
 
-        //Issue Request Callback
-        Utils.GetChild(request, "Issue").GetComponent<Button>().onClick.AddListener(delegate { IssueRequest(); });
-
         //Fix Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "IndustrialCharacteristicsHolder").transform);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "DoctrineCharacteristicsHolder").transform);
@@ -306,7 +306,11 @@ public class Game : MonoBehaviour
     //Issue Request
     public void IssueRequest()
     {
-        //TODO Stamp
+        //Issue Display
+        GameObject request = GameObject.Find("Request");
+        Utils.GetChildRecursive(request, "Border").GetComponent<Image>().enabled = true;
+        Utils.GetChildRecursive(request, "Text").GetComponent<Text>().enabled = true;
+        Utils.GetChildRecursive(request, "Signature").GetComponent<Text>().enabled = true;
 
         //Hide Request
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", false);

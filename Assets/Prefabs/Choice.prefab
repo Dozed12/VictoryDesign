@@ -1163,7 +1163,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: APPROVED
+  m_Text: APPROVAL
 --- !u!1 &6270990294092664714
 GameObject:
   m_ObjectHideFlags: 0

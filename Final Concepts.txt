@@ -155,6 +155,8 @@ Player can create new Institute for Design Types that only have 2 (Cooldown of x
 Before propositions are shown the player can use X points to make some specific requests (Development Points)
 Have Y points to spend, can trade some negatives for positives but limited to X changes
 
+Request Player Name in Main Menu to use in Signatures
+
 Bulletins:
     Bulletins can be cards with titles that are dragged to cork screen to be read, releasing drops them out of screen
     When no bulletins there is unique graphic for bulletin box
