@@ -174,6 +174,10 @@ public class Game : MonoBehaviour
                 //Close Map
                 CloseMap(true);
 
+                //Update Design Choice Title
+                string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+                GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
+
                 //Invoke Show Request for new Design
                 Invoke("ShowRequest", 0.5f);
             }
