@@ -284,7 +284,8 @@ public class Game : MonoBehaviour
             doctrineCharacteristic.transform.SetParent(Utils.GetChild(request, "DoctrineCharacteristicsHolder").transform);
         }
 
-        //TODO Issue Request Callback
+        //Issue Request Callback
+        Utils.GetChild(request, "Issue").GetComponent<Button>().onClick.AddListener(delegate{IssueRequest();});
 
         //Fix Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "IndustrialCharacteristicsHolder").transform);
@@ -293,6 +294,20 @@ public class Game : MonoBehaviour
 
         //Fire Animation
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", true);
+    }
+
+    //Issue Request
+    public void IssueRequest()
+    {
+        //TODO Stamp
+
+        //Hide Request
+        GameObject.Find("Request").GetComponent<Animator>().SetBool("open", false);
+
+        //TODO Setup Choices
+
+        //Show Choices
+        GameObject.Find("Choices").GetComponent<Animator>().SetBool("open", true);
     }
 
     //Request Change
