@@ -8,10 +8,6 @@ using UnityEngine.EventSystems;
 
 public class Game : MonoBehaviour
 {
-    //UI State Variables
-    public string designChoiceType;
-    public Design currentDisplayDesign;
-
     //Map
     public Texture2D baseMap;
     public GameObject mapHolder;
