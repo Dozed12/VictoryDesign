@@ -20,10 +20,13 @@ public class Game : MonoBehaviour
     public GameObject tooltip;
 
     //Characteristic Final
-    public GameObject characteristic;
+    public GameObject characteristicPrefab;
 
     //Characteristic Request
-    public GameObject requestCharacteristic;
+    public GameObject requestCharacteristicPrefab;
+
+    //Choice
+    public GameObject choicePrefab;
 
     //Impact Sprites
     public List<Sprite> impactSprites;
@@ -100,7 +103,7 @@ public class Game : MonoBehaviour
         //Test Generate new Design
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9]{0, 0, 0, 0, 0, 0, 0, 0, 0}).Cast<Rifle>().ToArray();
+            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }).Cast<Rifle>().ToArray();
             Utils.DumpArray(rifles);
         }
 
@@ -120,7 +123,7 @@ public class Game : MonoBehaviour
         }
 
         //Time
-        if(playing)
+        if (playing)
         {
             //Add Time
             monthClock += monthAdvance * Time.deltaTime;
@@ -128,7 +131,7 @@ public class Game : MonoBehaviour
 
             //If End of Month
             List<Type> designsNeeded = new List<Type>();
-            if(monthClock > 1)
+            if (monthClock > 1)
             {
                 //Reset clock
                 monthClock = 0;
@@ -145,7 +148,7 @@ public class Game : MonoBehaviour
                     design.Value.age++;
 
                     //Check Age Limit
-                    if(design.Value.age > design.Value.redesignPeriod)
+                    if (design.Value.age > design.Value.redesignPeriod)
                     {
                         //New Design Required
                         designsNeeded.Add(design.Value.GetType());
@@ -157,7 +160,7 @@ public class Game : MonoBehaviour
             }
 
             //Initiate Redesign if needed
-            if(designsNeeded.Count > 0)
+            if (designsNeeded.Count > 0)
             {
                 //Set state to REQUEST
                 state = State.REQUEST;
@@ -181,7 +184,7 @@ public class Game : MonoBehaviour
                 //Invoke Show Request for new Design
                 Invoke("ShowRequest", 0.5f);
             }
-        }          
+        }
 
         //Process Tooltip
         TooltipManager.ProcessTooltip();
@@ -199,10 +202,10 @@ public class Game : MonoBehaviour
     //Time Button
     public void ToggleTime()
     {
-        if(blockTimeControl)
+        if (blockTimeControl)
             return;
 
-        if(playing)
+        if (playing)
         {
             Utils.GetChild(GameObject.Find("TimeControl"), "Icon").GetComponent<Image>().overrideSprite = playSprite;
             playing = false;
@@ -218,7 +221,7 @@ public class Game : MonoBehaviour
     public void PeekMap()
     {
         //Not Active in NORMAL state
-        if(state == State.NORMAL)
+        if (state == State.NORMAL)
             return;
 
         GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", false);
@@ -226,7 +229,7 @@ public class Game : MonoBehaviour
     public void UnPeekMap()
     {
         //Not Active in NORMAL state
-        if(state == State.NORMAL)
+        if (state == State.NORMAL)
             return;
 
         GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", true);
@@ -242,7 +245,7 @@ public class Game : MonoBehaviour
     public void ShowRequest()
     {
         //Reset Mask
-        requestMask = new int[7]{0, 0, 0, 0, 0, 0, 0};
+        requestMask = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
         //Request Object
         GameObject request = GameObject.Find("Request");
@@ -258,14 +261,14 @@ public class Game : MonoBehaviour
         Utils.GetChildRecursive(request, "ReliabilityValue").GetComponent<Text>().text = "???";
 
         //Industrial Increase Decrease Callbacks
-        Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "Increase").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(0, Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "EngineeringValue").GetComponent<Text>(), 1);});
-        Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(0, Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "EngineeringValue").GetComponent<Text>(), -1);});
+        Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "Increase").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(0, Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "EngineeringValue").GetComponent<Text>(), 1); });
+        Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(0, Utils.GetChild(Utils.GetChildRecursive(request, "Engineering"), "EngineeringValue").GetComponent<Text>(), -1); });
 
-        Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Increase").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(1, Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "ResourcesValue").GetComponent<Text>(), 1);});
-        Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(1, Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "ResourcesValue").GetComponent<Text>(), -1);});
+        Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Increase").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(1, Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "ResourcesValue").GetComponent<Text>(), 1); });
+        Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(1, Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "ResourcesValue").GetComponent<Text>(), -1); });
 
-        Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Increase").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(2, Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "ReliabilityValue").GetComponent<Text>(), 1);});
-        Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(2, Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "ReliabilityValue").GetComponent<Text>(), -1);});
+        Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Increase").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(2, Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "ReliabilityValue").GetComponent<Text>(), 1); });
+        Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(2, Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "ReliabilityValue").GetComponent<Text>(), -1); });
 
         //Clear Doctrine Characteristics Holder
         Utils.ClearChildren(Utils.GetChild(request, "DoctrineCharacteristicsHolder"));
@@ -274,22 +277,22 @@ public class Game : MonoBehaviour
         for (int i = 3; i < designs[nameSpaced].characteristics.Count; i++)
         {
             //Instantiate new
-            GameObject doctrineCharacteristic = Instantiate(requestCharacteristic);
+            GameObject doctrineCharacteristic = Instantiate(requestCharacteristicPrefab);
             Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(designs[nameSpaced].characteristics[i].impact);
             Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = designs[nameSpaced].characteristics[i].name;
             Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = "???";
 
             //Increase Decrease Callbacks
             int id = i;
-            Utils.GetChild(doctrineCharacteristic, "Increase").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(id, Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>(), 1);});
-            Utils.GetChild(doctrineCharacteristic, "Decrease").GetComponent<Button>().onClick.AddListener(delegate{RequestChange(id, Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>(), -1);});
+            Utils.GetChild(doctrineCharacteristic, "Increase").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(id, Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>(), 1); });
+            Utils.GetChild(doctrineCharacteristic, "Decrease").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(id, Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>(), -1); });
 
             //Add to Holder
             doctrineCharacteristic.transform.SetParent(Utils.GetChild(request, "DoctrineCharacteristicsHolder").transform);
         }
 
         //Issue Request Callback
-        Utils.GetChild(request, "Issue").GetComponent<Button>().onClick.AddListener(delegate{IssueRequest();});
+        Utils.GetChild(request, "Issue").GetComponent<Button>().onClick.AddListener(delegate { IssueRequest(); });
 
         //Fix Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(request, "IndustrialCharacteristicsHolder").transform);
@@ -308,7 +311,58 @@ public class Game : MonoBehaviour
         //Hide Request
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", false);
 
-        //TODO Setup Choices
+        //Clear Propositions Holder
+        Utils.ClearChildren(GameObject.Find("Choices"));
+
+        //Request Design Choices
+        Design[] choices = RequestDesign(redesignType, requestMask);
+
+        //Setup Design Choices Display
+        for (int i = 0; i < choices.Length; i++)
+        {
+            //Choice
+            GameObject choice = Instantiate(choicePrefab);
+
+            //Title
+            Utils.GetChild(choice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposition - " + redesignType;
+
+            //TODO Date
+            //Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = design.date
+
+            //Name & Designer
+            Utils.GetChildRecursive(choice, "Designer").GetComponent<Text>().text = "Designer: " + choices[i].developer.name;
+            Utils.GetChildRecursive(choice, "Designation").GetComponent<Text>().text = "Designation: " + choices[i].name;
+
+            //Edit Industrial Values
+            Utils.GetChildRecursive(choice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[0].predictedValue);
+            Utils.GetChildRecursive(choice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[1].predictedValue);
+            Utils.GetChildRecursive(choice, "ReliabilityValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[2].predictedValue);
+
+            //Clear Doctrine Values
+            Utils.ClearChildren(Utils.GetChildRecursive(choice, "DoctrineData"));
+
+            //Add Doctrine Values
+            for (int c = 3; c < choices[i].characteristics.Count; c++)
+            {
+                //Setup Characteristic
+                GameObject doctrineCharacteristic = Instantiate(characteristicPrefab);
+                Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(choices[i].characteristics[c].impact);
+                Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = choices[i].characteristics[c].name;
+                Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[c].predictedValue);
+
+                //Add to holder
+                doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(choice, "DoctrineData").transform);
+            }
+
+            //TODO Callback Choice
+
+            //Rebuild Layout
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(choice, "IndustrialData").transform);
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(choice, "DoctrineData").transform);
+
+            //Add to Holder
+            choice.transform.SetParent(GameObject.Find("Choices").transform);
+        }
 
         //Show Choices
         GameObject.Find("Choices").GetComponent<Animator>().SetBool("open", true);
@@ -318,9 +372,9 @@ public class Game : MonoBehaviour
     public void RequestChange(int id, Text text, int value)
     {
         //Excess
-        if(requestMask[id] + value > 2)
+        if (requestMask[id] + value > 2)
             return;
-        if(requestMask[id] + value < -2)
+        if (requestMask[id] + value < -2)
             return;
 
         //TODO Check Request Point Limit
@@ -396,7 +450,7 @@ public class Game : MonoBehaviour
                 name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
                 //Request Design
-                designs[name] = RequestDesign(typesOfDesigns[i], new int[7]{0, 0, 0, 0, 0, 0, 0})[0];
+                designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 })[0];
             }
 
             //Current Coverage
@@ -578,7 +632,7 @@ public class Game : MonoBehaviour
         for (int i = 3; i < design.characteristics.Count; i++)
         {
             //Setup Characteristic
-            GameObject doctrineCharacteristic = Instantiate(characteristic);
+            GameObject doctrineCharacteristic = Instantiate(characteristicPrefab);
             Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(design.characteristics[i].impact);
             Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name;
             Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[i].predictedValue);
@@ -599,22 +653,22 @@ public class Game : MonoBehaviour
 
         //Combat Report
         GameObject combatReport = GameObject.Find("CurrentReport");
-        
+
         //Info
         Utils.GetChild(combatReport, "Info").GetComponent<Text>().text = design.name + " " + type + " - " + design.developer.name;
 
         //Edit Industrial Values
-        if(design.characteristics[0].leftBound != design.characteristics[0].rightBound)
+        if (design.characteristics[0].leftBound != design.characteristics[0].rightBound)
             Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].leftBound + " to " + design.characteristics[0].rightBound;
         else
             Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].leftBound.ToString();
 
-        if(design.characteristics[1].leftBound != design.characteristics[1].rightBound)
+        if (design.characteristics[1].leftBound != design.characteristics[1].rightBound)
             Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].leftBound + " to " + design.characteristics[1].rightBound;
         else
             Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].leftBound.ToString();
 
-        if(design.characteristics[2].leftBound != design.characteristics[2].rightBound)
+        if (design.characteristics[2].leftBound != design.characteristics[2].rightBound)
             Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].leftBound + " to " + design.characteristics[2].rightBound;
         else
             Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].leftBound.ToString();
@@ -626,10 +680,10 @@ public class Game : MonoBehaviour
         for (int i = 3; i < design.characteristics.Count; i++)
         {
             //Setup Characteristic
-            GameObject doctrineCharacteristic = Instantiate(characteristic);
+            GameObject doctrineCharacteristic = Instantiate(characteristicPrefab);
             Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(design.characteristics[i].impact);
             Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name;
-            if(design.characteristics[i].leftBound != design.characteristics[i].rightBound)
+            if (design.characteristics[i].leftBound != design.characteristics[i].rightBound)
                 Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].leftBound + " to " + design.characteristics[i].rightBound;
             else
                 Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].leftBound.ToString();
