@@ -326,8 +326,8 @@ public class Game : MonoBehaviour
             //Title
             Utils.GetChild(choice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposition - " + redesignType;
 
-            //TODO Date
-            //Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = design.date
+            //Date
+            Utils.GetChild(choice, "Date").GetComponent<Text>().text = date.ToString("MMMM yyyy");
 
             //Name & Designer
             Utils.GetChildRecursive(choice, "Designer").GetComponent<Text>().text = "Designer: " + choices[i].developer.name;
@@ -487,7 +487,7 @@ public class Game : MonoBehaviour
         } while (!valid);
 
         //Randomize Design Age
-        List<int> ages = Utils.RandomAverage(designs.Count, 4, 0, 8);
+        List<int> ages = Utils.RandomAverage(designs.Count, 5, 1, 10);
         int n = 0;
         foreach (KeyValuePair<string, Design> design in designs)
         {
@@ -613,8 +613,8 @@ public class Game : MonoBehaviour
         //Title
         Utils.GetChild(originalChoice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposition - " + type;
 
-        //TODO Date
-        //Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = design.date
+        //Date
+        Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = date.AddMonths(-design.age).ToString("MMMM yyyy");
 
         //Name & Designer
         Utils.GetChildRecursive(originalChoice, "Designer").GetComponent<Text>().text = "Designer: " + design.developer.name;
