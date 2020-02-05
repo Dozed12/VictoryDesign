@@ -692,7 +692,17 @@ public class Game : MonoBehaviour
             doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(originalChoice, "DoctrineData").transform);
         }
 
-        //TODO Indicate Deprecated
+        //Indicate Deprecated
+        if(design.age - 1 == design.redesignPeriod)
+        {
+            Utils.GetChild(originalChoice, "Deprecated").GetComponent<Image>().enabled = true;
+            Utils.GetChild(originalChoice, "Deprecated").GetComponentInChildren<Text>().enabled = true;
+        }
+        else
+        {
+            Utils.GetChild(originalChoice, "Deprecated").GetComponent<Image>().enabled = false;
+            Utils.GetChild(originalChoice, "Deprecated").GetComponentInChildren<Text>().enabled = false;
+        }
 
         //Rebuild Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(originalChoice, "IndustrialData").transform);

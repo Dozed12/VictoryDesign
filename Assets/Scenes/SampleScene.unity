@@ -15349,7 +15349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40fa6bf6017c48a479627a2540c73eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  designChoiceType: 
   baseMap: {fileID: 2800000, guid: 67188f132fa4f0b488d5978567ff4942, type: 3}
   mapHolder: {fileID: 1340906219}
   tooltip: {fileID: 605867655}
@@ -16718,7 +16717,7 @@ PrefabInstance:
     - target: {fileID: 1981293220254171595, guid: a1aaae3e15be12e41aa63fbcb9ddf04b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 239.965
       objectReference: {fileID: 0}
     - target: {fileID: 1981293220254171595, guid: a1aaae3e15be12e41aa63fbcb9ddf04b,
         type: 3}
@@ -17327,7 +17326,7 @@ PrefabInstance:
     - target: {fileID: 3711580741395335860, guid: b5487abea94f3924a838f520ccdbd4fe,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 28.5
       objectReference: {fileID: 0}
     - target: {fileID: 3711580741395335860, guid: b5487abea94f3924a838f520ccdbd4fe,
         type: 3}
@@ -18210,7 +18209,7 @@ PrefabInstance:
     - target: {fileID: 6703064498820593794, guid: 267bf44e106d5a34b83964585246b5a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 169.7
       objectReference: {fileID: 0}
     - target: {fileID: 6703064498820593794, guid: 267bf44e106d5a34b83964585246b5a6,
         type: 3}
