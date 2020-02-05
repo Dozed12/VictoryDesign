@@ -677,6 +677,12 @@ public class Game : MonoBehaviour
         //Get design
         Design design = designs[type];
 
+        //Remove highlight all Designs
+        foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
+        {
+            Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
+        }
+
         //Highlight Selected
         Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), type), "Selected").GetComponent<Image>().enabled = true;
 
@@ -787,14 +793,6 @@ public class Game : MonoBehaviour
     //Stop highlight hovered
     public void DeHoverDesign()
     {
-        //Remove highlight all Designs
-        foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
-        {
-            Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
-        }
-
-        //TODO Hide Combat Report / Original Choice
-
         //Default to redesign type if in redesign process
         if(redesignType != null)
             HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
