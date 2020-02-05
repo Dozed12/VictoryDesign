@@ -169,6 +169,15 @@ public class Game : MonoBehaviour
                 //Set redesign type
                 redesignType = designsNeeded[0];
 
+                //Remove highlight all Designs
+                foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
+                {
+                    Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
+                }
+
+                //Highlight Design of Redesign Type
+                HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+
                 //Pause
                 ToggleTime();
 
@@ -403,12 +412,27 @@ public class Game : MonoBehaviour
 
             //Open Map
             CloseMap(false);
+
+            //Highlight Design of Redesign Type
+            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+
+            //Nullify redesign
+            redesignType = null;
         }
         //If there is do next
         else
         {
             //Set redesign type
             redesignType = designsNeeded[0];
+
+            //Remove highlight all Designs
+            foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
+            {
+                Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
+            }
+
+            //Highlight Design of Redesign Type
+            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
 
             //Update Design Choice Title
             string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
@@ -769,9 +793,11 @@ public class Game : MonoBehaviour
             Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
         }
 
-        //TODO Clear Info
+        //TODO Hide Combat Report / Original Choice
 
-        //TODO if in process of new design default back to highlight that design type (can call like HoverDesign(changing))
+        //Default to redesign type if in redesign process
+        if(redesignType != null)
+            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
     }
 
     //Sprite for Impact
