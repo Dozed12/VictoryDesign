@@ -250,7 +250,26 @@ public class Characteristic
         /* 
         Requested Values can be -2 to 2
         However 0 has no effect as a request
+        -2  ->      Very Low
+        -1  ->      Very Low or Low
+        1   ->      Very High or High
+        2   ->      Very High
         */
+
+        //Predicted value from -2 to 2 or requested
+        if (requested != 0)
+        {
+            if(requested == -2)
+                predictedValue = -2;
+            else if(requested == -1)
+                predictedValue = UnityEngine.Random.Range(-2, -1 + 1);
+            else if(requested == 1)
+                predictedValue = UnityEngine.Random.Range(1, 2 + 1);
+            else if(requested == 2)
+                predictedValue = 2;
+        }
+        else
+            predictedValue = UnityEngine.Random.Range(-2, 2 + 1);
 
         /* Predicted values and True value bounds
         -2  ->      -10     -5
@@ -259,12 +278,6 @@ public class Characteristic
         1   ->      0       10
         2   ->      5       10
         */
-
-        //Predicted value from -2 to 2 or requested
-        if (requested != 0)
-            predictedValue = requested;
-        else
-            predictedValue = UnityEngine.Random.Range(-2, 2 + 1);
 
         //Calculate bounds from predicted
         leftBound = 0;
