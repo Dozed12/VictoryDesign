@@ -464,11 +464,7 @@ public class Game : MonoBehaviour
         //TODO Check Request Point Limit
 
         //Add to mask
-        Debug.Log(requestMask[id]);
         requestMask[id] += value;
-
-
-        Debug.Log(requestMask[id]);
 
         //Update Text
         switch (requestMask[id])
