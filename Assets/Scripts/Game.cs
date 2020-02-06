@@ -470,19 +470,19 @@ public class Game : MonoBehaviour
         switch (requestMask[id])
         {
             case -2:
-                text.text = "Minimal Focus";
+                text.text = "Not Important";
                 break;
             case -1:
-                text.text = "Small Focus";
+                text.text = "Less Important";
                 break;
             case 0:
                 text.text = "???";
                 break;
             case 1:
-                text.text = "Large Focus";
+                text.text = "More Important";
                 break;
             case 2:
-                text.text = "Massive Focus";
+                text.text = "Very Important";
                 break;
         }
     }
