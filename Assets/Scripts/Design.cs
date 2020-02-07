@@ -247,6 +247,10 @@ public class Characteristic
     //Generate values
     public void Generate(int requested = 0)
     {
+        //Flip Engineering/Resource Characteristics
+        if(name == "Engineering Cost" || name == "Resource Cost")
+            requested = -requested;
+
         /* 
         Requested Values can be -2 to 2
         However 0 has no effect as a request
