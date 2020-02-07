@@ -328,7 +328,7 @@ public class Game : MonoBehaviour
             //Instantiate new
             GameObject doctrineCharacteristic = Instantiate(requestCharacteristicPrefab);
             Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(designs[nameSpaced].characteristics[i].impact);
-            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = designs[nameSpaced].characteristics[i].name;
+            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = designs[nameSpaced].characteristics[i].name + ":";
             Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = "???";
 
             //Increase Decrease Callbacks
@@ -403,7 +403,7 @@ public class Game : MonoBehaviour
                 //Setup Characteristic
                 GameObject doctrineCharacteristic = Instantiate(characteristicPrefab);
                 Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(choices[i].characteristics[c].impact);
-                Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = choices[i].characteristics[c].name;
+                Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = choices[i].characteristics[c].name + ":";
                 Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[c].predictedValue);
 
                 //Add to holder
@@ -771,7 +771,7 @@ public class Game : MonoBehaviour
             //Setup Characteristic
             GameObject doctrineCharacteristic = Instantiate(characteristicPrefab);
             Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(design.characteristics[i].impact);
-            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name;
+            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name + ":";
             Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[i].predictedValue);
 
             //Add to holder
@@ -829,7 +829,7 @@ public class Game : MonoBehaviour
             //Setup Characteristic
             GameObject doctrineCharacteristic = Instantiate(characteristicPrefab);
             Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(design.characteristics[i].impact);
-            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name;
+            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name + ":";
             if (design.characteristics[i].leftBound != design.characteristics[i].rightBound)
                 Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].leftBound + " to " + design.characteristics[i].rightBound;
             else
