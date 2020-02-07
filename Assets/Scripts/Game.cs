@@ -539,7 +539,6 @@ public class Game : MonoBehaviour
         }
 
         //Create Base Designs with Criteria
-        //TODO Criteria compares all Impacts together, may make more sense to compare Industrial and Doctrine separately since they will have separate effect in Final Calculation
         bool valid = true;
         float total = 0;
         float min = 0;
@@ -576,17 +575,34 @@ public class Game : MonoBehaviour
                 valid = false;
             }
 
-            //Evaluate Range of Coverages
+            //Evaluate Range of Coverages - Industry
             min = 2;
             max = -2;
-            for (int i = 0; i < coverage.Length; i++)
+            for (int i = 0; i < 3; i++)
             {
                 if (min > coverage[i])
                     min = coverage[i];
                 if (max < coverage[i])
                     max = coverage[i];
             }
-            if (Mathf.Abs(min - max) < 1.0f)
+            if (Mathf.Abs(min - max) < 0.5f)
+                valid = false;
+
+            //Evaluate min is negative and max is positive
+            if (min > 0 || max < 0)
+                valid = false;
+
+            //Evaluate Range of Coverages - Doctrine
+            min = 2;
+            max = -2;
+            for (int i = 3; i < coverage.Length; i++)
+            {
+                if (min > coverage[i])
+                    min = coverage[i];
+                if (max < coverage[i])
+                    max = coverage[i];
+            }
+            if (Mathf.Abs(min - max) < 0.5f)
                 valid = false;
 
             //Evaluate min is negative and max is positive
@@ -603,12 +619,6 @@ public class Game : MonoBehaviour
             design.Value.age = ages[n];
             n++;
         }
-
-        //Result
-        Debug.Log("Result from Design Generation");
-        Debug.Log("Sum Coverage %: " + total);
-        Debug.Log("Min Coverage %: " + min);
-        Debug.Log("Max Coverage %: " + max);
 
         //Update Sliders
         UpdateSliders();
