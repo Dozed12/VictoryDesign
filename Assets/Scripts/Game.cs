@@ -361,7 +361,8 @@ public class Game : MonoBehaviour
             GameObject choice = Instantiate(choicePrefab);
 
             //Title
-            Utils.GetChild(choice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposition - " + redesignType;
+            string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            Utils.GetChild(choice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposition - " + nameSpaced;
 
             //Date
             Utils.GetChild(choice, "Date").GetComponent<Text>().text = date.ToString("MMMM yyyy");
