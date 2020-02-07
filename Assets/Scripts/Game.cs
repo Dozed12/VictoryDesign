@@ -555,7 +555,6 @@ public class Game : MonoBehaviour
 
         //Create Base Designs with Criteria
         bool valid = true;
-        float total = 0;
         float min = 0;
         float max = 0;
         do
@@ -579,17 +578,6 @@ public class Game : MonoBehaviour
             //Current Coverage
             float[] coverage = CurrentCoverage();
 
-            //Evaluate Total Coverage is not too far from 0
-            total = 0;
-            for (int i = 0; i < coverage.Length; i++)
-            {
-                total += coverage[i];
-            }
-            if (Mathf.Abs(total - 0.0f) > 0.3f)
-            {
-                valid = false;
-            }
-
             //Evaluate Range of Coverages - Industry
             min = 2;
             max = -2;
@@ -600,7 +588,7 @@ public class Game : MonoBehaviour
                 if (max < coverage[i])
                     max = coverage[i];
             }
-            if (Mathf.Abs(min - max) < 0.5f)
+            if (Mathf.Abs(min - max) < 0.6f)
                 valid = false;
 
             //Evaluate min is negative and max is positive
@@ -617,7 +605,7 @@ public class Game : MonoBehaviour
                 if (max < coverage[i])
                     max = coverage[i];
             }
-            if (Mathf.Abs(min - max) < 0.5f)
+            if (Mathf.Abs(min - max) < 0.6f)
                 valid = false;
 
             //Evaluate min is negative and max is positive
