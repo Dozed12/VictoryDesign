@@ -586,7 +586,7 @@ public class Game : MonoBehaviour
                 if (max < coverage[i])
                     max = coverage[i];
             }
-            if (Mathf.Abs(min - max) < 0.4f)
+            if (Mathf.Abs(min - max) < 1.0f)
                 valid = false;
 
             //Evaluate min is negative and max is positive
