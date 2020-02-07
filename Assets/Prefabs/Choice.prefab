@@ -2051,7 +2051,7 @@ MonoBehaviour:
   m_Text: 'Ministry of War
 
 
-    Design Proposition - [DESIGNTYPE]'
+    Design Proposal - [DESIGNTYPE]'
 --- !u!1 &6270990294934157840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,7 +2667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 169.7, y: 0}
   m_SizeDelta: {x: 300.72, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6270990295337572359

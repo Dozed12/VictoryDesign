@@ -368,7 +368,7 @@ public class Game : MonoBehaviour
 
             //Title
             string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
-            Utils.GetChild(choice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposition - " + nameSpaced;
+            Utils.GetChild(choice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposal - " + nameSpaced;
 
             //Date
             Utils.GetChild(choice, "Date").GetComponent<Text>().text = date.ToString("MMMM yyyy");
@@ -726,7 +726,7 @@ public class Game : MonoBehaviour
         GameObject originalChoice = GameObject.Find("OriginalChoice");
 
         //Title
-        Utils.GetChild(originalChoice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposition - " + type;
+        Utils.GetChild(originalChoice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposal - " + type;
 
         //Date
         Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = date.AddMonths(-design.age).ToString("MMMM yyyy");
