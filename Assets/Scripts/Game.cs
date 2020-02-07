@@ -53,6 +53,9 @@ public class Game : MonoBehaviour
     public float monthClock = 0;
     private float monthAdvance = 1f;
 
+    //Last Hover
+    public string lastHover = "";
+
     //Designs in use
     public Dictionary<string, Design> designs;
 
@@ -153,6 +156,15 @@ public class Game : MonoBehaviour
                 turn++;
                 date = date.AddMonths(1);
                 GameObject.Find("Time").GetComponentInChildren<Text>().text = date.ToString("MMMM yyyy");
+
+                //Progress Design Intel
+                foreach (KeyValuePair<string, Design> design in designs)
+                {
+                    design.Value.ProgressRandom(5);
+                }
+
+                //Update Hover
+                HoverDesign(lastHover);
 
                 //Perform checks on redesigns
                 foreach (KeyValuePair<string, Design> design in designs)
@@ -620,6 +632,12 @@ public class Game : MonoBehaviour
             n++;
         }
 
+        //Apply progress from age
+        foreach (KeyValuePair<string, Design> design in designs)
+        {
+            design.Value.ProgressRandom(5 * design.Value.age);
+        }
+
         //Update Sliders
         UpdateSliders();
     }
@@ -718,6 +736,9 @@ public class Game : MonoBehaviour
     //Highlight Hovered
     public void HoverDesign(string type)
     {
+        //Last hover is current
+        lastHover = type;
+
         //Get design
         Design design = designs[type];
 
