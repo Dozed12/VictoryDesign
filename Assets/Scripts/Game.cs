@@ -128,6 +128,12 @@ public class Game : MonoBehaviour
             Utils.Dump(designs["Rifle"]);
         }
 
+        //Space Bar Toggle Time
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ToggleTime();
+        }
+
         //Time
         if (playing)
         {
