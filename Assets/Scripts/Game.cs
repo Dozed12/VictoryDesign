@@ -90,6 +90,9 @@ public class Game : MonoBehaviour
         //Update Display of Design Ages
         UpdateRedesignProgress();
 
+        //Default Hover to First(Rifle)
+        HoverDesign("Rifle");
+
         //Test Map Builder
         Map.warStage = 1;
         Map.ProgressWar(6);
