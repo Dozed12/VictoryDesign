@@ -355,23 +355,44 @@ public class Characteristic
     }
 
     //String representation of prediction
-    public static string PredictedToString(int prediction)
+    public static string PredictedToString(int prediction, bool invert = false)
     {
-        switch (prediction)
+        if(invert)
         {
-            case -2:
-                return "VERY LOW";
-            case -1:
-                return "LOW";
-            case 0:
-                return "NORMAL";
-            case 1:
-                return "HIGH";
-            case 2:
-                return "VERY HIGH";
-            default:
-                return "ERROR";
+            switch (prediction)
+            {
+                case -2:
+                    return "<color=#246E1E>VERY LOW</color>";
+                case -1:
+                    return "<color=#506E4D>LOW</color>";
+                case 0:
+                    return "<color=#7D7D7D>NORMAL</color>";
+                case 1:
+                    return "<color=#815454>HIGH</color>";
+                case 2:
+                    return "<color=#811919>VERY HIGH</color>";
+                default:
+                    return "ERROR";
+            }
         }
+        else
+        {
+            switch (prediction)
+            {
+                case -2:
+                    return "<color=#811919>VERY LOW</color>";
+                case -1:
+                    return "<color=#815454>LOW</color>";
+                case 0:
+                    return "<color=#7D7D7D>NORMAL</color>";
+                case 1:
+                    return "<color=#506E4D>HIGH</color>";
+                case 2:
+                    return "<color=#246E1E>VERY HIGH</color>";
+                default:
+                    return "ERROR";
+            }
+        }        
     }
 }
 

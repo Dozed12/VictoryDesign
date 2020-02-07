@@ -378,8 +378,8 @@ public class Game : MonoBehaviour
             Utils.GetChildRecursive(choice, "Designation").GetComponent<Text>().text = "Designation: " + choices[i].name;
 
             //Edit Industrial Values
-            Utils.GetChildRecursive(choice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[0].predictedValue);
-            Utils.GetChildRecursive(choice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[1].predictedValue);
+            Utils.GetChildRecursive(choice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[0].predictedValue, true);
+            Utils.GetChildRecursive(choice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[1].predictedValue, true);
             Utils.GetChildRecursive(choice, "ReliabilityValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[2].predictedValue);
 
             //Clear Doctrine Values
@@ -495,19 +495,19 @@ public class Game : MonoBehaviour
         switch (requestMask[id])
         {
             case -2:
-                text.text = "Not Important";
+                text.text = "<color=#811919>Not Important</color>";
                 break;
             case -1:
-                text.text = "Less Important";
+                text.text = "<color=#815454>Less Important</color>";
                 break;
             case 0:
-                text.text = "???";
+                text.text = "<color=#7D7D7D>???</color>";
                 break;
             case 1:
-                text.text = "More Important";
+                text.text = "<color=#506E4D>More Important</color>";
                 break;
             case 2:
-                text.text = "Very Important";
+                text.text = "<color=#246E1E>Very Important</color>";
                 break;
         }
     }
@@ -736,8 +736,8 @@ public class Game : MonoBehaviour
         Utils.GetChildRecursive(originalChoice, "Designation").GetComponent<Text>().text = "Designation: " + design.name;
 
         //Edit Industrial Values
-        Utils.GetChildRecursive(originalChoice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[0].predictedValue);
-        Utils.GetChildRecursive(originalChoice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[1].predictedValue);
+        Utils.GetChildRecursive(originalChoice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[0].predictedValue, true);
+        Utils.GetChildRecursive(originalChoice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[1].predictedValue, true);
         Utils.GetChildRecursive(originalChoice, "ReliabilityValue").GetComponent<Text>().text = Characteristic.PredictedToString(design.characteristics[2].predictedValue);
 
         //Clear Doctrine Values
