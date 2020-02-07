@@ -15,6 +15,9 @@ public class Game : MonoBehaviour
     //Tooltip
     public GameObject tooltip;
 
+    //Focus Points Text
+    public GameObject focusPoints;
+
     //Characteristic Final
     public GameObject characteristicPrefab;
 
@@ -260,6 +263,10 @@ public class Game : MonoBehaviour
         //Reset Mask
         requestMask = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
+        //Show Focus Points
+        focusPoints.GetComponent<Text>().enabled = true;
+        focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: 2";
+
         //Request Object
         GameObject request = GameObject.Find("Request");
 
@@ -329,6 +336,9 @@ public class Game : MonoBehaviour
     //Issue Request
     public void IssueRequest()
     {
+        //Hide Focus Points
+        focusPoints.GetComponent<Text>().enabled = false;
+
         //Issue Display (Signature and Stamp)
         GameObject request = GameObject.Find("Request");
         Utils.GetChildRecursive(request, "Border").GetComponent<Image>().enabled = true;
@@ -464,10 +474,15 @@ public class Game : MonoBehaviour
         if (requestMask[id] + value < -2)
             return;
 
-        //TODO Check Request Point Limit
+        //Check Request Point Limit
+        if(requestMask.Sum() + value > 2)
+            return;
 
         //Add to mask
         requestMask[id] += value;
+
+        //Update Focus Text
+        focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: " + (2 - requestMask.Sum());
 
         //Update Text
         switch (requestMask[id])
