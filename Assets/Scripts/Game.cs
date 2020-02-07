@@ -436,6 +436,9 @@ public class Game : MonoBehaviour
         //Update Redesign Progress
         UpdateRedesignProgress();
 
+        //Update Sliders
+        UpdateSliders();
+
         //Hide Choices
         GameObject.Find("Choices").GetComponent<Animator>().SetBool("open", false);
 
