@@ -35,7 +35,7 @@ public class Game : MonoBehaviour
     public Sprite playSprite;
 
     //Date and Turn
-    public int turn;
+    public static int turn;
     public DateTime date;
     private Text dateText;
 
