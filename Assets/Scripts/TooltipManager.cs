@@ -31,13 +31,13 @@ public static class TooltipManager
     public static void SetupTooltips()
     {
         //Setup Tooltip Object
-        TooltipManager.tooltip = GameObject.Find("Tooltip");
+        tooltip = GameObject.Find("Tooltip");
 
         //Reset dictionary
-        TooltipManager.tooltips = new Dictionary<string, Tooltip>();
+        tooltips = new Dictionary<string, Tooltip>();
 
         //Add tooltip entries
-        TooltipManager.tooltips.Add("IndustryValue", new Tooltip("Industrial Capacity\n\nIndustrial Capacity assigned to your ministry,\nused to finance investments in resources\nand infrastructure.", IndustrialSpendingTooltip));
+        tooltips.Add("IndustryValue", new Tooltip("Industrial Capacity\n\nIndustrial Capacity assigned to your ministry,\nused to finance investments in resources\nand infrastructure.", IndustrialSpendingTooltip));
     }
 
     //Tooltip methods
