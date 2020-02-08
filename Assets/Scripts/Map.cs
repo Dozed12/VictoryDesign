@@ -91,8 +91,6 @@ public static class Map
         return final;
     }
 
-    //TODO Progress Pre War Expansion (pre war stages are fixed order)
-
     //Progress War Expansion (check if stage still has possible region to occupy if so randomly add it, else move to next stage)
     public static void ProgressWar(int num)
     {

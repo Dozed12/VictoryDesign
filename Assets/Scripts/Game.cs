@@ -65,6 +65,11 @@ public class Game : MonoBehaviour
     //Design Institutes
     public List<DesignInstitute> institutes;
 
+    //Cursor
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+
     //State
     public enum State
     {
@@ -77,6 +82,9 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Set Cursor
+        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+
         //Setup Naming system
         Naming.SetupNaming();
 
