@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Region
 {
     public Point point;
+    public Point[] pixels;
     public bool unified = false;
     public bool ally = false;
     public bool occupied = false;   
@@ -57,6 +58,36 @@ public static class Map
     //Stage of revenge position
     public static Region revengePosition = new Region( new Point(695, 200));
 
+    //Setup Pixel Groups
+    public static void SetupPixels(Texture2D map)
+    {
+        //For each Unification Stage
+        for (int i = 0; i < unificationPositions.Count; i++)
+        {            
+            //Get Points
+            unificationPositions[i].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, unificationPositions[i].point)).ToArray();
+        }
+
+        //For each Alliance Stage
+        for (int i = 0; i < allyPositions.Count; i++)
+        {
+                allyPositions[i].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, allyPositions[i].point)).ToArray();
+        }
+
+        //Revenge Stage
+        revengePosition.pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, revengePosition.point)).ToArray();
+
+        //For each War stage
+        for (int i = 0; i < warStagePositions.Count; i++)
+        {
+            //For each region of the stage
+            for (int j = 0; j < warStagePositions[i].Count; j++)
+            {
+                warStagePositions[i][j].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, warStagePositions[i][j].point)).ToArray();
+            }
+        }
+    }
+
     //Build map at current stage (an optimized version could just increment the paint in case it's enemy expansion[since rest of map will stay the same])
     public static Texture2D BuildMap(Texture2D map)
     {
@@ -76,10 +107,10 @@ public static class Map
             if(unificationPositions[i].unified)
             {
                 //Get Points
-                List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, unificationPositions[i].point));
+                Point[] points = unificationPositions[i].pixels;
 
                 //Draw diagonals
-                for (int p = 0; p < points.Count; p++)
+                for (int p = 0; p < points.Length; p++)
                 {
                     final.SetPixel(points[p].x, points[p].y, enemyColor);
                 }
@@ -92,10 +123,10 @@ public static class Map
             if(allyPositions[i].ally)
             {
                 //Get Points
-                List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, allyPositions[i].point));
+                Point[] points = allyPositions[i].pixels;
 
                 //Draw diagonals
-                for (int p = 0; p < points.Count; p++)
+                for (int p = 0; p < points.Length; p++)
                 {
                     final.SetPixel(points[p].x, points[p].y, enemyAllyColor);
                 }
@@ -106,10 +137,10 @@ public static class Map
         if(revengePosition.occupied)
         {
             //Get Points
-            List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, revengePosition.point));
+            Point[] points = revengePosition.pixels;
 
             //Draw diagonals
-            for (int p = 0; p < points.Count; p++)
+            for (int p = 0; p < points.Length; p++)
             {
                 if ((points[p].x + points[p].y) % spacing < thicknessOther)
                 {
@@ -131,10 +162,10 @@ public static class Map
                 if (regionsOfStage[j].occupied)
                 {
                     //Get Points
-                    List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, regionsOfStage[j].point));
+                    Point[] points = regionsOfStage[j].pixels;
 
                     //Draw diagonals
-                    for (int p = 0; p < points.Count; p++)
+                    for (int p = 0; p < points.Length; p++)
                     {
                         if ((points[p].x + points[p].y) % spacing < thicknessUs)
                         {
