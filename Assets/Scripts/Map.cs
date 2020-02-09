@@ -20,6 +20,9 @@ public class Region
 
 public static class Map
 {
+    //Matrix Image
+    public static PixelMatrix matrixMap;
+
     //Stage of expansion from 0 to 6 (0 pre war, 6 only capital left)
     public static int warStage;
 
@@ -91,15 +94,15 @@ public static class Map
     //Build map at current stage (an optimized version could just increment the paint in case it's enemy expansion[since rest of map will stay the same])
     public static Texture2D BuildMap(Texture2D map)
     {
-        //Make copy of map
-        Texture2D final = DrawingUtils.TextureCopy(map);
-
         //Settings
         int spacing = 13;
         int thicknessUs = 6;
         int thicknessOther = 10;
         Color32 enemyColor = new Color32(122, 122, 122, 255);
         Color32 enemyAllyColor = new Color32(160, 160, 160, 255);
+
+        //Transform to Matrix
+        PixelMatrix matrix = new PixelMatrix(matrixMap);
 
         //For each Unification Stage
         for (int i = 0; i < unificationPositions.Count; i++)
@@ -112,7 +115,7 @@ public static class Map
                 //Draw diagonals
                 for (int p = 0; p < points.Length; p++)
                 {
-                    final.SetPixel(points[p].x, points[p].y, enemyColor);
+                    matrix.SetPixelSafe(points[p].x, points[p].y, enemyColor);
                 }
             }
         }
@@ -128,7 +131,7 @@ public static class Map
                 //Draw diagonals
                 for (int p = 0; p < points.Length; p++)
                 {
-                    final.SetPixel(points[p].x, points[p].y, enemyAllyColor);
+                    matrix.SetPixelSafe(points[p].x, points[p].y, enemyAllyColor);
                 }
             }
         }
@@ -144,7 +147,7 @@ public static class Map
             {
                 if ((points[p].x + points[p].y) % spacing < thicknessOther)
                 {
-                    final.SetPixel(points[p].x, points[p].y, enemyColor);
+                    matrix.SetPixelSafe(points[p].x, points[p].y, enemyColor);
                 }
             }
         }
@@ -169,12 +172,18 @@ public static class Map
                     {
                         if ((points[p].x + points[p].y) % spacing < thicknessUs)
                         {
-                            final.SetPixel(points[p].x, points[p].y, enemyColor);
+                            matrix.SetPixelSafe(points[p].x, points[p].y, enemyColor);
                         }
                     }
                 }
             }
         }
+
+        //Make copy of map
+        Texture2D final = DrawingUtils.TextureCopy(map);
+
+        //Apply matrix pixels
+        final.SetPixels(matrix.pixels);
 
         //Apply to texture
         final.Apply();

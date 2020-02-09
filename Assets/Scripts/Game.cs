@@ -108,6 +108,7 @@ public class Game : MonoBehaviour
         HoverDesign("Rifle");
 
         //Setup Map
+        Map.matrixMap = new PixelMatrix(baseMap);
         Map.SetupPixels(DrawingUtils.TextureCopy(baseMap));
 
         //Test Map Builder

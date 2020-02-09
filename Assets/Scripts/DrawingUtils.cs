@@ -1,6 +1,76 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public class PixelMatrix
+{
+
+    public Color[] pixels;
+    public int width;
+    public int height;
+
+    public PixelMatrix(Texture2D texture)
+    {
+        this.pixels = texture.GetPixels();
+        this.width = texture.width;
+        this.height = texture.height;
+    }
+
+    public PixelMatrix(PixelMatrix c)
+    {
+        this.width = c.width;
+        this.height = c.height;
+        this.pixels = (Color[])c.pixels.Clone();
+    }
+
+    public PixelMatrix(int width, int height, Color clear)
+    {
+        //Initialize
+        pixels = new Color[width * height];
+        this.width = width;
+        this.height = height;
+
+        //Clear with color
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = clear;
+        }
+    }
+
+    public Color GetPixel(int x, int y)
+    {
+        if (x < 0)
+            x = 0;
+        else if (x > width - 1)
+            x = width - 1;
+
+        if (y < 0)
+            y = 0;
+        else if (y > height - 1)
+            y = height - 1;
+
+        return pixels[x * width + y];
+    }
+
+    public Color GetPixelSafe(int x, int y)
+    {
+        return pixels[x * width + y];
+    }
+
+    public void SetPixel(int x, int y, Color cl)
+    {
+        //Check if outside
+        if (x < 0 || x >= width || y < 0 || y >= height)
+            return;
+
+        pixels[x * width + y] = cl;
+    }
+
+    public void SetPixelSafe(int x, int y, Color cl)
+    {
+        pixels[x * width + y] = cl;
+    }
+}
+
 public struct Point
 {
     public int x;
@@ -130,7 +200,7 @@ public static class DrawingUtils
             while (y1 < bmp.height && bmp.GetPixel(temp.x, y1) == targetColor)
             {
                 bmp.SetPixel(temp.x, y1, replacementColor);
-                points.Add(new Point(temp.x, y1));
+                points.Add(new Point(y1, temp.x));
 
                 Color clm1 = bmp.GetPixel(temp.x - 1, y1);
                 Color clp1 = bmp.GetPixel(temp.x + 1, y1);
