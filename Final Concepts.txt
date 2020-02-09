@@ -167,6 +167,10 @@ Time:
     Time passes in months that can be paused
     Real time between each month is fixed and displayed in something like an hourglass next to clock
 
+Designers:
+    Generate x designers at start of the game with full capacities for any design
+    When New Design is requested pick 2 or 3 random designers to be possible choices
+
 Naming:
     From studied ww2 naming it seems BaseName and Connector is static for Design Type no matter the Design Institute
     These still change over time (ie. "Ta-" as a base and connector for tank design for 3 designs then changes to "KV-")
