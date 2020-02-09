@@ -110,8 +110,9 @@ public class Game : MonoBehaviour
         //Test Map Builder
         Map.warStage = 1;
         Map.ProgressWar(6);
-        Texture2D final = Map.BuildMap(DrawingUtils.TextureCopy(baseMap));
-        mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
+        Map.ProgressUnification(1);
+        Map.ProgressAllies(1);
+        Map.ProgressRevenge();
     }
 
     // Update is called once per frame
@@ -164,6 +165,10 @@ public class Game : MonoBehaviour
                 turn++;
                 date = date.AddMonths(1);
                 GameObject.Find("Time").GetComponentInChildren<Text>().text = date.ToString("MMMM yyyy");
+
+                //Update Map
+                Texture2D final = Map.BuildMap(DrawingUtils.TextureCopy(baseMap));
+                mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
 
                 //Progress Design Intel
                 foreach (KeyValuePair<string, Design> design in designs)

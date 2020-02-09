@@ -65,10 +65,60 @@ public static class Map
 
         //Settings
         int spacing = 13;
-        int thickness = 3;
+        int thicknessUs = 6;
+        int thicknessOther = 10;
         Color32 enemyColor = new Color32(122, 122, 122, 255);
+        Color32 enemyAllyColor = new Color32(160, 160, 160, 255);
 
-        //For each stage
+        //For each Unification Stage
+        for (int i = 0; i < unificationPositions.Count; i++)
+        {
+            if(unificationPositions[i].unified)
+            {
+                //Get Points
+                List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, unificationPositions[i].point));
+
+                //Draw diagonals
+                for (int p = 0; p < points.Count; p++)
+                {
+                    final.SetPixel(points[p].x, points[p].y, enemyColor);
+                }
+            }
+        }
+
+        //For each Alliance Stage
+        for (int i = 0; i < allyPositions.Count; i++)
+        {
+            if(allyPositions[i].ally)
+            {
+                //Get Points
+                List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, allyPositions[i].point));
+
+                //Draw diagonals
+                for (int p = 0; p < points.Count; p++)
+                {
+                    final.SetPixel(points[p].x, points[p].y, enemyAllyColor);
+                }
+            }
+        }
+
+        //Revenge Stage
+        if(revengePosition.occupied)
+        {
+            //Get Points
+            List<Point> points = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, revengePosition.point));
+
+            //Draw diagonals
+            for (int p = 0; p < points.Count; p++)
+            {
+                if ((points[p].x + points[p].y) % spacing < thicknessOther)
+                {
+                    final.SetPixel(points[p].x, points[p].y, enemyColor);
+                }
+            }
+        }
+
+        //For each War stage
         for (int i = 0; i < warStage; i++)
         {
             //Regions of this stage
@@ -77,7 +127,7 @@ public static class Map
             //For each region of the stage
             for (int j = 0; j < regionsOfStage.Count; j++)
             {
-                //If stage is occupied
+                //If occupied
                 if (regionsOfStage[j].occupied)
                 {
                     //Get Points
@@ -86,7 +136,7 @@ public static class Map
                     //Draw diagonals
                     for (int p = 0; p < points.Count; p++)
                     {
-                        if ((points[p].x + points[p].y) % spacing < thickness)
+                        if ((points[p].x + points[p].y) % spacing < thicknessUs)
                         {
                             final.SetPixel(points[p].x, points[p].y, enemyColor);
                         }
@@ -130,6 +180,18 @@ public static class Map
     //Progress Unification
     public static void ProgressUnification(int num)
     {
-        unificationPositions[num].occupied = true;
+        unificationPositions[num].unified = true;
+    }
+
+    //Progress Unification
+    public static void ProgressAllies(int num)
+    {
+        allyPositions[num].ally = true;
+    }
+
+    //Progress Revenge
+    public static void ProgressRevenge()
+    {
+        revengePosition.occupied = true;
     }
 }
