@@ -97,13 +97,7 @@ public abstract class Design
 
     //How long does the design last before new design is needed(months)
     public int redesignPeriod;
-
-    //Base Value of Redesign Period(variates with type)
-    public int redesignPeriodBase;
-
-    //Variation of redesign period +-
-    public static float REDESIGN_PERIOD_VARIATION = 0.3f;
-
+    
     //Name of design
     public string name;
 
@@ -122,8 +116,7 @@ public abstract class Design
         this.name = name;
 
         //Redesign Period
-        redesignPeriod = redesignPeriodBase + UnityEngine.Random.Range(Mathf.RoundToInt(-redesignPeriodBase * REDESIGN_PERIOD_VARIATION / 2),
-                                                                        Mathf.RoundToInt(redesignPeriodBase * REDESIGN_PERIOD_VARIATION / 2));
+        redesignPeriod = 12;
 
         //Add developer
         this.developer = developer;
@@ -403,9 +396,6 @@ public class Rifle : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -423,9 +413,6 @@ public class SubmachineGun : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -445,9 +432,6 @@ public class MachineGun : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -465,9 +449,6 @@ public class Mortar : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -485,9 +466,6 @@ public class AntiTankRifle : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -505,9 +483,6 @@ public class AntiTankCannon : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -527,9 +502,6 @@ public class Artillery : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -549,9 +521,6 @@ public class Tankette : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -573,9 +542,6 @@ public class CavalryTank : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -595,9 +561,6 @@ public class CruiserTank : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -619,9 +582,6 @@ public class InfantryTank : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -643,9 +603,6 @@ public class TankDestroyer : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -667,9 +624,6 @@ public class MotorcycleRecon : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -687,9 +641,6 @@ public class ArmoredCar : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -709,9 +660,6 @@ public class Truck : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -729,9 +677,6 @@ public class Halftrack : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -751,9 +696,6 @@ public class UtilityCar : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -771,9 +713,6 @@ public class PrimeMover : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -791,9 +730,6 @@ public class Telephone : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -811,9 +747,6 @@ public class Radio : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -831,9 +764,6 @@ public class Engineer : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 
@@ -851,9 +781,6 @@ public class Bridging : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
-        //Base redesign period
-        redesignPeriodBase = 12;
-
         //Call Generic
         base.Generate(developer, name, mask);
 

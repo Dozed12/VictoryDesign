@@ -623,7 +623,7 @@ public class Game : MonoBehaviour
         } while (!valid);
 
         //Randomize Design Age
-        List<int> ages = Utils.RandomAverage(designs.Count, 5, 1, 10);
+        List<int> ages = Utils.RandomAverage(designs.Count, 5, 1, 11);
         int n = 0;
         foreach (KeyValuePair<string, Design> design in designs)
         {
