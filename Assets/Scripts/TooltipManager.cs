@@ -10,22 +10,10 @@ using UnityEngine.EventSystems;
 public static class TooltipManager
 {
     //Tooltips
-    public static Dictionary<string, Tooltip> tooltips;
+    public static Dictionary<string, Func<string>> tooltips;
 
     //Tooltip Object
     public static GameObject tooltip;
-
-    public class Tooltip
-    {
-        public string text;
-        public Func<string> method;
-
-        public Tooltip(string text, Func<string> method)
-        {
-            this.text = text;
-            this.method = method;
-        }
-    }
 
     //Setup Tooltips
     public static void SetupTooltips()
@@ -34,10 +22,10 @@ public static class TooltipManager
         tooltip = GameObject.Find("Tooltip");
 
         //Reset dictionary
-        tooltips = new Dictionary<string, Tooltip>();
+        tooltips = new Dictionary<string, Func<string>>();
 
         //Add tooltip entries
-        tooltips.Add("IndustryValue", new Tooltip("Industrial Capacity\n\nIndustrial Capacity assigned to your ministry,\nused to finance investments in resources\nand infrastructure.", IndustrialSpendingTooltip));
+        tooltips.Add("IndustryValue", IndustrialSpendingTooltip);
     }
 
     //Tooltip methods
@@ -72,9 +60,7 @@ public static class TooltipManager
                 tooltip.SetActive(true);
 
                 //Set text
-                tooltip.GetComponentInChildren<Text>().text = tooltips[top.name].text;
-                if(tooltips[top.name].method != null)
-                    tooltip.GetComponentInChildren<Text>().text += tooltips[top.name].method();
+                tooltip.GetComponentInChildren<Text>().text = tooltips[top.name]();
 
                 //Set tooltip position
                 RectTransform topTransform = top.GetComponent<RectTransform>();
