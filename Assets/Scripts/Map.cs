@@ -24,7 +24,7 @@ public static class Map
     public static PixelMatrix matrixMap;
 
     //Stage of expansion from 0 to 6 (0 pre war, 6 only capital left)
-    public static int warStage;
+    public static int warStage = 0;
 
     //Stage of expansion positions
     public static List<List<Region>> warStagePositions = new List<List<Region>>()
@@ -230,7 +230,7 @@ public static class Map
     }
 
     //Progress Revenge
-    public static void ProgressRevenge()
+    public static void ProgressRevenge(int num)
     {
         revengePosition.occupied = true;
     }

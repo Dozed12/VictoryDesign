@@ -92,6 +92,9 @@ public class Game : MonoBehaviour
         TooltipManager.tooltip = tooltip;
         TooltipManager.SetupTooltips();
 
+        //Setup History
+        History.SetupHistory();
+
         //Setup a New Game
         SetupNewGame();
 
@@ -110,13 +113,6 @@ public class Game : MonoBehaviour
         //Setup Map
         Map.matrixMap = new PixelMatrix(baseMap);
         Map.SetupPixels(DrawingUtils.TextureCopy(baseMap));
-
-        //Test Map Builder
-        Map.warStage = 1;
-        Map.ProgressWar(6);
-        Map.ProgressUnification(1);
-        Map.ProgressAllies(1);
-        Map.ProgressRevenge();
     }
 
     // Update is called once per frame
@@ -169,6 +165,19 @@ public class Game : MonoBehaviour
                 turn++;
                 date = date.AddMonths(1);
                 GameObject.Find("Time").GetComponentInChildren<Text>().text = date.ToString("MMMM yyyy");
+
+                //Bulletin
+                List<string> bulletin = History.Bulletin();
+                GameObject.Find("BulletinText").GetComponent<Text>().text = "";
+                for (int i = 0; i < bulletin.Count; i++)
+                {
+                    //Add Space Line
+                    if(GameObject.Find("BulletinText").GetComponent<Text>().text != "")
+                        GameObject.Find("BulletinText").GetComponent<Text>().text += "\n";
+
+                    //Add Bulletin Line
+                    GameObject.Find("BulletinText").GetComponent<Text>().text += "_" + bulletin[i];
+                }
 
                 //Update Map
                 Texture2D final = Map.BuildMap(baseMap);
