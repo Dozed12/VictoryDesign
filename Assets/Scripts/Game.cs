@@ -172,7 +172,7 @@ public class Game : MonoBehaviour
                 for (int i = 0; i < bulletin.Count; i++)
                 {
                     //Add Space Line
-                    if(GameObject.Find("BulletinText").GetComponent<Text>().text != "")
+                    if (GameObject.Find("BulletinText").GetComponent<Text>().text != "")
                         GameObject.Find("BulletinText").GetComponent<Text>().text += "\n";
 
                     //Add Bulletin Line
@@ -276,66 +276,74 @@ public class Game : MonoBehaviour
             AddInstitutes(new Type[] { typesOfDesigns[i] }, UnityEngine.Random.Range(2, 3 + 1));
         }
 
-        //Create Base Designs with Criteria
-        bool valid = true;
-        float min = 0;
-        float max = 0;
-        do
+        //Generate Phoney Designs
+        for (int i = 0; i < typesOfDesigns.Length; i++)
         {
-            //Assume Valid
-            valid = true;
+            //Get Name of Design
+            string name = typesOfDesigns[i].ToString();
 
-            //Generate Some Designs
-            for (int i = 0; i < typesOfDesigns.Length; i++)
+            //Add space before Capital letters
+            name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            
+            //Request Design
+            designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 })[0];
+        }
+
+        //TODO Generate Industrial Coverage
+        int[] industrialCoverage = new int[3];
+        industrialCoverage[0] = 1;
+        industrialCoverage[1] = -1;
+        industrialCoverage[2] = 0;
+
+        //TODO Generate Capacity Coverage
+        int[] capacityCoverage = new int[6];
+        capacityCoverage[0] = 2;
+        capacityCoverage[1] = -1;
+        capacityCoverage[2] = -1;
+        capacityCoverage[3] = 1;
+        capacityCoverage[4] = -1;
+        capacityCoverage[5] = 0;
+
+        //Error vars
+        int[] error = new int[2] { -1, 1 };
+
+        //Generate Designs to Fit Coverage
+        for (int i = 0; i < typesOfDesigns.Length; i++)
+        {
+            //Get Name of Design
+            string name = typesOfDesigns[i].ToString();
+
+            //Add space before Capital letters
+            name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
+            //Setup Mask
+            int[] mask = new int[7] { industrialCoverage[0], industrialCoverage[1], industrialCoverage[2], 0, 0, 0, 0 };
+            Design phoney = designs[name];
+            for (int j = 3; j < phoney.characteristics.Count; j++)
             {
-                //Get Name of Design
-                string name = typesOfDesigns[i].ToString();
-
-                //Add space before Capital letters
-                name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
-
-                //Request Design
-                designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 })[0];
+                mask[j] = capacityCoverage[(int)phoney.characteristics[j].impact - 3];
             }
 
-            //Current Coverage
-            float[] coverage = CurrentCoverage();
-
-            //Evaluate Range of Coverages - Industry
-            min = 2;
-            max = -2;
-            for (int i = 0; i < 3; i++)
+            //Add Error to Mask
+            for (int j = 0; j < phoney.characteristics.Count; j++)
             {
-                if (min > coverage[i])
-                    min = coverage[i];
-                if (max < coverage[i])
-                    max = coverage[i];
+                //Chance of error
+                if (UnityEngine.Random.Range(0, 100) < 70)
+                {
+                    //Add error
+                    mask[j] += error[UnityEngine.Random.Range(0, 1 + 1)];
+                }
+
+                //Clamp mask
+                if (mask[j] > 2)
+                    mask[j] = 2;
+                if (mask[j] < -2)
+                    mask[j] = -2;
             }
-            if (Mathf.Abs(min - max) < 0.6f)
-                valid = false;
 
-            //Evaluate min is negative and max is positive
-            if (min > 0 || max < 0)
-                valid = false;
-
-            //Evaluate Range of Coverages - Doctrine
-            min = 2;
-            max = -2;
-            for (int i = 3; i < coverage.Length; i++)
-            {
-                if (min > coverage[i])
-                    min = coverage[i];
-                if (max < coverage[i])
-                    max = coverage[i];
-            }
-            if (Mathf.Abs(min - max) < 0.6f)
-                valid = false;
-
-            //Evaluate min is negative and max is positive
-            if (min > 0 || max < 0)
-                valid = false;
-
-        } while (!valid);
+            //Request Design
+            designs[name] = RequestDesign(typesOfDesigns[i], mask)[0];
+        }
 
         //Randomize Design Age
         List<int> ages = Utils.RandomAverage(designs.Count, 5, 1, 11);
@@ -445,12 +453,12 @@ public class Game : MonoBehaviour
         Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Increase").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(1, Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "ResourcesValue").GetComponent<Text>(), 1); });
         Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Decrease").GetComponent<Button>().onClick.RemoveAllListeners();
         Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(1, Utils.GetChild(Utils.GetChildRecursive(request, "Resources"), "ResourcesValue").GetComponent<Text>(), -1); });
-        
+
         Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Increase").GetComponent<Button>().onClick.RemoveAllListeners();
         Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Increase").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(2, Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "ReliabilityValue").GetComponent<Text>(), 1); });
         Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Decrease").GetComponent<Button>().onClick.RemoveAllListeners();
         Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "Decrease").GetComponent<Button>().onClick.AddListener(delegate { RequestChange(2, Utils.GetChild(Utils.GetChildRecursive(request, "Reliability"), "ReliabilityValue").GetComponent<Text>(), -1); });
-        
+
         //Clear Doctrine Characteristics Holder
         Utils.ClearChildren(Utils.GetChild(request, "DoctrineCharacteristicsHolder"));
 
@@ -545,7 +553,7 @@ public class Game : MonoBehaviour
             //Callback Choice
             int id = i;
             Utils.GetChild(choice, "Approve").GetComponent<Button>().onClick.RemoveAllListeners();
-            Utils.GetChild(choice, "Approve").GetComponent<Button>().onClick.AddListener(delegate{ApplyChoice(id);});
+            Utils.GetChild(choice, "Approve").GetComponent<Button>().onClick.AddListener(delegate { ApplyChoice(id); });
 
             //Rebuild Layout
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(choice, "IndustrialData").transform);
@@ -578,7 +586,7 @@ public class Game : MonoBehaviour
         designsNeeded.RemoveAt(0);
 
         //If no more to do exit
-        if(designsNeeded.Count == 0)
+        if (designsNeeded.Count == 0)
         {
             //Return to Normal State
             state = State.NORMAL;
@@ -629,7 +637,7 @@ public class Game : MonoBehaviour
             return;
 
         //Check Request Point Limit
-        if(requestMask.Sum() + value > 2)
+        if (requestMask.Sum() + value > 2)
             return;
 
         //Add to mask
@@ -805,7 +813,7 @@ public class Game : MonoBehaviour
         }
 
         //Indicate Deprecated
-        if(design.age - 1 == design.redesignPeriod)
+        if (design.age - 1 == design.redesignPeriod)
         {
             Utils.GetChild(originalChoice, "Deprecated").GetComponent<Image>().enabled = true;
             Utils.GetChild(originalChoice, "Deprecated").GetComponentInChildren<Text>().enabled = true;
@@ -876,7 +884,7 @@ public class Game : MonoBehaviour
     public void DeHoverDesign()
     {
         //Default to redesign type if in redesign process
-        if(redesignType != null)
+        if (redesignType != null)
             HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
     }
 
