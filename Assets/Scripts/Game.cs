@@ -289,20 +289,45 @@ public class Game : MonoBehaviour
             designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 })[0];
         }
 
-        //TODO Generate Industrial Coverage
+        //Generate Industrial Coverage
         int[] industrialCoverage = new int[3];
-        industrialCoverage[0] = 1;
-        industrialCoverage[1] = -1;
-        industrialCoverage[2] = 0;
+        bool valid = false;
+        do
+        {
+            //Assume valid
+            valid = true;
 
-        //TODO Generate Capacity Coverage
+            //Generate
+            for (int i = 0; i < industrialCoverage.Length; i++)
+            {
+                industrialCoverage[i] = UnityEngine.Random.Range(-1, 1 + 1);
+            }
+
+            //Validate Sum
+            if(industrialCoverage.Sum() > 2 || industrialCoverage.Sum() < 0)
+                valid = false;
+            
+        } while (!valid);
+
+        //Generate Capacity Coverage
         int[] capacityCoverage = new int[6];
-        capacityCoverage[0] = 2;
-        capacityCoverage[1] = -1;
-        capacityCoverage[2] = -1;
-        capacityCoverage[3] = 1;
-        capacityCoverage[4] = -1;
-        capacityCoverage[5] = 0;
+        valid = false;
+        do
+        {
+            //Assume valid
+            valid = true;
+
+            //Generate
+            for (int i = 0; i < capacityCoverage.Length; i++)
+            {
+                capacityCoverage[i] = UnityEngine.Random.Range(-1, 1 + 1);
+            }
+
+            //Validate Sum
+            if(capacityCoverage.Sum() > 0 || capacityCoverage.Sum() < -2)
+                valid = false;
+            
+        } while (!valid);
 
         //Error vars
         int[] error = new int[2] { -1, 1 };
