@@ -250,6 +250,112 @@ public class Game : MonoBehaviour
         TooltipManager.ProcessTooltip();
     }
 
+    //Setup new Game
+    public void SetupNewGame()
+    {
+        //Clear
+        institutes = new List<DesignInstitute>();
+        designs = new Dictionary<string, Design>();
+
+        //Set start date and turn
+        date = new DateTime(1915, 1, 1);
+        turn = 1;
+
+        //Get types of designs
+        Type[] typesOfDesigns = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+                                 from assemblyType in domainAssembly.GetTypes()
+                                 where typeof(Design).IsAssignableFrom(assemblyType)
+                                 select assemblyType).ToArray();
+
+        //Exclude Design Type from types of designs
+        typesOfDesigns = typesOfDesigns.Skip(1).ToArray();
+
+        //Create Institutes for each type (2 or 3)
+        for (int i = 0; i < typesOfDesigns.Length; i++)
+        {
+            AddInstitutes(new Type[] { typesOfDesigns[i] }, UnityEngine.Random.Range(2, 3 + 1));
+        }
+
+        //Create Base Designs with Criteria
+        bool valid = true;
+        float min = 0;
+        float max = 0;
+        do
+        {
+            //Assume Valid
+            valid = true;
+
+            //Generate Some Designs
+            for (int i = 0; i < typesOfDesigns.Length; i++)
+            {
+                //Get Name of Design
+                string name = typesOfDesigns[i].ToString();
+
+                //Add space before Capital letters
+                name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
+                //Request Design
+                designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 })[0];
+            }
+
+            //Current Coverage
+            float[] coverage = CurrentCoverage();
+
+            //Evaluate Range of Coverages - Industry
+            min = 2;
+            max = -2;
+            for (int i = 0; i < 3; i++)
+            {
+                if (min > coverage[i])
+                    min = coverage[i];
+                if (max < coverage[i])
+                    max = coverage[i];
+            }
+            if (Mathf.Abs(min - max) < 0.6f)
+                valid = false;
+
+            //Evaluate min is negative and max is positive
+            if (min > 0 || max < 0)
+                valid = false;
+
+            //Evaluate Range of Coverages - Doctrine
+            min = 2;
+            max = -2;
+            for (int i = 3; i < coverage.Length; i++)
+            {
+                if (min > coverage[i])
+                    min = coverage[i];
+                if (max < coverage[i])
+                    max = coverage[i];
+            }
+            if (Mathf.Abs(min - max) < 0.6f)
+                valid = false;
+
+            //Evaluate min is negative and max is positive
+            if (min > 0 || max < 0)
+                valid = false;
+
+        } while (!valid);
+
+        //Randomize Design Age
+        List<int> ages = Utils.RandomAverage(designs.Count, 5, 1, 11);
+        int n = 0;
+        foreach (KeyValuePair<string, Design> design in designs)
+        {
+            design.Value.age = ages[n];
+            n++;
+        }
+
+        //Apply progress from age
+        foreach (KeyValuePair<string, Design> design in designs)
+        {
+            design.Value.ProgressRandom(5 * design.Value.age);
+        }
+
+        //Update Sliders
+        UpdateSliders();
+    }
+
     //Update Redesign Progress
     public void UpdateRedesignProgress()
     {
@@ -551,112 +657,6 @@ public class Game : MonoBehaviour
                 text.text = "<color=#246E1E>Very Important</color>";
                 break;
         }
-    }
-
-    //Setup new Game
-    public void SetupNewGame()
-    {
-        //Clear
-        institutes = new List<DesignInstitute>();
-        designs = new Dictionary<string, Design>();
-
-        //Set start date and turn
-        date = new DateTime(1915, 1, 1);
-        turn = 1;
-
-        //Get types of designs
-        Type[] typesOfDesigns = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
-                                 from assemblyType in domainAssembly.GetTypes()
-                                 where typeof(Design).IsAssignableFrom(assemblyType)
-                                 select assemblyType).ToArray();
-
-        //Exclude Design Type from types of designs
-        typesOfDesigns = typesOfDesigns.Skip(1).ToArray();
-
-        //Create Institutes for each type (2 or 3)
-        for (int i = 0; i < typesOfDesigns.Length; i++)
-        {
-            AddInstitutes(new Type[] { typesOfDesigns[i] }, UnityEngine.Random.Range(2, 3 + 1));
-        }
-
-        //Create Base Designs with Criteria
-        bool valid = true;
-        float min = 0;
-        float max = 0;
-        do
-        {
-            //Assume Valid
-            valid = true;
-
-            //Generate Some Designs
-            for (int i = 0; i < typesOfDesigns.Length; i++)
-            {
-                //Get Name of Design
-                string name = typesOfDesigns[i].ToString();
-
-                //Add space before Capital letters
-                name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
-
-                //Request Design
-                designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 })[0];
-            }
-
-            //Current Coverage
-            float[] coverage = CurrentCoverage();
-
-            //Evaluate Range of Coverages - Industry
-            min = 2;
-            max = -2;
-            for (int i = 0; i < 3; i++)
-            {
-                if (min > coverage[i])
-                    min = coverage[i];
-                if (max < coverage[i])
-                    max = coverage[i];
-            }
-            if (Mathf.Abs(min - max) < 0.6f)
-                valid = false;
-
-            //Evaluate min is negative and max is positive
-            if (min > 0 || max < 0)
-                valid = false;
-
-            //Evaluate Range of Coverages - Doctrine
-            min = 2;
-            max = -2;
-            for (int i = 3; i < coverage.Length; i++)
-            {
-                if (min > coverage[i])
-                    min = coverage[i];
-                if (max < coverage[i])
-                    max = coverage[i];
-            }
-            if (Mathf.Abs(min - max) < 0.6f)
-                valid = false;
-
-            //Evaluate min is negative and max is positive
-            if (min > 0 || max < 0)
-                valid = false;
-
-        } while (!valid);
-
-        //Randomize Design Age
-        List<int> ages = Utils.RandomAverage(designs.Count, 5, 1, 11);
-        int n = 0;
-        foreach (KeyValuePair<string, Design> design in designs)
-        {
-            design.Value.age = ages[n];
-            n++;
-        }
-
-        //Apply progress from age
-        foreach (KeyValuePair<string, Design> design in designs)
-        {
-            design.Value.ProgressRandom(5 * design.Value.age);
-        }
-
-        //Update Sliders
-        UpdateSliders();
     }
 
     //Update Sliders
