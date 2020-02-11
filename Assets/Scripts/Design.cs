@@ -26,6 +26,9 @@ public class DesignInstitute
 
     public DesignInstitute(Type[] types)
     {
+        //Designer Name
+        name = DesignerNaming.GenerateName();
+
         //Set random Naming Conventions
         baseName = DesignNaming.BaseNameRules.GetRandom();
         connector = DesignNaming.ConnectorNameRules.GetRandom();

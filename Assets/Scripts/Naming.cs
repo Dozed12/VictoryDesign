@@ -100,4 +100,31 @@ public static class DesignerNaming
         }
     }
 
+    //Generate Designer Name
+    public static string GenerateName()
+    {
+        //Suffixes
+        List<string> suffixes = new List<string>()
+        {
+            "Institute",
+            "University",
+            "Plant",
+            "Group",
+            "Laboratory",
+            "Bureau",
+            "Department"
+        };
+
+        //Name - Location
+        string name = "";
+        do
+        {
+            name = locations[UnityEngine.Random.Range(0, locations.Length)];
+        } while (name.Length > 15);
+
+        //Name - Suffix
+        name += " " + suffixes[UnityEngine.Random.Range(0, suffixes.Count)];
+
+        return name;
+    }
 }
