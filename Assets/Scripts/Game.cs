@@ -235,6 +235,9 @@ public class Game : MonoBehaviour
                 //Block Playing
                 blockTimeControl = true;
 
+                //Make Time Icon Red
+                GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+
                 //Close Map
                 CloseMap(true);
 
@@ -413,12 +416,12 @@ public class Game : MonoBehaviour
 
         if (playing)
         {
-            Utils.GetChild(GameObject.Find("TimeControl"), "Icon").GetComponent<Image>().overrideSprite = playSprite;
+            Utils.GetChild(GameObject.Find("TimeControl"), "TimeIcon").GetComponent<Image>().overrideSprite = playSprite;
             playing = false;
         }
         else
         {
-            Utils.GetChild(GameObject.Find("TimeControl"), "Icon").GetComponent<Image>().overrideSprite = pauseSprite;
+            Utils.GetChild(GameObject.Find("TimeControl"), "TimeIcon").GetComponent<Image>().overrideSprite = pauseSprite;
             playing = true;
         }
     }
@@ -636,6 +639,9 @@ public class Game : MonoBehaviour
 
             //Open Map
             CloseMap(false);
+
+            //Make Time Icon Normal Color
+            GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Highlight Design of Redesign Type
             HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
