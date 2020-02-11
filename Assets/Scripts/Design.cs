@@ -27,15 +27,15 @@ public class DesignInstitute
     public DesignInstitute(Type[] types)
     {
         //Set random Naming Conventions
-        baseName = Naming.BaseNameRules.GetRandom();
-        connector = Naming.ConnectorNameRules.GetRandom();
-        specific = Naming.SpecificNameRules.GetRandom();
+        baseName = DesignNaming.BaseNameRules.GetRandom();
+        connector = DesignNaming.ConnectorNameRules.GetRandom();
+        specific = DesignNaming.SpecificNameRules.GetRandom();
 
         //Set base names
         baseNames = new Dictionary<Type, string>();
         for (int i = 0; i < types.Length; i++)
         {
-            Fare.Xeger xeger = new Fare.Xeger(baseName, Naming.random);
+            Fare.Xeger xeger = new Fare.Xeger(baseName, DesignNaming.random);
             baseNames.Add(types[i], xeger.Generate());
         }
 

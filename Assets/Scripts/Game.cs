@@ -86,7 +86,8 @@ public class Game : MonoBehaviour
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
         //Setup Naming system
-        Naming.SetupNaming();
+        DesignNaming.SetupNaming();
+        DesignerNaming.LoadLocations();
 
         //Setup Tooltips
         TooltipManager.tooltip = tooltip;

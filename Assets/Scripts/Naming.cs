@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 using UnityEngine;
 
 //Fare(xeger) https://www.softwaredeveloper.blog/fare-generate-string-matching-regex-in-csharp
 //Regex https://regex101.com/
 
-public class Naming
+public static class DesignNaming
 {
 
     public static WeightedRandomBag<string> BaseNameRules = new WeightedRandomBag<string>();
@@ -56,6 +58,46 @@ public class Naming
     {
         Fare.Xeger xeger = new Fare.Xeger(SpecificNameRules.GetRandom(), random);
         return xeger.Generate();
+    }
+
+}
+
+public static class DesignerNaming
+{
+    //Locations
+    public static string[] locations;
+
+    //Load Location Names
+    [Serializable]
+    class LocationsCollection
+    {
+        public Location[] info;
+    }
+    [Serializable]
+    class Location
+    {
+        public Fields fields;
+    }
+    [Serializable]
+    class Fields
+    {
+        public string name;
+    }
+    public static void LoadLocations()
+    {
+        //Load File
+        string path = Application.dataPath + "/StreamingAssets/Locations.json";
+        string data = File.ReadAllText(path);
+
+        //Deserialize
+        LocationsCollection locationsRaw = JsonUtility.FromJson<LocationsCollection>(data);
+
+        //Pass names to locations array
+        locations = new string[locationsRaw.info.Length];
+        for (int i = 0; i < locationsRaw.info.Length; i++)
+        {
+            locations[i] = locationsRaw.info[i].fields.name;
+        }
     }
 
 }
