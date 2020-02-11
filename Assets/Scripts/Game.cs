@@ -190,6 +190,13 @@ public class Game : MonoBehaviour
                     design.Value.ProgressRandom(5);
                 }
 
+                //Full Progress if half age
+                foreach (KeyValuePair<string, Design> design in designs)
+                {
+                    if(design.Value.age == 5)
+                        design.Value.ProgressRandom(999);
+                }
+
                 //Update Hover
                 HoverDesign(lastHover);
 
@@ -393,6 +400,13 @@ public class Game : MonoBehaviour
         foreach (KeyValuePair<string, Design> design in designs)
         {
             design.Value.ProgressRandom(5 * design.Value.age);
+        }
+
+        //Full Progress if half age
+        foreach (KeyValuePair<string, Design> design in designs)
+        {
+            if(design.Value.age > 6)
+                design.Value.ProgressRandom(999);
         }
 
         //Update Sliders

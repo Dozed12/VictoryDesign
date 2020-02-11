@@ -150,18 +150,12 @@ Final Calculation:
 Create Variant:
     - If previous design was quite good player can choose to create variant instead, losing a bit of random Characteristic and Increasing Industrial costs
 
-Player can create new Institute for Design Types that only have 2 (Cooldown of x time)
-
-Before propositions are shown the player can use X points to make some specific requests (Development Points)
-Have Y points to spend, can trade some negatives for positives but limited to X changes
-
 Request Player Name in Main Menu to use in Signatures
 
 Show Player Which designs need to be redesigned this month
 
 Bulletins:
-    Bulletins can be cards with titles that are dragged to cork screen to be read, releasing drops them out of screen
-    When no bulletins there is unique graphic for bulletin box
+    History events and 3 month overview of armed forces compared to enemy
 
 Time:
     Time passes in months that can be paused
