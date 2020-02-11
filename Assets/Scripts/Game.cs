@@ -270,11 +270,8 @@ public class Game : MonoBehaviour
         //Exclude Design Type from types of designs
         typesOfDesigns = typesOfDesigns.Skip(1).ToArray();
 
-        //Create Institutes for each type (2 or 3)
-        for (int i = 0; i < typesOfDesigns.Length; i++)
-        {
-            AddInstitutes(new Type[] { typesOfDesigns[i] }, UnityEngine.Random.Range(2, 3 + 1));
-        }
+        //Create Institutes for each type
+        AddInstitutes(typesOfDesigns, UnityEngine.Random.Range(5, 6 + 1));
 
         //Generate Phoney Designs
         for (int i = 0; i < typesOfDesigns.Length; i++)
@@ -534,8 +531,16 @@ public class Game : MonoBehaviour
         //Clear Propositions Holder
         Utils.ClearChildren(GameObject.Find("Choices"));
 
-        //Request Design Choices
-        choices = RequestDesign(redesignType, requestMask);
+        //Request Design Choices (2 or 3)
+        int numChoices = UnityEngine.Random.Range(2, 3 + 1);
+        List<Design> finalChoices = RequestDesign(redesignType, requestMask).ToList();
+        for (int i = 0; finalChoices.Count > numChoices; i++)
+        {
+            finalChoices.RemoveAt(UnityEngine.Random.Range(0, finalChoices.Count));
+        }
+
+        //Final Choices
+        choices = finalChoices.ToArray();
 
         //Setup Design Choices Display
         for (int i = 0; i < choices.Length; i++)
