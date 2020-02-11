@@ -364,8 +364,8 @@ public class Game : MonoBehaviour
                     mask[j] = -2;
             }
 
-            //Request Design
-            designs[name] = RequestDesign(typesOfDesigns[i], mask)[0];
+            //Request Design - from random designer
+            designs[name] = RequestDesign(typesOfDesigns[i], mask)[UnityEngine.Random.Range(0, institutes.Count)];
         }
 
         //Randomize Design Age
