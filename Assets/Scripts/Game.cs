@@ -302,7 +302,17 @@ public class Game : MonoBehaviour
             }
 
             //Validate Sum
-            if(industrialCoverage.Sum() > 2 || industrialCoverage.Sum() < 0)
+            if(industrialCoverage.Sum() > -1 || industrialCoverage.Sum() < -3)
+                valid = false;
+
+            //Validate 1 Positive or Zero
+            bool min1 = false;
+            for (int i = 0; i < industrialCoverage.Length; i++)
+            {
+                if(industrialCoverage[i] >= 0)
+                    min1 = true;
+            }
+            if(!min1)
                 valid = false;
             
         } while (!valid);
@@ -322,9 +332,8 @@ public class Game : MonoBehaviour
             }
 
             //Validate Sum
-            if(capacityCoverage.Sum() > 0 || capacityCoverage.Sum() < -2)
-                valid = false;
-            
+            if(capacityCoverage.Sum() > -2 || capacityCoverage.Sum() < -4)
+                valid = false;            
         } while (!valid);
 
         //Error vars
@@ -758,6 +767,10 @@ public class Game : MonoBehaviour
             }
         }
 
+        //Enginnering and Resources are reversed (higher is worse)
+        values[0] = -values[0];
+        values[1] = -values[1];
+
         //Coverage %
         int[] totals = ImpactOccurences();
         for (int i = 0; i < 9; i++)
@@ -767,10 +780,6 @@ public class Game : MonoBehaviour
             else
                 values[i] = 0;
         }
-
-        //Enginnering and Resources are reversed (higher is worse)
-        totals[0] = -totals[0];
-        totals[1] = -totals[1];
 
         return values;
     }
