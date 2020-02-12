@@ -777,9 +777,24 @@ public class Game : MonoBehaviour
             "EfficiencyProgress"
         };
 
+        //Progress Amounts
+        List<string> objectProgressAmount = new List<string>()
+        {
+            "EngineeringProgressAmount",
+            "ResourcesProgressAmount",
+            "ReplenishmentProgressAmount",
+            "AIProgressAmount",
+            "AAProgressAmount",
+            "BreakthroughProgressAmount",
+            "ExploitationProgressAmount",
+            "MoraleProgressAmount",
+            "EfficiencyProgressAmount"
+        };
+
+        //For each coverage
         for (int i = 0; i < coverage.Length; i++)
         {
-            //Setup Progress Arrow
+            //Setup Progress Arrow and Amount
             if(displayProgress)
             {
                 //Decrease
@@ -788,7 +803,10 @@ public class Game : MonoBehaviour
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = true;
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(130,25,25,255);
                     RectTransform rectTrans = (RectTransform)GameObject.Find(objectProgress[i]).transform;
-                    rectTrans.SetPositionAndRotation(rectTrans.position, Quaternion.Euler(new Vector3(0, 0, 270)));                
+                    rectTrans.SetPositionAndRotation(rectTrans.position, Quaternion.Euler(new Vector3(0, 0, 270)));
+
+                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().enabled = true;
+                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().color = new Color32(130,25,25,255);         
                 }
                 //Increase
                 else if (GameObject.Find(objectSliders[i]).GetComponent<Slider>().value < coverage[i])
@@ -797,12 +815,21 @@ public class Game : MonoBehaviour
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(36,110,30,255);
                     RectTransform rectTrans = (RectTransform)GameObject.Find(objectProgress[i]).transform;
                     rectTrans.SetPositionAndRotation(rectTrans.position, Quaternion.Euler(new Vector3(0, 0, 90)));
+
+                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().enabled = true;
+                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().color = new Color32(36,110,30,255);
                 }
                 //Same
                 else
                 {
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = false;
+
+                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().enabled = false;
+                    
                 }
+
+                //Set Difference
+                GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().text = Mathf.CeilToInt(Mathf.Abs(GameObject.Find(objectSliders[i]).GetComponent<Slider>().value - coverage[i]) * 100).ToString();
             }
 
             //Set Value
