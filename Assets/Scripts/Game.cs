@@ -409,7 +409,7 @@ public class Game : MonoBehaviour
             design.Value.ProgressRandom(5 * design.Value.age);
         }
 
-        //Full Progress if half age
+        //Full Progress if over half age
         foreach (KeyValuePair<string, Design> design in designs)
         {
             if (design.Value.age > 6)

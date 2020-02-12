@@ -120,7 +120,7 @@ public static class DesignerNaming
         do
         {
             name = locations[UnityEngine.Random.Range(0, locations.Length)];
-        } while (name.Length > 15);
+        } while (name.Length > 10);
 
         //Name - Suffix
         name += " " + suffixes[UnityEngine.Random.Range(0, suffixes.Count)];
