@@ -423,7 +423,7 @@ public class Game : MonoBehaviour
         }
 
         //Update Sliders
-        UpdateSliders();
+        UpdateSliders(false);
     }
 
     //Update Redesign Progress
@@ -652,9 +652,6 @@ public class Game : MonoBehaviour
         //Update Redesign Progress
         UpdateRedesignProgress();
 
-        //Update Sliders
-        UpdateSliders();
-
         //Hide Choices
         GameObject.Find("Choices").GetComponent<Animator>().SetBool("open", false);
 
@@ -747,22 +744,70 @@ public class Game : MonoBehaviour
     }
 
     //Update Sliders
-    public void UpdateSliders()
+    public void UpdateSliders(bool displayProgress = true)
     {
+        //Get Current Coverage
         float[] coverage = CurrentCoverage();
 
-        //Industry
-        GameObject.Find("EngineeringSlider").GetComponent<Slider>().value = coverage[0];
-        GameObject.Find("ResourcesSlider").GetComponent<Slider>().value = coverage[1];
-        GameObject.Find("ReplenishmentSlider").GetComponent<Slider>().value = coverage[2];
+        //Sliders
+        List<string> objectSliders = new List<string>()
+        {
+            "EngineeringSlider",
+            "ResourcesSlider",
+            "ReplenishmentSlider",
+            "AISlider",
+            "AASlider",
+            "BreakthroughSlider",
+            "ExploitaitionSlider",
+            "MoraleSlider",
+            "EfficiencySlider"
+        };
 
-        //Doctrine
-        GameObject.Find("AISlider").GetComponent<Slider>().value = coverage[3];
-        GameObject.Find("AASlider").GetComponent<Slider>().value = coverage[4];
-        GameObject.Find("BreakthroughSlider").GetComponent<Slider>().value = coverage[5];
-        GameObject.Find("ExploitaitionSlider").GetComponent<Slider>().value = coverage[6];
-        GameObject.Find("MoraleSlider").GetComponent<Slider>().value = coverage[7];
-        GameObject.Find("EfficiencySlider").GetComponent<Slider>().value = coverage[8];
+        //Progress Arrows
+        List<string> objectProgress = new List<string>()
+        {
+            "EngineeringProgress",
+            "ResourcesProgress",
+            "ReplenishmentProgress",
+            "AIProgress",
+            "AAProgress",
+            "BreakthroughProgress",
+            "ExploitationProgress",
+            "MoraleProgress",
+            "EfficiencyProgress"
+        };
+
+        for (int i = 0; i < coverage.Length; i++)
+        {
+            //Setup Progress Arrow
+            if(displayProgress)
+            {
+                //Decrease
+                if(GameObject.Find(objectSliders[i]).GetComponent<Slider>().value > coverage[i])
+                {
+                    GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = true;
+                    GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(130,25,25,255);
+                    RectTransform rectTrans = (RectTransform)GameObject.Find(objectProgress[i]).transform;
+                    rectTrans.SetPositionAndRotation(rectTrans.position, Quaternion.Euler(new Vector3(0, 0, 270)));                
+                }
+                //Increase
+                else if (GameObject.Find(objectSliders[i]).GetComponent<Slider>().value < coverage[i])
+                {
+                    GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = true;
+                    GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(36,110,30,255);
+                    RectTransform rectTrans = (RectTransform)GameObject.Find(objectProgress[i]).transform;
+                    rectTrans.SetPositionAndRotation(rectTrans.position, Quaternion.Euler(new Vector3(0, 0, 90)));
+                }
+                //Same
+                else
+                {
+                    GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = false;
+                }
+            }
+
+            //Set Value
+            GameObject.Find(objectSliders[i]).GetComponent<Slider>().value = coverage[i];
+        }
     }
 
     //Request Designs
