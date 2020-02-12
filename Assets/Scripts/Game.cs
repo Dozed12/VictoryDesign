@@ -56,6 +56,9 @@ public class Game : MonoBehaviour
     //Last Hover
     public string lastHover = "";
 
+    //Designs previous
+    public Dictionary<string, Design> prevDesigns;
+
     //Designs in use
     public Dictionary<string, Design> designs;
 
@@ -193,7 +196,7 @@ public class Game : MonoBehaviour
                 //Full Progress if half age
                 foreach (KeyValuePair<string, Design> design in designs)
                 {
-                    if(design.Value.age == 5)
+                    if (design.Value.age == 5)
                         design.Value.ProgressRandom(999);
                 }
 
@@ -216,6 +219,9 @@ public class Game : MonoBehaviour
                     //Update Redesign Progress
                     UpdateRedesignProgress();
                 }
+
+                //Update Sliders
+                UpdateSliders();
             }
 
             //Initiate Redesign if needed
@@ -267,6 +273,7 @@ public class Game : MonoBehaviour
         //Clear
         institutes = new List<DesignInstitute>();
         designs = new Dictionary<string, Design>();
+        prevDesigns = new Dictionary<string, Design>();
 
         //Set start date and turn
         date = new DateTime(1915, 1, 1);
@@ -292,7 +299,7 @@ public class Game : MonoBehaviour
 
             //Add space before Capital letters
             name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
-            
+
             //Request Design
             designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 })[0];
         }
@@ -312,19 +319,19 @@ public class Game : MonoBehaviour
             }
 
             //Validate Sum
-            if(industrialCoverage.Sum() > -1 || industrialCoverage.Sum() < -3)
+            if (industrialCoverage.Sum() > -1 || industrialCoverage.Sum() < -3)
                 valid = false;
 
             //Validate 1 Positive or Zero
             bool min1 = false;
             for (int i = 0; i < industrialCoverage.Length; i++)
             {
-                if(industrialCoverage[i] >= 0)
+                if (industrialCoverage[i] >= 0)
                     min1 = true;
             }
-            if(!min1)
+            if (!min1)
                 valid = false;
-            
+
         } while (!valid);
 
         //Generate Capacity Coverage
@@ -342,8 +349,8 @@ public class Game : MonoBehaviour
             }
 
             //Validate Sum
-            if(capacityCoverage.Sum() > -2 || capacityCoverage.Sum() < -4)
-                valid = false;            
+            if (capacityCoverage.Sum() > -2 || capacityCoverage.Sum() < -4)
+                valid = false;
         } while (!valid);
 
         //Error vars
@@ -405,8 +412,14 @@ public class Game : MonoBehaviour
         //Full Progress if half age
         foreach (KeyValuePair<string, Design> design in designs)
         {
-            if(design.Value.age > 6)
+            if (design.Value.age > 6)
                 design.Value.ProgressRandom(999);
+        }
+
+        //Assign Current Designs to Previous
+        foreach (KeyValuePair<string, Design> design in designs)
+        {
+            prevDesigns.Add(design.Key, design.Value);
         }
 
         //Update Sliders
@@ -627,8 +640,14 @@ public class Game : MonoBehaviour
     //Apply Choice
     public void ApplyChoice(int id)
     {
-        //Set Choice
-        designs[string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ')] = choices[id];
+        //Design Spaced
+        string designSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
+        //Set Previous Design
+        prevDesigns[designSpaced] = designs[designSpaced];
+
+        //Set New Design
+        designs[designSpaced] = choices[id];
 
         //Update Redesign Progress
         UpdateRedesignProgress();
@@ -779,11 +798,21 @@ public class Game : MonoBehaviour
     {
         //Value of Characteristics
         float[] values = new float[9];
-        foreach (var design in designs)
+        foreach (KeyValuePair<string, Design> design in designs)
         {
-            foreach (var characteristic in design.Value.characteristics)
+            for (int i = 0; i < design.Value.characteristics.Count; i++)
             {
-                values[(int)characteristic.impact] += characteristic.trueValue;
+                //Transition Production until 6 months
+                if (design.Value.age < 6)
+                {
+                    float ratio = (float)design.Value.age / 6;
+                    values[(int)design.Value.characteristics[i].impact] += Mathf.RoundToInt(design.Value.characteristics[i].trueValue * ratio + prevDesigns[design.Key].characteristics[i].trueValue * (1 - ratio));
+                }
+                //Full Production
+                else
+                {
+                    values[(int)design.Value.characteristics[i].impact] += design.Value.characteristics[i].trueValue;
+                }
             }
         }
 
