@@ -21,7 +21,7 @@ Industrial:
     Replenishment Capacity  -   Reliability   
 
 Army Size:
-    Tacken from Industrial values
+    Taken from Industrial values
 
 Doctrine:
     - (AI) Anti-Infantry Ability
