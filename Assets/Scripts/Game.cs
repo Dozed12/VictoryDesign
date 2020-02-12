@@ -431,6 +431,23 @@ public class Game : MonoBehaviour
     {
         foreach (KeyValuePair<string, Design> design in designs)
         {
+            //This Turn warning
+            if(design.Value.age - 1 == design.Value.redesignPeriod)
+            {
+                Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().enabled = true;
+                Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+            }
+            //Next Turn warning
+            else if(design.Value.age == design.Value.redesignPeriod)
+            {
+                Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().enabled = true;
+                Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().color = new Color32(219, 213, 50, 255);
+            }
+            //No warning
+            else
+                Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().enabled = false;
+
+            //Set value
             Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Progress").GetComponent<Image>().fillAmount = ((float)design.Value.age / design.Value.redesignPeriod);
         }
     }
