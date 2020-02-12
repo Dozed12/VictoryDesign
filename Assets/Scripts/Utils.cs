@@ -107,4 +107,40 @@ public static class Utils
                 return result;
         }
     }
+
+    //Random Generation with Max (Terrible implementation but works)
+    public static List<int> RandomMax(int size, int max, int a, int b)
+    {
+        while (true)
+        {
+            //Generate Values
+            List<int> result = new List<int>();
+            for (int i = 0; i < size; i++)
+            {
+                result.Add(UnityEngine.Random.Range(a, b + 1));
+            }
+            
+            //Count Values
+            Dictionary<int, int> count = new Dictionary<int, int>();
+            for (int i = 0; i < size; i++)
+            {
+                if(count.ContainsKey(result[i]))
+                    count[result[i]]++;
+                else
+                    count[result[i]] = 0;
+            }
+
+            //Check if over max
+            bool valid = true;
+            foreach (var item in count)
+            {
+                if(item.Value >= max)
+                    valid = false;
+            }
+
+            //Return values if valid
+            if(valid)
+                return result;
+        }
+    }
 }
