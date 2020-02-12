@@ -39,7 +39,7 @@ public static class History
 
         //Generate Revenge Turns
         events.Add(new HistoryEvent(16 + UnityEngine.Random.Range(-1,1 + 1), "REVENGE START", null, -1));
-        events.Add(new HistoryEvent(18 + UnityEngine.Random.Range(-1,1 + 1), "REVENGE END", Map.ProgressRevenge, 0));
+        events.Add(new HistoryEvent(19 + UnityEngine.Random.Range(-1,1 + 1), "REVENGE END", Map.ProgressRevenge, 0));
 
         //Generate Allies Turn
         events.Add(new HistoryEvent(10 + UnityEngine.Random.Range(-1,1 + 1), "ALLY 1", Map.ProgressAllies, 0));
@@ -48,7 +48,7 @@ public static class History
 
         //Generate War Turn
         //TODO Actually start war
-        events.Add(new HistoryEvent(20 + UnityEngine.Random.Range(-1,1 + 1), "WAR", null, -1));
+        events.Add(new HistoryEvent(22 + UnityEngine.Random.Range(-1,1 + 1), "WAR", null, -1));
     }
 
     //Generate possible messages for Bulletin

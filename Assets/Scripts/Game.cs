@@ -276,7 +276,7 @@ public class Game : MonoBehaviour
         prevDesigns = new Dictionary<string, Design>();
 
         //Set start date and turn
-        date = new DateTime(1915, 1, 1);
+        date = new DateTime(1920, 1, 1);
         turn = 1;
 
         //Get types of designs
