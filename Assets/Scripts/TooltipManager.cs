@@ -66,7 +66,7 @@ public static class TooltipManager
                 RectTransform topTransform = top.GetComponent<RectTransform>();
                 RectTransform tooltipTransform = tooltip.GetComponent<RectTransform>();
                 tooltip.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(Input.mousePosition.x,
-                Input.mousePosition.y - tooltipTransform.sizeDelta.y/2 - 30, 0), Quaternion.identity);
+                Input.mousePosition.y - tooltipTransform.sizeDelta.y / 2 - 30, 0), Quaternion.identity);
 
                 //Fix size of tooltip
                 LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)tooltip.transform);

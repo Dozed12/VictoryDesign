@@ -10,7 +10,7 @@ public class Region
     public Point[] pixels;
     public bool unified = false;
     public bool ally = false;
-    public bool occupied = false;   
+    public bool occupied = false;
 
     public Region(Point point)
     {
@@ -59,14 +59,14 @@ public static class Map
     };
 
     //Stage of revenge position
-    public static Region revengePosition = new Region( new Point(695, 200));
+    public static Region revengePosition = new Region(new Point(695, 200));
 
     //Setup Pixel Groups
     public static void SetupPixels(Texture2D map)
     {
         //For each Unification Stage
         for (int i = 0; i < unificationPositions.Count; i++)
-        {            
+        {
             //Get Points
             unificationPositions[i].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, unificationPositions[i].point)).ToArray();
         }
@@ -74,7 +74,7 @@ public static class Map
         //For each Alliance Stage
         for (int i = 0; i < allyPositions.Count; i++)
         {
-                allyPositions[i].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, allyPositions[i].point)).ToArray();
+            allyPositions[i].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, allyPositions[i].point)).ToArray();
         }
 
         //Revenge Stage
@@ -107,7 +107,7 @@ public static class Map
         //For each Unification Stage
         for (int i = 0; i < unificationPositions.Count; i++)
         {
-            if(unificationPositions[i].unified)
+            if (unificationPositions[i].unified)
             {
                 //Get Points
                 Point[] points = unificationPositions[i].pixels;
@@ -123,7 +123,7 @@ public static class Map
         //For each Alliance Stage
         for (int i = 0; i < allyPositions.Count; i++)
         {
-            if(allyPositions[i].ally)
+            if (allyPositions[i].ally)
             {
                 //Get Points
                 Point[] points = allyPositions[i].pixels;
@@ -137,7 +137,7 @@ public static class Map
         }
 
         //Revenge Stage
-        if(revengePosition.occupied)
+        if (revengePosition.occupied)
         {
             //Get Points
             Point[] points = revengePosition.pixels;

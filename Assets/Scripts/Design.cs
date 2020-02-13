@@ -100,7 +100,7 @@ public abstract class Design
 
     //How long does the design last before new design is needed(months)
     public int redesignPeriod;
-    
+
     //Name of design
     public string name;
 
@@ -244,7 +244,7 @@ public class Characteristic
     public void Generate(int requested = 0)
     {
         //Flip Engineering/Resource Characteristics
-        if(name == "Engineering Cost" || name == "Resource Cost")
+        if (name == "Engineering Cost" || name == "Resource Cost")
             requested = -requested;
 
         /* 
@@ -259,13 +259,13 @@ public class Characteristic
         //Predicted value from -2 to 2 or requested
         if (requested != 0)
         {
-            if(requested == -2)
+            if (requested == -2)
                 predictedValue = -2;
-            else if(requested == -1)
+            else if (requested == -1)
                 predictedValue = UnityEngine.Random.Range(-2, -1 + 1);
-            else if(requested == 1)
+            else if (requested == 1)
                 predictedValue = UnityEngine.Random.Range(1, 2 + 1);
-            else if(requested == 2)
+            else if (requested == 2)
                 predictedValue = 2;
         }
         else
@@ -353,7 +353,7 @@ public class Characteristic
     //String representation of prediction
     public static string PredictedToString(int prediction, bool invert = false)
     {
-        if(invert)
+        if (invert)
         {
             switch (prediction)
             {
@@ -388,7 +388,7 @@ public class Characteristic
                 default:
                     return "ERROR";
             }
-        }        
+        }
     }
 }
 

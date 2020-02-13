@@ -83,7 +83,7 @@ public static class Utils
     //Sign Coloring (color green or maroon based on signal)
     public static string SignColoring(int val)
     {
-        if(val >= 0)
+        if (val >= 0)
             return "<color=green>" + val + "</color>";
         else
             return "<color=maroon>" + val + "</color>";
@@ -103,7 +103,7 @@ public static class Utils
             }
             total = Mathf.FloorToInt(total / size);
 
-            if(total == avg)
+            if (total == avg)
                 return result;
         }
     }
@@ -119,12 +119,12 @@ public static class Utils
             {
                 result.Add(UnityEngine.Random.Range(a, b + 1));
             }
-            
+
             //Count Values
             Dictionary<int, int> count = new Dictionary<int, int>();
             for (int i = 0; i < size; i++)
             {
-                if(count.ContainsKey(result[i]))
+                if (count.ContainsKey(result[i]))
                     count[result[i]]++;
                 else
                     count[result[i]] = 0;
@@ -134,12 +134,12 @@ public static class Utils
             bool valid = true;
             foreach (var item in count)
             {
-                if(item.Value >= max)
+                if (item.Value >= max)
                     valid = false;
             }
 
             //Return values if valid
-            if(valid)
+            if (valid)
                 return result;
         }
     }

@@ -7,9 +7,9 @@ public class CustomStandaloneInputModule : StandaloneInputModule
 {
     public PointerEventData GetPointerData()
     {
-        if(m_PointerData.ContainsKey(kMouseLeftId))
+        if (m_PointerData.ContainsKey(kMouseLeftId))
             return m_PointerData[kMouseLeftId];
-        else 
+        else
             return null;
     }
 }
