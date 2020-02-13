@@ -34,17 +34,17 @@ public static class History
         events = new List<HistoryEvent>();
 
         //Generate Unification Turn
-        events.Add(new HistoryEvent(6 + UnityEngine.Random.Range(-1,1 + 1), "UNIFICATION 1", Map.ProgressUnification, 0));
-        events.Add(new HistoryEvent(8 + UnityEngine.Random.Range(-1,1 + 1), "UNIFICATION 2", Map.ProgressUnification, 1));
-
-        //Generate Revenge Turns
-        events.Add(new HistoryEvent(16 + UnityEngine.Random.Range(-1,1 + 1), "REVENGE START", null, -1));
-        events.Add(new HistoryEvent(19 + UnityEngine.Random.Range(-1,1 + 1), "REVENGE END", Map.ProgressRevenge, 0));
+        events.Add(new HistoryEvent(6 + UnityEngine.Random.Range(0,1 + 1), "UNIFICATION 1", Map.ProgressUnification, 0));
+        events.Add(new HistoryEvent(8 + UnityEngine.Random.Range(0,1 + 1), "UNIFICATION 2", Map.ProgressUnification, 1));
 
         //Generate Allies Turn
-        events.Add(new HistoryEvent(10 + UnityEngine.Random.Range(-1,1 + 1), "ALLY 1", Map.ProgressAllies, 0));
-        events.Add(new HistoryEvent(12 + UnityEngine.Random.Range(-1,1 + 1), "ALLY 2", Map.ProgressAllies, 1));
-        events.Add(new HistoryEvent(14 + UnityEngine.Random.Range(-1,1 + 1), "ALLY 3", Map.ProgressAllies, 2));
+        events.Add(new HistoryEvent(10 + UnityEngine.Random.Range(0,1 + 1), "ALLY 1", Map.ProgressAllies, 0));
+        events.Add(new HistoryEvent(12 + UnityEngine.Random.Range(0,1 + 1), "ALLY 2", Map.ProgressAllies, 1));
+        events.Add(new HistoryEvent(14 + UnityEngine.Random.Range(0,1 + 1), "ALLY 3", Map.ProgressAllies, 2));
+
+        //Generate Revenge Turns
+        events.Add(new HistoryEvent(16 + UnityEngine.Random.Range(0,1 + 1), "REVENGE START", null, -1));
+        events.Add(new HistoryEvent(19 + UnityEngine.Random.Range(-1,1 + 1), "REVENGE END", Map.ProgressRevenge, 0));
 
         //Generate War Turn
         //TODO Actually start war
