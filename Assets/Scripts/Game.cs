@@ -432,16 +432,16 @@ public class Game : MonoBehaviour
         foreach (KeyValuePair<string, Design> design in designs)
         {
             //This Turn warning
-            if(design.Value.age - 1 == design.Value.redesignPeriod)
+            if (design.Value.age - 1 == design.Value.redesignPeriod)
             {
                 Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().enabled = true;
                 Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
             }
             //Next Turn warning
-            else if(design.Value.age == design.Value.redesignPeriod)
+            else if (design.Value.age == design.Value.redesignPeriod)
             {
                 Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().enabled = true;
-                Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().color = new Color32(219, 213, 50, 255);
+                Utils.GetChild(Utils.GetChild(GameObject.Find("DesignsHolder"), design.Key), "Warn").GetComponent<Image>().color = new Color32(36, 110, 30, 255);
             }
             //No warning
             else
@@ -812,29 +812,29 @@ public class Game : MonoBehaviour
         for (int i = 0; i < coverage.Length; i++)
         {
             //Setup Progress Arrow and Amount
-            if(displayProgress)
+            if (displayProgress)
             {
                 //Decrease
-                if(GameObject.Find(objectSliders[i]).GetComponent<Slider>().value > coverage[i])
+                if (GameObject.Find(objectSliders[i]).GetComponent<Slider>().value > coverage[i])
                 {
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = true;
-                    GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(130,25,25,255);
+                    GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(130, 25, 25, 255);
                     RectTransform rectTrans = (RectTransform)GameObject.Find(objectProgress[i]).transform;
                     rectTrans.SetPositionAndRotation(rectTrans.position, Quaternion.Euler(new Vector3(0, 0, 270)));
 
                     GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().enabled = true;
-                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().color = new Color32(130,25,25,255);         
+                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().color = new Color32(130, 25, 25, 255);
                 }
                 //Increase
                 else if (GameObject.Find(objectSliders[i]).GetComponent<Slider>().value < coverage[i])
                 {
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = true;
-                    GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(36,110,30,255);
+                    GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(36, 110, 30, 255);
                     RectTransform rectTrans = (RectTransform)GameObject.Find(objectProgress[i]).transform;
                     rectTrans.SetPositionAndRotation(rectTrans.position, Quaternion.Euler(new Vector3(0, 0, 90)));
 
                     GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().enabled = true;
-                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().color = new Color32(36,110,30,255);
+                    GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().color = new Color32(36, 110, 30, 255);
                 }
                 //Same
                 else
@@ -842,7 +842,7 @@ public class Game : MonoBehaviour
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = false;
 
                     GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().enabled = false;
-                    
+
                 }
 
                 //Set Difference
