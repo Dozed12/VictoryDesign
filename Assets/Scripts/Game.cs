@@ -395,7 +395,7 @@ public class Game : MonoBehaviour
         }
 
         //Randomize Design Age
-        List<int> ages = Utils.RandomMax(designs.Count, 3, 1, 11);
+        List<int> ages = Utils.RandomMax(designs.Count, 3, 1, 12);
         int n = 0;
         foreach (KeyValuePair<string, Design> design in designs)
         {
