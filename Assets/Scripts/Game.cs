@@ -56,8 +56,6 @@ public class Game : MonoBehaviour
     //Doctrine
     public enum Doctrine
     {
-        INDUSTRY,
-
         ANTI_INFANTRY,
         ANTI_ARMOR,
         BREAKTHROUGH,
@@ -125,7 +123,9 @@ public class Game : MonoBehaviour
         Debug.Log(IndustryValue());
         Debug.Log("Capacity Value");
         Debug.Log(CapacityValue());
-        Debug.Log("Final Value(with doctrine)");
+        Debug.Log("Capacity Value with Doctrine");
+        Debug.Log(CapacityValueDoctrine());
+        Debug.Log("Final Value");
         Debug.Log(FinalCalculation());
 
         //Update Display of Design Ages
@@ -447,15 +447,14 @@ public class Game : MonoBehaviour
 
         //Setup Doctrine
         doctrine = new Dictionary<Doctrine, float>();
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 6; i++)
         {
             doctrine[(Doctrine)(i)] = 1;
         }
 
-        doctrine[(Doctrine)(1)] = 1.5f;
-        doctrine[(Doctrine)(2)] = 0.5f;
-        doctrine[(Doctrine)(3)] = 1.25f;
-        doctrine[(Doctrine)(4)] = 0.75f;
+        //TEST Doctrine
+        doctrine[(Doctrine)(0)] = 1.5f;
+        doctrine[(Doctrine)(1)] = 0.5f;
     }
 
     //Industry Value
@@ -476,8 +475,25 @@ public class Game : MonoBehaviour
         //Get current coverage
         float[] coverage = CurrentCoverage();
 
-        //Average of industry values
+        //Average of capacity values
         float value = (coverage[3] + coverage[4] + coverage[5] + coverage[6] + coverage[7] + coverage[8]) / 6;
+
+        return value;
+    }
+
+    //Capacity Value with Doctrine
+    public float CapacityValueDoctrine()
+    {
+        //Get current coverage
+        float[] coverage = CurrentCoverage();
+
+        //Average of capacity values
+        float value = 0;
+        for (int i = 3; i < coverage.Length; i++)
+        {
+            value += coverage[i] * doctrine[(Doctrine)(i-3)];
+        }
+        value /= coverage.Length - 3;
 
         return value;
     }
@@ -485,25 +501,17 @@ public class Game : MonoBehaviour
     //Final Calculation
     public float FinalCalculation()
     {
-        //Final value
-        float final = 0;
-
         //Get current coverage
         float[] coverage = CurrentCoverage();
 
-        //Apply doctrine to military capacity
-        for (int i = 3; i < coverage.Length; i++)
-        {
-            //(i-2 offset due to capacity starting at 1 for Doctrine and 3 for Impact)
-            final += coverage[i] * doctrine[(Doctrine)(i-2)];
-        }
-        final /= coverage.Length - 3;
+        //Capacity with Doctrine
+        float final = CapacityValueDoctrine();
 
         //Calculate industry
         float industry = IndustryValue();
 
-        //Apply industry to coverage with doctrine
-        final = industry * doctrine[(Doctrine)(0)]/2 + final * (1 - doctrine[(Doctrine)(0)]/2);
+        //Apply industry to coverage
+        final = (industry + final) / 2;
 
         return final;
     }
