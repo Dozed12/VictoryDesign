@@ -53,6 +53,20 @@ public class Game : MonoBehaviour
     public float monthClock = 0;
     private float monthAdvance = 1f;
 
+    //Doctrine
+    public enum Doctrine
+    {
+        INDUSTRY,
+
+        ANTI_INFANTRY,
+        ANTI_ARMOR,
+        BREAKTHROUGH,
+        EXPLOITATION,
+        MORALE,
+        COMBAT_EFFICIENCY
+    }
+    public Dictionary<Doctrine, float> doctrine;
+
     //Last Hover
     public string lastHover = "";
 
@@ -107,6 +121,12 @@ public class Game : MonoBehaviour
         Utils.DumpArray(ImpactOccurences());
         Debug.Log("Starting Coverage");
         Utils.DumpArray(CurrentCoverage());
+        Debug.Log("Industry Value");
+        Debug.Log(IndustryValue());
+        Debug.Log("Capacity Value");
+        Debug.Log(CapacityValue());
+        Debug.Log("Final Value(with doctrine)");
+        Debug.Log(FinalCalculation());
 
         //Update Display of Design Ages
         UpdateRedesignProgress();
@@ -424,6 +444,68 @@ public class Game : MonoBehaviour
 
         //Update Sliders
         UpdateSliders(false);
+
+        //Setup Doctrine
+        doctrine = new Dictionary<Doctrine, float>();
+        for (int i = 0; i < 7; i++)
+        {
+            doctrine[(Doctrine)(i)] = 1;
+        }
+
+        doctrine[(Doctrine)(1)] = 1.5f;
+        doctrine[(Doctrine)(2)] = 0.5f;
+        doctrine[(Doctrine)(3)] = 1.25f;
+        doctrine[(Doctrine)(4)] = 0.75f;
+    }
+
+    //Industry Value
+    public float IndustryValue()
+    {
+        //Get current coverage
+        float[] coverage = CurrentCoverage();
+
+        //Average of industry values
+        float value = (coverage[0] + coverage[1] + coverage[2]) / 3;
+
+        return value;
+    }
+
+    //Capacity Value
+    public float CapacityValue()
+    {
+        //Get current coverage
+        float[] coverage = CurrentCoverage();
+
+        //Average of industry values
+        float value = (coverage[3] + coverage[4] + coverage[5] + coverage[6] + coverage[7] + coverage[8]) / 6;
+
+        return value;
+    }
+
+    //Final Calculation
+    public float FinalCalculation()
+    {
+        //Final value
+        float final = 0;
+
+        //Get current coverage
+        float[] coverage = CurrentCoverage();
+
+        //Apply doctrine to military capacity
+        for (int i = 3; i < coverage.Length; i++)
+        {
+            //(i-2 offset due to capacity starting at 1 for Doctrine and 3 for Impact)
+            final += coverage[i] * doctrine[(Doctrine)(i-2)];
+        }
+        final /= coverage.Length - 3;
+
+        //Calculate industry
+        float industry = IndustryValue();
+
+        //Apply industry to coverage with doctrine
+        final = industry * doctrine[(Doctrine)(0)]/2 + final * (1 - doctrine[(Doctrine)(0)]/2);
+
+        return final;
     }
 
     //Update Redesign Progress
