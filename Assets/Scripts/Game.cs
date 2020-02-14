@@ -248,8 +248,32 @@ public class Game : MonoBehaviour
                 UpdateSliders();
             }
 
+            //Doctrine Proposal if month multiple of 6 (except 1920)
+            if ((date.Month % 6 == 0 && date.Year != 1920) || (date.Month == 6 && date.Year == 1920))
+            {
+                //Set state to REQUEST
+                state = State.REQUEST;
+
+                //Pause
+                ToggleTime();
+
+                //Block Playing
+                blockTimeControl = true;
+
+                //Make Time Icon Red
+                GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+
+                //Close Map
+                CloseMap(true);
+
+                //Update Design Choice Title
+                GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = "DOCTRINE CHANGE";
+
+                //Invoke Show Request for new Design
+                Invoke("ShowDoctrineChange", 0.5f);
+            }
             //Initiate Redesign if needed
-            if (designsNeeded.Count > 0)
+            else if (designsNeeded.Count > 0)
             {
                 //Set state to REQUEST
                 state = State.REQUEST;
@@ -574,6 +598,70 @@ public class Game : MonoBehaviour
             }
         }
 
+    }
+
+    //Show Doctrine Change
+    public void ShowDoctrineChange()
+    {
+        //TODO Prepare Doctrine
+        //TODO Show Doctrine
+    }
+
+    //Change Doctrine
+    public void ChangeDoctrine(int i, int val)
+    {
+        //TODO Apply change
+    }
+
+    //Apply Doctrine Change
+    public void ApplyDoctrine()
+    {
+        //TODO Check if valid
+
+        //Transition into redesigns
+        //If no redesigns to do
+        if (designsNeeded.Count == 0)
+        {
+            //Return to Normal State
+            state = State.NORMAL;
+
+            //Unblock Playing
+            blockTimeControl = false;
+
+            //Open Map
+            CloseMap(false);
+
+            //Make Time Icon Normal Color
+            GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+
+            //Highlight Design of Redesign Type
+            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+
+            //Nullify redesign
+            redesignType = null;
+        }
+        //If there are, do
+        else
+        {
+            //Set redesign type
+            redesignType = designsNeeded[0];
+
+            //Remove highlight all Designs
+            foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
+            {
+                Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
+            }
+
+            //Highlight Design of Redesign Type
+            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+
+            //Update Design Choice Title
+            string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
+
+            //Invoke Show Request for new Design
+            Invoke("ShowRequest", 0.5f);
+        }
     }
 
     //Update Redesign Progress
