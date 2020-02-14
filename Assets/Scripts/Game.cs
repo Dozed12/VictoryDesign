@@ -506,9 +506,6 @@ public class Game : MonoBehaviour
     //Final Calculation
     public float FinalCalculation()
     {
-        //Get current coverage
-        float[] coverage = CurrentCoverage();
-
         //Capacity with Doctrine
         float final = CapacityValueDoctrine();
 
