@@ -27,14 +27,19 @@ public static class History
 
     public static List<Event> events;
 
+    public static Game game;
+
     //Setup History Turns
     public static void SetupHistory()
     {
+        //Get Game Holder
+        game = GameObject.Find("Game").GetComponent<Game>();
+
         //Clear list
         events = new List<Event>();
 
         //Initial Doctrine
-        events.Add(new Event(3, "The Military Staff has produced the initial Doctrine for our armed forces. You will be allowed to perform singular alterations every 6 months, starting next June.", GameObject.Find("Game").GetComponent<Game>().InitialDoctrine, -1));
+        events.Add(new Event(3, "The Military Staff has produced the initial Doctrine for our armed forces. You will be allowed to perform singular alterations every 6 months, starting next June.", game.InitialDoctrine, -1));
 
         //Generate Unification Turn
         events.Add(new Event(6 + UnityEngine.Random.Range(0, 1 + 1), "UNIFICATION 1", Map.ProgressUnification, 0));
@@ -59,10 +64,30 @@ public static class History
     {
         List<string> result = new List<string>();
 
-        //If 3 month multiple then include armed forces capacity/doctrine report
-        if (Game.turn % 3 == 0)
+        //If 4 month multiple then include armed forces capacity/doctrine report
+        if (Game.turn % 4 == 0)
         {
-            
+            //Preffix
+            string report = "Armed Forces Report:";
+
+            //Calculations
+            float industry = game.IndustryValue();
+            float capacity = game.CapacityValue();
+            float capacityDoctrine = game.CapacityValueDoctrine();
+            float final = game.FinalCalculation();
+
+            //Add to report
+            report += "\n";
+            report += "Industry: " + Mathf.Round((1 + industry) * 100) + "%";
+            report += "\n";
+            report += "Capacity: " + Mathf.Round((1 + capacity) * 100) + "%";
+            report += "\n";
+            report += "Capacity(Doctrine): " + Mathf.Round((1 + capacityDoctrine) * 100) + "%";
+            report += "\n";
+            report += "Total: " + Mathf.Round((1 + final) * 100) + "%";
+
+            //Add to bulletin
+            result.Add(report);
         }
 
         //Check if history event
