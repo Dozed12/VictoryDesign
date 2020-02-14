@@ -30,6 +30,9 @@ public class Game : MonoBehaviour
     //Impact Sprites
     public List<Sprite> impactSprites;
 
+    //Doctrine Sprites
+    public List<Sprite> doctrineSprites;
+
     //Pause Play Time Sprites
     public Sprite pauseSprite;
     public Sprite playSprite;
@@ -63,7 +66,7 @@ public class Game : MonoBehaviour
         MORALE,
         COMBAT_EFFICIENCY
     }
-    public Dictionary<Doctrine, float> doctrine;
+    public static Dictionary<Doctrine, float> doctrine;
 
     //Last Hover
     public string lastHover = "";
@@ -202,6 +205,7 @@ public class Game : MonoBehaviour
                     //Add Bulletin Line
                     GameObject.Find("BulletinText").GetComponent<Text>().text += "_" + bulletin[i];
                 }
+                GameObject.Find("BulletinText").GetComponent<Animator>().Play(0);
 
                 //Update Map
                 Texture2D final = Map.BuildMap(baseMap);
@@ -451,10 +455,6 @@ public class Game : MonoBehaviour
         {
             doctrine[(Doctrine)(i)] = 1;
         }
-
-        //TEST Doctrine
-        doctrine[(Doctrine)(0)] = 1.5f;
-        doctrine[(Doctrine)(1)] = 0.5f;
     }
 
     //Industry Value
@@ -476,7 +476,7 @@ public class Game : MonoBehaviour
         float[] coverage = CurrentCoverage();
 
         //Average of capacity values
-        float value = (coverage[3] + coverage[4] + coverage[5] + coverage[6] + coverage[7] + coverage[8]) / 6;
+        float value = (coverage[3] + coverage[4] + Mathf.Min(coverage[5], coverage[6]) * 2 + coverage[7] + coverage[8]) / 6;
 
         return value;
     }
@@ -491,7 +491,12 @@ public class Game : MonoBehaviour
         float value = 0;
         for (int i = 3; i < coverage.Length; i++)
         {
-            value += coverage[i] * doctrine[(Doctrine)(i-3)];
+            //Case of Breakthrough and Exploitation
+            if(i == 5 || i == 6)
+                value += Mathf.Min(coverage[5], coverage[6]) * doctrine[(Doctrine)(i - 3)];
+            //Normal Case
+            else
+                value += coverage[i] * doctrine[(Doctrine)(i - 3)];
         }
         value /= coverage.Length - 3;
 
@@ -514,6 +519,64 @@ public class Game : MonoBehaviour
         final = (industry + final) / 2;
 
         return final;
+    }
+
+    //Initial Doctrine
+    public void InitialDoctrine(int i)
+    {
+        //Generate Doctrine
+        List<int> genDoctrine = Utils.RandomSum(6, 0, -2, 2);
+
+        //Proper Doctrine Values
+        for (int j = 0; j < genDoctrine.Count; j++)
+        {
+            doctrine[(Doctrine)j] = 1 + 0.25f * genDoctrine[j];
+        }
+
+        //Update Doctrine Graphic
+        UpdateDoctrineGraphic();
+    }
+
+    //Update Doctrine Graphic
+    public void UpdateDoctrineGraphic()
+    {
+        //Get Holder
+        GameObject doctrineHolder = GameObject.Find("Doctrine");
+
+        //Doctrine Displays
+        List<string> doctrineDisplays = new List<string>()
+        {
+            "AIDoctrine",
+            "AADoctrine",
+            "BreakthroughDoctrine",
+            "ExploitationDoctrine",
+            "MoraleDoctrine",
+            "EfficiencyDoctrine"
+        };
+
+        //Each Doctrine
+        for (int i = 0; i < doctrineDisplays.Count; i++)
+        {
+            switch (doctrine[(Doctrine)i])
+            {
+                case 0.5f:
+                    Utils.GetChild(doctrineHolder, doctrineDisplays[i]).GetComponent<Image>().overrideSprite = doctrineSprites[0];
+                    break;
+                case 0.75f:
+                    Utils.GetChild(doctrineHolder, doctrineDisplays[i]).GetComponent<Image>().overrideSprite = doctrineSprites[1];
+                    break;
+                case 1:
+                    Utils.GetChild(doctrineHolder, doctrineDisplays[i]).GetComponent<Image>().overrideSprite = doctrineSprites[2];
+                    break;
+                case 1.25f:
+                    Utils.GetChild(doctrineHolder, doctrineDisplays[i]).GetComponent<Image>().overrideSprite = doctrineSprites[3];
+                    break;
+                case 1.5f:
+                    Utils.GetChild(doctrineHolder, doctrineDisplays[i]).GetComponent<Image>().overrideSprite = doctrineSprites[4];
+                    break;
+            }
+        }
+
     }
 
     //Update Redesign Progress

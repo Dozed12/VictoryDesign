@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -140,6 +141,24 @@ public static class Utils
 
             //Return values if valid
             if (valid)
+                return result;
+        }
+    }
+
+    //Random Generation with Sum (Terrible implementation but works)
+    public static List<int> RandomSum(int size, int sum, int a, int b)
+    {
+        while (true)
+        {
+            //Generate Values
+            List<int> result = new List<int>();
+            for (int i = 0; i < size; i++)
+            {
+                result.Add(UnityEngine.Random.Range(a, b + 1));
+            }
+
+            //Check sum
+            if(result.Sum() == sum)
                 return result;
         }
     }
