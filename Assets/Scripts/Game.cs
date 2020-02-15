@@ -707,12 +707,15 @@ public class Game : MonoBehaviour
         foreach (Transform capacity in Utils.GetChildRecursive(doctrine, "Capacities").transform)
         {
             int j = k;
+            Utils.GetChild(capacity.gameObject, "Increase").GetComponent<Button>().onClick.RemoveAllListeners();
             Utils.GetChild(capacity.gameObject, "Increase").GetComponent<Button>().onClick.AddListener(delegate { ChangeDoctrine(j, 0.25f); });
+            Utils.GetChild(capacity.gameObject, "Decrease").GetComponent<Button>().onClick.RemoveAllListeners();
             Utils.GetChild(capacity.gameObject, "Decrease").GetComponent<Button>().onClick.AddListener(delegate { ChangeDoctrine(j, -0.25f); });
             k++;
         }
 
         //Setup Apply Button
+        Utils.GetChildRecursive(doctrine, "Issue").GetComponent<Button>().onClick.RemoveAllListeners();
         Utils.GetChildRecursive(doctrine, "Issue").GetComponent<Button>().onClick.AddListener(delegate { ApplyDoctrine(); });
 
         //Fix Layout
