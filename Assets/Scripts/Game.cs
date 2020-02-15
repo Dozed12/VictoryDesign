@@ -574,6 +574,12 @@ public class Game : MonoBehaviour
             //Generate random with Sum 0
             genDoctrine = Utils.RandomSum(6, 0, -2, 2);
 
+            //Proper Doctrine Values
+            for (int j = 0; j < genDoctrine.Count; j++)
+            {
+                doctrine[(Doctrine)j] = 1 + 0.25f * genDoctrine[j];
+            }
+
             //Assume valid
             valid = true;
 
@@ -591,7 +597,8 @@ public class Game : MonoBehaviour
                 if (genDoctrine[j] == 1)
                     foundH = true;
             }
-            valid = foundVH && foundH;
+            if(!foundVH || !foundH)
+                valid = false;
 
             //Check Give Up
             tries++;
@@ -602,12 +609,6 @@ public class Game : MonoBehaviour
             }
 
         } while (!valid);
-
-        //Proper Doctrine Values
-        for (int j = 0; j < genDoctrine.Count; j++)
-        {
-            doctrine[(Doctrine)j] = 1 + 0.25f * genDoctrine[j];
-        }
 
         //Update Doctrine Graphic
         UpdateDoctrineGraphic();
