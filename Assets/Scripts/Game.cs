@@ -603,8 +603,49 @@ public class Game : MonoBehaviour
     //Show Doctrine Change
     public void ShowDoctrineChange()
     {
-        //TODO Prepare Doctrine
-        //TODO Show Doctrine
+        //Doctrine Object
+        GameObject doctrine = GameObject.Find("DoctrineChange");
+
+        //Doctrine Values
+        List<string> doctrineValues = new List<string>()
+        {
+            "AIValue",
+            "AAValue",
+            "BreakthroughValue",
+            "ExploitationValue",
+            "MoraleValue",
+            "EfficiencyValue"
+        };
+
+        for (int i = 0; i < doctrineValues.Count; i++)
+        {
+            switch (Game.doctrine[(Doctrine)i])
+            {
+                case 0.5f:
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#811919>VERY LOW</color>";
+                    break;
+                case 0.75f:
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#815454>LOW</color>";
+                    break;
+                case 1:
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#7D7D7D>NORMAL</color>";
+                    break;
+                case 1.25f:
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#506E4D>HIGH</color>";
+                    break;
+                case 1.5f:
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#246E1E>VERY HIGH</color>";
+                    break;
+            }
+
+        }        
+
+        //Fix Layout
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(doctrine, "Data").transform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(doctrine, "Capacities").transform);
+
+        //Fire Animation
+        doctrine.GetComponent<Animator>().SetBool("open", true);
     }
 
     //Change Doctrine
