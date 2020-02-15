@@ -67,6 +67,7 @@ public class Game : MonoBehaviour
         COMBAT_EFFICIENCY
     }
     public static Dictionary<Doctrine, float> doctrine;
+    public static Dictionary<Doctrine, float> changedDoctrine;
 
     //Last Hover
     public string lastHover = "";
@@ -657,6 +658,13 @@ public class Game : MonoBehaviour
     //Show Doctrine Change
     public void ShowDoctrineChange()
     {
+        //Setup Changed Doctrine
+        changedDoctrine = new Dictionary<Doctrine, float>();
+        foreach (var item in Game.doctrine)
+        {
+            changedDoctrine[item.Key] = item.Value;
+        }
+
         //Doctrine Object
         GameObject doctrine = GameObject.Find("DoctrineChange");
 
@@ -692,26 +700,134 @@ public class Game : MonoBehaviour
                     break;
             }
 
-        }        
+        }
+
+        //Setup Increase/Decrease Buttons
+        int k = 0;
+        foreach (Transform capacity in Utils.GetChildRecursive(doctrine, "Capacities").transform)
+        {
+            int j = k;
+            Utils.GetChild(capacity.gameObject, "Increase").GetComponent<Button>().onClick.AddListener(delegate{ChangeDoctrine(j, 0.25f);});
+            Utils.GetChild(capacity.gameObject, "Decrease").GetComponent<Button>().onClick.AddListener(delegate{ChangeDoctrine(j, -0.25f);});
+            k++;
+        }
+
+        //Setup Apply Button
+        Utils.GetChildRecursive(doctrine, "Issue").GetComponent<Button>().onClick.AddListener(delegate{ApplyDoctrine();});
 
         //Fix Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(doctrine, "Data").transform);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(doctrine, "Capacities").transform);
+
+        //Set Points Info
+        GameObject.Find("RequestPoints").GetComponent<Text>().enabled = true;
+        GameObject.Find("RequestPoints").GetComponent<Text>().text = "CHANGES LEFT: 2      BALANCE: 0";
 
         //Fire Animation
         doctrine.GetComponent<Animator>().SetBool("open", true);
     }
 
     //Change Doctrine
-    public void ChangeDoctrine(int i, int val)
+    public void ChangeDoctrine(int i, float val)
     {
-        //TODO Apply change
+        //Check change doesnt overflow
+        if(changedDoctrine[(Doctrine)i] + val > 1.5f)
+            return;
+        if(changedDoctrine[(Doctrine)i] + val < 0.5f)
+            return;
+
+        //Apply change
+        changedDoctrine[(Doctrine)i] += val; 
+
+        //Calculate Changes
+        float changes = 0.5f;
+        foreach (var item in changedDoctrine)
+        {
+            changes -= Mathf.Abs(doctrine[item.Key] - item.Value);
+        }
+        changes /= 0.25f;
+
+        //Calculate Balance
+        float balance = -1 * 6;
+        foreach (var item in changedDoctrine)
+        {
+            balance += item.Value;
+        }
+        balance /= 0.25f;
+
+        //Update Points Info
+        GameObject.Find("RequestPoints").GetComponent<Text>().text = "CHANGES LEFT: " + changes + "      BALANCE: " + balance;
+
+        //Update Graphic
+        GameObject doctrineHolder = GameObject.Find("DoctrineChange");
+        List<string> doctrineValues = new List<string>()
+        {
+            "AIValue",
+            "AAValue",
+            "BreakthroughValue",
+            "ExploitationValue",
+            "MoraleValue",
+            "EfficiencyValue"
+        };
+        for (int j = 0; j < doctrineValues.Count; j++)
+        {
+            switch (changedDoctrine[(Doctrine)j])
+            {
+                case 0.5f:
+                    Utils.GetChildRecursive(doctrineHolder, doctrineValues[j]).GetComponent<Image>().overrideSprite = doctrineSprites[0];
+                    break;
+                case 0.75f:
+                    Utils.GetChildRecursive(doctrineHolder, doctrineValues[j]).GetComponent<Image>().overrideSprite = doctrineSprites[1];
+                    break;
+                case 1:
+                    Utils.GetChildRecursive(doctrineHolder, doctrineValues[j]).GetComponent<Image>().overrideSprite = doctrineSprites[2];
+                    break;
+                case 1.25f:
+                    Utils.GetChildRecursive(doctrineHolder, doctrineValues[j]).GetComponent<Image>().overrideSprite = doctrineSprites[3];
+                    break;
+                case 1.5f:
+                    Utils.GetChildRecursive(doctrineHolder, doctrineValues[j]).GetComponent<Image>().overrideSprite = doctrineSprites[4];
+                    break;
+            }
+        }
     }
 
     //Apply Doctrine Change
     public void ApplyDoctrine()
     {
-        //TODO Check if valid
+        //Check Valid Changes
+        float changes = 0.5f;
+        foreach (var item in changedDoctrine)
+        {
+            changes -= Mathf.Abs(doctrine[item.Key] - item.Value);
+        }
+        changes /= 0.25f;
+
+        if(changes < 0)
+            return;            
+
+        //Check Valid Balance
+        float balance = -1 * 6;
+        foreach (var item in changedDoctrine)
+        {
+            balance += item.Value;
+        }
+        balance /= 0.25f;
+        
+        if(balance != 0)
+            return;
+
+        //Apply Doctrine
+        foreach (var item in changedDoctrine)
+        {
+            doctrine[item.Key] = changedDoctrine[item.Key];
+        }
+
+        //Close Doctrine Change
+        GameObject.Find("DoctrineChange").GetComponent<Animator>().SetBool("open", false);
+
+        //Update Doctrine Graphic
+        UpdateDoctrineGraphic();
 
         //Transition into redesigns
         //If no redesigns to do
