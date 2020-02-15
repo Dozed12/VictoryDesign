@@ -174,6 +174,9 @@ public class Game : MonoBehaviour
             ToggleTime();
         }
 
+        //Process Tooltip
+        TooltipManager.ProcessTooltip();
+
         //Time
         if (playing)
         {
@@ -247,73 +250,70 @@ public class Game : MonoBehaviour
 
                 //Update Sliders
                 UpdateSliders();
-            }
 
-            //Doctrine Proposal if month multiple of 6 (except 1920)
-            if ((date.Month % 6 == 0 && date.Year != 1920) || (date.Month == 6 && date.Year == 1920))
-            {
-                //Set state to REQUEST
-                state = State.REQUEST;
-
-                //Pause
-                ToggleTime();
-
-                //Block Playing
-                blockTimeControl = true;
-
-                //Make Time Icon Red
-                GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-
-                //Close Map
-                CloseMap(true);
-
-                //Update Design Choice Title
-                GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = "DOCTRINE CHANGE";
-
-                //Invoke Show Request for new Design
-                Invoke("ShowDoctrineChange", 0.5f);
-            }
-            //Initiate Redesign if needed
-            else if (designsNeeded.Count > 0)
-            {
-                //Set state to REQUEST
-                state = State.REQUEST;
-
-                //Set redesign type
-                redesignType = designsNeeded[0];
-
-                //Remove highlight all Designs
-                foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
+                //Doctrine Proposal if month multiple of 6 (except 1920)
+                if ((date.Month % 6 == 0 && date.Year != 1920) || (date.Month == 6 && date.Year == 1920))
                 {
-                    Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
+                    //Set state to REQUEST
+                    state = State.REQUEST;
+
+                    //Pause
+                    ToggleTime();
+
+                    //Block Playing
+                    blockTimeControl = true;
+
+                    //Make Time Icon Red
+                    GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+
+                    //Close Map
+                    CloseMap(true);
+
+                    //Update Design Choice Title
+                    GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = "DOCTRINE CHANGE";
+
+                    //Invoke Show Request for new Design
+                    Invoke("ShowDoctrineChange", 0.5f);
                 }
+                //Initiate Redesign if needed
+                else if (designsNeeded.Count > 0)
+                {
+                    //Set state to REQUEST
+                    state = State.REQUEST;
 
-                //Highlight Design of Redesign Type
-                HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+                    //Set redesign type
+                    redesignType = designsNeeded[0];
 
-                //Pause
-                ToggleTime();
+                    //Remove highlight all Designs
+                    foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
+                    {
+                        Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
+                    }
 
-                //Block Playing
-                blockTimeControl = true;
+                    //Highlight Design of Redesign Type
+                    HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
 
-                //Make Time Icon Red
-                GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                    //Pause
+                    ToggleTime();
 
-                //Close Map
-                CloseMap(true);
+                    //Block Playing
+                    blockTimeControl = true;
 
-                //Update Design Choice Title
-                string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
-                GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
+                    //Make Time Icon Red
+                    GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
-                //Invoke Show Request for new Design
-                Invoke("ShowRequest", 0.5f);
+                    //Close Map
+                    CloseMap(true);
+
+                    //Update Design Choice Title
+                    string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+                    GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
+
+                    //Invoke Show Request for new Design
+                    Invoke("ShowRequest", 0.5f);
+                }
             }
         }
-
-        //Process Tooltip
-        TooltipManager.ProcessTooltip();
     }
 
     //Setup new Game
@@ -384,7 +384,7 @@ public class Game : MonoBehaviour
 
             //Check Give Up
             tries++;
-            if(tries == 1000)
+            if (tries == 1000)
             {
                 Debug.Log("Generate Industrial Coverage - GAVE UP");
                 break;
@@ -413,7 +413,7 @@ public class Game : MonoBehaviour
 
             //Check Give Up
             tries++;
-            if(tries == 1000)
+            if (tries == 1000)
             {
                 Debug.Log("Generate Capacity Coverage - GAVE UP");
                 break;
@@ -536,7 +536,7 @@ public class Game : MonoBehaviour
         for (int i = 3; i < coverage.Length; i++)
         {
             //Case of Breakthrough and Exploitation
-            if(i == 5 || i == 6)
+            if (i == 5 || i == 6)
                 value += Mathf.Min(coverage[5], coverage[6]) * doctrine[(Doctrine)(i - 3)];
             //Normal Case
             else
@@ -578,7 +578,7 @@ public class Game : MonoBehaviour
             valid = true;
 
             //Initial Doctrine must make capacity worse
-            if(CapacityValueDoctrine() > CapacityValue())
+            if (CapacityValueDoctrine() > CapacityValue())
                 valid = false;
 
             //At least 1 Very High and 1 High
@@ -586,16 +586,16 @@ public class Game : MonoBehaviour
             bool foundH = false;
             for (int j = 0; j < genDoctrine.Count; j++)
             {
-                if(genDoctrine[j] == 2)
+                if (genDoctrine[j] == 2)
                     foundVH = true;
-                if(genDoctrine[j] == 1)
+                if (genDoctrine[j] == 1)
                     foundH = true;
             }
             valid = foundVH && foundH;
 
             //Check Give Up
             tries++;
-            if(tries == 1000)
+            if (tries == 1000)
             {
                 Debug.Log("Initial Doctrine - GAVE UP");
                 break;
@@ -707,13 +707,13 @@ public class Game : MonoBehaviour
         foreach (Transform capacity in Utils.GetChildRecursive(doctrine, "Capacities").transform)
         {
             int j = k;
-            Utils.GetChild(capacity.gameObject, "Increase").GetComponent<Button>().onClick.AddListener(delegate{ChangeDoctrine(j, 0.25f);});
-            Utils.GetChild(capacity.gameObject, "Decrease").GetComponent<Button>().onClick.AddListener(delegate{ChangeDoctrine(j, -0.25f);});
+            Utils.GetChild(capacity.gameObject, "Increase").GetComponent<Button>().onClick.AddListener(delegate { ChangeDoctrine(j, 0.25f); });
+            Utils.GetChild(capacity.gameObject, "Decrease").GetComponent<Button>().onClick.AddListener(delegate { ChangeDoctrine(j, -0.25f); });
             k++;
         }
 
         //Setup Apply Button
-        Utils.GetChildRecursive(doctrine, "Issue").GetComponent<Button>().onClick.AddListener(delegate{ApplyDoctrine();});
+        Utils.GetChildRecursive(doctrine, "Issue").GetComponent<Button>().onClick.AddListener(delegate { ApplyDoctrine(); });
 
         //Fix Layout
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(doctrine, "Data").transform);
@@ -731,13 +731,13 @@ public class Game : MonoBehaviour
     public void ChangeDoctrine(int i, float val)
     {
         //Check change doesnt overflow
-        if(changedDoctrine[(Doctrine)i] + val > 1.5f)
+        if (changedDoctrine[(Doctrine)i] + val > 1.5f)
             return;
-        if(changedDoctrine[(Doctrine)i] + val < 0.5f)
+        if (changedDoctrine[(Doctrine)i] + val < 0.5f)
             return;
 
         //Apply change
-        changedDoctrine[(Doctrine)i] += val; 
+        changedDoctrine[(Doctrine)i] += val;
 
         //Calculate Changes
         float changes = 0.5f;
@@ -803,8 +803,8 @@ public class Game : MonoBehaviour
         }
         changes /= 0.25f;
 
-        if(changes < 0)
-            return;            
+        if (changes < 0)
+            return;
 
         //Check Valid Balance
         float balance = -1 * 6;
@@ -813,8 +813,8 @@ public class Game : MonoBehaviour
             balance += item.Value;
         }
         balance /= 0.25f;
-        
-        if(balance != 0)
+
+        if (balance != 0)
             return;
 
         //Apply Doctrine
