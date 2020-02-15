@@ -168,14 +168,14 @@ public class Game : MonoBehaviour
             Utils.Dump(designs["Rifle"]);
         }
 
+        //Process Tooltip
+        TooltipManager.ProcessTooltip();
+
         //Space Bar Toggle Time
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ToggleTime();
         }
-
-        //Process Tooltip
-        TooltipManager.ProcessTooltip();
 
         //Time
         if (playing)
@@ -252,7 +252,7 @@ public class Game : MonoBehaviour
                 UpdateSliders();
 
                 //Doctrine Proposal if month multiple of 6 (except 1920)
-                if ((date.Month % 6 == 0 && date.Year != 1920) || (date.Month == 6 && date.Year == 1920))
+                if (((date.Month == 1 || date.Month == 6) && date.Year != 1920) || (date.Month == 6 && date.Year == 1920))
                 {
                     //Set state to REQUEST
                     state = State.REQUEST;
