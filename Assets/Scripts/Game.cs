@@ -115,6 +115,9 @@ public class Game : MonoBehaviour
         //Setup History
         History.SetupHistory();
 
+        //Setup Model Generator
+        ModelGenerator.LoadAssets();
+
         //Setup a New Game
         SetupNewGame();
 
