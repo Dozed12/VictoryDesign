@@ -622,19 +622,19 @@ public class Game : MonoBehaviour
             switch (Game.doctrine[(Doctrine)i])
             {
                 case 0.5f:
-                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#811919>VERY LOW</color>";
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Image>().overrideSprite = doctrineSprites[0];
                     break;
                 case 0.75f:
-                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#815454>LOW</color>";
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Image>().overrideSprite = doctrineSprites[1];
                     break;
                 case 1:
-                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#7D7D7D>NORMAL</color>";
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Image>().overrideSprite = doctrineSprites[2];
                     break;
                 case 1.25f:
-                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#506E4D>HIGH</color>";
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Image>().overrideSprite = doctrineSprites[3];
                     break;
                 case 1.5f:
-                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Text>().text = "<color=#246E1E>VERY HIGH</color>";
+                    Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Image>().overrideSprite = doctrineSprites[4];
                     break;
             }
 
