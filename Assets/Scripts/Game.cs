@@ -542,11 +542,37 @@ public class Game : MonoBehaviour
         return final;
     }
 
-    //Initial Doctrine
+    //Initial Doctrine (i unused)
     public void InitialDoctrine(int i)
     {
         //Generate Doctrine
-        List<int> genDoctrine = Utils.RandomSum(6, 0, -2, 2);
+        List<int> genDoctrine;
+        bool valid = true;
+        do
+        {
+            //Generate random with Sum 0
+            genDoctrine = Utils.RandomSum(6, 0, -2, 2);
+
+            //Assume valid
+            valid = true;
+
+            //Initial Doctrine must make capacity worse
+            if(CapacityValueDoctrine() > CapacityValue())
+                valid = false;
+
+            //At least 1 Very High and 1 High
+            bool foundVH = false;
+            bool foundH = false;
+            for (int j = 0; j < genDoctrine.Count; j++)
+            {
+                if(genDoctrine[j] == 2)
+                    foundVH = true;
+                if(genDoctrine[j] == 1)
+                    foundH = true;
+            }
+            valid = foundVH && foundH;
+
+        } while (!valid);
 
         //Proper Doctrine Values
         for (int j = 0; j < genDoctrine.Count; j++)
