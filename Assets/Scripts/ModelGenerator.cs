@@ -11,13 +11,13 @@ using UnityEngine.EventSystems;
 public static class ModelGenerator
 {
     //Model Pieces (Design Type name -> List of parts as list of options)
-    public static Dictionary<string, List<List<Texture2D>>> modelPieces = new Dictionary<string, List<List<Texture2D>>>();
+    public static Dictionary<string, List<List<PixelMatrix>>> modelPieces = new Dictionary<string, List<List<PixelMatrix>>>();
 
     //Load Assets
     public static void LoadAssets()
     {
         //Model Folders
-        string[] modelFolders = Directory.GetDirectories(Application.streamingAssetsPath  + "/Models");
+        string[] modelFolders = Directory.GetDirectories(Application.streamingAssetsPath + "/Models");
 
         //Replace \\ with /
         for (int i = 0; i < modelFolders.Length; i++)
@@ -35,7 +35,7 @@ public static class ModelGenerator
             string nameFolder = partsFolder[partsFolder.Length - 1];
 
             //Create Entry
-            modelPieces[nameFolder] = new List<List<Texture2D>>();
+            modelPieces[nameFolder] = new List<List<PixelMatrix>>();
 
             //All Files
             string[] files = Directory.GetFiles(modelFolders[i]);
@@ -55,39 +55,62 @@ public static class ModelGenerator
                 //File name
                 string nameFile = partsFile[partsFile.Length - 1];
 
-                //If file more than 6 chars probably its bad file (like .meta)
-                if(nameFile.Count() > 6)
+                //Ignore .meta Files
+                if (nameFile.Contains(".meta"))
                     continue;
 
                 //Part
                 int part = Int32.Parse(nameFile[0].ToString());
 
-                //Option
-                int option = 'a' - nameFile[1];
-
                 //Check if entry exists
-                if(modelPieces[nameFolder].Count - 1 < part)
+                if (modelPieces[nameFolder].Count - 1 < part)
                 {
                     //Add list
-                    modelPieces[nameFolder].Add(new List<Texture2D>());
+                    modelPieces[nameFolder].Add(new List<PixelMatrix>());
 
                     //Add option
                     byte[] bytes = File.ReadAllBytes(files[j]);
-                    Texture2D tex = new Texture2D(2, 2);
+                    Texture2D tex = new Texture2D(140, 66, TextureFormat.RGB24, false);
                     tex.filterMode = FilterMode.Point;
                     tex.LoadImage(bytes);
-                    modelPieces[nameFolder][part].Add(tex);
+                    modelPieces[nameFolder][part].Add(new PixelMatrix(tex));
                 }
                 else
                 {
                     //Add option
                     byte[] bytes = File.ReadAllBytes(files[j]);
-                    Texture2D tex = new Texture2D(2, 2);
+                    Texture2D tex = new Texture2D(140, 66, TextureFormat.RGB24, false);
                     tex.filterMode = FilterMode.Point;
                     tex.LoadImage(bytes);
-                    modelPieces[nameFolder][part].Add(tex);
+                    modelPieces[nameFolder][part].Add(new PixelMatrix(tex));
                 }
             }
         }
     }
+
+    //Generate Model
+    public static Texture2D GenerateModel(string type)
+    {
+        //Get candidates for type
+        List<List<PixelMatrix>> piecesCandidates = modelPieces[type];
+
+        //Random Combinations
+        List<PixelMatrix> selected = new List<PixelMatrix>();
+        for (int i = 0; i < piecesCandidates.Count; i++)
+        {
+            selected.Add(piecesCandidates[i][UnityEngine.Random.Range(0, piecesCandidates[i].Count)]);
+        }
+
+        //Graphics Combine
+        PixelMatrix combination = DrawingUtils.MultiCombine(selected);
+
+        //Create Texture2D
+        Texture2D result = new Texture2D(combination.width, combination.height);
+        result.filterMode = FilterMode.Point;
+        result.SetPixels(combination.pixels);
+        result.Apply();
+
+        return result;
+    }
+
 }

@@ -230,4 +230,28 @@ public static class DrawingUtils
 
         return points;
     }
+
+    //Combine Pixel Matrices
+    public static PixelMatrix MultiCombine(List<PixelMatrix> list)
+    {
+        PixelMatrix result = new PixelMatrix(list[0].width, list[0].height, Color.clear);
+
+        for (int i = 0; i < list[0].width; i++)
+        {
+            for (int j = 0; j < list[0].height; j++)
+            {
+                for (int l = 0; l < list.Count; l++)
+                {
+                    if(list[l].GetPixelSafe(j, i).a != 0)
+                    {
+                        result.SetPixelSafe(j, i, Color.black);
+                        break;
+                    }                        
+                }
+            }
+        }
+
+        return result;
+    }
+
 }

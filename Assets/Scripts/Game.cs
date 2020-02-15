@@ -171,6 +171,14 @@ public class Game : MonoBehaviour
             Utils.Dump(designs["Rifle"]);
         }
 
+        //Test Generate Model
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Texture2D testTex = ModelGenerator.GenerateModel("Rifle");
+            Sprite testSprite = Sprite.Create(testTex, new Rect(0,0,testTex.width, testTex.height), new Vector2(.5f, .5f));
+            GameObject.Find("TestModel").GetComponent<Image>().sprite = testSprite;
+        }
+
         //Process Tooltip
         TooltipManager.ProcessTooltip();
 
