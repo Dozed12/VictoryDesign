@@ -355,6 +355,7 @@ public class Game : MonoBehaviour
         //Generate Industrial Coverage
         int[] industrialCoverage = new int[3];
         bool valid = false;
+        int tries = 0;
         do
         {
             //Assume valid
@@ -380,11 +381,20 @@ public class Game : MonoBehaviour
             if (!min1)
                 valid = false;
 
+            //Check Give Up
+            tries++;
+            if(tries == 1000)
+            {
+                Debug.Log("Generate Industrial Coverage - GAVE UP");
+                break;
+            }
+
         } while (!valid);
 
         //Generate Capacity Coverage
         int[] capacityCoverage = new int[6];
         valid = false;
+        tries = 0;
         do
         {
             //Assume valid
@@ -399,6 +409,15 @@ public class Game : MonoBehaviour
             //Validate Sum
             if (capacityCoverage.Sum() > -2 || capacityCoverage.Sum() < -4)
                 valid = false;
+
+            //Check Give Up
+            tries++;
+            if(tries == 1000)
+            {
+                Debug.Log("Generate Capacity Coverage - GAVE UP");
+                break;
+            }
+
         } while (!valid);
 
         //Error vars
@@ -548,6 +567,7 @@ public class Game : MonoBehaviour
         //Generate Doctrine
         List<int> genDoctrine;
         bool valid = true;
+        int tries = 0;
         do
         {
             //Generate random with Sum 0
@@ -571,6 +591,14 @@ public class Game : MonoBehaviour
                     foundH = true;
             }
             valid = foundVH && foundH;
+
+            //Check Give Up
+            tries++;
+            if(tries == 1000)
+            {
+                Debug.Log("Initial Doctrine - GAVE UP");
+                break;
+            }
 
         } while (!valid);
 
