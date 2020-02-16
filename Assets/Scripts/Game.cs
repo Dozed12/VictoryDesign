@@ -1477,9 +1477,6 @@ public class Game : MonoBehaviour
         //Combat Report
         GameObject combatReport = GameObject.Find("CurrentReport");
 
-        //Info
-        Utils.GetChild(combatReport, "Info").GetComponent<Text>().text = design.name + " " + type + " - " + design.developer.name;
-
         //Edit Industrial Values
         if (design.characteristics[0].leftBound != design.characteristics[0].rightBound)
             Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].leftBound + " to " + design.characteristics[0].rightBound;
@@ -1497,7 +1494,7 @@ public class Game : MonoBehaviour
             Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].leftBound.ToString();
 
         //Clear Doctrine Values
-        Utils.ClearChildren(Utils.GetChildRecursive(combatReport, "DoctrineData"));
+        Utils.ClearChildren(Utils.GetChildRecursive(combatReport, "CapacityData"));
 
         //Add Doctrine Values
         for (int i = 3; i < design.characteristics.Count; i++)
@@ -1512,12 +1509,11 @@ public class Game : MonoBehaviour
                 Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].leftBound.ToString();
 
             //Add to holder
-            doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(combatReport, "DoctrineData").transform);
+            doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(combatReport, "CapacityData").transform);
         }
 
         //Rebuild Layout
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(combatReport, "IndustrialData").transform);
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(combatReport, "DoctrineData").transform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(combatReport, "CapacityData").transform);
 
         #endregion
     }
