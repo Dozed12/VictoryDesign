@@ -88,6 +88,12 @@ public static class ModelGenerator
         }
     }
 
+    //Check can Generate
+    public static bool CanGenerate(string type)
+    {
+        return modelPieces.ContainsKey(type);
+    }
+
     //Generate Model
     public static Texture2D GenerateModel(string type)
     {

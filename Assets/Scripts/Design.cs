@@ -104,6 +104,9 @@ public abstract class Design
     //Name of design
     public string name;
 
+    //Model Graphic
+    public Sprite model;
+
     //Generate Design Generic
     virtual public Design Generate(DesignInstitute developer, string name, int[] mask)
     {
@@ -123,6 +126,10 @@ public abstract class Design
 
         //Add developer
         this.developer = developer;
+
+        //Generate Model
+        if(ModelGenerator.CanGenerate(this.GetType().ToString()))
+            model = Sprite.Create(ModelGenerator.GenerateModel(this.GetType().ToString()), new Rect(0,0,140,66), Vector3.zero);
 
         return this;
     }

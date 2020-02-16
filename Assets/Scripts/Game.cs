@@ -171,14 +171,6 @@ public class Game : MonoBehaviour
             Utils.Dump(designs["Rifle"]);
         }
 
-        //Test Generate Model
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Texture2D testTex = ModelGenerator.GenerateModel("Rifle");
-            Sprite testSprite = Sprite.Create(testTex, new Rect(0,0,testTex.width, testTex.height), new Vector2(.5f, .5f));
-            GameObject.Find("TestModel").GetComponent<Image>().sprite = testSprite;
-        }
-
         //Process Tooltip
         TooltipManager.ProcessTooltip();
 
@@ -1103,6 +1095,7 @@ public class Game : MonoBehaviour
 
             //Model View
             GameObject model = Utils.GetChild(choice, "Model");
+            Utils.GetChild(model,"Image").GetComponent<Image>().sprite = choices[i].model;
 
             //Hover Show Model
             EventTrigger.Entry hover = new EventTrigger.Entry();
@@ -1520,6 +1513,9 @@ public class Game : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(combatReport, "CapacityData").transform);
 
         #endregion
+
+        //Model
+        GameObject.Find("ModelImage").GetComponent<Image>().overrideSprite = design.model;
     }
 
     //Stop highlight hovered
