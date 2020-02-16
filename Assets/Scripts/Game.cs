@@ -1101,6 +1101,24 @@ public class Game : MonoBehaviour
                 doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(choice, "DoctrineData").transform);
             }
 
+            //Model View
+            GameObject model = Utils.GetChild(choice, "Model");
+
+            //Hover Show Model
+            EventTrigger.Entry hover = new EventTrigger.Entry();
+            hover.eventID = EventTriggerType.PointerEnter;
+            hover.callback.AddListener((eventData) => { model.SetActive(true); });
+            choice.GetComponent<EventTrigger>().triggers.Add(hover);
+
+            //Dehover Show Model
+            EventTrigger.Entry dehover = new EventTrigger.Entry();
+            dehover.eventID = EventTriggerType.PointerExit;
+            dehover.callback.AddListener((eventData) => { model.SetActive(false); });
+            choice.GetComponent<EventTrigger>().triggers.Add(dehover);
+
+            //Hide model by default
+            model.SetActive(false);
+
             //Callback Choice
             int id = i;
             Utils.GetChild(choice, "Approve").GetComponent<Button>().onClick.RemoveAllListeners();
