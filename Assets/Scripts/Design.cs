@@ -417,7 +417,7 @@ public class Characteristic
             else
                 result = leftBound.ToString();
         }
-        
+
         return result;
     }
 }
