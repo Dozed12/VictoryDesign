@@ -390,6 +390,36 @@ public class Characteristic
             }
         }
     }
+
+    //Knowledge to String
+    public string KnowledgeToString()
+    {
+        string result = "";
+
+        if (leftBound != rightBound)
+        {
+            if (leftBound > 0)
+                result += "+" + leftBound;
+            else
+                result += leftBound;
+
+            result += " to ";
+
+            if (rightBound > 0)
+                result += "+" + rightBound;
+            else
+                result += rightBound;
+        }
+        else
+        {
+            if (leftBound > 0)
+                result = "+" + leftBound.ToString();
+            else
+                result = leftBound.ToString();
+        }
+        
+        return result;
+    }
 }
 
 //Specific Designs

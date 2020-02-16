@@ -1478,20 +1478,9 @@ public class Game : MonoBehaviour
         GameObject combatReport = GameObject.Find("CurrentReport");
 
         //Edit Industrial Values
-        if (design.characteristics[0].leftBound != design.characteristics[0].rightBound)
-            Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].leftBound + " to " + design.characteristics[0].rightBound;
-        else
-            Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].leftBound.ToString();
-
-        if (design.characteristics[1].leftBound != design.characteristics[1].rightBound)
-            Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].leftBound + " to " + design.characteristics[1].rightBound;
-        else
-            Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].leftBound.ToString();
-
-        if (design.characteristics[2].leftBound != design.characteristics[2].rightBound)
-            Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].leftBound + " to " + design.characteristics[2].rightBound;
-        else
-            Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].leftBound.ToString();
+        Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].KnowledgeToString();
+        Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].KnowledgeToString ();
+        Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].KnowledgeToString();
 
         //Clear Doctrine Values
         Utils.ClearChildren(Utils.GetChildRecursive(combatReport, "CapacityData"));
@@ -1503,10 +1492,7 @@ public class Game : MonoBehaviour
             GameObject doctrineCharacteristic = Instantiate(characteristicPrefab);
             Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(design.characteristics[i].impact);
             Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = design.characteristics[i].name + ":";
-            if (design.characteristics[i].leftBound != design.characteristics[i].rightBound)
-                Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].leftBound + " to " + design.characteristics[i].rightBound;
-            else
-                Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].leftBound.ToString();
+            Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = design.characteristics[i].KnowledgeToString();
 
             //Add to holder
             doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(combatReport, "CapacityData").transform);
