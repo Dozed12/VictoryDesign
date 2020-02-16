@@ -256,4 +256,62 @@ public static class DrawingUtils
         return result;
     }
 
+    //Center Pixel Matrix
+    public static PixelMatrix CenterHorizontal(PixelMatrix matrix)
+    {
+        PixelMatrix result = new PixelMatrix(matrix.width, matrix.height, Color.clear);
+
+        //Find left and right spaces
+        int left = 999;
+        int right = 999;
+        for (int i = 0; i < matrix.height; i++)
+        {
+            int leftN = 0;
+            for (int j = 0; j < matrix.width; j++)
+            {
+                if (matrix.GetPixelSafe(i, j).a > 0)
+                    break;
+                else
+                    leftN++;
+            }
+
+            if (leftN < left)
+                left = leftN;
+
+            int rightN = 0;
+            for (int j = matrix.width - 1; j >= 0; j--)
+            {
+                if (matrix.GetPixelSafe(i, j).a > 0)
+                    break;
+                else
+                    rightN++;
+            }
+
+            if (rightN < right)
+                right = rightN;
+        }
+
+        //Average of spaces
+        int avg = Mathf.RoundToInt((right + left) / 2.0f);
+
+        //Offset
+        int offset = 0;
+        if (left > right)
+            offset = -avg;
+        else
+            offset = avg;
+
+        //Apply offset
+        for (int i = 0; i < matrix.height; i++)
+        {
+            for (int j = 0; j < matrix.width; j++)
+            {
+                if (matrix.GetPixelSafe(i, j).a > 0)
+                    result.SetPixelSafe(i, j + offset, matrix.GetPixelSafe(i, j));
+            }
+        }
+
+        return result;
+    }
+
 }

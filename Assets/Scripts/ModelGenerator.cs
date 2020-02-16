@@ -110,6 +110,9 @@ public static class ModelGenerator
         //Graphics Combine
         PixelMatrix combination = DrawingUtils.MultiCombine(selected);
 
+        //Center Horizontally
+        combination = DrawingUtils.CenterHorizontal(combination);
+
         //Create Texture2D
         Texture2D result = new Texture2D(combination.width, combination.height);
         result.filterMode = FilterMode.Point;
