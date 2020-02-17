@@ -1114,8 +1114,10 @@ public class Game : MonoBehaviour
 
             //Callback Choice
             int id = i;
-            Utils.GetChild(choice, "Approve").GetComponent<Button>().onClick.RemoveAllListeners();
-            Utils.GetChild(choice, "Approve").GetComponent<Button>().onClick.AddListener(delegate { ApplyChoice(id); });
+            EventTrigger.Entry applyChoice = new EventTrigger.Entry();
+            applyChoice.eventID = EventTriggerType.PointerClick;
+            applyChoice.callback.AddListener((eventData) => { ApplyChoice(id); });
+            choice.GetComponent<EventTrigger>().triggers.Add(applyChoice);
 
             //Rebuild Layout
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(choice, "IndustrialData").transform);
