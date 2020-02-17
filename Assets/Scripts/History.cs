@@ -72,6 +72,7 @@ public static class History
 
             //Calculations
             float industry = game.IndustryValue();
+            float effectiveIndustry = game.EffectiveIndustryValue();
             float capacity = game.CapacityValue();
             float capacityDoctrine = game.CapacityValueDoctrine();
             float final = game.FinalCalculation();
@@ -80,9 +81,11 @@ public static class History
             report += "\n";
             report += "Industry: " + Mathf.Round((1 + industry) * 100) + "%";
             report += "\n";
+            report += "Effective Industry: " + Mathf.Round((1 + effectiveIndustry) * 100) + "%";
+            report += "\n";
             report += "Capacity: " + Mathf.Round((1 + capacity) * 100) + "%";
             report += "\n";
-            report += "Capacity(Doctrine): " + Mathf.Round((1 + capacityDoctrine) * 100) + "%";
+            report += "Effective Capacity: " + Mathf.Round((1 + capacityDoctrine) * 100) + "%";
             report += "\n";
             report += "Total: " + Mathf.Round((1 + final) * 100) + "%";
 

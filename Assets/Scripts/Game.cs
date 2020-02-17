@@ -516,6 +516,23 @@ public class Game : MonoBehaviour
         return value;
     }
 
+    //EffectiveIndustry Value
+    public float EffectiveIndustryValue()
+    {
+        //Get current coverage
+        float[] coverage = CurrentCoverage();
+
+        //Average of industry values
+        float value = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            value += coverage[i] * 1.5f;
+        }
+        value /= 3;
+
+        return value;
+    }
+
     //Capacity Value
     public float CapacityValue()
     {
@@ -556,8 +573,8 @@ public class Game : MonoBehaviour
         //Capacity with Doctrine
         float final = CapacityValueDoctrine();
 
-        //Calculate industry
-        float industry = IndustryValue();
+        //Effective Industry
+        float industry = EffectiveIndustryValue();
 
         //Apply industry to coverage
         final = (industry + final) / 2;
