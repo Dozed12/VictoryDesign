@@ -39,7 +39,7 @@ public static class History
         events = new List<Event>();
 
         //Initial Doctrine
-        events.Add(new Event(3, "The Military Staff has produced the initial Doctrine for our armed forces. You will be allowed to perform singular alterations every 6 months, starting next June.", game.InitialDoctrine, -1));
+        events.Add(new Event(3, "The Military Staff has produced the initial Doctrine for our armed forces. You will be allowed to perform a single alteration every 6 months, starting next June.", game.InitialDoctrine, -1));
 
         //Generate Unification Turn
         events.Add(new Event(6 + UnityEngine.Random.Range(0, 1 + 1), "UNIFICATION 1", Map.ProgressUnification, 0));
