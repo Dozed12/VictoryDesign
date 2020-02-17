@@ -958,7 +958,7 @@ public class Game : MonoBehaviour
 
         //Show Focus Points
         focusPoints.GetComponent<Text>().enabled = true;
-        focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: 2";
+        focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: 0";
 
         //Request Object
         GameObject request = GameObject.Find("Request");
@@ -1207,14 +1207,14 @@ public class Game : MonoBehaviour
             return;
 
         //Check Request Point Limit
-        if (requestMask.Sum() + value > 2)
+        if (requestMask.Sum() + value > 0)
             return;
 
         //Add to mask
         requestMask[id] += value;
 
         //Update Focus Text
-        focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: " + (2 - requestMask.Sum());
+        focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: " + (0 - requestMask.Sum());
 
         //Update Text
         switch (requestMask[id])
