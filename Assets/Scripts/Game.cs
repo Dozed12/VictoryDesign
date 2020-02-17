@@ -617,7 +617,7 @@ public class Game : MonoBehaviour
                 if (genDoctrine[j] == 1)
                     foundH = true;
             }
-            if(!foundVH || !foundH)
+            if (!foundVH || !foundH)
                 valid = false;
 
             //Check Give Up
@@ -1112,22 +1112,7 @@ public class Game : MonoBehaviour
 
             //Model View
             GameObject model = Utils.GetChild(choice, "Model");
-            Utils.GetChild(model,"Image").GetComponent<Image>().sprite = choices[i].model;
-
-            //Hover Show Model
-            EventTrigger.Entry hover = new EventTrigger.Entry();
-            hover.eventID = EventTriggerType.PointerEnter;
-            hover.callback.AddListener((eventData) => { model.SetActive(true); });
-            choice.GetComponent<EventTrigger>().triggers.Add(hover);
-
-            //Dehover Show Model
-            EventTrigger.Entry dehover = new EventTrigger.Entry();
-            dehover.eventID = EventTriggerType.PointerExit;
-            dehover.callback.AddListener((eventData) => { model.SetActive(false); });
-            choice.GetComponent<EventTrigger>().triggers.Add(dehover);
-
-            //Hide model by default
-            model.SetActive(false);
+            Utils.GetChild(model, "Image").GetComponent<Image>().sprite = choices[i].model;
 
             //Callback Choice
             int id = i;
@@ -1143,6 +1128,9 @@ public class Game : MonoBehaviour
             //Add to Holder
             choice.transform.SetParent(GameObject.Find("Choices").transform);
         }
+
+        //Remove Design Decision Title
+        GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = "";
 
         //Show Choices
         GameObject.Find("Choices").GetComponent<Animator>().SetBool("open", true);
@@ -1509,7 +1497,7 @@ public class Game : MonoBehaviour
 
         //Edit Industrial Values
         Utils.GetChildRecursive(combatReport, "EngineeringValue").GetComponent<Text>().text = design.characteristics[0].KnowledgeToString();
-        Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].KnowledgeToString ();
+        Utils.GetChildRecursive(combatReport, "ResourceValue").GetComponent<Text>().text = design.characteristics[1].KnowledgeToString();
         Utils.GetChildRecursive(combatReport, "ReliabilityValue").GetComponent<Text>().text = design.characteristics[2].KnowledgeToString();
 
         //Clear Doctrine Values
