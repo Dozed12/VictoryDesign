@@ -84,6 +84,9 @@ public class Game : MonoBehaviour
     //Design Institutes
     public List<DesignInstitute> institutes;
 
+    //Audio Managers
+    public SFXManager SFXManager;
+
     //Cursor
     public Texture2D cursorTexture;
     public CursorMode cursorMode = CursorMode.Auto;
@@ -101,6 +104,9 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Get SFX Manager
+        SFXManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
+
         //Set Cursor
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
