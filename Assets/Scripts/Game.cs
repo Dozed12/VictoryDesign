@@ -1528,7 +1528,7 @@ public class Game : MonoBehaviour
         #endregion
 
         //Model
-        GameObject.Find("ModelImage").GetComponent<Image>().overrideSprite = design.model;
+        GameObject.Find("ModelHolder").GetComponent<Image>().overrideSprite = design.model;
     }
 
     //Stop highlight hovered
