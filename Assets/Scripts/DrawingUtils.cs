@@ -167,7 +167,7 @@ public static class DrawingUtils
     }
 
     //Scan-line flood fill points
-    public static List<Point> FloodFillLinePoints(Texture2D bmp, Point point)
+    public static List<Point> FloodFillLinePoints(PixelMatrix bmp, Point point)
     {
         List<Point> points = new List<Point>();
 
@@ -175,7 +175,7 @@ public static class DrawingUtils
 
         Point pt = point;
 
-        Color targetColor = bmp.GetPixel(pt.x, pt.y);
+        Color targetColor = bmp.GetPixelSafe(pt.y, pt.x);
         if (targetColor == replacementColor)
         {
             return points;
@@ -189,7 +189,7 @@ public static class DrawingUtils
             Point temp = pixels.Pop();
             int y1 = temp.y;
 
-            while (y1 >= 0 && bmp.GetPixel(temp.x, y1) == targetColor)
+            while (y1 >= 0 && bmp.GetPixelSafe(y1, temp.x) == targetColor)
             {
                 y1--;
             }
@@ -197,13 +197,13 @@ public static class DrawingUtils
             bool spanLeft = false;
             bool spanRight = false;
 
-            while (y1 < bmp.height && bmp.GetPixel(temp.x, y1) == targetColor)
+            while (y1 < bmp.height && bmp.GetPixelSafe(y1, temp.x) == targetColor)
             {
-                bmp.SetPixel(temp.x, y1, replacementColor);
+                bmp.SetPixelSafe(y1, temp.x, replacementColor);
                 points.Add(new Point(y1, temp.x));
 
-                Color clm1 = bmp.GetPixel(temp.x - 1, y1);
-                Color clp1 = bmp.GetPixel(temp.x + 1, y1);
+                Color clm1 = bmp.GetPixelSafe(y1, temp.x - 1);
+                Color clp1 = bmp.GetPixelSafe(y1, temp.x + 1);
 
                 if (!spanLeft && temp.x > 0 && clm1 == targetColor)
                 {

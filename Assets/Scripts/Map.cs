@@ -64,21 +64,24 @@ public static class Map
     //Setup Pixel Groups
     public static void SetupPixels(Texture2D map)
     {
+        //Create Pixel Matrix for easier access
+        PixelMatrix matrix = new PixelMatrix(map);
+
         //For each Unification Stage
         for (int i = 0; i < unificationPositions.Count; i++)
         {
             //Get Points
-            unificationPositions[i].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, unificationPositions[i].point)).ToArray();
+            unificationPositions[i].pixels = DrawingUtils.FloodFillLinePoints(matrix, DrawingUtils.PaintCoordinatesToUnity(map, unificationPositions[i].point)).ToArray();
         }
 
         //For each Alliance Stage
         for (int i = 0; i < allyPositions.Count; i++)
         {
-            allyPositions[i].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, allyPositions[i].point)).ToArray();
+            allyPositions[i].pixels = DrawingUtils.FloodFillLinePoints(matrix, DrawingUtils.PaintCoordinatesToUnity(map, allyPositions[i].point)).ToArray();
         }
 
         //Revenge Stage
-        revengePosition.pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, revengePosition.point)).ToArray();
+        revengePosition.pixels = DrawingUtils.FloodFillLinePoints(matrix, DrawingUtils.PaintCoordinatesToUnity(map, revengePosition.point)).ToArray();
 
         //For each War stage
         for (int i = 0; i < warStagePositions.Count; i++)
@@ -86,7 +89,7 @@ public static class Map
             //For each region of the stage
             for (int j = 0; j < warStagePositions[i].Count; j++)
             {
-                warStagePositions[i][j].pixels = DrawingUtils.FloodFillLinePoints(DrawingUtils.TextureCopy(map), DrawingUtils.PaintCoordinatesToUnity(map, warStagePositions[i][j].point)).ToArray();
+                warStagePositions[i][j].pixels = DrawingUtils.FloodFillLinePoints(matrix, DrawingUtils.PaintCoordinatesToUnity(map, warStagePositions[i][j].point)).ToArray();
             }
         }
     }
