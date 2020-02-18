@@ -12124,7 +12124,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -12223,6 +12223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1130523936}
   signature: {fileID: 8300000, guid: 76c6f4963853d5c4a9a48d42f852110b, type: 3}
+  stamp: {fileID: 8300000, guid: e6e5d541a1693fd4d8c9646feccad503, type: 3}
 --- !u!4 &1130523938
 Transform:
   m_ObjectHideFlags: 0
@@ -19550,6 +19551,7 @@ MonoBehaviour:
   monthClock: 0
   lastHover: 
   institutes: []
+  SFXManager: {fileID: 0}
   cursorTexture: {fileID: 2800000, guid: 5145870655c9d8848b5e2ed7438fff09, type: 3}
   cursorMode: 0
   hotSpot: {x: 0, y: 0}
