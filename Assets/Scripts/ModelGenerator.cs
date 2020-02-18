@@ -108,7 +108,7 @@ public static class ModelGenerator
         }
 
         //Graphics Combine
-        PixelMatrix combination = DrawingUtils.MultiCombine(selected);
+        PixelMatrix combination = DrawingUtils.MultiCombine(selected.ToArray());
 
         //Center Horizontally
         combination = DrawingUtils.CenterHorizontal(combination);

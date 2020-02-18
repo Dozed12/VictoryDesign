@@ -232,7 +232,7 @@ public static class DrawingUtils
     }
 
     //Combine Pixel Matrices
-    public static PixelMatrix MultiCombine(List<PixelMatrix> list)
+    public static PixelMatrix MultiCombine(PixelMatrix[] list)
     {
         PixelMatrix result = new PixelMatrix(list[0].width, list[0].height, Color.clear);
 
@@ -242,7 +242,7 @@ public static class DrawingUtils
         {
             for (int j = 0; j < list[0].height; j++)
             {
-                for (int l = 0; l < list.Count; l++)
+                for (int l = 0; l < list.Length; l++)
                 {
                     if (list[l].GetPixelSafe(j, i).a != 0)
                     {

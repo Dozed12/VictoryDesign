@@ -158,7 +158,7 @@ public class Game : MonoBehaviour
         //Test Generate new Design
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }).Cast<Rifle>().ToArray();
+            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, institutes.Count).Cast<Rifle>().ToArray();
             Utils.DumpArray(rifles);
         }
 
@@ -359,7 +359,7 @@ public class Game : MonoBehaviour
             name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
             //Request Design
-            designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 })[0];
+            designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 }, 1)[0];
         }
 
         //Generate Industrial Coverage
@@ -468,7 +468,7 @@ public class Game : MonoBehaviour
             }
 
             //Request Design - from random designer
-            designs[name] = RequestDesign(typesOfDesigns[i], mask)[UnityEngine.Random.Range(0, institutes.Count)];
+            designs[name] = RequestDesign(typesOfDesigns[i], mask, institutes.Count)[UnityEngine.Random.Range(0, institutes.Count)];
         }
 
         //Randomize Design Age
@@ -1072,7 +1072,7 @@ public class Game : MonoBehaviour
 
         //Request Design Choices (2 or 3)
         int numChoices = UnityEngine.Random.Range(2, 3 + 1);
-        List<Design> finalChoices = RequestDesign(redesignType, requestMask).ToList();
+        List<Design> finalChoices = RequestDesign(redesignType, requestMask, numChoices).ToList();
         for (int i = 0; finalChoices.Count > numChoices; i++)
         {
             finalChoices.RemoveAt(UnityEngine.Random.Range(0, finalChoices.Count));
@@ -1346,19 +1346,28 @@ public class Game : MonoBehaviour
     }
 
     //Request Designs
-    public Design[] RequestDesign(Type type, int[] mask)
+    public Design[] RequestDesign(Type type, int[] mask, int num)
     {
         List<Design> designs = new List<Design>();
 
-        //Cycle Institutes
-        for (int i = 0; i < institutes.Count; i++)
+        //Institutes indexes
+        List<int> list = new List<int>();
+        for (int n = 0; n < institutes.Count; n++)
         {
-            //Check if Institute can Design
-            if (institutes[i].CanDesign(type))
-            {
-                //Design
-                designs.Add(institutes[i].GenerateDesign(type, mask));
-            }
+            list.Add(n);
+        }
+
+        //Choose Institutes and Generate
+        for (int i = 0; i < num; i++)
+        {
+            //Pick id
+            int id = UnityEngine.Random.Range(0, list.Count);
+
+            //Generate Design
+            designs.Add(institutes[id].GenerateDesign(type, mask));
+
+            //Remove id to not repeat
+            list.RemoveAt(id);
         }
 
         return designs.ToArray();
