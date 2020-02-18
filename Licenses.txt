@@ -55,3 +55,7 @@ Music Attribution:
     Music from https://filmmusic.io
     "Vladimir" by Alexander Nakarada (https://www.serpentsoundstudios.com/)
     License: CC BY (http://creativecommons.org/licenses/by/4.0/)
+
+    Pop Goes the Weasel by Kevin MacLeod
+    Link: https://incompetech.filmmusic.io/song/4230-pop-goes-the-weasel/
+    License: http://creativecommons.org/licenses/by/4.0/
