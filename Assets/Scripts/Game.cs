@@ -93,6 +93,9 @@ public class Game : MonoBehaviour
         public float monthClock = 0;
         public float monthAdvance = 1f;
 
+        //Previous Turn Coverage
+        public float[] prevCoverage;
+
         //Doctrine
         public Dictionary<Doctrine, float> doctrine;
         public Dictionary<Doctrine, float> changedDoctrine;
@@ -208,10 +211,13 @@ public class Game : MonoBehaviour
             data.monthClock += data.monthAdvance * Time.deltaTime;
             GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - data.monthClock;
 
-            //If End of Month
+            //If End of Month - Turn
             data.designsNeeded = new List<Type>();
             if (data.monthClock > 1)
             {
+                //Current Coverage will be Previous
+                data.prevCoverage = CurrentCoverage();
+
                 //Reset clock
                 data.monthClock = 0;
                 GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - data.monthClock;
@@ -517,6 +523,9 @@ public class Game : MonoBehaviour
             data.prevDesigns.Add(design.Key, design.Value);
         }
 
+        //Default Previous Coverage to Starting
+        data.prevCoverage = CurrentCoverage();
+
         //Update Sliders
         UpdateSliders(false);
 
@@ -613,7 +622,6 @@ public class Game : MonoBehaviour
         UpdateRedesignProgress();
         UpdateSliders();
         HoverDesign("Rifle");
-
     }
 
     //Industry Value
@@ -1408,7 +1416,7 @@ public class Game : MonoBehaviour
             if (displayProgress)
             {
                 //Decrease
-                if (GameObject.Find(objectSliders[i]).GetComponent<Slider>().value > coverage[i])
+                if (data.prevCoverage[i] > coverage[i])
                 {
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = true;
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(130, 25, 25, 255);
@@ -1419,7 +1427,7 @@ public class Game : MonoBehaviour
                     GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().color = new Color32(130, 25, 25, 255);
                 }
                 //Increase
-                else if (GameObject.Find(objectSliders[i]).GetComponent<Slider>().value < coverage[i])
+                else if (data.prevCoverage[i] < coverage[i])
                 {
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().enabled = true;
                     GameObject.Find(objectProgress[i]).GetComponent<Image>().color = new Color32(36, 110, 30, 255);
@@ -1439,7 +1447,7 @@ public class Game : MonoBehaviour
                 }
 
                 //Set Difference
-                GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().text = Mathf.CeilToInt(Mathf.Abs(GameObject.Find(objectSliders[i]).GetComponent<Slider>().value - coverage[i]) * 100).ToString();
+                GameObject.Find(objectProgressAmount[i]).GetComponent<Text>().text = Mathf.CeilToInt(Mathf.Abs(data.prevCoverage[i] - coverage[i]) * 100).ToString();
             }
 
             //Set Value
