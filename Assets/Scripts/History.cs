@@ -65,7 +65,7 @@ public static class History
         List<string> result = new List<string>();
 
         //If 4 month multiple then include armed forces capacity/doctrine report
-        if (Game.turn % 4 == 0)
+        if (Game.data.turn % 4 == 0)
         {
             //Preffix
             string report = "Armed Forces Report:";
@@ -96,7 +96,7 @@ public static class History
         //Check if history event
         for (int i = 0; i < events.Count; i++)
         {
-            if (Game.turn == events[i].turn)
+            if (Game.data.turn == events[i].turn)
             {
                 //Add to bulletin
                 result.Add(events[i].message);

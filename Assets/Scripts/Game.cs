@@ -37,26 +37,15 @@ public class Game : MonoBehaviour
     public Sprite pauseSprite;
     public Sprite playSprite;
 
-    //Date and Turn
-    public static int turn;
-    public DateTime date;
-    private Text dateText;
+    //Audio Managers
+    public SFXManager SFXManager;
 
-    //List of designs needed
-    List<Type> designsNeeded;
+    //Cursor
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
 
-    //Current Redesign
-    public Type redesignType;
-    public int[] requestMask;
-    public Design[] choices;
-
-    //Time control
-    public bool playing = false;
-    public bool blockTimeControl = false;
-    public float monthClock = 0;
-    private float monthAdvance = 1f;
-
-    //Doctrine
+    //Doctrines
     public enum Doctrine
     {
         ANTI_INFANTRY,
@@ -66,31 +55,6 @@ public class Game : MonoBehaviour
         MORALE,
         COMBAT_EFFICIENCY
     }
-    public static Dictionary<Doctrine, float> doctrine;
-    public static Dictionary<Doctrine, float> changedDoctrine;
-
-    //Last Hover
-    public string lastHover = "";
-
-    //Designs previous
-    public Dictionary<string, Design> prevDesigns;
-
-    //Designs in use
-    public Dictionary<string, Design> designs;
-
-    //Design Proposals
-    public Dictionary<string, Design[]> proposals;
-
-    //Design Institutes
-    public List<DesignInstitute> institutes;
-
-    //Audio Managers
-    public SFXManager SFXManager;
-
-    //Cursor
-    public Texture2D cursorTexture;
-    public CursorMode cursorMode = CursorMode.Auto;
-    public Vector2 hotSpot = Vector2.zero;
 
     //State
     public enum State
@@ -99,7 +63,55 @@ public class Game : MonoBehaviour
         REQUEST,
         CHOICE
     }
-    public static State state = State.NORMAL;
+
+    //Game Data in use
+    public static GameData data;
+
+    //Game Data
+    [Serializable]
+    public class GameData
+    {
+        //Date and Turn
+        public int turn;
+        public DateTime date;
+        public Text dateText;
+
+        //List of designs needed
+        public List<Type> designsNeeded;
+
+        //Current Redesign
+        public Type redesignType;
+        public int[] requestMask;
+        public Design[] choices;
+
+        //Time control
+        public bool playing = false;
+        public bool blockTimeControl = false;
+        public float monthClock = 0;
+        public float monthAdvance = 1f;
+
+        //Doctrine
+        public Dictionary<Doctrine, float> doctrine;
+        public Dictionary<Doctrine, float> changedDoctrine;
+
+        //Last Hover
+        public string lastHover = "";
+
+        //Designs previous
+        public Dictionary<string, Design> prevDesigns;
+
+        //Designs in use
+        public Dictionary<string, Design> designs;
+
+        //Design Proposals
+        public Dictionary<string, Design[]> proposals;
+
+        //Design Institutes
+        public List<DesignInstitute> institutes;
+
+        //Game State
+        public State state = State.NORMAL;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -158,23 +170,23 @@ public class Game : MonoBehaviour
         //Test Generate new Design
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, institutes.Count).Cast<Rifle>().ToArray();
+            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, data.institutes.Count).Cast<Rifle>().ToArray();
             Utils.DumpArray(rifles);
         }
 
         //Test Design Characteristic Progress
         if (Input.GetKeyDown(KeyCode.W))
         {
-            designs["Rifle"].FindCharacteristic("Accuracy").ProgressBounds(2);
-            Utils.Dump(designs["Rifle"].FindCharacteristic("Accuracy"));
+            data.designs["Rifle"].FindCharacteristic("Accuracy").ProgressBounds(2);
+            Utils.Dump(data.designs["Rifle"].FindCharacteristic("Accuracy"));
         }
 
         //Test Design Progress Random
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Utils.Dump(designs["Rifle"]);
-            designs["Rifle"].ProgressRandom(4);
-            Utils.Dump(designs["Rifle"]);
+            Utils.Dump(data.designs["Rifle"]);
+            data.designs["Rifle"].ProgressRandom(4);
+            Utils.Dump(data.designs["Rifle"]);
         }
 
         //Process Tooltip
@@ -187,24 +199,24 @@ public class Game : MonoBehaviour
         }
 
         //Time
-        if (playing)
+        if (data.playing)
         {
             //Add Time
-            monthClock += monthAdvance * Time.deltaTime;
-            GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - monthClock;
+            data.monthClock += data.monthAdvance * Time.deltaTime;
+            GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - data.monthClock;
 
             //If End of Month
-            designsNeeded = new List<Type>();
-            if (monthClock > 1)
+            data.designsNeeded = new List<Type>();
+            if (data.monthClock > 1)
             {
                 //Reset clock
-                monthClock = 0;
-                GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - monthClock;
+                data.monthClock = 0;
+                GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - data.monthClock;
 
                 //Update Time
-                turn++;
-                date = date.AddMonths(1);
-                GameObject.Find("Time").GetComponentInChildren<Text>().text = date.ToString("MMMM yyyy");
+                data.turn++;
+                data.date = data.date.AddMonths(1);
+                GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
 
                 //Bulletin
                 List<string> bulletin = History.Bulletin();
@@ -225,23 +237,23 @@ public class Game : MonoBehaviour
                 mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
 
                 //Progress Design Intel
-                foreach (KeyValuePair<string, Design> design in designs)
+                foreach (KeyValuePair<string, Design> design in data.designs)
                 {
                     design.Value.ProgressRandom(5);
                 }
 
                 //Full Progress if half age
-                foreach (KeyValuePair<string, Design> design in designs)
+                foreach (KeyValuePair<string, Design> design in data.designs)
                 {
                     if (design.Value.age == 5)
                         design.Value.ProgressRandom(999);
                 }
 
                 //Update Hover
-                HoverDesign(lastHover);
+                HoverDesign(data.lastHover);
 
                 //Perform checks on redesigns
-                foreach (KeyValuePair<string, Design> design in designs)
+                foreach (KeyValuePair<string, Design> design in data.designs)
                 {
                     //Age Design
                     design.Value.age++;
@@ -250,7 +262,7 @@ public class Game : MonoBehaviour
                     if (design.Value.age > design.Value.redesignPeriod)
                     {
                         //New Design Required
-                        designsNeeded.Add(design.Value.GetType());
+                        data.designsNeeded.Add(design.Value.GetType());
                     }
 
                     //Update Redesign Progress
@@ -261,16 +273,16 @@ public class Game : MonoBehaviour
                 UpdateSliders();
 
                 //Doctrine Proposal if month multiple of 6 (except 1920)
-                if (((date.Month == 1 || date.Month == 6) && date.Year != 1920) || (date.Month == 6 && date.Year == 1920))
+                if (((data.date.Month == 1 || data.date.Month == 6) && data.date.Year != 1920) || (data.date.Month == 6 && data.date.Year == 1920))
                 {
                     //Set state to REQUEST
-                    state = State.REQUEST;
+                    data.state = State.REQUEST;
 
                     //Pause
                     ToggleTime();
 
                     //Block Playing
-                    blockTimeControl = true;
+                    data.blockTimeControl = true;
 
                     //Make Time Icon Red
                     GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
@@ -285,13 +297,13 @@ public class Game : MonoBehaviour
                     Invoke("ShowDoctrineChange", 0.5f);
                 }
                 //Initiate Redesign if needed
-                else if (designsNeeded.Count > 0)
+                else if (data.designsNeeded.Count > 0)
                 {
                     //Set state to REQUEST
-                    state = State.REQUEST;
+                    data.state = State.REQUEST;
 
                     //Set redesign type
-                    redesignType = designsNeeded[0];
+                    data.redesignType = data.designsNeeded[0];
 
                     //Remove highlight all Designs
                     foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
@@ -300,13 +312,13 @@ public class Game : MonoBehaviour
                     }
 
                     //Highlight Design of Redesign Type
-                    HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+                    HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
 
                     //Pause
                     ToggleTime();
 
                     //Block Playing
-                    blockTimeControl = true;
+                    data.blockTimeControl = true;
 
                     //Make Time Icon Red
                     GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
@@ -315,7 +327,7 @@ public class Game : MonoBehaviour
                     CloseMap(true);
 
                     //Update Design Choice Title
-                    string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+                    string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
                     GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
 
                     //Invoke Show Request for new Design
@@ -328,14 +340,17 @@ public class Game : MonoBehaviour
     //Setup new Game
     public void SetupNewGame()
     {
+        //New Data
+        data = new GameData();
+
         //Clear
-        institutes = new List<DesignInstitute>();
-        designs = new Dictionary<string, Design>();
-        prevDesigns = new Dictionary<string, Design>();
+        data.institutes = new List<DesignInstitute>();
+        data.designs = new Dictionary<string, Design>();
+        data.prevDesigns = new Dictionary<string, Design>();
 
         //Set start date and turn
-        date = new DateTime(1920, 1, 1);
-        turn = 1;
+        data.date = new DateTime(1920, 1, 1);
+        data.turn = 1;
 
         //Get types of designs
         Type[] typesOfDesigns = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
@@ -359,7 +374,7 @@ public class Game : MonoBehaviour
             name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
             //Request Design
-            designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 }, 1)[0];
+            data.designs[name] = RequestDesign(typesOfDesigns[i], new int[7] { 0, 0, 0, 0, 0, 0, 0 }, 1)[0];
         }
 
         //Generate Industrial Coverage
@@ -444,7 +459,7 @@ public class Game : MonoBehaviour
 
             //Setup Mask
             int[] mask = new int[7] { industrialCoverage[0], industrialCoverage[1], industrialCoverage[2], 0, 0, 0, 0 };
-            Design phoney = designs[name];
+            Design phoney = data.designs[name];
             for (int j = 3; j < phoney.characteristics.Count; j++)
             {
                 mask[j] = capacityCoverage[(int)phoney.characteristics[j].impact - 3];
@@ -468,45 +483,45 @@ public class Game : MonoBehaviour
             }
 
             //Request Design - from random designer
-            designs[name] = RequestDesign(typesOfDesigns[i], mask, 1)[0];
+            data.designs[name] = RequestDesign(typesOfDesigns[i], mask, 1)[0];
         }
 
         //Randomize Design Age
-        List<int> ages = Utils.RandomMax(designs.Count, 3, 1, 12);
+        List<int> ages = Utils.RandomMax(data.designs.Count, 3, 1, 12);
         int n = 0;
-        foreach (KeyValuePair<string, Design> design in designs)
+        foreach (KeyValuePair<string, Design> design in data.designs)
         {
             design.Value.age = ages[n];
             n++;
         }
 
         //Apply progress from age
-        foreach (KeyValuePair<string, Design> design in designs)
+        foreach (KeyValuePair<string, Design> design in data.designs)
         {
             design.Value.ProgressRandom(5 * design.Value.age);
         }
 
         //Full Progress if over half age
-        foreach (KeyValuePair<string, Design> design in designs)
+        foreach (KeyValuePair<string, Design> design in data.designs)
         {
             if (design.Value.age > 6)
                 design.Value.ProgressRandom(999);
         }
 
         //Assign Current Designs to Previous
-        foreach (KeyValuePair<string, Design> design in designs)
+        foreach (KeyValuePair<string, Design> design in data.designs)
         {
-            prevDesigns.Add(design.Key, design.Value);
+            data.prevDesigns.Add(design.Key, design.Value);
         }
 
         //Update Sliders
         UpdateSliders(false);
 
         //Setup Doctrine
-        doctrine = new Dictionary<Doctrine, float>();
+        data.doctrine = new Dictionary<Doctrine, float>();
         for (int i = 0; i < 6; i++)
         {
-            doctrine[(Doctrine)(i)] = 1;
+            data.doctrine[(Doctrine)(i)] = 1;
         }
     }
 
@@ -563,10 +578,10 @@ public class Game : MonoBehaviour
         {
             //Case of Breakthrough and Exploitation
             if (i == 5 || i == 6)
-                value += Mathf.Min(coverage[5], coverage[6]) * doctrine[(Doctrine)(i - 3)];
+                value += Mathf.Min(coverage[5], coverage[6]) * data.doctrine[(Doctrine)(i - 3)];
             //Normal Case
             else
-                value += coverage[i] * doctrine[(Doctrine)(i - 3)];
+                value += coverage[i] * data.doctrine[(Doctrine)(i - 3)];
         }
         value /= coverage.Length - 3;
 
@@ -603,7 +618,7 @@ public class Game : MonoBehaviour
             //Proper Doctrine Values
             for (int j = 0; j < genDoctrine.Count; j++)
             {
-                doctrine[(Doctrine)j] = 1 + 0.25f * genDoctrine[j];
+                data.doctrine[(Doctrine)j] = 1 + 0.25f * genDoctrine[j];
             }
 
             //Assume valid
@@ -660,7 +675,7 @@ public class Game : MonoBehaviour
         //Each Doctrine
         for (int i = 0; i < doctrineDisplays.Count; i++)
         {
-            switch (doctrine[(Doctrine)i])
+            switch (data.doctrine[(Doctrine)i])
             {
                 case 0.5f:
                     Utils.GetChild(doctrineHolder, doctrineDisplays[i]).GetComponent<Image>().overrideSprite = doctrineSprites[0];
@@ -686,10 +701,10 @@ public class Game : MonoBehaviour
     public void ShowDoctrineChange()
     {
         //Setup Changed Doctrine
-        changedDoctrine = new Dictionary<Doctrine, float>();
-        foreach (var item in Game.doctrine)
+        data.changedDoctrine = new Dictionary<Doctrine, float>();
+        foreach (var item in data.doctrine)
         {
-            changedDoctrine[item.Key] = item.Value;
+            data.changedDoctrine[item.Key] = item.Value;
         }
 
         //Doctrine Object
@@ -708,7 +723,7 @@ public class Game : MonoBehaviour
 
         for (int i = 0; i < doctrineValues.Count; i++)
         {
-            switch (Game.doctrine[(Doctrine)i])
+            switch (data.doctrine[(Doctrine)i])
             {
                 case 0.5f:
                     Utils.GetChildRecursive(doctrine, doctrineValues[i]).GetComponent<Image>().overrideSprite = doctrineSprites[0];
@@ -761,25 +776,25 @@ public class Game : MonoBehaviour
     public void ChangeDoctrine(int i, float val)
     {
         //Check change doesnt overflow
-        if (changedDoctrine[(Doctrine)i] + val > 1.5f)
+        if (data.changedDoctrine[(Doctrine)i] + val > 1.5f)
             return;
-        if (changedDoctrine[(Doctrine)i] + val < 0.5f)
+        if (data.changedDoctrine[(Doctrine)i] + val < 0.5f)
             return;
 
         //Apply change
-        changedDoctrine[(Doctrine)i] += val;
+        data.changedDoctrine[(Doctrine)i] += val;
 
         //Calculate Changes
         float changes = 0.5f;
-        foreach (var item in changedDoctrine)
+        foreach (var item in data.changedDoctrine)
         {
-            changes -= Mathf.Abs(doctrine[item.Key] - item.Value);
+            changes -= Mathf.Abs(data.doctrine[item.Key] - item.Value);
         }
         changes /= 0.25f;
 
         //Calculate Balance
         float balance = -1 * 6;
-        foreach (var item in changedDoctrine)
+        foreach (var item in data.changedDoctrine)
         {
             balance += item.Value;
         }
@@ -801,7 +816,7 @@ public class Game : MonoBehaviour
         };
         for (int j = 0; j < doctrineValues.Count; j++)
         {
-            switch (changedDoctrine[(Doctrine)j])
+            switch (data.changedDoctrine[(Doctrine)j])
             {
                 case 0.5f:
                     Utils.GetChildRecursive(doctrineHolder, doctrineValues[j]).GetComponent<Image>().overrideSprite = doctrineSprites[0];
@@ -827,9 +842,9 @@ public class Game : MonoBehaviour
     {
         //Check Valid Changes
         float changes = 0.5f;
-        foreach (var item in changedDoctrine)
+        foreach (var item in data.changedDoctrine)
         {
-            changes -= Mathf.Abs(doctrine[item.Key] - item.Value);
+            changes -= Mathf.Abs(data.doctrine[item.Key] - item.Value);
         }
         changes /= 0.25f;
 
@@ -838,7 +853,7 @@ public class Game : MonoBehaviour
 
         //Check Valid Balance
         float balance = -1 * 6;
-        foreach (var item in changedDoctrine)
+        foreach (var item in data.changedDoctrine)
         {
             balance += item.Value;
         }
@@ -848,9 +863,9 @@ public class Game : MonoBehaviour
             return;
 
         //Apply Doctrine
-        foreach (var item in changedDoctrine)
+        foreach (var item in data.changedDoctrine)
         {
-            doctrine[item.Key] = changedDoctrine[item.Key];
+            data.doctrine[item.Key] = data.changedDoctrine[item.Key];
         }
 
         //Close Doctrine Change
@@ -861,13 +876,13 @@ public class Game : MonoBehaviour
 
         //Transition into redesigns
         //If no redesigns to do
-        if (designsNeeded.Count == 0)
+        if (data.designsNeeded.Count == 0)
         {
             //Return to Normal State
-            state = State.NORMAL;
+            data.state = State.NORMAL;
 
             //Unblock Playing
-            blockTimeControl = false;
+            data.blockTimeControl = false;
 
             //Open Map
             CloseMap(false);
@@ -876,16 +891,16 @@ public class Game : MonoBehaviour
             GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Highlight Design of Redesign Type
-            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+            HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
 
             //Nullify redesign
-            redesignType = null;
+            data.redesignType = null;
         }
         //If there are, do
         else
         {
             //Set redesign type
-            redesignType = designsNeeded[0];
+            data.redesignType = data.designsNeeded[0];
 
             //Remove highlight all Designs
             foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
@@ -894,10 +909,10 @@ public class Game : MonoBehaviour
             }
 
             //Highlight Design of Redesign Type
-            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+            HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
 
             //Update Design Choice Title
-            string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
             GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
 
             //Invoke Show Request for new Design
@@ -908,7 +923,7 @@ public class Game : MonoBehaviour
     //Update Redesign Progress
     public void UpdateRedesignProgress()
     {
-        foreach (KeyValuePair<string, Design> design in designs)
+        foreach (KeyValuePair<string, Design> design in data.designs)
         {
             //Get Warn Image
             Image warnImage = Utils.GetChild(GameObject.Find(design.Key), "Warn").GetComponent<Image>();
@@ -937,18 +952,18 @@ public class Game : MonoBehaviour
     //Time Button
     public void ToggleTime()
     {
-        if (blockTimeControl)
+        if (data.blockTimeControl)
             return;
 
-        if (playing)
+        if (data.playing)
         {
             Utils.GetChild(GameObject.Find("TimeControl"), "TimeIcon").GetComponent<Image>().overrideSprite = playSprite;
-            playing = false;
+            data.playing = false;
         }
         else
         {
             Utils.GetChild(GameObject.Find("TimeControl"), "TimeIcon").GetComponent<Image>().overrideSprite = pauseSprite;
-            playing = true;
+            data.playing = true;
         }
     }
 
@@ -956,7 +971,7 @@ public class Game : MonoBehaviour
     public void PeekMap()
     {
         //Not Active in NORMAL state
-        if (state == State.NORMAL)
+        if (data.state == State.NORMAL)
             return;
 
         GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", false);
@@ -964,7 +979,7 @@ public class Game : MonoBehaviour
     public void UnPeekMap()
     {
         //Not Active in NORMAL state
-        if (state == State.NORMAL)
+        if (data.state == State.NORMAL)
             return;
 
         GameObject.Find("MapHolder").GetComponent<Animator>().SetBool("open", true);
@@ -980,7 +995,7 @@ public class Game : MonoBehaviour
     public void ShowRequest()
     {
         //Reset Mask
-        requestMask = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+        data.requestMask = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
         //Show Focus Points
         focusPoints.GetComponent<Text>().enabled = true;
@@ -995,9 +1010,9 @@ public class Game : MonoBehaviour
         Utils.GetChildRecursive(request, "Signature").GetComponent<Text>().enabled = false;
 
         //Request Info
-        string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+        string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
         Utils.GetChild(request, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Request - " + nameSpaced;
-        Utils.GetChild(request, "Date").GetComponent<Text>().text = date.ToString("MMMM yyyy");
+        Utils.GetChild(request, "Date").GetComponent<Text>().text = data.date.ToString("MMMM yyyy");
 
         //Request Industrial
         Utils.GetChildRecursive(request, "EngineeringValue").GetComponent<Text>().text = "???";
@@ -1024,12 +1039,12 @@ public class Game : MonoBehaviour
         Utils.ClearChildren(Utils.GetChild(request, "DoctrineCharacteristicsHolder"));
 
         //Setup Doctrine Characteristics
-        for (int i = 3; i < designs[nameSpaced].characteristics.Count; i++)
+        for (int i = 3; i < data.designs[nameSpaced].characteristics.Count; i++)
         {
             //Instantiate new
             GameObject doctrineCharacteristic = Instantiate(requestCharacteristicPrefab);
-            Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(designs[nameSpaced].characteristics[i].impact);
-            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = designs[nameSpaced].characteristics[i].name + ":";
+            Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(data.designs[nameSpaced].characteristics[i].impact);
+            Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = data.designs[nameSpaced].characteristics[i].name + ":";
             Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = "???";
 
             //Increase Decrease Callbacks
@@ -1072,44 +1087,44 @@ public class Game : MonoBehaviour
 
         //Request Design Choices (2 or 3)
         int numChoices = UnityEngine.Random.Range(2, 3 + 1);
-        List<Design> finalChoices = RequestDesign(redesignType, requestMask, numChoices).ToList();
+        List<Design> finalChoices = RequestDesign(data.redesignType, data.requestMask, numChoices).ToList();
 
         //Final Choices
-        choices = finalChoices.ToArray();
+        data.choices = finalChoices.ToArray();
 
         //Setup Design Choices Display
-        for (int i = 0; i < choices.Length; i++)
+        for (int i = 0; i < data.choices.Length; i++)
         {
             //Choice
             GameObject choice = Instantiate(choicePrefab);
 
             //Title
-            string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
             Utils.GetChild(choice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposal - " + nameSpaced;
 
             //Date
-            Utils.GetChild(choice, "Date").GetComponent<Text>().text = date.ToString("MMMM yyyy");
+            Utils.GetChild(choice, "Date").GetComponent<Text>().text = data.date.ToString("MMMM yyyy");
 
             //Name & Designer
-            Utils.GetChildRecursive(choice, "Designer").GetComponent<Text>().text = "Designer: " + choices[i].developer.name;
-            Utils.GetChildRecursive(choice, "Designation").GetComponent<Text>().text = "Designation: " + choices[i].name;
+            Utils.GetChildRecursive(choice, "Designer").GetComponent<Text>().text = "Designer: " + data.choices[i].developer.name;
+            Utils.GetChildRecursive(choice, "Designation").GetComponent<Text>().text = "Designation: " + data.choices[i].name;
 
             //Edit Industrial Values
-            Utils.GetChildRecursive(choice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[0].predictedValue, true);
-            Utils.GetChildRecursive(choice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[1].predictedValue, true);
-            Utils.GetChildRecursive(choice, "ReliabilityValue").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[2].predictedValue);
+            Utils.GetChildRecursive(choice, "EngineeringValue").GetComponent<Text>().text = Characteristic.PredictedToString(data.choices[i].characteristics[0].predictedValue, true);
+            Utils.GetChildRecursive(choice, "ResourceValue").GetComponent<Text>().text = Characteristic.PredictedToString(data.choices[i].characteristics[1].predictedValue, true);
+            Utils.GetChildRecursive(choice, "ReliabilityValue").GetComponent<Text>().text = Characteristic.PredictedToString(data.choices[i].characteristics[2].predictedValue);
 
             //Clear Doctrine Values
             Utils.ClearChildren(Utils.GetChildRecursive(choice, "DoctrineData"));
 
             //Add Doctrine Values
-            for (int c = 3; c < choices[i].characteristics.Count; c++)
+            for (int c = 3; c < data.choices[i].characteristics.Count; c++)
             {
                 //Setup Characteristic
                 GameObject doctrineCharacteristic = Instantiate(characteristicPrefab);
-                Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(choices[i].characteristics[c].impact);
-                Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = choices[i].characteristics[c].name + ":";
-                Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = Characteristic.PredictedToString(choices[i].characteristics[c].predictedValue);
+                Utils.GetChild(doctrineCharacteristic, "Icon").GetComponent<Image>().overrideSprite = ImpactSprite(data.choices[i].characteristics[c].impact);
+                Utils.GetChild(doctrineCharacteristic, "Title").GetComponent<Text>().text = data.choices[i].characteristics[c].name + ":";
+                Utils.GetChild(doctrineCharacteristic, "Value").GetComponent<Text>().text = Characteristic.PredictedToString(data.choices[i].characteristics[c].predictedValue);
 
                 //Add to holder
                 doctrineCharacteristic.transform.SetParent(Utils.GetChildRecursive(choice, "DoctrineData").transform);
@@ -1117,7 +1132,7 @@ public class Game : MonoBehaviour
 
             //Model View
             GameObject model = Utils.GetChild(choice, "Model");
-            Utils.GetChild(model, "Image").GetComponent<Image>().sprite = choices[i].model;
+            Utils.GetChild(model, "Image").GetComponent<Image>().sprite = data.choices[i].model;
 
             //Callback Choice
             int id = i;
@@ -1145,13 +1160,13 @@ public class Game : MonoBehaviour
     public void ApplyChoice(int id)
     {
         //Design Spaced
-        string designSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+        string designSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
         //Set Previous Design
-        prevDesigns[designSpaced] = designs[designSpaced];
+        data.prevDesigns[designSpaced] = data.designs[designSpaced];
 
         //Set New Design
-        designs[designSpaced] = choices[id];
+        data.designs[designSpaced] = data.choices[id];
 
         //Update Redesign Progress
         UpdateRedesignProgress();
@@ -1160,16 +1175,16 @@ public class Game : MonoBehaviour
         GameObject.Find("Choices").GetComponent<Animator>().SetBool("open", false);
 
         //Remove from list of redesigns
-        designsNeeded.RemoveAt(0);
+        data.designsNeeded.RemoveAt(0);
 
         //If no more to do exit
-        if (designsNeeded.Count == 0)
+        if (data.designsNeeded.Count == 0)
         {
             //Return to Normal State
-            state = State.NORMAL;
+            data.state = State.NORMAL;
 
             //Unblock Playing
-            blockTimeControl = false;
+            data.blockTimeControl = false;
 
             //Open Map
             CloseMap(false);
@@ -1178,16 +1193,16 @@ public class Game : MonoBehaviour
             GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Highlight Design of Redesign Type
-            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+            HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
 
             //Nullify redesign
-            redesignType = null;
+            data.redesignType = null;
         }
         //If there is do next
         else
         {
             //Set redesign type
-            redesignType = designsNeeded[0];
+            data.redesignType = data.designsNeeded[0];
 
             //Remove highlight all Designs
             foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
@@ -1196,10 +1211,10 @@ public class Game : MonoBehaviour
             }
 
             //Highlight Design of Redesign Type
-            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+            HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
 
             //Update Design Choice Title
-            string nameSpaced = string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
             GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
 
             //Invoke Show Request for new Design
@@ -1211,23 +1226,23 @@ public class Game : MonoBehaviour
     public void RequestChange(int id, Text text, int value)
     {
         //Excess
-        if (requestMask[id] + value > 2)
+        if (data.requestMask[id] + value > 2)
             return;
-        if (requestMask[id] + value < -2)
+        if (data.requestMask[id] + value < -2)
             return;
 
         //Check Request Point Limit
-        if (requestMask.Sum() + value > 0)
+        if (data.requestMask.Sum() + value > 0)
             return;
 
         //Add to mask
-        requestMask[id] += value;
+        data.requestMask[id] += value;
 
         //Update Focus Text
-        focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: " + (0 - requestMask.Sum());
+        focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: " + (0 - data.requestMask.Sum());
 
         //Update Text
-        switch (requestMask[id])
+        switch (data.requestMask[id])
         {
             case -2:
                 text.text = "<color=#811919>Not Important</color>";
@@ -1348,7 +1363,7 @@ public class Game : MonoBehaviour
 
         //Institutes indexes
         List<int> list = new List<int>();
-        for (int n = 0; n < institutes.Count; n++)
+        for (int n = 0; n < data.institutes.Count; n++)
         {
             list.Add(n);
         }
@@ -1360,7 +1375,7 @@ public class Game : MonoBehaviour
             int id = UnityEngine.Random.Range(0, list.Count);
 
             //Generate Design
-            designs.Add(institutes[id].GenerateDesign(type, mask));
+            designs.Add(data.institutes[id].GenerateDesign(type, mask));
 
             //Remove id to not repeat
             list.RemoveAt(id);
@@ -1374,7 +1389,7 @@ public class Game : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
-            institutes.Add(new DesignInstitute(types));
+            data.institutes.Add(new DesignInstitute(types));
         }
     }
 
@@ -1383,7 +1398,7 @@ public class Game : MonoBehaviour
     {
         //Value of Characteristics
         float[] values = new float[9];
-        foreach (KeyValuePair<string, Design> design in designs)
+        foreach (KeyValuePair<string, Design> design in data.designs)
         {
             for (int i = 0; i < design.Value.characteristics.Count; i++)
             {
@@ -1391,7 +1406,7 @@ public class Game : MonoBehaviour
                 if (design.Value.age < 6)
                 {
                     float ratio = (float)design.Value.age / 6;
-                    values[(int)design.Value.characteristics[i].impact] += Mathf.RoundToInt(design.Value.characteristics[i].trueValue * ratio + prevDesigns[design.Key].characteristics[i].trueValue * (1 - ratio));
+                    values[(int)design.Value.characteristics[i].impact] += Mathf.RoundToInt(design.Value.characteristics[i].trueValue * ratio + data.prevDesigns[design.Key].characteristics[i].trueValue * (1 - ratio));
                 }
                 //Full Production
                 else
@@ -1422,7 +1437,7 @@ public class Game : MonoBehaviour
     public int[] ImpactOccurences()
     {
         int[] values = new int[9];
-        foreach (var design in designs)
+        foreach (var design in data.designs)
         {
             foreach (var characteristic in design.Value.characteristics)
             {
@@ -1436,10 +1451,10 @@ public class Game : MonoBehaviour
     public void HoverDesign(string type)
     {
         //Last hover is current
-        lastHover = type;
+        data.lastHover = type;
 
         //Get design
-        Design design = designs[type];
+        Design design = data.designs[type];
 
         //Remove highlight all Designs
         foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
@@ -1459,7 +1474,7 @@ public class Game : MonoBehaviour
         Utils.GetChild(originalChoice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposal - " + type;
 
         //Date
-        Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = date.AddMonths(-design.age).ToString("MMMM yyyy");
+        Utils.GetChild(originalChoice, "Date").GetComponent<Text>().text = data.date.AddMonths(-design.age).ToString("MMMM yyyy");
 
         //Name & Designer
         Utils.GetChildRecursive(originalChoice, "Designer").GetComponent<Text>().text = "Designer: " + design.developer.name;
@@ -1543,8 +1558,8 @@ public class Game : MonoBehaviour
     public void DeHoverDesign()
     {
         //Default to redesign type if in redesign process
-        if (redesignType != null)
-            HoverDesign(string.Concat(redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+        if (data.redesignType != null)
+            HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
     }
 
     //Sprite for Impact
