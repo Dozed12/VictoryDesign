@@ -607,6 +607,13 @@ public class Game : MonoBehaviour
             //Add as design model
             data.designs[name].model = sprite;
         }
+
+        //Update UI
+        UpdateDoctrineGraphic();
+        UpdateRedesignProgress();
+        UpdateSliders();
+        HoverDesign("Rifle");
+
     }
 
     //Industry Value
