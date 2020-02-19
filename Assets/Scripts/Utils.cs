@@ -158,7 +158,7 @@ public static class Utils
             }
 
             //Check sum
-            if(result.Sum() == sum)
+            if (result.Sum() == sum)
                 return result;
         }
     }

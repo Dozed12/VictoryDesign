@@ -11,7 +11,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip signature;
     public void PlaySignature()
     {
-        if(!player.isPlaying)
+        if (!player.isPlaying)
         {
             player.clip = signature;
             player.Play();
@@ -22,7 +22,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip stamp;
     public void PlayStamp()
     {
-        if(!player.isPlaying)
+        if (!player.isPlaying)
         {
             player.clip = stamp;
             player.Play();

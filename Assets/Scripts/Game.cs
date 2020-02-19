@@ -1,5 +1,5 @@
 using System;
-using System.IO; 
+using System.IO;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -549,7 +549,7 @@ public class Game : MonoBehaviour
         foreach (var item in data.designs)
         {
             byte[] bytes = item.Value.model.texture.EncodeToPNG();
-            File.WriteAllBytes(Application.streamingAssetsPath + "/Save/Models/" + item.Key + ".png", bytes); 
+            File.WriteAllBytes(Application.streamingAssetsPath + "/Save/Models/" + item.Key + ".png", bytes);
         }
     }
 
@@ -579,7 +579,7 @@ public class Game : MonoBehaviour
         for (int i = 0; i < models.Length; i++)
         {
             //Ignore .meta files
-            if(models[i].Contains(".meta"))
+            if (models[i].Contains(".meta"))
                 continue;
 
             //Path parts
@@ -600,7 +600,7 @@ public class Game : MonoBehaviour
             tex.LoadImage(bytes);
 
             //Create Sprite
-            Sprite sprite = Sprite.Create(tex, new Rect(0,0,tex.width,tex.height), Vector3.zero);
+            Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector3.zero);
 
             //Add as design model
             data.designs[name].model = sprite;

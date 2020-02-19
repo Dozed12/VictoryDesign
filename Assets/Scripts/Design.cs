@@ -129,12 +129,12 @@ public abstract class Design
         this.developer = developer;
 
         //Generate Model
-        if(ModelGenerator.CanGenerate(this.GetType().ToString()))
-            model = Sprite.Create(ModelGenerator.GenerateModel(this.GetType().ToString()), new Rect(0,0,140,66), Vector3.zero);
+        if (ModelGenerator.CanGenerate(this.GetType().ToString()))
+            model = Sprite.Create(ModelGenerator.GenerateModel(this.GetType().ToString()), new Rect(0, 0, 140, 66), Vector3.zero);
         else
         {
-            Texture2D tex = new Texture2D(2,2);
-            model = Sprite.Create(tex, new Rect(0,0,2,2), Vector2.zero);
+            Texture2D tex = new Texture2D(2, 2);
+            model = Sprite.Create(tex, new Rect(0, 0, 2, 2), Vector2.zero);
         }
 
         return this;
