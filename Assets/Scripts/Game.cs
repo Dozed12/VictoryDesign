@@ -228,18 +228,7 @@ public class Game : MonoBehaviour
                 GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
 
                 //Bulletin
-                List<string> bulletin = History.Bulletin();
-                GameObject.Find("BulletinText").GetComponent<Text>().text = "";
-                for (int i = 0; i < bulletin.Count; i++)
-                {
-                    //Add Space Line
-                    if (GameObject.Find("BulletinText").GetComponent<Text>().text != "")
-                        GameObject.Find("BulletinText").GetComponent<Text>().text += "\n";
-
-                    //Add Bulletin Line
-                    GameObject.Find("BulletinText").GetComponent<Text>().text += "_" + bulletin[i];
-                }
-                GameObject.Find("BulletinText").GetComponent<Animator>().Play(0);
+                UpdateBulletin();
 
                 //Update Map
                 Texture2D final = Map.BuildMap(baseMap);
@@ -622,6 +611,24 @@ public class Game : MonoBehaviour
         UpdateRedesignProgress();
         UpdateSliders();
         HoverDesign("Rifle");
+        UpdateBulletin();
+    }
+
+    //Update Bulletin
+    public void UpdateBulletin()
+    {
+        List<string> bulletin = History.Bulletin();
+        GameObject.Find("BulletinText").GetComponent<Text>().text = "";
+        for (int i = 0; i < bulletin.Count; i++)
+        {
+            //Add Space Line
+            if (GameObject.Find("BulletinText").GetComponent<Text>().text != "")
+                GameObject.Find("BulletinText").GetComponent<Text>().text += "\n";
+
+            //Add Bulletin Line
+            GameObject.Find("BulletinText").GetComponent<Text>().text += "_" + bulletin[i];
+        }
+        GameObject.Find("BulletinText").GetComponent<Animator>().Play(0);
     }
 
     //Industry Value
