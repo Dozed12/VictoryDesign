@@ -612,6 +612,10 @@ public class Game : MonoBehaviour
         UpdateSliders();
         HoverDesign("Rifle");
         UpdateBulletin();
+
+        //Update Date but restart Clock timer
+        data.monthClock = 0;
+        GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
     }
 
     //Update Bulletin
