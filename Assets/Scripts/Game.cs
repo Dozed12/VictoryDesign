@@ -1,7 +1,11 @@
 using System;
+using System.IO; 
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -74,7 +78,6 @@ public class Game : MonoBehaviour
         //Date and Turn
         public int turn;
         public DateTime date;
-        public Text dateText;
 
         //List of designs needed
         public List<Type> designsNeeded;
@@ -522,6 +525,33 @@ public class Game : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             data.doctrine[(Doctrine)(i)] = 1;
+        }
+    }
+
+    //Save Game
+    public void SaveGame()
+    {
+        //Create Save Directory
+        System.IO.Directory.CreateDirectory(Application.streamingAssetsPath + "/Save");
+
+        //Create Stream for GameData
+        Stream stream = new FileStream(Application.streamingAssetsPath + "/Save/data.vds", FileMode.Create, FileAccess.Write);
+
+        //Formatter
+        IFormatter formatter = new BinaryFormatter();
+
+        //Serialize GameData and close stream
+        formatter.Serialize(stream, data);
+        stream.Close();
+
+        //Create Directory for Models
+        System.IO.Directory.CreateDirectory(Application.streamingAssetsPath + "/Save/Models");
+
+        //Save Models
+        foreach (var item in data.designs)
+        {
+            byte[] bytes = item.Value.model.texture.EncodeToPNG();
+            File.WriteAllBytes(Application.streamingAssetsPath + "/Save/Models/" + item.Key + ".png", bytes); 
         }
     }
 

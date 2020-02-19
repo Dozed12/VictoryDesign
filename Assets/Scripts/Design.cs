@@ -105,6 +105,7 @@ public abstract class Design
     public string name;
 
     //Model Graphic
+    [NonSerialized]
     public Sprite model;
 
     //Generate Design Generic

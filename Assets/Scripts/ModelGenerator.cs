@@ -17,7 +17,7 @@ public static class ModelGenerator
     public static void LoadAssets()
     {
         //Model Folders
-        string[] modelFolders = Directory.GetDirectories(Application.streamingAssetsPath + "/Models");
+        string[] modelFolders = Directory.GetDirectories(Application.streamingAssetsPath + "/ModelParts");
 
         //Replace \\ with /
         for (int i = 0; i < modelFolders.Length; i++)
