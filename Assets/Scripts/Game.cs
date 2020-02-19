@@ -555,6 +555,60 @@ public class Game : MonoBehaviour
         }
     }
 
+    //Load Game
+    public void LoadGame()
+    {
+        //Create Stream for GameData
+        Stream stream = new FileStream(Application.streamingAssetsPath + "/Save/data.vds", FileMode.Open, FileAccess.Read);
+
+        //Formatter
+        IFormatter formatter = new BinaryFormatter();
+
+        //Serialize GameData and close stream
+        data = (GameData)formatter.Deserialize(stream);
+        stream.Close();
+
+        //Models Directory
+        string[] models = Directory.GetFiles(Application.streamingAssetsPath + "/Save/Models");
+
+        //Replace \\ with /
+        for (int i = 0; i < models.Length; i++)
+        {
+            models[i] = models[i].Replace("\\", "/");
+        }
+
+        //Load Models
+        for (int i = 0; i < models.Length; i++)
+        {
+            //Ignore .meta files
+            if(models[i].Contains(".meta"))
+                continue;
+
+            //Path parts
+            string[] path = models[i].Split('/');
+
+            //Get Name
+            string name = path[path.Length - 1];
+
+            //Remove ".png"
+            name = name.Remove(name.Length - 4, 4);
+
+            //Load bytes
+            byte[] bytes = File.ReadAllBytes(models[i]);
+
+            //Create Texture
+            Texture2D tex = new Texture2D(140, 66, TextureFormat.RGB24, false);
+            tex.filterMode = FilterMode.Point;
+            tex.LoadImage(bytes);
+
+            //Create Sprite
+            Sprite sprite = Sprite.Create(tex, new Rect(0,0,tex.width,tex.height), Vector3.zero);
+
+            //Add as design model
+            data.designs[name].model = sprite;
+        }
+    }
+
     //Industry Value
     public float IndustryValue()
     {
