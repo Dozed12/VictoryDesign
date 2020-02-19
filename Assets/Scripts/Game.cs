@@ -89,7 +89,7 @@ public class Game : MonoBehaviour
 
         //Time control
         public bool playing = false;
-        public bool blockTimeControl = false;
+        public bool blockMenu = false;
         public float monthClock = 0;
         public float monthAdvance = 1f;
 
@@ -280,10 +280,12 @@ public class Game : MonoBehaviour
                     ToggleTime();
 
                     //Block Playing
-                    data.blockTimeControl = true;
+                    data.blockMenu = true;
 
-                    //Make Time Icon Red
+                    //Make Menu Icon Red
                     GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                    Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                    Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
                     //Close Map
                     CloseMap(true);
@@ -316,10 +318,12 @@ public class Game : MonoBehaviour
                     ToggleTime();
 
                     //Block Playing
-                    data.blockTimeControl = true;
+                    data.blockMenu = true;
 
-                    //Make Time Icon Red
+                    //Make Menu Icon Red
                     GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                    Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                    Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
                     //Close Map
                     CloseMap(true);
@@ -529,6 +533,10 @@ public class Game : MonoBehaviour
     //Save Game
     public void SaveGame()
     {
+        //Dont allow if Menu Blocked
+        if (data.blockMenu)
+            return;
+
         //Create Save Directory
         System.IO.Directory.CreateDirectory(Application.streamingAssetsPath + "/Save");
 
@@ -556,6 +564,10 @@ public class Game : MonoBehaviour
     //Load Game
     public void LoadGame()
     {
+        //Dont allow if Menu Blocked
+        if (data.blockMenu)
+            return;
+
         //Create Stream for GameData
         Stream stream = new FileStream(Application.streamingAssetsPath + "/Save/data.vds", FileMode.Open, FileAccess.Read);
 
@@ -992,13 +1004,15 @@ public class Game : MonoBehaviour
             data.state = State.NORMAL;
 
             //Unblock Playing
-            data.blockTimeControl = false;
+            data.blockMenu = false;
 
             //Open Map
             CloseMap(false);
 
-            //Make Time Icon Normal Color
+            //Make Menu Icon Normal Color
             GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+            Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+            Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Highlight Design of Redesign Type
             HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
@@ -1062,7 +1076,7 @@ public class Game : MonoBehaviour
     //Time Button
     public void ToggleTime()
     {
-        if (data.blockTimeControl)
+        if (data.blockMenu)
             return;
 
         if (data.playing)
@@ -1294,13 +1308,15 @@ public class Game : MonoBehaviour
             data.state = State.NORMAL;
 
             //Unblock Playing
-            data.blockTimeControl = false;
+            data.blockMenu = false;
 
             //Open Map
             CloseMap(false);
 
-            //Make Time Icon Normal Color
+            //Make Menu Icons Normal Color
             GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+            Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+            Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Highlight Design of Redesign Type
             HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
