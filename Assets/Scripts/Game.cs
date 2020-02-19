@@ -468,7 +468,7 @@ public class Game : MonoBehaviour
             }
 
             //Request Design - from random designer
-            designs[name] = RequestDesign(typesOfDesigns[i], mask, institutes.Count)[UnityEngine.Random.Range(0, institutes.Count)];
+            designs[name] = RequestDesign(typesOfDesigns[i], mask, 1)[0];
         }
 
         //Randomize Design Age
@@ -1073,10 +1073,6 @@ public class Game : MonoBehaviour
         //Request Design Choices (2 or 3)
         int numChoices = UnityEngine.Random.Range(2, 3 + 1);
         List<Design> finalChoices = RequestDesign(redesignType, requestMask, numChoices).ToList();
-        for (int i = 0; finalChoices.Count > numChoices; i++)
-        {
-            finalChoices.RemoveAt(UnityEngine.Random.Range(0, finalChoices.Count));
-        }
 
         //Final Choices
         choices = finalChoices.ToArray();
