@@ -292,14 +292,14 @@ public static class DrawingUtils
         }
 
         //Average of spaces
-        int avg = Mathf.RoundToInt((right + left) / 2.0f);
+        int avg = Mathf.FloorToInt((right - left) / 2.0f);
 
         //Offset
         int offset = 0;
         if (left > right)
-            offset = -avg;
-        else
             offset = avg;
+        else
+            offset = -avg;
 
         //Apply offset
         for (int i = 0; i < matrix.height; i++)
