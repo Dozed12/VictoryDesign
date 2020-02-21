@@ -1014,9 +1014,6 @@ public class Game : MonoBehaviour
             Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
             Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
-            //Highlight Design of Redesign Type
-            HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
-
             //Nullify redesign
             data.redesignType = null;
         }
