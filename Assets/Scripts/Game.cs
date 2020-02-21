@@ -75,6 +75,9 @@ public class Game : MonoBehaviour
     [Serializable]
     public class GameData
     {
+        //Map
+        public Map map;
+
         //Date and Turn
         public int turn;
         public DateTime date;
@@ -136,14 +139,14 @@ public class Game : MonoBehaviour
         TooltipManager.tooltip = tooltip;
         TooltipManager.SetupTooltips();
 
-        //Setup History
-        History.SetupHistory();
-
         //Setup Model Generator
         ModelGenerator.LoadAssets();
 
         //Setup a New Game
         SetupNewGame();
+
+        //Setup History
+        History.SetupHistory();
 
         //Results
         Debug.Log("Occurence of each Impact");
@@ -164,10 +167,6 @@ public class Game : MonoBehaviour
 
         //Default Hover to First(Rifle)
         HoverDesign("Rifle");
-
-        //Setup Map
-        Map.matrixMap = new PixelMatrix(baseMap);
-        Map.SetupPixels(DrawingUtils.TextureCopy(baseMap));
     }
 
     // Update is called once per frame
@@ -231,7 +230,7 @@ public class Game : MonoBehaviour
                 UpdateBulletin();
 
                 //Update Map
-                Texture2D final = Map.BuildMap(baseMap);
+                Texture2D final = data.map.BuildMap(baseMap);
                 mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
 
                 //Progress Design Intel
@@ -528,6 +527,10 @@ public class Game : MonoBehaviour
         {
             data.doctrine[(Doctrine)(i)] = 1;
         }
+
+        //Setup Map
+        data.map = new Map();
+        data.map.SetupPixels(DrawingUtils.TextureCopy(baseMap));
     }
 
     //Save Game
@@ -624,6 +627,10 @@ public class Game : MonoBehaviour
         UpdateSliders();
         HoverDesign("Rifle");
         UpdateBulletin();
+
+        //Build Map
+        Texture2D final = data.map.BuildMap(baseMap);
+        mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
 
         //Update Date but restart Clock timer
         data.monthClock = 0;

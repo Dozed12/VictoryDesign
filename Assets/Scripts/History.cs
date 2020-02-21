@@ -42,17 +42,17 @@ public static class History
         events.Add(new Event(3, "The Military Staff has produced the initial Doctrine for our armed forces. You will be allowed to perform a single alteration every 6 months, starting next June.", game.InitialDoctrine, -1));
 
         //Generate Unification Turn
-        events.Add(new Event(6 + UnityEngine.Random.Range(0, 1 + 1), "UNIFICATION 1", Map.ProgressUnification, 0));
-        events.Add(new Event(8 + UnityEngine.Random.Range(0, 1 + 1), "UNIFICATION 2", Map.ProgressUnification, 1));
+        events.Add(new Event(6 + UnityEngine.Random.Range(0, 1 + 1), "UNIFICATION 1", Game.data.map.ProgressUnification, 0));
+        events.Add(new Event(8 + UnityEngine.Random.Range(0, 1 + 1), "UNIFICATION 2", Game.data.map.ProgressUnification, 1));
 
         //Generate Allies Turn
-        events.Add(new Event(10 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 1", Map.ProgressAllies, 0));
-        events.Add(new Event(12 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 2", Map.ProgressAllies, 1));
-        events.Add(new Event(14 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 3", Map.ProgressAllies, 2));
+        events.Add(new Event(10 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 1", Game.data.map.ProgressAllies, 0));
+        events.Add(new Event(12 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 2", Game.data.map.ProgressAllies, 1));
+        events.Add(new Event(14 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 3", Game.data.map.ProgressAllies, 2));
 
         //Generate Revenge Turns
         events.Add(new Event(16 + UnityEngine.Random.Range(0, 1 + 1), "REVENGE START", null, -1));
-        events.Add(new Event(19 + UnityEngine.Random.Range(-1, 1 + 1), "REVENGE END", Map.ProgressRevenge, 0));
+        events.Add(new Event(19 + UnityEngine.Random.Range(-1, 1 + 1), "REVENGE END", Game.data.map.ProgressRevenge, 0));
 
         //Generate War Turn
         //TODO Actually start war

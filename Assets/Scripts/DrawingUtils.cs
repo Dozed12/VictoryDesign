@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PixelMatrix
 {
@@ -71,6 +72,7 @@ public class PixelMatrix
     }
 }
 
+[Serializable]
 public struct Point
 {
     public int x;

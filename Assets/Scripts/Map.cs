@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
 public class Region
 {
     public Point point;
@@ -18,16 +19,14 @@ public class Region
     }
 }
 
-public static class Map
+[Serializable]
+public class Map
 {
-    //Matrix Image
-    public static PixelMatrix matrixMap;
-
     //Stage of expansion from 0 to 6 (0 pre war, 6 only capital left)
-    public static int warStage = 0;
+    public int warStage = 0;
 
     //Stage of expansion positions
-    public static List<List<Region>> warStagePositions = new List<List<Region>>()
+    public List<List<Region>> warStagePositions = new List<List<Region>>()
     {
         { new List<Region>()
             {
@@ -44,14 +43,14 @@ public static class Map
     };
 
     //Stage of unification positions
-    public static List<Region> unificationPositions = new List<Region>()
+    public List<Region> unificationPositions = new List<Region>()
     {
         new Region( new Point(850, 92)),
         new Region( new Point(449, 138))
     };
 
     //Stage of ally positions
-    public static List<Region> allyPositions = new List<Region>()
+    public List<Region> allyPositions = new List<Region>()
     {
         new Region( new Point(269, 30)),
         new Region( new Point(398, 270)),
@@ -59,10 +58,10 @@ public static class Map
     };
 
     //Stage of revenge position
-    public static Region revengePosition = new Region(new Point(695, 200));
+    public Region revengePosition = new Region(new Point(695, 200));
 
     //Setup Pixel Groups
-    public static void SetupPixels(Texture2D map)
+    public void SetupPixels(Texture2D map)
     {
         //Create Pixel Matrix for easier access
         PixelMatrix matrix = new PixelMatrix(map);
@@ -95,7 +94,7 @@ public static class Map
     }
 
     //Build map at current stage (an optimized version could just increment the paint in case it's enemy expansion[since rest of map will stay the same])
-    public static Texture2D BuildMap(Texture2D map)
+    public Texture2D BuildMap(Texture2D map)
     {
         //Settings
         int spacing = 13;
@@ -105,7 +104,7 @@ public static class Map
         Color32 enemyAllyColor = new Color32(160, 160, 160, 255);
 
         //Transform to Matrix
-        PixelMatrix matrix = new PixelMatrix(matrixMap);
+        PixelMatrix matrix = new PixelMatrix(map);
 
         //For each Unification Stage
         for (int i = 0; i < unificationPositions.Count; i++)
@@ -195,7 +194,7 @@ public static class Map
     }
 
     //Progress War Expansion (check if stage still has possible region to occupy if so randomly add it, else move to next stage)
-    public static void ProgressWar(int num)
+    public void ProgressWar(int num)
     {
         //Regions of this stage
         List<Region> regionsOfStage = warStagePositions[warStage - 1];
@@ -221,19 +220,19 @@ public static class Map
     }
 
     //Progress Unification
-    public static void ProgressUnification(int num)
+    public void ProgressUnification(int num)
     {
         unificationPositions[num].unified = true;
     }
 
     //Progress Unification
-    public static void ProgressAllies(int num)
+    public void ProgressAllies(int num)
     {
         allyPositions[num].ally = true;
     }
 
     //Progress Revenge
-    public static void ProgressRevenge(int num)
+    public void ProgressRevenge(int num)
     {
         revengePosition.occupied = true;
     }
