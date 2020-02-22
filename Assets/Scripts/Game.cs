@@ -35,7 +35,8 @@ public class Game : MonoBehaviour
     public List<Sprite> impactSprites;
 
     //Doctrine Sprites
-    public List<Sprite> doctrineSprites;
+    public List<Sprite> doctrineSpritesTemp;
+    public static List<Sprite> doctrineSprites;
 
     //Pause Play Time Sprites
     public Sprite pauseSprite;
@@ -82,6 +83,9 @@ public class Game : MonoBehaviour
         public int turn;
         public DateTime date;
 
+        //History
+        public List<Event> events;
+
         //List of designs needed
         public List<Type> designsNeeded;
 
@@ -120,11 +124,67 @@ public class Game : MonoBehaviour
 
         //Game State
         public State state = State.NORMAL;
+
+        //Initial Doctrine (i unused)
+        public void InitialDoctrine(int i)
+        {
+            //Generate Doctrine
+            List<int> genDoctrine;
+            bool valid = true;
+            int tries = 0;
+            do
+            {
+                //Generate random with Sum 0
+                genDoctrine = Utils.RandomSum(6, 0, -2, 2);
+
+                //Proper Doctrine Values
+                for (int j = 0; j < genDoctrine.Count; j++)
+                {
+                    data.doctrine[(Doctrine)j] = 1 + 0.25f * genDoctrine[j];
+                }
+
+                //Assume valid
+                valid = true;
+
+                //Initial Doctrine must make capacity worse
+                if (Game.CapacityValueDoctrine() > Game.CapacityValue())
+                    valid = false;
+
+                //At least 1 Very High and 1 High
+                bool foundVH = false;
+                bool foundH = false;
+                for (int j = 0; j < genDoctrine.Count; j++)
+                {
+                    if (genDoctrine[j] == 2)
+                        foundVH = true;
+                    if (genDoctrine[j] == 1)
+                        foundH = true;
+                }
+                if (!foundVH || !foundH)
+                    valid = false;
+
+                //Check Give Up
+                tries++;
+                if (tries == 1000)
+                {
+                    Debug.Log("Initial Doctrine - GAVE UP");
+                    break;
+                }
+
+            } while (!valid);
+
+            //Update Doctrine Graphic
+            Game.UpdateDoctrineGraphic();
+        }
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        //Set Sprites
+        doctrineSprites = doctrineSpritesTemp;
+
         //Get SFX Manager
         SFXManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
 
@@ -144,9 +204,6 @@ public class Game : MonoBehaviour
 
         //Setup a New Game
         SetupNewGame();
-
-        //Setup History
-        History.SetupHistory();
 
         //Results
         Debug.Log("Occurence of each Impact");
@@ -531,6 +588,87 @@ public class Game : MonoBehaviour
         //Setup Map
         data.map = new Map();
         data.map.SetupPixels(DrawingUtils.TextureCopy(baseMap));
+
+        //Setup History
+        SetupHistory();
+    }
+
+    //Setup History Turns
+    public void SetupHistory()
+    {
+        //Clear list
+        data.events = new List<Event>();
+
+        //Initial Doctrine
+        data.events.Add(new Event(3, "The Military Staff has produced the initial Doctrine for our armed forces. You will be allowed to perform a single alteration every 6 months, starting next June.", data.InitialDoctrine, -1));
+
+        //Generate Unification Turn
+        data.events.Add(new Event(6 + UnityEngine.Random.Range(0, 1 + 1), "UNIFICATION 1", data.map.ProgressUnification, 0));
+        data.events.Add(new Event(8 + UnityEngine.Random.Range(0, 1 + 1), "UNIFICATION 2", data.map.ProgressUnification, 1));
+
+        //Generate Allies Turn
+        data.events.Add(new Event(10 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 1", data.map.ProgressAllies, 0));
+        data.events.Add(new Event(12 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 2", data.map.ProgressAllies, 1));
+        data.events.Add(new Event(14 + UnityEngine.Random.Range(0, 1 + 1), "ALLY 3", data.map.ProgressAllies, 2));
+
+        //Generate Revenge Turns
+        data.events.Add(new Event(16 + UnityEngine.Random.Range(0, 1 + 1), "REVENGE START", null, -1));
+        data.events.Add(new Event(19 + UnityEngine.Random.Range(-1, 1 + 1), "REVENGE END", data.map.ProgressRevenge, 0));
+
+        //Generate War Turn
+        //TODO Actually start war
+        data.events.Add(new Event(22 + UnityEngine.Random.Range(-1, 1 + 1), "WAR", null, -1));
+    }
+
+    //Generate possible messages for Bulletin
+    public List<string> Bulletin()
+    {
+        List<string> result = new List<string>();
+
+        //If 4 month multiple then include armed forces capacity/doctrine report
+        if (data.turn % 4 == 0)
+        {
+            //Preffix
+            string report = "Armed Forces Report:";
+
+            //Calculations
+            float industry = IndustryValue();
+            float effectiveIndustry = EffectiveIndustryValue();
+            float capacity = CapacityValue();
+            float capacityDoctrine = CapacityValueDoctrine();
+            float final = FinalCalculation();
+
+            //Add to report
+            report += "\n";
+            report += "Industry: " + Mathf.Round((1 + industry) * 100) + "%";
+            report += "\n";
+            report += "Effective Industry: " + Mathf.Round((1 + effectiveIndustry) * 100) + "%";
+            report += "\n";
+            report += "Capacity: " + Mathf.Round((1 + capacity) * 100) + "%";
+            report += "\n";
+            report += "Effective Capacity: " + Mathf.Round((1 + capacityDoctrine) * 100) + "%";
+            report += "\n";
+            report += "Total: " + Mathf.Round((1 + final) * 100) + "%";
+
+            //Add to bulletin
+            result.Add(report);
+        }
+
+        //Check if history event
+        for (int i = 0; i < data.events.Count; i++)
+        {
+            if (data.turn == data.events[i].turn)
+            {
+                //Add to bulletin
+                result.Add(data.events[i].message);
+
+                //Apply Effect
+                if (data.events[i].action != null)
+                    data.events[i].action(data.events[i].identification);
+            }
+        }
+
+        return result;
     }
 
     //Save Game
@@ -644,7 +782,7 @@ public class Game : MonoBehaviour
     //Update Bulletin
     public void UpdateBulletin()
     {
-        List<string> bulletin = History.Bulletin();
+        List<string> bulletin = Bulletin();
         GameObject.Find("BulletinText").GetComponent<Text>().text = "";
         for (int i = 0; i < bulletin.Count; i++)
         {
@@ -688,7 +826,7 @@ public class Game : MonoBehaviour
     }
 
     //Capacity Value
-    public float CapacityValue()
+    public static float CapacityValue()
     {
         //Get current coverage
         float[] coverage = CurrentCoverage();
@@ -700,7 +838,7 @@ public class Game : MonoBehaviour
     }
 
     //Capacity Value with Doctrine
-    public float CapacityValueDoctrine()
+    public static float CapacityValueDoctrine()
     {
         //Get current coverage
         float[] coverage = CurrentCoverage();
@@ -736,60 +874,8 @@ public class Game : MonoBehaviour
         return final;
     }
 
-    //Initial Doctrine (i unused)
-    public void InitialDoctrine(int i)
-    {
-        //Generate Doctrine
-        List<int> genDoctrine;
-        bool valid = true;
-        int tries = 0;
-        do
-        {
-            //Generate random with Sum 0
-            genDoctrine = Utils.RandomSum(6, 0, -2, 2);
-
-            //Proper Doctrine Values
-            for (int j = 0; j < genDoctrine.Count; j++)
-            {
-                data.doctrine[(Doctrine)j] = 1 + 0.25f * genDoctrine[j];
-            }
-
-            //Assume valid
-            valid = true;
-
-            //Initial Doctrine must make capacity worse
-            if (CapacityValueDoctrine() > CapacityValue())
-                valid = false;
-
-            //At least 1 Very High and 1 High
-            bool foundVH = false;
-            bool foundH = false;
-            for (int j = 0; j < genDoctrine.Count; j++)
-            {
-                if (genDoctrine[j] == 2)
-                    foundVH = true;
-                if (genDoctrine[j] == 1)
-                    foundH = true;
-            }
-            if (!foundVH || !foundH)
-                valid = false;
-
-            //Check Give Up
-            tries++;
-            if (tries == 1000)
-            {
-                Debug.Log("Initial Doctrine - GAVE UP");
-                break;
-            }
-
-        } while (!valid);
-
-        //Update Doctrine Graphic
-        UpdateDoctrineGraphic();
-    }
-
     //Update Doctrine Graphic
-    public void UpdateDoctrineGraphic()
+    public static void UpdateDoctrineGraphic()
     {
         //Get Holder
         GameObject doctrineHolder = GameObject.Find("Doctrine");
@@ -1528,7 +1614,7 @@ public class Game : MonoBehaviour
     }
 
     //Current Coverage
-    public float[] CurrentCoverage()
+    public static float[] CurrentCoverage()
     {
         //Value of Characteristics
         float[] values = new float[9];
@@ -1568,7 +1654,7 @@ public class Game : MonoBehaviour
     }
 
     //Count Each Impact Occurence
-    public int[] ImpactOccurences()
+    public static int[] ImpactOccurences()
     {
         int[] values = new int[9];
         foreach (var design in data.designs)
