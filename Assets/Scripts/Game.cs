@@ -50,6 +50,9 @@ public class Game : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
 
+    //Main Menu Object
+    public GameObject mainMenu;
+
     //Doctrines
     public enum Doctrine
     {
@@ -202,54 +205,16 @@ public class Game : MonoBehaviour
         //Setup Model Generator
         ModelGenerator.LoadAssets();
 
-        //Setup a New Game
-        SetupNewGame();
-
-        //Results
-        Debug.Log("Occurence of each Impact");
-        Utils.DumpArray(ImpactOccurences());
-        Debug.Log("Starting Coverage");
-        Utils.DumpArray(CurrentCoverage());
-        Debug.Log("Industry Value");
-        Debug.Log(IndustryValue());
-        Debug.Log("Capacity Value");
-        Debug.Log(CapacityValue());
-        Debug.Log("Capacity Value with Doctrine");
-        Debug.Log(CapacityValueDoctrine());
-        Debug.Log("Final Value");
-        Debug.Log(FinalCalculation());
-
-        //Update Display of Design Ages
-        UpdateRedesignProgress();
-
-        //Default Hover to First(Rifle)
-        HoverDesign("Rifle");
+        //Get Main Menu
+        mainMenu = GameObject.Find("MainMenu");
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Test Generate new Design
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Rifle[] rifles = RequestDesign(typeof(Rifle), new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, data.institutes.Count).Cast<Rifle>().ToArray();
-            Utils.DumpArray(rifles);
-        }
-
-        //Test Design Characteristic Progress
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            data.designs["Rifle"].FindCharacteristic("Accuracy").ProgressBounds(2);
-            Utils.Dump(data.designs["Rifle"].FindCharacteristic("Accuracy"));
-        }
-
-        //Test Design Progress Random
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Utils.Dump(data.designs["Rifle"]);
-            data.designs["Rifle"].ProgressRandom(4);
-            Utils.Dump(data.designs["Rifle"]);
-        }
+        //Check no main menu
+        if(mainMenu.activeInHierarchy)
+            return;
 
         //Process Tooltip
         TooltipManager.ProcessTooltip();
@@ -340,8 +305,7 @@ public class Game : MonoBehaviour
 
                     //Make Menu Icon Red
                     GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-                    Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-                    Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                    GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
                     //Close Map
                     CloseMap(true);
@@ -378,8 +342,7 @@ public class Game : MonoBehaviour
 
                     //Make Menu Icon Red
                     GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-                    Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-                    Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                    GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
                     //Close Map
                     CloseMap(true);
@@ -393,6 +356,41 @@ public class Game : MonoBehaviour
                 }
             }
         }
+    }
+
+    //New Game
+    public void NewGame()
+    {
+        SetupNewGame();
+
+        mainMenu.SetActive(false);
+    }
+
+    //Continue Save
+    public void Continue()
+    {
+        LoadGame();
+
+        mainMenu.SetActive(false);
+    }
+
+    //Exit Game
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    //Exit to Menu
+    public void MainMenu()
+    {
+        //Block if pending actions
+        if(data.blockMenu)
+            return;
+
+        //Save Game
+        SaveGame();
+
+        mainMenu.SetActive(true);
     }
 
     //Setup new Game
@@ -591,6 +589,21 @@ public class Game : MonoBehaviour
 
         //Setup History
         SetupHistory();
+
+        //Update UI
+        UpdateDoctrineGraphic();
+        UpdateRedesignProgress();
+        UpdateSliders();
+        HoverDesign("Rifle");
+        UpdateBulletin();
+
+        //Build Map
+        Texture2D final = data.map.BuildMap(baseMap);
+        mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
+
+        //Update Date but restart Clock timer
+        data.monthClock = 0;
+        GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
     }
 
     //Setup History Turns
@@ -674,10 +687,6 @@ public class Game : MonoBehaviour
     //Save Game
     public void SaveGame()
     {
-        //Dont allow if Menu Blocked
-        if (data.blockMenu)
-            return;
-
         //Create Save Directory
         System.IO.Directory.CreateDirectory(Application.streamingAssetsPath + "/Save");
 
@@ -705,10 +714,6 @@ public class Game : MonoBehaviour
     //Load Game
     public void LoadGame()
     {
-        //Dont allow if Menu Blocked
-        if (data.blockMenu)
-            return;
-
         //Check Save exists
         if (!Directory.Exists(Application.streamingAssetsPath + "/Save") || !File.Exists(Application.streamingAssetsPath + "/Save/data.vds") || !Directory.Exists(Application.streamingAssetsPath + "/Save/Models") )
             return;
@@ -1108,8 +1113,7 @@ public class Game : MonoBehaviour
 
             //Make Menu Icon Normal Color
             GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
-            Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
-            Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+            GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Nullify redesign
             data.redesignType = null;
@@ -1409,8 +1413,7 @@ public class Game : MonoBehaviour
 
             //Make Menu Icons Normal Color
             GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
-            Utils.GetChild(GameObject.Find("Save"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
-            Utils.GetChild(GameObject.Find("Load"), "Icon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+            GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Highlight Design of Redesign Type
             HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
