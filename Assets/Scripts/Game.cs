@@ -571,6 +571,10 @@ public class Game : MonoBehaviour
         if (data.blockMenu)
             return;
 
+        //Check Save exists
+        if (!Directory.Exists(Application.streamingAssetsPath + "/Save") || !File.Exists(Application.streamingAssetsPath + "/Save/data.vds") || !Directory.Exists(Application.streamingAssetsPath + "/Save/Models") )
+            return;
+
         //Create Stream for GameData
         Stream stream = new FileStream(Application.streamingAssetsPath + "/Save/data.vds", FileMode.Open, FileAccess.Read);
 
