@@ -190,6 +190,7 @@ public class Game : MonoBehaviour
 
         //Get SFX Manager
         SFXManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
+        SFXManager.PlayDoubleExplosion();
 
         //Set Cursor
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);

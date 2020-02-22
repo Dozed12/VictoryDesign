@@ -28,4 +28,15 @@ public class SFXManager : MonoBehaviour
             player.Play();
         }
     }
+
+    //Double Explosion
+    public AudioClip explosion;
+    public void PlayDoubleExplosion()
+    {
+        if (!player.isPlaying)
+        {
+            player.clip = explosion;
+            player.Play();
+        }
+    }
 }
