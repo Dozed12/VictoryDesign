@@ -88,6 +88,7 @@ public class Game : MonoBehaviour
 
         //War
         public bool atWar = false;
+        public int lastProgress = 0;
         public float warRequired = 0.7f;
         public float finalWarRequired = 0.1f;
         public float warRequiredDecrease = 0.075f;
@@ -261,24 +262,25 @@ public class Game : MonoBehaviour
                 data.date = data.date.AddMonths(1);
                 GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
 
-                //Bulletin
-                UpdateBulletin();
-
                 //War Progress
                 if (data.atWar)
                 {
                     //Get Final Value
                     float finalValue = FinalCalculation();
 
-                    //Fix old save not having warRequired
+                    //Fix old save not having values TODO Remove later
                     if (data.warRequired == 0)
                         data.warRequired = 0.7f;
+                    if (data.finalWarRequired == 0)
+                        data.finalWarRequired = 0.1f;
+                    if (data.warRequiredDecrease == 0)
+                        data.warRequiredDecrease = 0.075f;
 
                     //Modifier
                     int modifier = 20;
 
                     //War Progress in Regions
-                    int progress = Mathf.RoundToInt((data.warRequired - finalValue) * modifier);
+                    data.lastProgress = Mathf.RoundToInt((data.warRequired - finalValue) * modifier);
 
                     //Decrement War Required
                     if (data.warRequired > data.finalWarRequired)
@@ -287,11 +289,14 @@ public class Game : MonoBehaviour
                         data.warRequired = data.finalWarRequired;
 
                     //Apply Progress
-                    if (progress > 0)
-                        data.map.LoseWar(progress);
-                    else if (progress < 0)
-                        data.map.WinWar(-progress);
+                    if (data.lastProgress > 0)
+                        data.map.LoseWar(data.lastProgress);
+                    else if (data.lastProgress < 0)
+                        data.map.WinWar(-data.lastProgress);
                 }
+
+                //Bulletin
+                UpdateBulletin();
 
                 //Update Map
                 Texture2D final = data.map.BuildMap(baseMap);
@@ -720,6 +725,19 @@ public class Game : MonoBehaviour
                 //Apply Effect
                 if (data.events[i].action != null)
                     data.events[i].action(data.events[i].identification);
+            }
+        }
+
+        //War Progress Report
+        if (data.lastProgress != 0)
+        {
+            if (data.lastProgress > 0)
+            {
+                result.Add("We lost " + data.lastProgress + " regions during the last month");
+            }
+            if (data.lastProgress < 0)
+            {
+                result.Add("We recovered " + (-data.lastProgress) + " regions during the last month");
             }
         }
 
