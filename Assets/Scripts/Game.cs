@@ -686,7 +686,7 @@ public class Game : MonoBehaviour
         List<string> result = new List<string>();
 
         //If 4 month multiple then include armed forces capacity/doctrine report
-        if (data.turn % 4 == 0)
+        if (data.turn % 3 == 0)
         {
             //Preffix
             string report = "Armed Forces Report:";
