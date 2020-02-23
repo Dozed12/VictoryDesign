@@ -88,6 +88,7 @@ public class Game : MonoBehaviour
 
         //War
         public bool atWar = false;
+        public float warRequired = 0.6f;
 
         //History
         public List<Event> events;
@@ -223,7 +224,7 @@ public class Game : MonoBehaviour
     void Update()
     {
         //Check no main menu
-        if(mainMenu.activeInHierarchy)
+        if (mainMenu.activeInHierarchy)
             return;
 
         //Process Tooltip
@@ -262,18 +263,37 @@ public class Game : MonoBehaviour
                 UpdateBulletin();
 
                 //War Progress
-                if(data.atWar)
+                if (data.atWar)
                 {
                     //Get Final Value
                     float finalValue = FinalCalculation();
 
-                    //Progress
-                    float required = 1.3f;
+                    //Fix old save not having war required
+                    if (data.warRequired == 0)
+                        data.warRequired = 0.6f;
+
+                    //Modifier
                     int modifier = 20;
-                    int progress = Mathf.RoundToInt((required - finalValue) * modifier);
+
+                    //War Progress in Regions
+                    int progress = Mathf.RoundToInt((data.warRequired - finalValue) * modifier);
+
+                    Debug.Log("------------------------------");
+                    Debug.Log(data.warRequired);
+                    Debug.Log(finalValue);
+                    Debug.Log(data.warRequired - finalValue);
+                    Debug.Log(progress);
+
+                    //Decrement War Required
+                    if (data.warRequired > 0.1f)
+                        data.warRequired -= 0.075f;
+                    if (data.warRequired < 0.1f)
+                        data.warRequired = 0.1f;
 
                     //Apply Progress
                     data.map.ProgressWar(progress);
+
+                    //TODO Apply Reverse Progress (if progress negative)
                 }
 
                 //Update Map
@@ -409,7 +429,7 @@ public class Game : MonoBehaviour
     public void MainMenu()
     {
         //Block if pending actions
-        if(data.blockMenu)
+        if (data.blockMenu)
             return;
 
         //Save Game
@@ -610,6 +630,7 @@ public class Game : MonoBehaviour
 
         //Setup Map
         data.map = new Map();
+        data.map.warStage = 0;
         data.map.SetupPixels(DrawingUtils.TextureCopy(baseMap));
 
         //Setup History
@@ -740,7 +761,7 @@ public class Game : MonoBehaviour
     public void LoadGame()
     {
         //Check Save exists
-        if (!Directory.Exists(Application.streamingAssetsPath + "/Save") || !File.Exists(Application.streamingAssetsPath + "/Save/data.vds") || !Directory.Exists(Application.streamingAssetsPath + "/Save/Models") )
+        if (!Directory.Exists(Application.streamingAssetsPath + "/Save") || !File.Exists(Application.streamingAssetsPath + "/Save/data.vds") || !Directory.Exists(Application.streamingAssetsPath + "/Save/Models"))
             return;
 
         //Create Stream for GameData

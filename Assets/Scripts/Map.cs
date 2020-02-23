@@ -22,7 +22,7 @@ public class Region
 [Serializable]
 public class Map
 {
-    //Stage of expansion from 0 to 6 (0 pre war, 6 only capital left)
+    //Stage of expansion from 0 to 5
     public int warStage = 0;
 
     //Stage of expansion positions
@@ -77,6 +77,7 @@ public class Map
                 new Region( new Point(610, 630)),
                 new Region( new Point(711, 600)),
                 new Region( new Point(808, 600)),
+                new Region( new Point(917, 571)),
                 new Region( new Point(997, 521)),
             }
         ,
@@ -88,7 +89,7 @@ public class Map
                 new Region( new Point(450, 700)),
                 new Region( new Point(577, 676)),
                 new Region( new Point(736, 674)),
-                new Region( new Point(873, 800)),
+                new Region( new Point(873, 658)),
                 new Region( new Point(1023, 600)),
             }
         ,
@@ -211,10 +212,10 @@ public class Map
         }
 
         //For each War stage
-        for (int i = 0; i < warStage; i++)
+        for (int i = 0; i < warStagePositions.Count; i++)
         {
             //Regions of this stage
-            List<Region> regionsOfStage = warStagePositions[warStage - 1];
+            List<Region> regionsOfStage = warStagePositions[i];
 
             //For each region of the stage
             for (int j = 0; j < regionsOfStage.Count; j++)
@@ -253,7 +254,7 @@ public class Map
     public void ProgressWar(int num)
     {
         //Regions of this stage
-        List<Region> regionsOfStage = warStagePositions[warStage - 1];
+        List<Region> regionsOfStage = warStagePositions[warStage];
 
         //Get unoccupied regions
         List<Region> unoccupied = new List<Region>();
@@ -263,12 +264,12 @@ public class Map
                 unoccupied.Add(regionsOfStage[j]);
         }
 
-        //Occupy random of unoccupied
-        unoccupied[UnityEngine.Random.Range(0, unoccupied.Count)].occupied = true;
-
         //If unoccupied was only last one then progress stage
         if (unoccupied.Count == 1)
             warStage++;
+
+        //Occupy random of unoccupied
+        unoccupied[UnityEngine.Random.Range(0, unoccupied.Count)].occupied = true;
 
         //If more progress repeat process
         if (num - 1 > 0)
