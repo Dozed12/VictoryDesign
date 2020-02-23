@@ -261,6 +261,21 @@ public class Game : MonoBehaviour
                 //Bulletin
                 UpdateBulletin();
 
+                //War Progress
+                if(data.atWar)
+                {
+                    //Get Final Value
+                    float finalValue = FinalCalculation();
+
+                    //Progress
+                    float required = 1.3f;
+                    int modifier = 20;
+                    int progress = Mathf.RoundToInt((required - finalValue) * modifier);
+
+                    //Apply Progress
+                    data.map.ProgressWar(progress);
+                }
+
                 //Update Map
                 Texture2D final = data.map.BuildMap(baseMap);
                 mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);

@@ -84,17 +84,17 @@ public class Map
             {
                 new Region( new Point(150, 641)),
                 new Region( new Point(241, 621)),
-                new Region( new Point(1186, 800)),
+                new Region( new Point(279, 679)),
                 new Region( new Point(450, 700)),
                 new Region( new Point(577, 676)),
-                new Region( new Point(1186, 800)),
+                new Region( new Point(736, 674)),
                 new Region( new Point(873, 800)),
                 new Region( new Point(1023, 600)),
             }
         ,
         new List<Region>()
             {
-                new Region( new Point(1186, 736)),
+                new Region( new Point(645, 737)),
             }
     };
 
