@@ -672,8 +672,7 @@ public class Game : MonoBehaviour
         data.events.Add(new Event(19 + UnityEngine.Random.Range(-1, 1 + 1), "The Steimle Empire has occupied Polandia after a lightning campaign.", data.map.ProgressRevenge, 0));
 
         //Generate War Turn
-        //TODO Actually start war
-        data.events.Add(new Event(22 + UnityEngine.Random.Range(-1, 1 + 1), "The Steimle Empire has declared war on our Great Nation, your strategy and planning will now be put to the ultimate test.", data.StartWar, -1));
+        data.events.Add(new Event(22 + UnityEngine.Random.Range(-1, 1 + 1), "The Steimle Empire has unexpectedly declared war on our great Nation, your strategy and planning will now be put to the ultimate test.", data.StartWar, -1));
     }
 
     //Generate possible messages for Bulletin
