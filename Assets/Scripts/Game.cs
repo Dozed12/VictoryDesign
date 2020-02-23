@@ -88,7 +88,9 @@ public class Game : MonoBehaviour
 
         //War
         public bool atWar = false;
-        public float warRequired = 0.6f;
+        public float warRequired = 0.7f;
+        public float finalWarRequired = 0.1f;
+        public float warRequiredDecrease = 0.075f;
 
         //History
         public List<Event> events;
@@ -268,9 +270,9 @@ public class Game : MonoBehaviour
                     //Get Final Value
                     float finalValue = FinalCalculation();
 
-                    //Fix old save not having war required
+                    //Fix old save not having warRequired
                     if (data.warRequired == 0)
-                        data.warRequired = 0.6f;
+                        data.warRequired = 0.7f;
 
                     //Modifier
                     int modifier = 20;
@@ -278,22 +280,17 @@ public class Game : MonoBehaviour
                     //War Progress in Regions
                     int progress = Mathf.RoundToInt((data.warRequired - finalValue) * modifier);
 
-                    Debug.Log("------------------------------");
-                    Debug.Log(data.warRequired);
-                    Debug.Log(finalValue);
-                    Debug.Log(data.warRequired - finalValue);
-                    Debug.Log(progress);
-
                     //Decrement War Required
-                    if (data.warRequired > 0.1f)
-                        data.warRequired -= 0.075f;
-                    if (data.warRequired < 0.1f)
-                        data.warRequired = 0.1f;
+                    if (data.warRequired > data.finalWarRequired)
+                        data.warRequired -= data.warRequiredDecrease;
+                    if (data.warRequired < data.finalWarRequired)
+                        data.warRequired = data.finalWarRequired;
 
                     //Apply Progress
-                    data.map.ProgressWar(progress);
-
-                    //TODO Apply Reverse Progress (if progress negative)
+                    if (progress > 0)
+                        data.map.LoseWar(progress);
+                    else if (progress < 0)
+                        data.map.WinWar(-progress);
                 }
 
                 //Update Map

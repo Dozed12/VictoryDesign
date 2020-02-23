@@ -250,8 +250,8 @@ public class Map
         return final;
     }
 
-    //Progress War Expansion (check if stage still has possible region to occupy if so randomly add it, else move to next stage)
-    public void ProgressWar(int num)
+    //Lose War Progress
+    public void LoseWar(int num)
     {
         //Regions of this stage
         List<Region> regionsOfStage = warStagePositions[warStage];
@@ -273,7 +273,33 @@ public class Map
 
         //If more progress repeat process
         if (num - 1 > 0)
-            ProgressWar(num - 1);
+            LoseWar(num - 1);
+    }
+
+    //Win War Progress
+    public void WinWar(int num)
+    {
+        //Regions of this stage
+        List<Region> regionsOfStage = warStagePositions[warStage];
+
+        //Get unoccupied regions
+        List<Region> occupied = new List<Region>();
+        for (int j = 0; j < regionsOfStage.Count; j++)
+        {
+            if (regionsOfStage[j].occupied)
+                occupied.Add(regionsOfStage[j]);
+        }
+
+        //If unoccupied was only last one then progress stage
+        if (occupied.Count == 1)
+            warStage--;
+
+        //Occupy random of unoccupied
+        occupied[UnityEngine.Random.Range(0, occupied.Count)].occupied = false;
+
+        //If more progress repeat process
+        if (num - 1 > 0)
+            WinWar(num - 1);
     }
 
     //Progress Unification
