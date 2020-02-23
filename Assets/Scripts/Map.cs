@@ -28,7 +28,7 @@ public class Map
     //Stage of expansion positions
     public List<List<Region>> warStagePositions = new List<List<Region>>()
     {
-        { new List<Region>()
+         new List<Region>()
             {
                 new Region( new Point(272, 333)),
                 new Region( new Point(366, 333)),
@@ -38,8 +38,64 @@ public class Map
                 new Region( new Point(692, 360)),
                 new Region( new Point(800, 351)),
             }
-        }
-        //TODO Rest of regions
+        ,
+        new List<Region>()
+            {
+                new Region( new Point(200, 400)),
+                new Region( new Point(305, 415)),
+                new Region( new Point(400, 450)),
+                new Region( new Point(500, 500)),
+                new Region( new Point(585, 495)),
+                new Region( new Point(664, 460)),
+                new Region( new Point(760, 438)),
+                new Region( new Point(900, 415)),
+            }
+        ,
+        new List<Region>()
+            {
+                new Region( new Point(108, 440)),
+                new Region( new Point(158, 488)),
+                new Region( new Point(224, 480)),
+                new Region( new Point(335, 504)),
+                new Region( new Point(451, 560)),
+                new Region( new Point(550, 550)),
+                new Region( new Point(630, 540)),
+                new Region( new Point(737, 511)),
+                new Region( new Point(837, 505)),
+                new Region( new Point(938, 477)),
+                new Region( new Point(1000, 430)),
+            }
+        ,
+        new List<Region>()
+            {
+                new Region( new Point(23, 513)),
+                new Region( new Point(108, 506)),
+                new Region( new Point(209, 545)),
+                new Region( new Point(320, 585)),
+                new Region( new Point(400, 630)),
+                new Region( new Point(510, 630)),
+                new Region( new Point(610, 630)),
+                new Region( new Point(711, 600)),
+                new Region( new Point(808, 600)),
+                new Region( new Point(997, 521)),
+            }
+        ,
+        new List<Region>()
+            {
+                new Region( new Point(150, 641)),
+                new Region( new Point(241, 621)),
+                new Region( new Point(1186, 800)),
+                new Region( new Point(450, 700)),
+                new Region( new Point(577, 676)),
+                new Region( new Point(1186, 800)),
+                new Region( new Point(873, 800)),
+                new Region( new Point(1023, 600)),
+            }
+        ,
+        new List<Region>()
+            {
+                new Region( new Point(1186, 736)),
+            }
     };
 
     //Stage of unification positions
