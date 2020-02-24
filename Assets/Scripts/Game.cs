@@ -241,6 +241,7 @@ public class Game : MonoBehaviour
     //Next Turn
     public void NextTurn()
     {
+        //Check Menu isn't blocked
         if (data.blockMenu)
             return;
 
@@ -260,14 +261,6 @@ public class Game : MonoBehaviour
         {
             //Get Final Value
             float finalValue = FinalCalculation();
-
-            //Fix old save not having values TODO Remove later
-            if (data.warRequired == 0)
-                data.warRequired = 0.7f;
-            if (data.finalWarRequired == 0)
-                data.finalWarRequired = 0.1f;
-            if (data.warRequiredDecrease == 0)
-                data.warRequiredDecrease = 0.075f;
 
             //Modifier
             int modifier = 20;
