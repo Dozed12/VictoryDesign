@@ -251,8 +251,12 @@ public class Map
     }
 
     //Lose War Progress
-    public void LoseWar(int num)
+    public int LoseWar(int num)
     {
+        //Check defeat
+        if (warStage == 5 + 1)
+            return -1;
+
         //Regions of this stage
         List<Region> regionsOfStage = warStagePositions[warStage];
 
@@ -273,12 +277,18 @@ public class Map
 
         //If more progress repeat process
         if (num - 1 > 0)
-            LoseWar(num - 1);
+            return LoseWar(num - 1);
+        else
+            return 0;
     }
 
     //Win War Progress
-    public void WinWar(int num)
+    public int WinWar(int num)
     {
+        //Check victory
+        if (warStage == 0 - 1)
+            return 1;
+
         //Regions of this stage
         List<Region> regionsOfStage = warStagePositions[warStage];
 
@@ -299,7 +309,9 @@ public class Map
 
         //If more progress repeat process
         if (num - 1 > 0)
-            WinWar(num - 1);
+            return WinWar(num - 1);
+        else
+            return 0;
     }
 
     //Progress Unification

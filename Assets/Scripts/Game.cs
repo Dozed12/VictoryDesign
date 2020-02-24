@@ -288,11 +288,50 @@ public class Game : MonoBehaviour
                     if (data.warRequired < data.finalWarRequired)
                         data.warRequired = data.finalWarRequired;
 
-                    //Apply Progress
+                    //Apply Progress and get result
+                    int result = 0;
                     if (data.lastProgress > 0)
-                        data.map.LoseWar(data.lastProgress);
+                        result = data.map.LoseWar(data.lastProgress);
                     else if (data.lastProgress < 0)
-                        data.map.WinWar(-data.lastProgress);
+                        result = data.map.WinWar(-data.lastProgress);
+
+                    //Victory
+                    if(result == 1)
+                    {
+                        //TODO Victory Panel with Return to Main Menu
+
+                        //Pause
+                        ToggleTime();
+
+                        //Block Playing
+                        data.blockMenu = true;
+
+                        //Make Menu Icon Red
+                        GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                        GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+
+                        Debug.Log("Victory");
+                        return;
+                    }
+
+                    //Defeat
+                    if(result == -1)
+                    {
+                        //TODO Defeat Panel with Return to Main Menu
+
+                        //Pause
+                        ToggleTime();
+
+                        //Block Playing
+                        data.blockMenu = true;
+
+                        //Make Menu Icon Red
+                        GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+                        GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+
+                        Debug.Log("Defeat");
+                        return;
+                    }
                 }
 
                 //Bulletin
