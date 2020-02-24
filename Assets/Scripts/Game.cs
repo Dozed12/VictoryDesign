@@ -936,7 +936,7 @@ public class Game : MonoBehaviour
         float[] coverage = CurrentCoverage();
 
         //Average of capacity values
-        float value = (coverage[3] + coverage[4] + Mathf.Min(coverage[5], coverage[6]) * 2 + coverage[7] + coverage[8]) / 6;
+        float value = (coverage[3] + coverage[4] + coverage[5] + coverage[6] + coverage[7] + coverage[8]) / 6;
 
         return value;
     }
@@ -951,12 +951,7 @@ public class Game : MonoBehaviour
         float value = 0;
         for (int i = 3; i < coverage.Length; i++)
         {
-            //Case of Breakthrough and Exploitation
-            if (i == 5 || i == 6)
-                value += Mathf.Min(coverage[5], coverage[6]) * data.doctrine[(Doctrine)(i - 3)];
-            //Normal Case
-            else
-                value += coverage[i] * data.doctrine[(Doctrine)(i - 3)];
+            value += coverage[i] * data.doctrine[(Doctrine)(i - 3)];
         }
         value /= coverage.Length - 3;
 
