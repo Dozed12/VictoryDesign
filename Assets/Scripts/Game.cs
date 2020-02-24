@@ -703,20 +703,20 @@ public class Game : MonoBehaviour
         data.events.Add(new Event(3, "The Military Staff has produced the initial Doctrine for our armed forces. You will be allowed to perform a single alteration every 6 months, starting next June.", data.InitialDoctrine, -1));
 
         //Generate Unification Turn
-        data.events.Add(new Event(6 + UnityEngine.Random.Range(0, 1 + 1), "The Schanz Principiate has joined the Steimle Empire following a referendum.", data.map.ProgressUnification, 0));
-        data.events.Add(new Event(8 + UnityEngine.Random.Range(0, 1 + 1), "Haguenau has been peacefully annexed by the Steimle Empire as a result of the IX Continental Comission Meeting.", data.map.ProgressUnification, 1));
+        data.events.Add(new Event(4 + UnityEngine.Random.Range(0, 1 + 1), "The Schanz Principiate has joined the Steimle Empire following a referendum.", data.map.ProgressUnification, 0));
+        data.events.Add(new Event(6 + UnityEngine.Random.Range(0, 1 + 1), "Haguenau has been peacefully annexed by the Steimle Empire as a result of the IX Continental Comission Meeting.", data.map.ProgressUnification, 1));
 
         //Generate Allies Turn
-        data.events.Add(new Event(10 + UnityEngine.Random.Range(0, 1 + 1), "Ciatari has joined the Steimle Empire alliance.", data.map.ProgressAllies, 0));
-        data.events.Add(new Event(12 + UnityEngine.Random.Range(0, 1 + 1), "The Brana Republic has joined the Steimle Empire alliance.", data.map.ProgressAllies, 1));
-        data.events.Add(new Event(14 + UnityEngine.Random.Range(0, 1 + 1), "Dathalom  has joined the Steimle Empire alliance.", data.map.ProgressAllies, 2));
+        data.events.Add(new Event(8 + UnityEngine.Random.Range(0, 1 + 1), "Ciatari has joined the Steimle Empire alliance.", data.map.ProgressAllies, 0));
+        data.events.Add(new Event(8 + UnityEngine.Random.Range(0, 1 + 1), "The Brana Republic has joined the Steimle Empire alliance.", data.map.ProgressAllies, 1));
+        data.events.Add(new Event(10 + UnityEngine.Random.Range(0, 1 + 1), "Dathalom  has joined the Steimle Empire alliance.", data.map.ProgressAllies, 2));
 
         //Generate Revenge Turns
-        data.events.Add(new Event(16 + UnityEngine.Random.Range(0, 1 + 1), "The Steimle Empire has declared war on Polandia.", null, -1));
-        data.events.Add(new Event(19 + UnityEngine.Random.Range(-1, 1 + 1), "The Steimle Empire has occupied Polandia after a lightning campaign.", data.map.ProgressRevenge, 0));
+        data.events.Add(new Event(12 + UnityEngine.Random.Range(0, 1 + 1), "The Steimle Empire has declared war on Polandia.", null, -1));
+        data.events.Add(new Event(14 + UnityEngine.Random.Range(0, 1 + 1), "The Steimle Empire has occupied Polandia after a lightning campaign.", data.map.ProgressRevenge, 0));
 
         //Generate War Turn
-        data.events.Add(new Event(22 + UnityEngine.Random.Range(-1, 1 + 1), "The Steimle Empire has unexpectedly declared war on our great Nation, your strategy and planning will now be put to the ultimate test.", data.StartWar, -1));
+        data.events.Add(new Event(16 + UnityEngine.Random.Range(0, 1 + 1), "The Steimle Empire has unexpectedly declared war on our great Nation, your strategy and planning will now be put to the ultimate test.", data.StartWar, -1));
     }
 
     //Generate possible messages for Bulletin
