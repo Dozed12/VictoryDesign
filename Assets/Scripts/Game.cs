@@ -1380,6 +1380,9 @@ public class Game : MonoBehaviour
             //Choice
             GameObject choice = Instantiate(choicePrefab);
 
+            //Randomly Move Dirt
+            Utils.GetChild(choice, "Dirt").transform.GetChild(0).SetPositionAndRotation(new Vector3(UnityEngine.Random.Range(-1845, 1845), UnityEngine.Random.Range(-1700, 1700), 0),Quaternion.identity);
+
             //Title
             string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
             Utils.GetChild(choice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposal - " + nameSpaced;
