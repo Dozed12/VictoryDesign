@@ -50,7 +50,7 @@ public class MusicManager : MonoBehaviour
             if (!player.isPlaying)
             {
                 player.clip = musicList[Random.Range(0, musicList.Count)];
-                player.Play();
+                player.Play(44100 * 1);
             }
         }
     }
