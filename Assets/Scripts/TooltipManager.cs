@@ -36,12 +36,6 @@ public static class TooltipManager
         tooltips.Add("EfficiencyIcon", delegate{return "Army Efficiency";});
     }
 
-    //Tooltip methods
-    public static string IndustrialSpendingTooltip()
-    {
-        return "test";
-    }
-
     //Process Tooltip over Gameobject
     public static void ProcessTooltip()
     {

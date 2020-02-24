@@ -107,8 +107,6 @@ public class Game : MonoBehaviour
         //Time control
         public bool playing = false;
         public bool blockMenu = false;
-        public float monthClock = 0;
-        public float monthAdvance = 1f;
 
         //Previous Turn Coverage
         public float[] prevCoverage;
@@ -236,212 +234,195 @@ public class Game : MonoBehaviour
         //Space Bar Toggle Time
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ToggleTime();
+            NextTurn();
         }
+    }
 
-        //Time
-        if (data.playing)
+    //Next Turn
+    public void NextTurn()
+    {
+        if (data.blockMenu)
+            return;
+
+        //Reset Designs Needed
+        data.designsNeeded = new List<Type>();
+
+        //Current Coverage will be Previous
+        data.prevCoverage = CurrentCoverage();
+
+        //Update Time
+        data.turn++;
+        data.date = data.date.AddMonths(1);
+        GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
+
+        //War Progress
+        if (data.atWar)
         {
-            //Add Time
-            data.monthClock += data.monthAdvance * Time.deltaTime;
-            GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - data.monthClock;
+            //Get Final Value
+            float finalValue = FinalCalculation();
 
-            //If End of Month - Turn
-            data.designsNeeded = new List<Type>();
-            if (data.monthClock > 1)
+            //Fix old save not having values TODO Remove later
+            if (data.warRequired == 0)
+                data.warRequired = 0.7f;
+            if (data.finalWarRequired == 0)
+                data.finalWarRequired = 0.1f;
+            if (data.warRequiredDecrease == 0)
+                data.warRequiredDecrease = 0.075f;
+
+            //Modifier
+            int modifier = 20;
+
+            //War Progress in Regions
+            data.lastProgress = Mathf.RoundToInt((data.warRequired - finalValue) * modifier);
+
+            //Decrement War Required
+            if (data.warRequired > data.finalWarRequired)
+                data.warRequired -= data.warRequiredDecrease;
+            if (data.warRequired < data.finalWarRequired)
+                data.warRequired = data.finalWarRequired;
+
+            //Apply Progress and get result
+            int result = 0;
+            if (data.lastProgress > 0)
+                result = data.map.LoseWar(data.lastProgress);
+            else if (data.lastProgress < 0)
+                result = data.map.WinWar(-data.lastProgress);
+
+            //Victory
+            if (result == 1)
             {
-                //Current Coverage will be Previous
-                data.prevCoverage = CurrentCoverage();
+                //TODO Victory Panel with Return to Main Menu
 
-                //Reset clock
-                data.monthClock = 0;
-                GameObject.Find("ProgressAmount").GetComponent<Image>().fillAmount = 1 - data.monthClock;
+                //Block Playing
+                data.blockMenu = true;
 
-                //Update Time
-                data.turn++;
-                data.date = data.date.AddMonths(1);
-                GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
+                //Make Menu Icon Red
+                GameObject.Find("NextTurnText").GetComponent<Text>().color = new Color32(130, 25, 25, 255);
+                GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
-                //War Progress
-                if (data.atWar)
-                {
-                    //Get Final Value
-                    float finalValue = FinalCalculation();
+                Debug.Log("Victory");
+                return;
+            }
 
-                    //Fix old save not having values TODO Remove later
-                    if (data.warRequired == 0)
-                        data.warRequired = 0.7f;
-                    if (data.finalWarRequired == 0)
-                        data.finalWarRequired = 0.1f;
-                    if (data.warRequiredDecrease == 0)
-                        data.warRequiredDecrease = 0.075f;
+            //Defeat
+            if (result == -1)
+            {
+                //TODO Defeat Panel with Return to Main Menu
 
-                    //Modifier
-                    int modifier = 20;
+                //Block Playing
+                data.blockMenu = true;
 
-                    //War Progress in Regions
-                    data.lastProgress = Mathf.RoundToInt((data.warRequired - finalValue) * modifier);
+                //Make Menu Icon Red
+                GameObject.Find("NextTurnText").GetComponent<Text>().color = new Color32(130, 25, 25, 255);
+                GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
-                    //Decrement War Required
-                    if (data.warRequired > data.finalWarRequired)
-                        data.warRequired -= data.warRequiredDecrease;
-                    if (data.warRequired < data.finalWarRequired)
-                        data.warRequired = data.finalWarRequired;
-
-                    //Apply Progress and get result
-                    int result = 0;
-                    if (data.lastProgress > 0)
-                        result = data.map.LoseWar(data.lastProgress);
-                    else if (data.lastProgress < 0)
-                        result = data.map.WinWar(-data.lastProgress);
-
-                    //Victory
-                    if(result == 1)
-                    {
-                        //TODO Victory Panel with Return to Main Menu
-
-                        //Pause
-                        ToggleTime();
-
-                        //Block Playing
-                        data.blockMenu = true;
-
-                        //Make Menu Icon Red
-                        GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-                        GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-
-                        Debug.Log("Victory");
-                        return;
-                    }
-
-                    //Defeat
-                    if(result == -1)
-                    {
-                        //TODO Defeat Panel with Return to Main Menu
-
-                        //Pause
-                        ToggleTime();
-
-                        //Block Playing
-                        data.blockMenu = true;
-
-                        //Make Menu Icon Red
-                        GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-                        GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-
-                        Debug.Log("Defeat");
-                        return;
-                    }
-                }
-
-                //Bulletin
-                UpdateBulletin();
-
-                //Update Map
-                Texture2D final = data.map.BuildMap(baseMap);
-                mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
-
-                //Progress Design Intel
-                foreach (KeyValuePair<string, Design> design in data.designs)
-                {
-                    design.Value.ProgressRandom(5);
-                }
-
-                //Full Progress if half age
-                foreach (KeyValuePair<string, Design> design in data.designs)
-                {
-                    if (design.Value.age == 5)
-                        design.Value.ProgressRandom(999);
-                }
-
-                //Update Hover
-                HoverDesign(data.lastHover);
-
-                //Perform checks on redesigns
-                foreach (KeyValuePair<string, Design> design in data.designs)
-                {
-                    //Age Design
-                    design.Value.age++;
-
-                    //Check Age Limit
-                    if (design.Value.age > design.Value.redesignPeriod)
-                    {
-                        //New Design Required
-                        data.designsNeeded.Add(design.Value.GetType());
-                    }
-
-                    //Update Redesign Progress
-                    UpdateRedesignProgress();
-                }
-
-                //Update Sliders
-                UpdateSliders();
-
-                //Doctrine Proposal if month multiple of 6 (except 1920)
-                if (((data.date.Month == 1 || data.date.Month == 6) && data.date.Year != 1920) || (data.date.Month == 6 && data.date.Year == 1920))
-                {
-                    //Set state to REQUEST
-                    data.state = State.REQUEST;
-
-                    //Pause
-                    ToggleTime();
-
-                    //Block Playing
-                    data.blockMenu = true;
-
-                    //Make Menu Icon Red
-                    GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-                    GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-
-                    //Close Map
-                    CloseMap(true);
-
-                    //Update Design Choice Title
-                    GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = "DOCTRINE CHANGE";
-
-                    //Invoke Show Request for new Design
-                    Invoke("ShowDoctrineChange", 0.5f);
-                }
-                //Initiate Redesign if needed
-                else if (data.designsNeeded.Count > 0)
-                {
-                    //Set state to REQUEST
-                    data.state = State.REQUEST;
-
-                    //Set redesign type
-                    data.redesignType = data.designsNeeded[0];
-
-                    //Remove highlight all Designs
-                    foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
-                    {
-                        Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
-                    }
-
-                    //Highlight Design of Redesign Type
-                    HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
-
-                    //Pause
-                    ToggleTime();
-
-                    //Block Playing
-                    data.blockMenu = true;
-
-                    //Make Menu Icon Red
-                    GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-                    GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
-
-                    //Close Map
-                    CloseMap(true);
-
-                    //Update Design Choice Title
-                    string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
-                    GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
-
-                    //Invoke Show Request for new Design
-                    Invoke("ShowRequest", 0.5f);
-                }
+                Debug.Log("Defeat");
+                return;
             }
         }
+
+        //Bulletin
+        UpdateBulletin();
+
+        //Update Map
+        Texture2D final = data.map.BuildMap(baseMap);
+        mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
+
+        //Progress Design Intel
+        foreach (KeyValuePair<string, Design> design in data.designs)
+        {
+            design.Value.ProgressRandom(5);
+        }
+
+        //Full Progress if half age
+        foreach (KeyValuePair<string, Design> design in data.designs)
+        {
+            if (design.Value.age == 5)
+                design.Value.ProgressRandom(999);
+        }
+
+        //Update Hover
+        HoverDesign(data.lastHover);
+
+        //Perform checks on redesigns
+        foreach (KeyValuePair<string, Design> design in data.designs)
+        {
+            //Age Design
+            design.Value.age++;
+
+            //Check Age Limit
+            if (design.Value.age > design.Value.redesignPeriod)
+            {
+                //New Design Required
+                data.designsNeeded.Add(design.Value.GetType());
+            }
+
+            //Update Redesign Progress
+            UpdateRedesignProgress();
+        }
+
+        //Update Sliders
+        UpdateSliders();
+
+        //Doctrine Proposal if month multiple of 6 (except 1920)
+        if (((data.date.Month == 1 || data.date.Month == 6) && data.date.Year != 1920) || (data.date.Month == 6 && data.date.Year == 1920))
+        {
+            //Set state to REQUEST
+            data.state = State.REQUEST;
+
+            //Block Playing
+            data.blockMenu = true;
+
+            //Make Menu Icon Red
+            GameObject.Find("NextTurnText").GetComponent<Text>().color = new Color32(130, 25, 25, 255);
+            GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+
+            //Close Map
+            CloseMap(true);
+
+            //Update Design Choice Title
+            GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = "DOCTRINE CHANGE";
+
+            //Invoke Show Request for new Design
+            Invoke("ShowDoctrineChange", 0.5f);
+        }
+        //Initiate Redesign if needed
+        else if (data.designsNeeded.Count > 0)
+        {
+            //Set state to REQUEST
+            data.state = State.REQUEST;
+
+            //Set redesign type
+            data.redesignType = data.designsNeeded[0];
+
+            //Remove highlight all Designs
+            foreach (Transform designObject in GameObject.Find("DesignsHolder").transform)
+            {
+                Utils.GetChild(designObject.gameObject, "Selected").GetComponent<Image>().enabled = false;
+            }
+
+            //Highlight Design of Redesign Type
+            HoverDesign(string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '));
+
+            //Block Playing
+            data.blockMenu = true;
+
+            //Make Menu Icon Red
+            GameObject.Find("NextTurnText").GetComponent<Text>().color = new Color32(130, 25, 25, 255);
+            GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
+
+            //Close Map
+            CloseMap(true);
+
+            //Update Design Choice Title
+            string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            GameObject.Find("DesignDecisionTitle").GetComponent<Text>().text = nameSpaced.ToUpper() + " DESIGN DECISION";
+
+            //Invoke Show Request for new Design
+            Invoke("ShowRequest", 0.5f);
+        }
+
+
     }
 
     //New Game
@@ -688,8 +669,7 @@ public class Game : MonoBehaviour
         Texture2D final = data.map.BuildMap(baseMap);
         mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
 
-        //Update Date but restart Clock timer
-        data.monthClock = 0;
+        //Update Date
         GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
     }
 
@@ -878,8 +858,7 @@ public class Game : MonoBehaviour
         Texture2D final = data.map.BuildMap(baseMap);
         mapHolder.GetComponent<Image>().sprite = Sprite.Create(final, new Rect(0, 0, final.width, final.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
 
-        //Update Date but restart Clock timer
-        data.monthClock = 0;
+        //Update Date
         GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
     }
 
@@ -1206,7 +1185,7 @@ public class Game : MonoBehaviour
             CloseMap(false);
 
             //Make Menu Icon Normal Color
-            GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+            GameObject.Find("NextTurnText").GetComponent<Text>().color = new Color32(50, 50, 50, 255);
             GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Nullify redesign
@@ -1262,24 +1241,6 @@ public class Game : MonoBehaviour
 
             //Set value
             Utils.GetChild(GameObject.Find(design.Key), "Progress").GetComponent<Image>().fillAmount = ((float)design.Value.age / design.Value.redesignPeriod);
-        }
-    }
-
-    //Time Button
-    public void ToggleTime()
-    {
-        if (data.blockMenu)
-            return;
-
-        if (data.playing)
-        {
-            Utils.GetChild(GameObject.Find("TimeControl"), "TimeIcon").GetComponent<Image>().overrideSprite = playSprite;
-            data.playing = false;
-        }
-        else
-        {
-            Utils.GetChild(GameObject.Find("TimeControl"), "TimeIcon").GetComponent<Image>().overrideSprite = pauseSprite;
-            data.playing = true;
         }
     }
 
@@ -1415,7 +1376,7 @@ public class Game : MonoBehaviour
             GameObject choice = Instantiate(choicePrefab);
 
             //Randomly Move Dirt
-            Utils.GetChild(choice, "Dirt").transform.GetChild(0).SetPositionAndRotation(new Vector3(UnityEngine.Random.Range(-1845, 1845), UnityEngine.Random.Range(-1700, 1700), 0),Quaternion.identity);
+            Utils.GetChild(choice, "Dirt").transform.GetChild(0).SetPositionAndRotation(new Vector3(UnityEngine.Random.Range(-1845, 1845), UnityEngine.Random.Range(-1700, 1700), 0), Quaternion.identity);
 
             //Title
             string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
@@ -1509,7 +1470,7 @@ public class Game : MonoBehaviour
             CloseMap(false);
 
             //Make Menu Icons Normal Color
-            GameObject.Find("TimeIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
+            GameObject.Find("NextTurnText").GetComponent<Text>().color = new Color32(50, 50, 50, 255);
             GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(50, 50, 50, 255);
 
             //Highlight Design of Redesign Type
