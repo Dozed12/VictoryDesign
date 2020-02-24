@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 31340680}
   - component: {fileID: 31340682}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: ReplenishmentIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,7 +503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &60860806
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2528,6 +2528,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6270990294531153511, guid: 7db6f0634cbccea4989b3f1d7243c291,
+        type: 3}
+      propertyPath: m_Name
+      value: EngineeringIconChar
+      objectReference: {fileID: 0}
     - target: {fileID: 6270990294647944621, guid: 7db6f0634cbccea4989b3f1d7243c291,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2587,6 +2592,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270990295019434311, guid: 7db6f0634cbccea4989b3f1d7243c291,
+        type: 3}
+      propertyPath: m_Name
+      value: ReliabilityIconChar
       objectReference: {fileID: 0}
     - target: {fileID: 6270990295101374115, guid: 7db6f0634cbccea4989b3f1d7243c291,
         type: 3}
@@ -2747,6 +2757,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270990295929660810, guid: 7db6f0634cbccea4989b3f1d7243c291,
+        type: 3}
+      propertyPath: m_Name
+      value: ResourceIconChar
       objectReference: {fileID: 0}
     - target: {fileID: 6270990295964953067, guid: 7db6f0634cbccea4989b3f1d7243c291,
         type: 3}
@@ -5212,7 +5227,7 @@ GameObject:
   - component: {fileID: 309724750}
   - component: {fileID: 309724752}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: EngineeringIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5301,7 +5316,7 @@ GameObject:
   - component: {fileID: 312143300}
   - component: {fileID: 312143302}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: AAIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7693,7 +7708,7 @@ GameObject:
   - component: {fileID: 483113780}
   - component: {fileID: 483113782}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: BreakthroughIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12005,7 +12020,7 @@ GameObject:
   - component: {fileID: 939457278}
   - component: {fileID: 939457279}
   m_Layer: 5
-  m_Name: ExploitaitionSlider
+  m_Name: ExploitationSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12289,7 +12304,7 @@ GameObject:
   - component: {fileID: 1010743999}
   - component: {fileID: 1010744001}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: AIIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15385,7 +15400,7 @@ GameObject:
   - component: {fileID: 1330642528}
   - component: {fileID: 1330642530}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: ExploitationIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15474,7 +15489,7 @@ GameObject:
   - component: {fileID: 1337922853}
   - component: {fileID: 1337922855}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: MoraleIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15773,7 +15788,7 @@ GameObject:
   - component: {fileID: 1355447904}
   - component: {fileID: 1355447903}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: EfficiencyIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18693,7 +18708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564458415}
   m_Layer: 5
-  m_Name: Exploitaition
+  m_Name: Exploitation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23194,7 +23209,7 @@ GameObject:
   - component: {fileID: 2066181746}
   - component: {fileID: 2066181748}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: ResourcesIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24437,7 +24452,7 @@ PrefabInstance:
     - target: {fileID: 3711580741395335860, guid: b5487abea94f3924a838f520ccdbd4fe,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 28.5
+      value: 33.5
       objectReference: {fileID: 0}
     - target: {fileID: 3711580741395335860, guid: b5487abea94f3924a838f520ccdbd4fe,
         type: 3}

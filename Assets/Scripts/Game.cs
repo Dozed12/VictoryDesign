@@ -1597,7 +1597,7 @@ public class Game : MonoBehaviour
             "AISlider",
             "AASlider",
             "BreakthroughSlider",
-            "ExploitaitionSlider",
+            "ExploitationSlider",
             "MoraleSlider",
             "EfficiencySlider"
         };

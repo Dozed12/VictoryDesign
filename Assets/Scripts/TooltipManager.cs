@@ -25,7 +25,15 @@ public static class TooltipManager
         tooltips = new Dictionary<string, Func<string>>();
 
         //Add tooltip entries
-        tooltips.Add("IndustryValue", IndustrialSpendingTooltip);
+        tooltips.Add("EngineeringIcon", delegate{return "Engineering Capacity";});
+        tooltips.Add("ResourcesIcon", delegate{return "Resource Capacity";});
+        tooltips.Add("ReplenishmentIcon", delegate{return "Replenishment Capacity";});
+        tooltips.Add("AIIcon", delegate{return "Anti Infantry Capacity";});
+        tooltips.Add("AAIcon", delegate{return "Anti Armor Capacity";});
+        tooltips.Add("BreakthroughIcon", delegate{return "Breakthrough Capacity";});
+        tooltips.Add("ExploitationIcon", delegate{return "Exploitation Capacity";});
+        tooltips.Add("MoraleIcon", delegate{return "Army Morale";});
+        tooltips.Add("EfficiencyIcon", delegate{return "Army Efficiency";});
     }
 
     //Tooltip methods
@@ -51,8 +59,6 @@ public static class TooltipManager
             //Get top gameobject
             GameObject top = pointerData.pointerCurrentRaycast.gameObject;
 
-            //Debug.Log(top.name);
-
             //Check if gameobject has assigned tooltip
             if (tooltips.ContainsKey(top.name))
             {
@@ -66,7 +72,7 @@ public static class TooltipManager
                 RectTransform topTransform = top.GetComponent<RectTransform>();
                 RectTransform tooltipTransform = tooltip.GetComponent<RectTransform>();
                 tooltip.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(Input.mousePosition.x,
-                Input.mousePosition.y - tooltipTransform.sizeDelta.y / 2 - 30, 0), Quaternion.identity);
+                Input.mousePosition.y - tooltipTransform.sizeDelta.y / 2 - 40, 0), Quaternion.identity);
 
                 //Fix size of tooltip
                 LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)tooltip.transform);
