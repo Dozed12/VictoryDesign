@@ -728,11 +728,11 @@ public class Game : MonoBehaviour
             report += "\n";
             report += "Effective Industry: " + Mathf.Round((1 + effectiveIndustry) * 100) + "%";
             report += "\n";
-            report += "Capacity: " + Mathf.Round((1 + capacity) * 100) + "%";
+            report += "Military: " + Mathf.Round((1 + capacity) * 100) + "%";
             report += "\n";
-            report += "Effective Capacity: " + Mathf.Round((1 + capacityDoctrine) * 100) + "%";
+            report += "Effective Military: " + Mathf.Round((1 + capacityDoctrine) * 100) + "%";
             report += "\n";
-            report += "Total: " + Mathf.Round((1 + final) * 100) + "%";
+            report += "Final: " + Mathf.Round((1 + final) * 100) + "%";
 
             //Add to bulletin
             result.Add(report);

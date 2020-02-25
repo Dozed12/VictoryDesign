@@ -8461,8 +8461,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -114}
-  m_SizeDelta: {x: 1015.5, y: 525.3}
+  m_AnchoredPosition: {x: 0, y: -102}
+  m_SizeDelta: {x: 1015.5, y: 565.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &524083035
 MonoBehaviour:
@@ -8484,10 +8484,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e6406157e9bc2df41b1811905323f9aa, type: 3}
-    m_FontSize: 40
+    m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -8503,8 +8503,9 @@ MonoBehaviour:
     designer in the Civil War and your loyalty were determining factors for our selection.
 
 
-    Your primary task will be to make decisions about the equipment of the armed forces
-    and ensure the preservation of our Great Nation.
+    Every month you will be asked to make various decisions to shape our armed forces.
+    Careful planning and analysis is imperative. The nation enjoys a period of peace
+    and recovery now however be on the lookout for new threats looming in the distance.
 
 
     Good luck.'
@@ -15100,13 +15101,13 @@ MonoBehaviour:
   m_Text: 'REDUCE IMPORTANCE OF SOME CHARACTERISTICS TO INCREASE IN OTHERS
 
 
+    DESIGNERS WILL TAKE THESE INTO CONSIDERATION WHEN PRODUCING THEIR PROPOSALS
+
+
     TO ISSUE THE REQUEST TO OUR DESIGNERS JUST SIGN THE "ISSUE" FIELD WHEN DONE
 
 
-    AFTER THE PROPOSALS ARE PRESENTED SIMPLY SELECT THE DESIGN YOU DESIRE
-
-
-    DESIGNERS WILL TAKE THESE INTO CONSIDERATION WHEN PRODUCING THEIR PROPOSALS'
+    AFTER THE PROPOSALS ARE PRESENTED SIMPLY SELECT THE DESIGN YOU DESIRE'
 --- !u!222 &1236937874
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18685,13 +18686,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 0}
   player: {fileID: 1497530014}
-  menuMusic: {fileID: 8300000, guid: 2a3cb778e7e41e546ba9c63cf614709d, type: 3}
+  menuMusic: {fileID: 8300000, guid: 4609918ed2d9377479ae6a10bcd88630, type: 3}
   musicList:
   - {fileID: 8300000, guid: deda58696a2f3844d86a845cd3d01537, type: 3}
   - {fileID: 8300000, guid: 72cee43c93e6e154ab5efb851e41b4ef, type: 3}
-  - {fileID: 8300000, guid: 4609918ed2d9377479ae6a10bcd88630, type: 3}
+  - {fileID: 8300000, guid: 2a3cb778e7e41e546ba9c63cf614709d, type: 3}
   - {fileID: 8300000, guid: e29547d9b2fb2f34fbf6f807060fd0d6, type: 3}
   - {fileID: 8300000, guid: 7e630fb1b7c8f9a419012ee192405163, type: 3}
+  previous: {fileID: 0}
 --- !u!4 &1497530016
 Transform:
   m_ObjectHideFlags: 0
