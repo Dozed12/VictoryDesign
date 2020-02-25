@@ -710,7 +710,7 @@ public class Game : MonoBehaviour
         List<string> result = new List<string>();
 
         //Armed forces capacity/doctrine report every 3 months
-        if (data.date.Month == 1 || data.date.Month == 2 || data.date.Month == 3 || data.date.Month == 4)
+        if (data.date.Month == 1 || data.date.Month == 4 || data.date.Month == 7 || data.date.Month == 10)
         {
             //Preffix
             string report = "Armed Forces Report:";
