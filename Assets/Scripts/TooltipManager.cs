@@ -64,6 +64,11 @@ public static class TooltipManager
         tooltips.Add("MoraleDoctrine", delegate { return "Army Morale importance in Doctrine,\nthe higher the importance the more impact it has on our combat ability"; });
         tooltips.Add("EfficiencyDoctrine", delegate { return "Army Efficiency importance in Doctrine,\nthe higher the importance the more impact it has on our combat ability"; });
 
+        //Control Menu
+        tooltips.Add("Bulletin", delegate { return "Monthly Bulletin with key information"; });
+        tooltips.Add("Date", delegate { return "Current date"; });
+        tooltips.Add("Exit", delegate { return "Quit game and save progress"; });
+
         #endregion
     }
 
@@ -134,7 +139,9 @@ public static class TooltipManager
 
                 //Check Canvas borders
                 if(pos.x - tooltipTransform.sizeDelta.x / 2 < 0)
-                    pos.x -= pos.x - tooltipTransform.sizeDelta.x / 2;
+                    pos.x += 0 - (pos.x - tooltipTransform.sizeDelta.x / 2);
+                if(pos.x + tooltipTransform.sizeDelta.x / 2 > Screen.width)
+                    pos.x += Screen.width - (pos.x + tooltipTransform.sizeDelta.x / 2);
 
                 //Apply position to tooltip
                 tooltip.GetComponent<RectTransform>().SetPositionAndRotation(pos, Quaternion.identity);
