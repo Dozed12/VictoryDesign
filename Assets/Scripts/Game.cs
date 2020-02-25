@@ -1067,6 +1067,7 @@ public class Game : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)Utils.GetChildRecursive(doctrine, "Capacities").transform);
 
         //Set Points Info
+        GameObject.Find("DoctrineChangeInfo").GetComponent<Text>().enabled = true;
         GameObject.Find("RequestPoints").GetComponent<Text>().enabled = true;
         GameObject.Find("RequestPoints").GetComponent<Text>().text = "CHANGES LEFT: 2      BALANCE: 0";
 
@@ -1169,6 +1170,9 @@ public class Game : MonoBehaviour
         {
             data.doctrine[item.Key] = data.changedDoctrine[item.Key];
         }
+
+        //Hide Doctrine Info
+        GameObject.Find("DoctrineChangeInfo").GetComponent<Text>().enabled = false;
 
         //Close Doctrine Change
         GameObject.Find("DoctrineChange").GetComponent<Animator>().SetBool("open", false);
@@ -1279,9 +1283,10 @@ public class Game : MonoBehaviour
         //Reset Mask
         data.requestMask = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
-        //Show Focus Points
+        //Show Focus Points and Info
         focusPoints.GetComponent<Text>().enabled = true;
         focusPoints.GetComponent<Text>().text = "FOCUS POINTS REMAINING: 0";
+        GameObject.Find("RequestInfo").GetComponent<Text>().enabled = true;
 
         //Request Object
         GameObject request = GameObject.Find("Request");
@@ -1352,8 +1357,9 @@ public class Game : MonoBehaviour
     //Issue Request
     public void IssueRequest()
     {
-        //Hide Focus Points
+        //Hide Focus Points and Info
         focusPoints.GetComponent<Text>().enabled = false;
+        GameObject.Find("RequestInfo").GetComponent<Text>().enabled = false;
 
         //Issue Display (Signature and Stamp)
         GameObject request = GameObject.Find("Request");
