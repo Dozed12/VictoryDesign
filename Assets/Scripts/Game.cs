@@ -414,13 +414,12 @@ public class Game : MonoBehaviour
             //Invoke Show Request for new Design
             Invoke("ShowRequest", 0.5f);
         }
-
-
     }
 
     //New Game Transition
     public void NewGameTransition()
     {
+        //Trigger New Game Transition
         GameObject.Find("NewGameTransition").GetComponent<Animator>().enabled = true;
     }
 
@@ -431,6 +430,7 @@ public class Game : MonoBehaviour
 
         mainMenu.SetActive(false);
 
+        //Reset New Game Transition
         GameObject.Find("NewGameTransition").GetComponent<Animator>().Rebind();
         GameObject.Find("NewGameTransition").GetComponent<Animator>().enabled = false;
     }
@@ -673,6 +673,9 @@ public class Game : MonoBehaviour
 
         //Update Date
         GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
+
+        //Bulletin
+        UpdateBulletin();
     }
 
     //Setup History Turns
@@ -706,8 +709,8 @@ public class Game : MonoBehaviour
     {
         List<string> result = new List<string>();
 
-        //If 4 month multiple then include armed forces capacity/doctrine report
-        if (data.turn % 3 == 0)
+        //Armed forces capacity/doctrine report every 3 months
+        if (data.date.Month == 1 || data.date.Month == 2 || data.date.Month == 3 || data.date.Month == 4)
         {
             //Preffix
             string report = "Armed Forces Report:";
