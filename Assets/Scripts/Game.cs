@@ -418,12 +418,21 @@ public class Game : MonoBehaviour
 
     }
 
+    //New Game Transition
+    public void NewGameTransition()
+    {
+        GameObject.Find("NewGameTransition").GetComponent<Animator>().enabled = true;
+    }
+
     //New Game
     public void NewGame()
     {
         SetupNewGame();
 
         mainMenu.SetActive(false);
+
+        GameObject.Find("NewGameTransition").GetComponent<Animator>().Rebind();
+        GameObject.Find("NewGameTransition").GetComponent<Animator>().enabled = false;
     }
 
     //Continue Save
