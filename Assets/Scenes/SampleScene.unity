@@ -13398,7 +13398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -15103,8 +15103,7 @@ MonoBehaviour:
     TO ISSUE THE REQUEST TO OUR DESIGNERS JUST SIGN THE "ISSUE" FIELD WHEN DONE
 
 
-    AFTER THE PROPOSALS ARE PRESENTED SIMPLY SIGN THE "APPROVAL" FIELD OF THE ONE
-    YOU WANT
+    AFTER THE PROPOSALS ARE PRESENTED SIMPLY SELECT THE DESIGN YOU DESIRE
 
 
     DESIGNERS WILL TAKE THESE INTO CONSIDERATION WHEN PRODUCING THEIR PROPOSALS'

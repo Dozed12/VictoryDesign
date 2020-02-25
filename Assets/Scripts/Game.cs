@@ -1095,6 +1095,7 @@ public class Game : MonoBehaviour
         }
         changes /= 0.25f;
 
+        //If Changes too bad revert change
         if(changes < 0)
         {
             data.changedDoctrine[(Doctrine)i] -= val;
@@ -1109,6 +1110,7 @@ public class Game : MonoBehaviour
         }
         balance /= 0.25f;
 
+        //If Balance too bad revert change
         if(balance < -1 || balance > 1)
         {
             data.changedDoctrine[(Doctrine)i] -= val;
