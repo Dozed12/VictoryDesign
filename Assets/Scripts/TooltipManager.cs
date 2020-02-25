@@ -27,7 +27,7 @@ public static class TooltipManager
         #region Tooltips
 
         //Design Hover
-        tooltips.Add("DesignsList", delegate { return "List of design types and their progress until requiring a redesign.\nHover over each of them to highlight it"; });
+        tooltips.Add("DesignsList", delegate { return "List of design types and their progress until requiring a redesign.\nHover over each of them to highlight it.\nDesigns with a red circle are to be redesigned this month while\ngreen circles indicate they will need to be redesigned next month"; });
         tooltips.Add("OriginalChoice", delegate { return "Original approved proposal for highlighted design.\nExpected qualities of design, some flunctuation may occur"; });
         tooltips.Add("CurrentReport", delegate { return "Field report of highlighted design.\nMore detailed than the Proposal but\ninformation takes time to be collected"; });
         tooltips.Add("ModelHolder", delegate { return "Illustration of highlighted design"; });
