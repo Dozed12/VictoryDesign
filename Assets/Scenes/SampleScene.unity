@@ -827,6 +827,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anti Tank Rifle
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &86642828 stripped
@@ -1550,6 +1560,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Telephone
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &100914218 stripped
@@ -1745,6 +1765,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mortar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -3190,7 +3220,7 @@ RectTransform:
   - {fileID: 409821586}
   - {fileID: 503578058}
   m_Father: {fileID: 638363144}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3384,6 +3414,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Halftrack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -6229,6 +6269,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anti Tank Cannon
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &366717848 stripped
@@ -6863,6 +6913,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bridging
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &419101309 stripped
@@ -7131,6 +7191,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Infantry Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -7537,6 +7607,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tankette
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &471785252 stripped
@@ -7799,7 +7879,7 @@ GameObject:
   - component: {fileID: 481340022}
   - component: {fileID: 481340021}
   m_Layer: 5
-  m_Name: Text
+  m_Name: DesignsTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8706,6 +8786,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cavalry Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &530939063 stripped
@@ -9583,8 +9673,8 @@ RectTransform:
   - {fileID: 91573668}
   - {fileID: 857087545}
   - {fileID: 770493955}
-  - {fileID: 605867656}
   - {fileID: 190732430}
+  - {fileID: 605867656}
   - {fileID: 60860806}
   - {fileID: 479250140}
   - {fileID: 200226577}
@@ -9933,6 +10023,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Armored Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -11020,6 +11120,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Motorcycle Recon
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &739608758 stripped
@@ -11661,6 +11771,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Utility Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -12974,6 +13094,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Engineer
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &1055278146 stripped
@@ -13772,6 +13902,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Truck
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &1110993578 stripped
@@ -13967,6 +14107,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Artillery
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -18572,6 +18722,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Machine Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &1522068697 stripped
@@ -19739,6 +19899,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Radio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -21008,6 +21178,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cruiser Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &1812199068 stripped
@@ -21349,6 +21529,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Submachine Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -22482,6 +22672,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank Destroyer
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!224 &1942794635 stripped
@@ -23027,6 +23227,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prime Mover
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
@@ -24577,6 +24787,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rifle
       objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516691025719923515, guid: 6d3d75dce53dc104e8d7dc7664e70172,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.299999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3d75dce53dc104e8d7dc7664e70172, type: 3}
 --- !u!1001 &3711580740448835678
@@ -24624,7 +24844,7 @@ PrefabInstance:
     - target: {fileID: 3711580740920448726, guid: b5487abea94f3924a838f520ccdbd4fe,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3711580740920448726, guid: b5487abea94f3924a838f520ccdbd4fe,
         type: 3}
