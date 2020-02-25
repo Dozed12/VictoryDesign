@@ -91,7 +91,7 @@ public static class TooltipManager
         {
             //Get gameobjects hierarchy until found tooltip or null
             Transform target = pointerData.pointerCurrentRaycast.gameObject.transform;
-            Debug.Log(target.name);
+            //Debug.Log(target.name);
             while (!tooltips.ContainsKey(target.name))
             {
                 //Check parent not null
@@ -101,7 +101,7 @@ public static class TooltipManager
                 //Check parent
                 target = target.parent;
 
-                Debug.Log(target.name);
+                //Debug.Log(target.name);
             }
 
             //New target or mouse move, reset counter

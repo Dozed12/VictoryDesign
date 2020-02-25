@@ -8584,7 +8584,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NEXT TURN
+  m_Text: NEXT MONTH
 --- !u!222 &524772963
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15063,8 +15063,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 458, y: 16}
-  m_SizeDelta: {x: 308.3, y: 424}
+  m_AnchoredPosition: {x: 458, y: -14.94}
+  m_SizeDelta: {x: 308.3, y: 500.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1236937873
 MonoBehaviour:
@@ -15100,7 +15100,11 @@ MonoBehaviour:
   m_Text: 'REDUCE IMPORTANCE OF SOME CHARACTERISTICS TO INCREASE IN OTHERS
 
 
-    TO ISSUE THE REQUEST JUST SIGN THE "ISSUE" FIELD WHEN DONE
+    TO ISSUE THE REQUEST TO OUR DESIGNERS JUST SIGN THE "ISSUE" FIELD WHEN DONE
+
+
+    AFTER THE PROPOSALS ARE PRESENTED SIMPLY SIGN THE "APPROVAL" FIELD OF THE ONE
+    YOU WANT
 
 
     DESIGNERS WILL TAKE THESE INTO CONSIDERATION WHEN PRODUCING THEIR PROPOSALS'

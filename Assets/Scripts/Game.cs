@@ -1095,6 +1095,12 @@ public class Game : MonoBehaviour
         }
         changes /= 0.25f;
 
+        if(changes < 0)
+        {
+            data.changedDoctrine[(Doctrine)i] -= val;
+            return;
+        }
+
         //Calculate Balance
         float balance = -1 * 6;
         foreach (var item in data.changedDoctrine)
@@ -1102,6 +1108,12 @@ public class Game : MonoBehaviour
             balance += item.Value;
         }
         balance /= 0.25f;
+
+        if(balance < -1 || balance > 1)
+        {
+            data.changedDoctrine[(Doctrine)i] -= val;
+            return;
+        }
 
         //Update Points Info
         GameObject.Find("RequestPoints").GetComponent<Text>().text = "CHANGES LEFT: " + changes + "      BALANCE: " + balance;
