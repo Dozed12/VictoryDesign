@@ -67,7 +67,8 @@ public static class TooltipManager
         //Control Menu
         tooltips.Add("Bulletin", delegate { return "Monthly Bulletin with key information"; });
         tooltips.Add("Date", delegate { return "Current date"; });
-        tooltips.Add("Exit", delegate { return "Quit game and save progress"; });
+        tooltips.Add("Exit", delegate { return "Quit game and save progress.\nOnly available after completing this month actions"; });
+        tooltips.Add("NextTurnText", delegate { return "Proceed to next month.\nOnly available after completing this month actions"; });
 
         #endregion
     }
