@@ -101,7 +101,6 @@ public static class TooltipManager
 
                 //Check parent
                 target = target.parent;
-
                 //Debug.Log(target.name);
             }
 
@@ -123,7 +122,10 @@ public static class TooltipManager
             {
                 //Not enough time yet
                 if(counter < 0.25f)
+                {
+                    tooltip.SetActive(false);
                     return;
+                }                    
 
                 //Enable tooltip
                 tooltip.SetActive(true);
