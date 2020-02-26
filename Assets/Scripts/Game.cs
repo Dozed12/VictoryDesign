@@ -518,7 +518,7 @@ public class Game : MonoBehaviour
             }
 
             //Validate Sum
-            if (industrialCoverage.Sum() > -1 || industrialCoverage.Sum() < -3)
+            if (industrialCoverage.Sum() > -2 || industrialCoverage.Sum() < -4)
                 valid = false;
 
             //Validate 1 Positive or Zero
@@ -724,11 +724,11 @@ public class Game : MonoBehaviour
 
             //Add to report
             report += "\n";
-            report += "Industry: " + Mathf.Round((1 + industry) * 100) + "%";
+            report += "Base Industry: " + Mathf.Round((1 + industry) * 100) + "%";
             report += "\n";
             report += "Effective Industry: " + Mathf.Round((1 + effectiveIndustry) * 100) + "%";
             report += "\n";
-            report += "Military: " + Mathf.Round((1 + capacity) * 100) + "%";
+            report += "Base Military: " + Mathf.Round((1 + capacity) * 100) + "%";
             report += "\n";
             report += "Effective Military: " + Mathf.Round((1 + capacityDoctrine) * 100) + "%";
             report += "\n";
