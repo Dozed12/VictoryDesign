@@ -57,12 +57,12 @@ public static class TooltipManager
         tooltips.Add("EfficiencySlider", delegate { return "Army Efficiency, from 0% to 200%"; });
 
         //Doctrine
-        tooltips.Add("AIDoctrine", delegate { return "Anti Infantry importance in Doctrine,\nthe higher the importance the more impact it has on our combat ability"; });
-        tooltips.Add("AADoctrine", delegate { return "Anti Armor importance in Doctrine,\nthe higher the importance the more impact it has on our combat ability"; });
-        tooltips.Add("BreakthroughDoctrine", delegate { return "Breakthrough importance in Doctrine,\nthe higher the importance the more impact it has on our combat ability"; });
-        tooltips.Add("ExploitationDoctrine", delegate { return "Exploitation importance in Doctrine,\nthe higher the importance the more impact it has on our combat ability"; });
-        tooltips.Add("MoraleDoctrine", delegate { return "Army Morale importance in Doctrine,\nthe higher the importance the more impact it has on our combat ability"; });
-        tooltips.Add("EfficiencyDoctrine", delegate { return "Army Efficiency importance in Doctrine,\nthe higher the importance the more impact it has on our combat ability"; });
+        tooltips.Add("AIDoctrine", delegate { return "Anti Infantry importance in Doctrine,\nthe higher the importance the more impact it has on our Effective Military"; });
+        tooltips.Add("AADoctrine", delegate { return "Anti Armor importance in Doctrine,\nthe higher the importance the more impact it has on our Effective Military"; });
+        tooltips.Add("BreakthroughDoctrine", delegate { return "Breakthrough importance in Doctrine,\nthe higher the importance the more impact it has on our Effective Military"; });
+        tooltips.Add("ExploitationDoctrine", delegate { return "Exploitation importance in Doctrine,\nthe higher the importance the more impact it has on our Effective Military"; });
+        tooltips.Add("MoraleDoctrine", delegate { return "Army Morale importance in Doctrine,\nthe higher the importance the more impact it has on our Effective Military"; });
+        tooltips.Add("EfficiencyDoctrine", delegate { return "Army Efficiency importance in Doctrine,\nthe higher the importance the more impact it has on our Effective Military"; });
 
         //Control Menu
         tooltips.Add("Bulletin", delegate { return "Monthly Bulletin with key information"; });

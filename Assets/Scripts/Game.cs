@@ -53,6 +53,9 @@ public class Game : MonoBehaviour
     //Main Menu Object
     public GameObject mainMenu;
 
+    //Presentation Object
+    public GameObject presentation;
+
     //Doctrines
     public enum Doctrine
     {
@@ -423,12 +426,20 @@ public class Game : MonoBehaviour
         GameObject.Find("NewGameTransition").GetComponent<Animator>().enabled = true;
     }
 
+    //Close Presentation
+    public void ClosePresentation()
+    {
+        presentation.SetActive(false);
+    }
+
     //New Game
     public void NewGame()
     {
         SetupNewGame();
 
         mainMenu.SetActive(false);
+
+        presentation.SetActive(true);
 
         //Reset New Game Transition
         GameObject.Find("NewGameTransition").GetComponent<Animator>().Rebind();
@@ -439,6 +450,8 @@ public class Game : MonoBehaviour
     public void Continue()
     {
         LoadGame();
+
+        presentation.SetActive(false);
 
         mainMenu.SetActive(false);
     }
