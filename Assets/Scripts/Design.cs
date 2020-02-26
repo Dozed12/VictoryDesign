@@ -666,23 +666,6 @@ public class TankDestroyer : Design
 }
 
 [Serializable]
-public class MotorcycleRecon : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, int[] mask)
-    {
-        //Call Generic
-        base.Generate(developer, name, mask);
-
-        //Generate characteristics values
-        characteristics.Add(new Characteristic("Sights", Impact.COMBAT_EFFICIENCY, this, mask[3]));
-
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[4]));
-
-        return this;
-    }
-}
-
-[Serializable]
 public class ArmoredCar : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
@@ -719,42 +702,6 @@ public class Truck : Design
 }
 
 [Serializable]
-public class Halftrack : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, int[] mask)
-    {
-        //Call Generic
-        base.Generate(developer, name, mask);
-
-        //Generate characteristics values
-        characteristics.Add(new Characteristic("Capacity", Impact.COMBAT_EFFICIENCY, this, mask[3]));
-
-        characteristics.Add(new Characteristic("All-terrain", Impact.EXPLOITATION, this, mask[4]));
-
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[5]));
-
-        return this;
-    }
-}
-
-[Serializable]
-public class UtilityCar : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, int[] mask)
-    {
-        //Call Generic
-        base.Generate(developer, name, mask);
-
-        //Generate characteristics values
-        characteristics.Add(new Characteristic("Officer Equipment", Impact.COMBAT_EFFICIENCY, this, mask[3]));
-
-        characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[4]));
-
-        return this;
-    }
-}
-
-[Serializable]
 public class PrimeMover : Design
 {
     override public Design Generate(DesignInstitute developer, string name, int[] mask)
@@ -766,23 +713,6 @@ public class PrimeMover : Design
         characteristics.Add(new Characteristic("Torque", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
         characteristics.Add(new Characteristic("Accomodation", Impact.MORALE, this, mask[4]));
-
-        return this;
-    }
-}
-
-[Serializable]
-public class Telephone : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, int[] mask)
-    {
-        //Call Generic
-        base.Generate(developer, name, mask);
-
-        //Generate characteristics values
-        characteristics.Add(new Characteristic("Wiring", Impact.COMBAT_EFFICIENCY, this, mask[3]));
-
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
         return this;
     }
@@ -815,23 +745,6 @@ public class Engineer : Design
 
         //Generate characteristics values
         characteristics.Add(new Characteristic("Terrain Traversal", Impact.COMBAT_EFFICIENCY, this, mask[3]));
-
-        characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
-
-        return this;
-    }
-}
-
-[Serializable]
-public class Bridging : Design
-{
-    override public Design Generate(DesignInstitute developer, string name, int[] mask)
-    {
-        //Call Generic
-        base.Generate(developer, name, mask);
-
-        //Generate characteristics values
-        characteristics.Add(new Characteristic("River Traversal", Impact.COMBAT_EFFICIENCY, this, mask[3]));
 
         characteristics.Add(new Characteristic("Portability", Impact.MORALE, this, mask[4]));
 
