@@ -253,6 +253,9 @@ public class Game : MonoBehaviour
     //Set Player Name
     public void SetName()
     {
+        if(GameObject.Find("InputField").GetComponent<InputField>().text == "")
+            GameObject.Find("InputField").GetComponent<InputField>().text = "Mikhail Khrunichev";
+
         PlayerPrefs.SetString("name", GameObject.Find("InputField").GetComponent<InputField>().text);
     }
 
