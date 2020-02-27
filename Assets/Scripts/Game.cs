@@ -203,6 +203,11 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Default Name
+        if(!PlayerPrefs.HasKey("name"))
+            PlayerPrefs.SetString("name", "Mikhail Khrunichev");
+        GameObject.Find("InputField").GetComponent<InputField>().text = PlayerPrefs.GetString("name");
+
         //Set Sprites
         doctrineSprites = doctrineSpritesTemp;
 
@@ -243,6 +248,12 @@ public class Game : MonoBehaviour
         {
             NextTurn();
         }
+    }
+
+    //Set Player Name
+    public void SetName()
+    {
+        PlayerPrefs.SetString("name", GameObject.Find("InputField").GetComponent<InputField>().text);
     }
 
     //Next Turn
@@ -1343,6 +1354,7 @@ public class Game : MonoBehaviour
         Utils.GetChildRecursive(request, "Border").GetComponent<Image>().enabled = false;
         Utils.GetChildRecursive(request, "Text").GetComponent<Text>().enabled = false;
         Utils.GetChildRecursive(request, "Signature").GetComponent<Text>().enabled = false;
+        Utils.GetChildRecursive(request, "Signature").GetComponent<Text>().text = PlayerPrefs.GetString("name");
 
         //Request Info
         string nameSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
@@ -1414,6 +1426,7 @@ public class Game : MonoBehaviour
         Utils.GetChildRecursive(request, "Border").GetComponent<Image>().enabled = true;
         Utils.GetChildRecursive(request, "Text").GetComponent<Text>().enabled = true;
         Utils.GetChildRecursive(request, "Signature").GetComponent<Text>().enabled = true;
+        Utils.GetChildRecursive(request, "Signature").GetComponent<Text>().text = PlayerPrefs.GetString("name");
 
         //Hide Request
         GameObject.Find("Request").GetComponent<Animator>().SetBool("open", false);
@@ -1809,6 +1822,9 @@ public class Game : MonoBehaviour
 
         //Original Choice
         GameObject originalChoice = GameObject.Find("OriginalChoice");
+
+        //Signature
+        Utils.GetChildRecursive(originalChoice, "Signature").GetComponent<Text>().text = PlayerPrefs.GetString("name");
 
         //Title
         Utils.GetChild(originalChoice, "Title").GetComponent<Text>().text = "Ministry of War\n\nDesign Proposal - " + type;
