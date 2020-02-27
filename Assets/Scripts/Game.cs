@@ -204,7 +204,7 @@ public class Game : MonoBehaviour
     void Start()
     {
         //Default Name
-        if(!PlayerPrefs.HasKey("name"))
+        if (!PlayerPrefs.HasKey("name"))
             PlayerPrefs.SetString("name", "Mikhail Khrunichev");
         GameObject.Find("InputField").GetComponent<InputField>().text = PlayerPrefs.GetString("name");
 
