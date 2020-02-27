@@ -449,7 +449,8 @@ public class Game : MonoBehaviour
     //Continue Save
     public void Continue()
     {
-        LoadGame();
+        if(LoadGame() == -1)
+            return;
 
         presentation.SetActive(false);
 
@@ -809,11 +810,11 @@ public class Game : MonoBehaviour
     }
 
     //Load Game
-    public void LoadGame()
+    public int LoadGame()
     {
         //Check Save exists
         if (!Directory.Exists(Application.streamingAssetsPath + "/Save") || !File.Exists(Application.streamingAssetsPath + "/Save/data.vds") || !Directory.Exists(Application.streamingAssetsPath + "/Save/Models"))
-            return;
+            return -1;
 
         //Create Stream for GameData
         Stream stream = new FileStream(Application.streamingAssetsPath + "/Save/data.vds", FileMode.Open, FileAccess.Read);
@@ -878,6 +879,8 @@ public class Game : MonoBehaviour
 
         //Update Date
         GameObject.Find("Time").GetComponentInChildren<Text>().text = data.date.ToString("MMMM yyyy");
+
+        return 0;
     }
 
     //Update Bulletin
