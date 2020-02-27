@@ -56,6 +56,10 @@ public class Game : MonoBehaviour
     //Presentation Object
     public GameObject presentation;
 
+    //Victory/Defeat Objects
+    public GameObject victory;
+    public GameObject defeat;
+
     //Doctrines
     public enum Doctrine
     {
@@ -287,7 +291,15 @@ public class Game : MonoBehaviour
             //Victory
             if (result == 1)
             {
-                //TODO Victory Panel with Return to Main Menu
+                //Bulletin
+                UpdateBulletin();
+
+                //Update Map
+                Texture2D tex = data.map.BuildMap(baseMap);
+                mapHolder.GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
+
+                //Victory Panel with Return to Main Menu
+                victory.SetActive(true);
 
                 //Block Playing
                 data.blockMenu = true;
@@ -296,14 +308,21 @@ public class Game : MonoBehaviour
                 GameObject.Find("NextTurnText").GetComponent<Text>().color = new Color32(130, 25, 25, 255);
                 GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
-                Debug.Log("Victory");
                 return;
             }
 
             //Defeat
             if (result == -1)
             {
-                //TODO Defeat Panel with Return to Main Menu
+                //Bulletin
+                UpdateBulletin();
+
+                //Update Map
+                Texture2D tex = data.map.BuildMap(baseMap);
+                mapHolder.GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0, 0), 100, 0, SpriteMeshType.FullRect);
+
+                //Defeat Panel with Return to Main Menu
+                defeat.SetActive(true);
 
                 //Block Playing
                 data.blockMenu = true;
@@ -312,7 +331,6 @@ public class Game : MonoBehaviour
                 GameObject.Find("NextTurnText").GetComponent<Text>().color = new Color32(130, 25, 25, 255);
                 GameObject.Find("ExitIcon").GetComponent<Image>().color = new Color32(130, 25, 25, 255);
 
-                Debug.Log("Defeat");
                 return;
             }
         }
@@ -441,7 +459,7 @@ public class Game : MonoBehaviour
     //Continue Save
     public void Continue()
     {
-        if(LoadGame() == -1)
+        if (LoadGame() == -1)
             return;
 
         mainMenu.SetActive(false);
@@ -462,6 +480,16 @@ public class Game : MonoBehaviour
 
         //Save Game
         SaveGame();
+
+        mainMenu.SetActive(true);
+    }
+
+    //End Game
+    public void EndGame()
+    {
+        //Disable Victor/Defeat popups
+        victory.SetActive(false);
+        defeat.SetActive(false);
 
         mainMenu.SetActive(true);
     }
@@ -1102,7 +1130,7 @@ public class Game : MonoBehaviour
         changes /= 0.25f;
 
         //If Changes too bad revert change
-        if(changes < 0)
+        if (changes < 0)
         {
             data.changedDoctrine[(Doctrine)i] -= val;
             return;
@@ -1117,7 +1145,7 @@ public class Game : MonoBehaviour
         balance /= 0.25f;
 
         //If Balance too bad revert change
-        if(balance < -1 || balance > 1)
+        if (balance < -1 || balance > 1)
         {
             data.changedDoctrine[(Doctrine)i] -= val;
             return;
