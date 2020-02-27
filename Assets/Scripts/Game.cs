@@ -426,20 +426,12 @@ public class Game : MonoBehaviour
         GameObject.Find("NewGameTransition").GetComponent<Animator>().enabled = true;
     }
 
-    //Close Presentation
-    public void ClosePresentation()
-    {
-        presentation.SetActive(false);
-    }
-
     //New Game
     public void NewGame()
     {
         SetupNewGame();
 
         mainMenu.SetActive(false);
-
-        presentation.SetActive(true);
 
         //Reset New Game Transition
         GameObject.Find("NewGameTransition").GetComponent<Animator>().Rebind();
@@ -451,8 +443,6 @@ public class Game : MonoBehaviour
     {
         if(LoadGame() == -1)
             return;
-
-        presentation.SetActive(false);
 
         mainMenu.SetActive(false);
     }
