@@ -96,7 +96,7 @@ public class Game : MonoBehaviour
         //War
         public bool atWar = false;
         public int lastProgress = 0;
-        public float warRequired = 0.8f;
+        public float warRequired = 0.9f;
         public float finalWarRequired = 0.1f;
         public float warRequiredDecrease = 0.075f;
 
