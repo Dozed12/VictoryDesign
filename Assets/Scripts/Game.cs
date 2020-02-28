@@ -1493,7 +1493,7 @@ public class Game : MonoBehaviour
             int id = i;
             EventTrigger.Entry applyChoice = new EventTrigger.Entry();
             applyChoice.eventID = EventTriggerType.PointerClick;
-            applyChoice.callback.AddListener((eventData) => { ApplyChoice(id); });
+            applyChoice.callback.AddListener((eventData) => { ApplyChoice(id, choice); });
             choice.GetComponent<EventTrigger>().triggers.Add(applyChoice);
 
             //Rebuild Layout
@@ -1512,8 +1512,11 @@ public class Game : MonoBehaviour
     }
 
     //Apply Choice
-    public void ApplyChoice(int id)
+    public void ApplyChoice(int id, GameObject choice)
     {
+        //Disable Choice Click
+        choice.GetComponent<EventTrigger>().triggers.Clear();
+
         //Design Spaced
         string designSpaced = string.Concat(data.redesignType.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
