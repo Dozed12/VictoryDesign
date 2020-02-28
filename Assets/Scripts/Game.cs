@@ -266,6 +266,9 @@ public class Game : MonoBehaviour
         if (data.blockMenu)
             return;
 
+        //SFX
+        SFXManager.PlayClick();
+
         //Reset Designs Needed
         data.designsNeeded = new List<Type>();
 
@@ -454,6 +457,9 @@ public class Game : MonoBehaviour
     //New Game Transition
     public void NewGameTransition()
     {
+        //SFX
+        SFXManager.PlayClick();
+
         //Trigger New Game Transition
         GameObject.Find("NewGameTransition").GetComponent<Animator>().enabled = true;
     }
@@ -461,6 +467,9 @@ public class Game : MonoBehaviour
     //New Game
     public void NewGame()
     {
+        //SFX
+        SFXManager.PlayClick();
+
         SetupNewGame();
 
         mainMenu.SetActive(false);
@@ -473,6 +482,9 @@ public class Game : MonoBehaviour
     //Continue Save
     public void Continue()
     {
+        //SFX
+        SFXManager.PlayClick();
+
         if (LoadGame() == -1)
             return;
 
@@ -482,6 +494,9 @@ public class Game : MonoBehaviour
     //Exit Game
     public void Exit()
     {
+        //SFX
+        SFXManager.PlayClick();
+
         Application.Quit();
     }
 
@@ -1165,6 +1180,9 @@ public class Game : MonoBehaviour
             return;
         }
 
+        //SFX
+        SFXManager.PlayClick();
+
         //Update Points Info
         GameObject.Find("RequestPoints").GetComponent<Text>().text = "CHANGES LEFT: " + changes + "      BALANCE: " + balance;
 
@@ -1226,6 +1244,9 @@ public class Game : MonoBehaviour
 
         if (balance != 0)
             return;
+
+        //SFX
+        SFXManager.PlayStamp();
 
         //Apply Doctrine
         foreach (var item in data.changedDoctrine)
@@ -1420,6 +1441,9 @@ public class Game : MonoBehaviour
     //Issue Request
     public void IssueRequest()
     {
+        //SFX
+        SFXManager.PlayStamp();
+        
         //Hide Focus Points and Info
         focusPoints.GetComponent<Text>().enabled = false;
         GameObject.Find("RequestInfo").GetComponent<Text>().enabled = false;
@@ -1514,6 +1538,9 @@ public class Game : MonoBehaviour
     //Apply Choice
     public void ApplyChoice(int id, GameObject choice)
     {
+        //SFX
+        SFXManager.PlaySignature();
+
         //Disable Choice Click
         choice.GetComponent<EventTrigger>().triggers.Clear();
 
@@ -1593,6 +1620,9 @@ public class Game : MonoBehaviour
         //Check Request Point Limit
         if (data.requestMask.Sum() + value > 0)
             return;
+
+        //SFX
+        SFXManager.PlayClick();
 
         //Add to mask
         data.requestMask[id] += value;

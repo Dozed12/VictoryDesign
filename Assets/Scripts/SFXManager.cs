@@ -11,32 +11,31 @@ public class SFXManager : MonoBehaviour
     public AudioClip signature;
     public void PlaySignature()
     {
-        if (!player.isPlaying)
-        {
-            player.clip = signature;
-            player.Play();
-        }
+        player.clip = signature;
+        player.Play();
     }
 
     //Stamp
     public AudioClip stamp;
     public void PlayStamp()
     {
-        if (!player.isPlaying)
-        {
-            player.clip = stamp;
-            player.Play();
-        }
+        player.clip = stamp;
+        player.Play();
     }
 
     //Double Explosion
     public AudioClip explosion;
     public void PlayDoubleExplosion()
     {
-        if (!player.isPlaying)
-        {
-            player.clip = explosion;
-            player.Play();
-        }
+        player.clip = explosion;
+        player.Play();
+    }
+
+    //Click
+    public AudioClip click;
+    public void PlayClick()
+    {
+        player.clip = click;
+        player.Play();
     }
 }
