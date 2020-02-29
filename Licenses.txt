@@ -1,20 +1,3 @@
-Icons Attribution:
-    https://www.flaticon.com/authors/smashicons
-    https://www.flaticon.com/authors/those-icons
-    https://www.flaticon.com/authors/gregor-cresnar
-    https://www.flaticon.com/authors/freepik
-    https://www.flaticon.com/authors/smalllikeart
-    https://www.flaticon.com/authors/good-ware
-    https://www.flaticon.com/authors/mynamepong
-    https://www.flaticon.com/authors/nikita-golubev
-    https://www.flaticon.com/authors/cursor-creative
-    https://www.flaticon.com/authors/photo3idea-studio
-    https://www.flaticon.com/authors/monkik
-    https://www.flaticon.com/authors/kiranshastry
-    https://www.flaticon.com/authors/wanicon
-    https://www.flaticon.com/authors/pongsakornred
-    https://www.flaticon.com/authors/wichaiwi
-
 Sound Effects Attribution:
     https://freesound.org/people/InspectorJ/
     https://freesound.org/people/dersuperanton/
